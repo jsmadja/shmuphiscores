@@ -9,5 +9,4 @@ public class Game extends Controller {
         return ok(views.html.game.render(game));
     }
 
-
 }

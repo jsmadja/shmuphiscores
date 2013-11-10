@@ -11,7 +11,9 @@ import static java.util.Arrays.asList;
 public class Global extends GlobalSettings {
 
     public void onStart(Application app) {
-        initialize();
+        if(Game.finder.all().isEmpty()) {
+            initialize();
+        }
     }
 
     private static void initialize() {

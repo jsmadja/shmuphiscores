@@ -6,7 +6,15 @@
             <a href="@routes.Game.index(score.game)">@score.game.title</a>
         </td>
         <td>
-            <span class="label label-success">@score.platform.name</span> <span class="label label-warning">@score.difficulty.name</span> <span class="label label-default">@score.mode.name</span>
+            @if(score.platform != null) {
+                <span class="label label-success">@score.platform.name</span>
+            }
+            @if(score.difficulty != null) {
+                <span class="label label-warning">@score.difficulty.name</span>
+            }
+            @if(score.mode != null) {
+                <span class="label label-default">@score.mode.name</span>
+            }
         </td>
         <td style="text-align: right;">
             @score.formattedValue
