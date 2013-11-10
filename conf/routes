@@ -7,10 +7,11 @@ GET     /                           controllers.Application.index()
 
 GET     /score                       controllers.Score.index()
 
-GET     /game                       controllers.Game.index()
+GET     /game                        controllers.Game.index()
 GET     /games                       controllers.Games.index()
 
 GET     /player                       controllers.Player.index()
+GET     /players                      controllers.Players.index()
 
 
 # Map static resources from the /public folder to the /assets URL path

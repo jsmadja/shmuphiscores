@@ -40,6 +40,10 @@ h1 {
     color: #bbb;
 }
 
+.title {
+    margin-bottom: 30px;
+}
+
 .author {
     font-size: 12px;
     color: #999;
