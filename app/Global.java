@@ -19,6 +19,27 @@ public class Global extends GlobalSettings {
     private static void initialize() {
         akaiKatana();
         viewpoint();
+        towardSky();
+    }
+
+    private static void towardSky() {
+        Game game = new Game("Towards the sky : HOPE", "http://i73.servimg.com/u/f73/14/21/34/05/test0410.png", "http://forum.shmup.com/viewtopic.php?f=3&t=18684");
+        game.save();
+        for (String s : asList("Stage 1", "Stage 2", "Stage 3")) {
+            Stage stage = new Stage(s);
+            stage.game = game;
+            stage.save();
+        }
+        for (String s : asList("EASY", "NORMAL", "HARD")) {
+            Difficulty difficulty = new Difficulty(s);
+            difficulty.game = game;
+            difficulty.save();
+        }
+        for (String s : asList("MEGADRIVE")) {
+            Platform platform = new Platform(s);
+            platform.game = game;
+            platform.save();
+        }
     }
 
     private static void akaiKatana() {
