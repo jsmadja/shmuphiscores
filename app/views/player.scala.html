@@ -16,6 +16,9 @@
                 <span class="label label-default">@score.mode.name</span>
             }
         </td>
+        <td>
+            @score.stage
+        </td>
         <td style="text-align: right;">
             @score.formattedValue
         </td>
@@ -28,6 +31,13 @@
 @main() {
    <h2>@player.name</h2>
    <table class="table table-condensed table-hover table-bordered">
+       <thead>
+           <th>Jeu</th>
+           <th>Plateforme / Difficulté / Mode</th>
+           <th style="text-align: center;">Stage</th>
+           <th style="text-align: center;">Score</th>
+           <th style="text-align: center; width: 50px;">Rang</th>
+       </thead>
        @player.scores.groupBy(_.game).map(game => game._2.groupBy(_.platform).map(platform => gameLine(platform._2.max)))
    </table>
 }
