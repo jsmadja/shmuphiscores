@@ -1,63 +1,29 @@
+@(timeline: Timeline)
 @main() {
     <ul id="timeline">
-        <li>
-            <img class="cover" src="http://image.jeuxvideo.com/images/jaquettes/00040107/jaquette-akai-katana-xbox-360-cover-avant-g-1336727907.jpg" />
-            <div class="item">
-                <div>
-                    <a class="game" href="/game">Akai katana shin</a> <a class="author" href="/player">@@YannHuitNeuf</a>
-                    <small class="date">il y a 1 jour</small>
+        @for(score <- timeline.scores) {
+            <li>
+                <a class="game" href="@routes.Game.index(score.game)"><img class="cover" src="@score.game.cover" /></a>
+                <div class="item">
+                    <div>
+                        <a class="game" href="@routes.Game.index(score.game)">@score.game.title</a> <a class="author" href="@routes.Player.index(score.player)">@score.player.name</a>
+                        <small class="date">@score.formattedDate</small>
+                    </div>
+                    <p><span class="score">@score.formattedValue</span> <span class="rank">(@score.formattedRank)</span> <span class="stage">@score.stage.name</span></p>
+                    <p><span class="comment">@score.comment</span></p>
+                    <div style="float:right;">
+                        @if(score.mode != null) {
+                            <span class="label label-default">@score.mode.name</span>
+                        }
+                        @if(score.difficulty != null) {
+                            <span class="label label-warning">@score.difficulty.name</span>
+                        }
+                        @if(score.platform != null) {
+                            <span class="label label-success">@score.platform.name</span>
+                        }
+                    </div>
                 </div>
-                <p><span class="score">263.165.195</span> <span class="rank">(5th)</span> <span class="stage">ALL</span></p>
-                <p><span class="comment">Kochōran</span></p>
-                <div style="float:right;">
-                    <span class="label label-default">Slash/Shin</span> <span class="label label-warning">NOVICE</span> <span class="label label-success">Xbox360</span>
-                </div>
-            </div>
-        </li>
-
-        <li>
-            <img class="cover" src="http://neogeospirit.pagesperso-orange.fr/images/viewpoint_jaquette.jpg" />
-            <div class="item">
-                <div>
-                    <a class="game" href="/game">Viewpoint</a> <a class="author" href="/player">@@S.L</a>
-                    <small class="date">il y a 2 jours</small>
-                </div>
-                <p><span class="score">3.300.750</span> <span class="rank">(1st)</span> <span class="stage">ALL</span></p>
-                <p><span class="comment">le 1 life tourne autour de 2.600.000 pour ma part.</span></p>
-                <div style="float:right;">
-                    <span class="label label-warning">MVS</span> <span class="label label-success">NEOGEO</span>
-                </div>
-            </div>
-        </li>
-
-        <li>
-            <img class="cover" src="http://neogeospirit.pagesperso-orange.fr/images/viewpoint_jaquette.jpg" />
-            <div class="item">
-                <div>
-                    <a class="game" href="/game">Viewpoint</a> <a class="author" href="/player">@@chacha</a>
-                    <small class="date">il y a 1 semaine</small>
-                </div>
-                <p><span class="score">2.713.860</span> <span class="rank">(1st)</span> <span class="stage">ALL</span></p>
-                <p><span class="comment"></span></p>
-                <div style="float:right;">
-                    <span class="label label-warning">MVS</span> <span class="label label-success">NEOGEO</span>
-                </div>
-            </div>
-        </li>
-
-        <li>
-            <img class="cover" src="http://nekofan.free.fr/Images/soldierblacouv.jpg" />
-            <div class="item">
-                <div>
-                    <a class="game" href="/game">Soldier Blade</a> <a class="author" href="/player">@@Shubibiman</a>
-                    <small class="date">il y a 3 semaines</small>
-                </div>
-                <p><span class="score">2.260.900</span> <span class="rank">(2nd)</span> <span class="stage">ALL</span></p>
-                <p><span class="comment"></span></p>
-                <div style="float:right;">
-                    <span class="label label-success">PCE</span>
-                </div>
-            </div>
-        </li>
+            </li>
+        }
     </ul>
 }

@@ -7,7 +7,7 @@ import views.html.players;
 public class Players extends Controller {
 
     public static Result index() {
-        return ok(players.render());
+        return ok(players.render(models.Player.finder.all()));
     }
 
 }

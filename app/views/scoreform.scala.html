@@ -1,0 +1,94 @@
+@(game: models.Game)
+@main() {
+    <h2>Ajouter un score sur @game.title</h2>
+    <form role="form" method="POST" action="/score">
+        <input type="hidden" name="gameId" value="@game.id" />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="platform">Plateforme</label>
+                    <select name="platform" class="form-control">
+                        @for(platform <- game.platforms) {
+                            <option value="@platform.id">@platform.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="difficulty">Difficulté</label>
+                    <select name="difficulty" class="form-control">
+                        @for(difficulty <- game.difficulties) {
+                            <option value="@difficulty.id">@difficulty.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="mode">Mode</label>
+                    <select name="mode" class="form-control">
+                        @for(mode <- game.modes) {
+                            <option value="@mode.id">@mode.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="value">Score</label>
+                    <input required="true" type="number" class="form-control" name="value" placeholder="123456">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="stage">Stage</label>
+                    <select name="stage" class="form-control">
+                    @for(stage <- game.stages) {
+                        <option value="@stage.id">@stage.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input type="url" class="form-control" name="photo" placeholder="Lien direct vers l'image (hébergement: casimages, imageshack, ...)">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="comment">Commentaire</label>
+                    <textarea name="comment" class="form-control" rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="login">Identifiant</label>
+                    <input class="form-control" name="login">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="post">Poster sur le forum</label>
+                <select name="post" class="form-control">
+                    <option>OUI</option>
+                    <option>NON</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Valider</button>
+    </form>
+
+}
