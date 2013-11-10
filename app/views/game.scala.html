@@ -1,7 +1,7 @@
 @(game: models.Game)
 
 @scores(platform: Platform, difficulty: Difficulty, mode: Mode) = {
-    @if(!game.scores(platform, difficulty, mode).isEmpty) {
+    @if(!game.scoresByPlayers(platform, difficulty, mode).isEmpty) {
         <h4>
             @if(platform != null) {
                 <span class="label label-success">@platform.name</span>
@@ -14,12 +14,29 @@
             }
         </h4>
         <table class="table table-condensed table-hover table-bordered">
-        @for(score <- game.scores(platform, difficulty, mode)) {
+            <thead>
+                <th style="width: 50px; text-align: center;">#</th>
+                <th style="text-align: center;" >Shmuper</th>
+                <th style="text-align: center;" >Score</th>
+                <th style="text-align: center;" >Stage</th>
+                <th style="text-align: center; width: 50px;">Commentaire</th>
+            </thead>
+        @for(score <- game.scoresByPlayers(platform, difficulty, mode)) {
             <tr>
                 <td style="text-align: right;">@score.formattedRank</td>
                 <td><a href="@routes.Player.index(score.player)">@score.player.name</a></td>
                 <td style="text-align: right;">@score.formattedValue</td>
-                <td>@score.stage.name</td><td>@score.comment</td>
+                <td>@score.stage.name</td>
+                <td style="text-align: center;">
+                    @if(score.comment) {
+                        <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
+                            afficher
+                        </button>
+                        <script>
+                            $('#comment_@score.id').popover('hide');
+                        </script>
+                    }
+                </td>
             </tr>
         }
         </table>

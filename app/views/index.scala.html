@@ -9,7 +9,13 @@
                         <a class="game" href="@routes.Game.index(score.game)">@score.game.title</a> <a class="author" href="@routes.Player.index(score.player)">@score.player.name</a>
                         <small class="date">@score.formattedDate</small>
                     </div>
-                    <p><span class="score">@score.formattedValue</span> <span class="rank">(@score.formattedRank)</span> <span class="stage">@score.stage.name</span></p>
+                    <p>
+                        <span class="score">@score.formattedValue</span>
+                        @if(score.rank > 0) {
+                            <span class="rank">(@score.formattedRank)</span>
+                        }
+                        <span class="stage">@score.stage.name</span>
+                    </p>
                     <p><span class="comment">@score.comment</span></p>
                     <div style="float:right;">
                         @if(score.mode != null) {

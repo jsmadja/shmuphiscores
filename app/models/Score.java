@@ -1,7 +1,12 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Collections.sort;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
@@ -24,13 +29,14 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @ManyToOne
     public Platform platform;
 
-    public int value;
+    public Long value;
 
+    @Lob
     public String comment;
 
     public String photo;
 
-    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, int value, String photo) {
+    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo) {
         this.game = game;
         this.player = player;
         this.stage = stage;
@@ -62,7 +68,34 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedRank() {
-        return "5th";
+        int value = rank();
+        int hundredRemainder = value % 100;
+        int tenRemainder = value % 10;
+        if (hundredRemainder - tenRemainder == 10) {
+            return value + "th";
+        }
+        switch (tenRemainder) {
+            case 1:
+                return value + "st";
+            case 2:
+                return value + "nd";
+            case 3:
+                return value + "rd";
+            default:
+                return value + "th";
+        }
+    }
+
+    public int rank() {
+        List<Score> scores = new ArrayList<Score>(game.scores(platform, difficulty, mode));
+        sort(scores);
+        scores = Scores.keepBestScoresForEachPlayer(scores);
+        for (int i = 0; i < scores.size(); i++) {
+            if (this.equals(scores.get(i))) {
+                return i + 1;
+            }
+        }
+        return 0;
     }
 
     public boolean concerns(Platform platform) {
@@ -84,6 +117,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     @Override
     public int compareTo(Score score) {
-        return Integer.valueOf(this.value).compareTo(Integer.valueOf(score.value));
+        return score.value.compareTo(this.value);
     }
 }
