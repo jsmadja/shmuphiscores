@@ -1,13 +1,11 @@
 package plugins;
 
-import models.Difficulty;
-import models.Mode;
-import models.Platform;
-import models.Score;
+import models.*;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static plugins.RankingDrawer.*;
@@ -28,7 +26,9 @@ public class RankingPicture {
         for (Platform platform : platforms) {
             for (Mode mode : modes) {
                 for (Difficulty difficulty : difficulties) {
-                    Collection<Score> scores = game.scores(platform, difficulty, mode);
+                    List<Score> scores = new ArrayList<Score>(game.scores(platform, difficulty, mode));
+                    Collections.sort(scores);
+                    scores = Scores.keepBestScoresForEachPlayer(scores);
                     if (!scores.isEmpty()) {
                         pictureLines.add(new BreakLine());
                         pictureLines.add(new GameLine(game, platform, mode, difficulty));
