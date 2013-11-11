@@ -1,5 +1,6 @@
 package plugins;
 
+import com.google.common.base.Strings;
 import models.Difficulty;
 import models.Game;
 import models.Mode;
@@ -69,15 +70,16 @@ public class RankingDrawer {
             graphics.drawString(player, 30, y);
 
             graphics.setFont(scoreFont);
-            graphics.drawString(leftPad(score.formattedValue(), 13, " "), 200, y);
+            graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), 200, y);
+
 
             graphics.setFont(parameterFont);
             String platform = score.platform == null ? "" : leftPad(score.platform.name, 12);
-            if(score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
+            if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
                 platform = "";
             }
             String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 12);
-            graphics.drawString(stage + " " + platform, 380, y);
+            graphics.drawString(stage + " " + platform, 420, y);
         }
     }
 
