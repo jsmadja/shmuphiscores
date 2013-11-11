@@ -3,9 +3,6 @@
 @scores(difficulty: Difficulty, mode: Mode) = {
     @if(!game.scoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
-            @for(platform <- game.platforms) {
-                <span class="label label-success">@platform.name</span>
-            }
             @if(difficulty != null) {
                 <span class="label label-warning">@difficulty.name</span>
             }
@@ -70,6 +67,11 @@
        <a href="@routes.Ranking.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
            <span class="glyphicon glyphicon-list-alt"></span> ranking
        </a>
+       <p style="font-size: 16pt; margin-top: 10px;">
+        @for(platform <- game.platforms) {
+            <span class="label label-success">@platform.name</span>
+        }
+       </p>
    </h2>
 
     @if(game.modes.isEmpty) {
