@@ -98,10 +98,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return 0;
     }
 
-    public boolean concerns(Platform platform) {
-        return platform.equals(this.platform);
-    }
-
     public boolean concerns(Difficulty difficulty) {
         return difficulty.equals(this.difficulty);
     }
@@ -122,6 +118,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     @Override
     public boolean equals(Object o) {
-        return value.equals(((Score)o).value);
+        return value.equals(((Score) o).value);
     }
 }

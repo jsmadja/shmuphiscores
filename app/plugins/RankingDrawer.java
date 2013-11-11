@@ -2,7 +2,6 @@ package plugins;
 
 import com.google.common.base.Strings;
 import models.Difficulty;
-import models.Game;
 import models.Mode;
 import models.Score;
 
@@ -10,9 +9,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import static java.awt.Color.BLUE;
-import static java.awt.Color.DARK_GRAY;
-import static java.awt.Color.RED;
+import static java.awt.Color.*;
 import static java.awt.Font.BOLD;
 import static java.awt.Font.PLAIN;
 import static java.awt.RenderingHints.*;

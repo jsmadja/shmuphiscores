@@ -4,7 +4,6 @@ import models.Difficulty;
 import models.Mode;
 import models.Platform;
 import models.Stage;
-import org.apache.commons.lang3.StringUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -41,14 +40,21 @@ public class Score extends Controller {
     private static models.Score createScore(Map<String, String> data) {
         Difficulty difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
-        Mode mode = find(Mode.class, parseLong(data.get("mode")));
+        Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
         models.Player player = models.Player.findOrCreatePlayer(data.get("login"));
         models.Game game = find(models.Game.class, parseLong(data.get("gameId")));
-        String value1 = data.get("value");
+        Long value = value(data);
+        String comment = data.get("comment");
+        String photo = data.get("photo");
+        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
+    }
+
+    private static Long value(Map<String, String> data) {
+        String scoreValue = data.get("value");
         StringBuilder strValue = new StringBuilder();
-        for(Character c:value1.toCharArray()) {
-            if(isNumeric(c.toString())) {
+        for (Character c : scoreValue.toCharArray()) {
+            if (isNumeric(c.toString())) {
                 strValue.append(c);
             }
         }
@@ -56,9 +62,15 @@ public class Score extends Controller {
         if (value < 0) {
             value *= -1;
         }
-        String comment = data.get("comment");
-        String photo = data.get("photo");
-        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
+        return value;
+    }
+
+    private static Mode mode(Map<String, String> data) {
+        Mode mode = null;
+        if (data.get("mode") != null) {
+            mode = find(Mode.class, parseLong(data.get("mode")));
+        }
+        return mode;
     }
 
     private static boolean isAuthenticated(String login, String password) {
