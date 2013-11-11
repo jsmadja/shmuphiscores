@@ -1,13 +1,19 @@
 package controllers;
 
-import models.Player;
+import models.Difficulty;
+import models.Mode;
+import models.Platform;
+import models.Stage;
+import org.apache.commons.lang3.StringUtils;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.util.Map;
 
+import static com.avaje.ebean.Ebean.find;
 import static java.lang.Long.parseLong;
+import static org.apache.commons.lang3.StringUtils.isNumeric;
 
 public class Score extends Controller {
 
@@ -17,9 +23,9 @@ public class Score extends Controller {
         String login = data.get("login");
         String password = data.get("password");
         if (isAuthenticated(login, password)) {
-            models.Score score = createScore(scoreForm, data, login);
+            models.Score score = createScore(data);
             score.save();
-            if("OUI".equalsIgnoreCase(data.get("post"))) {
+            if ("OUI".equalsIgnoreCase(data.get("post"))) {
                 return shmup(score);
             } else {
                 return redirect("/");
@@ -32,17 +38,27 @@ public class Score extends Controller {
         return ok(views.html.post_to_shmup.render(score));
     }
 
-    private static models.Score createScore(Form<models.Score> scoreForm, Map<String, String> data, String login) {
-        models.Score score = scoreForm.get();
-        score.difficulty = score.difficulty.getFinder().byId(parseLong(score.difficulty.name));
-        score.stage = score.stage.getFinder().byId(parseLong(score.stage.name));
-        if(score.mode != null) {
-            score.mode = score.mode.getFinder().byId(parseLong(score.mode.name));
+    private static models.Score createScore(Map<String, String> data) {
+        Difficulty difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
+        Stage stage = find(Stage.class, parseLong(data.get("stage")));
+        Mode mode = find(Mode.class, parseLong(data.get("mode")));
+        Platform platform = find(Platform.class, parseLong(data.get("platform")));
+        models.Player player = models.Player.findOrCreatePlayer(data.get("login"));
+        models.Game game = find(models.Game.class, parseLong(data.get("gameId")));
+        String value1 = data.get("value");
+        StringBuilder strValue = new StringBuilder();
+        for(Character c:value1.toCharArray()) {
+            if(isNumeric(c.toString())) {
+                strValue.append(c);
+            }
         }
-        score.platform = score.platform.getFinder().byId(parseLong(score.platform.name));
-        score.game = models.Game.finder.byId(parseLong(data.get("gameId")));
-        score.player = Player.findOrCreatePlayer(login);
-        return score;
+        Long value = Long.valueOf(strValue.toString());
+        if (value < 0) {
+            value *= -1;
+        }
+        String comment = data.get("comment");
+        String photo = data.get("photo");
+        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
     }
 
     private static boolean isAuthenticated(String login, String password) {
