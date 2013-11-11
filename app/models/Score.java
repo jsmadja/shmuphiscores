@@ -119,4 +119,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public int compareTo(Score score) {
         return score.value.compareTo(this.value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return value.equals(((Score)o).value);
+    }
 }

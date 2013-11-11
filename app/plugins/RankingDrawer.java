@@ -21,10 +21,10 @@ public class RankingDrawer {
         void draw(Graphics2D graphics, int y);
     }
 
-    private final static Font normalFont = new Font("Courier New", Font.PLAIN, 14);
-    private final static Font parameterFont = new Font("Courier New", Font.BOLD, 16);
+    private final static Font normalFont = new Font("Courier", Font.PLAIN, 14);
+    private final static Font parameterFont = new Font("Courier", Font.BOLD, 16);
     private final static Font playerFont = new Font("Verdana", Font.BOLD, 12);
-    private final static Font scoreFont = new Font("Courier New", Font.BOLD, 16);
+    private final static Font scoreFont = new Font("Courier", Font.BOLD, 16);
 
     public static class GameLine implements PictureLine {
 

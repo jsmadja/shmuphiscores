@@ -4,6 +4,9 @@ import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -38,6 +41,19 @@ public class Player extends BaseModel<Player> {
             player.save();
         }
         return player;
+    }
+
+    public List<Score> bestScores() {
+        List<Score> bestScores = new ArrayList<Score>(scores);
+        Collections.sort(bestScores);
+        bestScores = Scores.keepBestScoresForEachGame(bestScores);
+        Collections.sort(bestScores, new Comparator<Score>() {
+            @Override
+            public int compare(Score score, Score score2) {
+                return score.game.title.compareTo(score2.game.title);
+            }
+        });
+        return bestScores;
     }
 
 }

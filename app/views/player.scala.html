@@ -38,6 +38,6 @@
            <th style="text-align: center;">Score</th>
            <th style="text-align: center; width: 50px;">Rang</th>
        </thead>
-       @player.scores.groupBy(_.game).map(game => game._2.groupBy(_.platform).map(platform => gameLine(platform._2.max)))
+       @player.bestScores.map(gameLine(_))
    </table>
 }
