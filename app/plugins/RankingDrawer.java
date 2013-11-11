@@ -10,7 +10,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import static java.awt.Color.BLUE;
 import static java.awt.Color.DARK_GRAY;
+import static java.awt.Color.RED;
 import static java.awt.Font.BOLD;
 import static java.awt.Font.PLAIN;
 import static java.awt.RenderingHints.*;
@@ -32,21 +34,19 @@ public class RankingDrawer {
 
     public static class GameLine implements PictureLine {
 
-        private final Game game;
         private final Mode mode;
         private final Difficulty difficulty;
 
-        public GameLine(models.Game game, Mode mode, Difficulty difficulty) {
-            this.game = game;
+        public GameLine(Mode mode, Difficulty difficulty) {
             this.mode = mode;
             this.difficulty = difficulty;
         }
 
         @Override
         public void draw(Graphics2D graphics, int y) {
-            graphics.setColor(DARK_GRAY);
+            graphics.setColor(RED);
             graphics.setFont(gameFont);
-            graphics.drawString(game.title + " " + (mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 30, y);
+            graphics.drawString((mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 30, y);
         }
     }
 
@@ -60,7 +60,7 @@ public class RankingDrawer {
 
         @Override
         public void draw(Graphics2D graphics, int y) {
-            graphics.setPaint(DARK_GRAY);
+            graphics.setColor(DARK_GRAY);
             graphics.setFont(normalFont);
             String rank = leftPad(score.rank() + ".", 3);
             String player = score.player.name;
@@ -69,10 +69,12 @@ public class RankingDrawer {
             graphics.setFont(playerFont);
             graphics.drawString(player, 30, y);
 
+            graphics.setColor(BLUE);
             graphics.setFont(scoreFont);
             graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), 200, y);
 
 
+            graphics.setColor(DARK_GRAY);
             graphics.setFont(parameterFont);
             String platform = score.platform == null ? "" : leftPad(score.platform.name, 12);
             if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
