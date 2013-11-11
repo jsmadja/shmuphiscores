@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import static java.awt.Color.BLACK;
-import static java.awt.Color.ORANGE;
+import static java.awt.Color.DARK_GRAY;
 import static java.awt.RenderingHints.*;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.apache.commons.lang3.StringUtils.leftPad;
@@ -23,9 +23,10 @@ public class RankingDrawer {
     }
 
     private final static Font normalFont = new Font("Courier", Font.PLAIN, 14);
-    private final static Font parameterFont = new Font("Courier", Font.BOLD, 16);
+    private final static Font parameterFont = new Font("Courier", Font.BOLD, 14);
+    private final static Font gameFont = new Font("Verdana", Font.BOLD, 12);
     private final static Font playerFont = new Font("Verdana", Font.BOLD, 12);
-    private final static Font scoreFont = new Font("Courier", Font.BOLD, 16);
+    private final static Font scoreFont = new Font("Courier", Font.BOLD, 14);
 
     public static class GameLine implements PictureLine {
 
@@ -41,9 +42,9 @@ public class RankingDrawer {
 
         @Override
         public void draw(Graphics2D graphics, int y) {
-            graphics.setPaint(BLACK);
-            graphics.setFont(normalFont);
-            graphics.drawString(game.title + " " + (mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 0, y);
+            graphics.setColor(DARK_GRAY);
+            graphics.setFont(gameFont);
+            graphics.drawString(game.title + " " + (mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 30, y);
         }
     }
 
@@ -57,7 +58,7 @@ public class RankingDrawer {
 
         @Override
         public void draw(Graphics2D graphics, int y) {
-            graphics.setPaint(BLACK);
+            graphics.setPaint(DARK_GRAY);
             graphics.setFont(normalFont);
             String rank = leftPad(score.rank() + ".", 3);
             String player = score.player.name;
@@ -66,12 +67,10 @@ public class RankingDrawer {
             graphics.setFont(playerFont);
             graphics.drawString(player, 30, y);
 
-            graphics.setColor(ORANGE);
             graphics.setFont(scoreFont);
             graphics.drawString(leftPad(score.formattedValue(), 13, " "), 200, y);
 
             graphics.setFont(parameterFont);
-            graphics.setColor(BLACK);
             graphics.drawString((score.stage == null ? "" : rightPad(score.stage.toString(), 12)) + " " + (score.platform == null ? "" : leftPad(score.platform.name, 12)), 380, y);
         }
     }
