@@ -72,7 +72,12 @@ public class RankingDrawer {
             graphics.drawString(leftPad(score.formattedValue(), 13, " "), 200, y);
 
             graphics.setFont(parameterFont);
-            graphics.drawString((score.stage == null ? "" : rightPad(score.stage.toString(), 12)) + " " + (score.platform == null ? "" : leftPad(score.platform.name, 12)), 380, y);
+            String platform = score.platform == null ? "" : leftPad(score.platform.name, 12);
+            if(score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
+                platform = "";
+            }
+            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 12);
+            graphics.drawString(stage + " " + platform, 380, y);
         }
     }
 
