@@ -1,0 +1,43 @@
+@(score: models.Score)
+@main() {
+    <h2>Ajouter sur shmup.com</h2>
+
+    <h3>Etape 1</h3>
+    <p>
+        Copier le texte ci-dessous
+    </p>
+    <div id="forum">
+        <div class="alert" style="background-color: #F0F3F4">
+            <p>
+                Je viens juste de réaliser [b]<b>@score.formattedValue()</b>[/b] points. La photo de l'écran des scores est disponible [url=@score.photo]ici[/url].
+            </p>
+            <p>
+                Les paramètres de ma partie sont [b][color=#008040]<b style="color:#008040">@score.platform</b>[/color][/b] - [b][color=#0040FF]<b style="color:#0040FF">@score.mode</b>[/color][/b] - [b][color=#FF8000]<b>@score.difficulty</b>[/color][/b] - [b]<b>@score.stage</b>[/b].
+            </p>
+            <p>
+                @score.comment
+            </p>
+            <p>
+                <br/>
+                [size=85]Message généré depuis [url=http://www.shmuphiscores.com]shmuphiscores.com[/url].[/size]
+            </p>
+        </div>
+    </div>
+
+    <h3>Etape 2</h3>
+
+    <p>
+        Cliquez sur l'image pour accéder directement au formulaire de saisie du topic de <b><a href="@score.game.post">@score.game</a></b> et coller le message sélectionné à l'étape 1.
+    </p>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <a href="@score.game.post" class="thumbnail">
+                <img src="@routes.Assets.at("images/shmup.png")" />
+            </a>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+}

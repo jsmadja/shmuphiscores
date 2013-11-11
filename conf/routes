@@ -5,6 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index()
 POST    /score/new                  controllers.Application.fillForm()
+GET    /score/shmup/:id             controllers.Score.shmup(id: models.Score)
 
 GET     /score                      controllers.Application.selectGame()
 POST    /score                      controllers.Score.save()

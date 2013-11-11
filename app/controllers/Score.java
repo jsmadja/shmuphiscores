@@ -19,9 +19,17 @@ public class Score extends Controller {
         if (isAuthenticated(login, password)) {
             models.Score score = createScore(scoreForm, data, login);
             score.save();
-            return redirect("/");
+            if("OUI".equalsIgnoreCase(data.get("post"))) {
+                return shmup(score);
+            } else {
+                return redirect("/");
+            }
         }
         return unauthorized();
+    }
+
+    public static Result shmup(models.Score score) {
+        return ok(views.html.post_to_shmup.render(score));
     }
 
     private static models.Score createScore(Form<models.Score> scoreForm, Map<String, String> data, String login) {

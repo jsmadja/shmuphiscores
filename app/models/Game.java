@@ -70,6 +70,10 @@ public class Game extends BaseModel<Game> {
         return filtered;
     }
 
+    public String post() {
+        return thread.replace("viewtopic.php?", "posting.php?mode=reply&");
+    }
+
     @Override
     public String toString() {
         return title;

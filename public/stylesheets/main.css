@@ -2,6 +2,10 @@ h1 {
     text-align: center;
 }
 
+#forum p {
+    font-size: 10pt;
+}
+
 #menu {
     margin-right: 15px;
     margin-bottom: 15px;
