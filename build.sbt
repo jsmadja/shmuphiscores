@@ -8,7 +8,8 @@ libraryDependencies ++= Seq(
   cache,
   "com.google.guava" % "guava" % "15.0",
   "mysql" % "mysql-connector-java" % "5.1.17",
-  "org.ocpsoft.prettytime" % "prettytime" % "3.1.0.Final"
+  "org.ocpsoft.prettytime" % "prettytime" % "3.1.0.Final",
+  "net.sourceforge.htmlunit" % "htmlunit" % "2.13"
 )
 
 play.Project.playJavaSettings
