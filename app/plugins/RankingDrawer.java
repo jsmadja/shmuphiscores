@@ -11,6 +11,7 @@ import java.util.List;
 
 import static java.awt.Color.BLACK;
 import static java.awt.Color.ORANGE;
+import static java.awt.RenderingHints.*;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.apache.commons.lang3.StringUtils.rightPad;
@@ -92,6 +93,10 @@ public class RankingDrawer {
         }
         BufferedImage bi = new BufferedImage(width, height, TYPE_INT_ARGB);
         Graphics2D graphics = bi.createGraphics();
+
+        graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+        graphics.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
+
         graphics.setColor(new Color(240, 243, 244));
         graphics.fillRect(0, 0, width, height);
         FontMetrics fontMetrics = graphics.getFontMetrics();
