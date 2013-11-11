@@ -10,7 +10,6 @@ import java.util.List;
 import static java.awt.Color.BLACK;
 import static java.awt.Color.ORANGE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class RankingDrawer {
 
@@ -65,13 +64,11 @@ public class RankingDrawer {
 
             graphics.setColor(ORANGE);
             graphics.setFont(scoreFont);
-            graphics.drawString(leftPad(score.formattedValue(), 10, " "), 200, y);
+            graphics.drawString(StringUtils.leftPad(score.formattedValue(), 13, " "), 200, y);
 
             graphics.setFont(normalFont);
             graphics.setColor(BLACK);
-            graphics.drawString(score.stage == null ? "" : score.stage.toString(), 400, y);
-            graphics.drawString(score.difficulty == null ? "" : score.difficulty.toString(), 500, y);
-            graphics.drawString(score.mode == null ? "" : score.mode.toString(), 600, y);
+            graphics.drawString(score.stage == null ? "" : score.stage.toString(), 380, y);
         }
     }
 
