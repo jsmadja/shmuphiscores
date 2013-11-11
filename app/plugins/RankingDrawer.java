@@ -1,6 +1,7 @@
 package plugins;
 
 import models.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +10,7 @@ import java.util.List;
 import static java.awt.Color.BLACK;
 import static java.awt.Color.ORANGE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class RankingDrawer {
 
@@ -18,6 +20,7 @@ public class RankingDrawer {
 
     private final static Font normalFont = new Font("Verdana", Font.PLAIN, 12);
     private final static Font playerFont = new Font("Verdana", Font.BOLD, 12);
+    private final static Font scoreFont = new Font("Courier", Font.BOLD, 16);
 
     public static class GameLine implements PictureLine {
 
@@ -61,8 +64,10 @@ public class RankingDrawer {
             graphics.drawString(player, 30, y);
 
             graphics.setColor(ORANGE);
-            graphics.drawString(score.formattedValue(), 250, y);
+            graphics.setFont(scoreFont);
+            graphics.drawString(leftPad(score.formattedValue(), 10, " "), 200, y);
 
+            graphics.setFont(normalFont);
             graphics.setColor(BLACK);
             graphics.drawString(score.stage == null ? "" : score.stage.toString(), 400, y);
             graphics.drawString(score.difficulty == null ? "" : score.difficulty.toString(), 500, y);
