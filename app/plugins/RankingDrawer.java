@@ -9,8 +9,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import static java.awt.Color.BLACK;
 import static java.awt.Color.DARK_GRAY;
+import static java.awt.Font.BOLD;
+import static java.awt.Font.PLAIN;
 import static java.awt.RenderingHints.*;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.apache.commons.lang3.StringUtils.leftPad;
@@ -22,11 +23,11 @@ public class RankingDrawer {
         void draw(Graphics2D graphics, int y);
     }
 
-    private final static Font normalFont = new Font("Courier", Font.PLAIN, 14);
-    private final static Font parameterFont = new Font("Courier", Font.BOLD, 14);
-    private final static Font gameFont = new Font("Verdana", Font.BOLD, 12);
-    private final static Font playerFont = new Font("Verdana", Font.BOLD, 12);
-    private final static Font scoreFont = new Font("Courier", Font.BOLD, 14);
+    private final static Font normalFont = new Font("Courier", PLAIN, 14);
+    private final static Font parameterFont = new Font("Courier", BOLD, 14);
+    private final static Font gameFont = new Font("Verdana", BOLD, 12);
+    private final static Font playerFont = new Font("Verdana", BOLD, 12);
+    private final static Font scoreFont = new Font("Courier", BOLD, 14);
 
     public static class GameLine implements PictureLine {
 

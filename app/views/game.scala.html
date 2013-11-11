@@ -12,11 +12,11 @@
         </h4>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
-                <th style="width: 50px; text-align: center;">Rang</th>
+                <th style="width: 70px; text-align: center;">Rang</th>
                 <th style="text-align: center;" >Joueur</th>
-                <th style="text-align: center;" >Score</th>
-                <th style="text-align: center;" >Stage</th>
-                <th style="text-align: center; width: 50px;">Commentaire</th>
+                <th style="width: 120px; text-align: center;" >Score</th>
+                <th style="width: 120px; text-align: center;" >Stage</th>
+                <th style="text-align: center; width: 120px;">Commentaire</th>
             </thead>
         @for(score <- game.scoresByPlayers(difficulty, mode)) {
             <tr>
@@ -40,7 +40,7 @@
 
                     @score.formattedValue
                 </td>
-                <td>@score.stage.name</td>
+                <td style="text-align: right;" >@score.stage.name</td>
                 <td style="text-align: center; vertical-align: middle;">
                     @if(score.comment) {
                         <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
