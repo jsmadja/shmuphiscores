@@ -44,26 +44,26 @@ public class Game extends BaseModel<Game> {
         this.thread = thread;
     }
 
-    public Collection<Score> scores(final Platform platform, final Difficulty difficulty, final Mode mode) {
+    public Collection<Score> scores(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         return filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                return (platform == null || score.concerns(platform)) && (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
+                return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
             }
         });
     }
 
-    public Collection<Score> scoresByPlayers(final Platform platform, final Difficulty difficulty, final Mode mode) {
+    public Collection<Score> scoresByPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> filtered = new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                return (platform == null || score.concerns(platform)) && (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
+                return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
             }
         }));
         sort(filtered);

@@ -1,7 +1,9 @@
 package plugins;
 
-import models.*;
-import org.apache.commons.lang3.StringUtils;
+import models.Difficulty;
+import models.Game;
+import models.Mode;
+import models.Score;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,8 @@ import java.util.List;
 import static java.awt.Color.BLACK;
 import static java.awt.Color.ORANGE;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.apache.commons.lang3.StringUtils.rightPad;
 
 public class RankingDrawer {
 
@@ -17,20 +21,19 @@ public class RankingDrawer {
         void draw(Graphics2D graphics, int y);
     }
 
-    private final static Font normalFont = new Font("Verdana", Font.PLAIN, 12);
+    private final static Font normalFont = new Font("Courier New", Font.PLAIN, 14);
+    private final static Font parameterFont = new Font("Courier New", Font.BOLD, 16);
     private final static Font playerFont = new Font("Verdana", Font.BOLD, 12);
-    private final static Font scoreFont = new Font("Courier", Font.BOLD, 16);
+    private final static Font scoreFont = new Font("Courier New", Font.BOLD, 16);
 
     public static class GameLine implements PictureLine {
 
         private final Game game;
-        private final Platform platform;
         private final Mode mode;
         private final Difficulty difficulty;
 
-        public GameLine(models.Game game, Platform platform, Mode mode, Difficulty difficulty) {
+        public GameLine(models.Game game, Mode mode, Difficulty difficulty) {
             this.game = game;
-            this.platform = platform;
             this.mode = mode;
             this.difficulty = difficulty;
         }
@@ -39,7 +42,7 @@ public class RankingDrawer {
         public void draw(Graphics2D graphics, int y) {
             graphics.setPaint(BLACK);
             graphics.setFont(normalFont);
-            graphics.drawString(game.title + " " + platform + " " + (mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 0, y);
+            graphics.drawString(game.title + " " + (mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 0, y);
         }
     }
 
@@ -55,7 +58,7 @@ public class RankingDrawer {
         public void draw(Graphics2D graphics, int y) {
             graphics.setPaint(BLACK);
             graphics.setFont(normalFont);
-            String rank = score.rank() + ".";
+            String rank = leftPad(score.rank() + ".", 3);
             String player = score.player.name;
             graphics.drawString(rank, 0, y);
 
@@ -64,11 +67,11 @@ public class RankingDrawer {
 
             graphics.setColor(ORANGE);
             graphics.setFont(scoreFont);
-            graphics.drawString(StringUtils.leftPad(score.formattedValue(), 13, " "), 200, y);
+            graphics.drawString(leftPad(score.formattedValue(), 13, " "), 200, y);
 
-            graphics.setFont(normalFont);
+            graphics.setFont(parameterFont);
             graphics.setColor(BLACK);
-            graphics.drawString(score.stage == null ? "" : score.stage.toString(), 380, y);
+            graphics.drawString((score.stage == null ? "" : rightPad(score.stage.toString(), 12)) + " " + (score.platform == null ? "" : leftPad(score.platform.name, 12)), 380, y);
         }
     }
 

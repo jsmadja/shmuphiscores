@@ -1,9 +1,9 @@
 @(game: models.Game)
 
-@scores(platform: Platform, difficulty: Difficulty, mode: Mode) = {
-    @if(!game.scoresByPlayers(platform, difficulty, mode).isEmpty) {
+@scores(difficulty: Difficulty, mode: Mode) = {
+    @if(!game.scoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
-            @if(platform != null) {
+            @for(platform <- game.platforms) {
                 <span class="label label-success">@platform.name</span>
             }
             @if(difficulty != null) {
@@ -21,7 +21,7 @@
                 <th style="text-align: center;" >Stage</th>
                 <th style="text-align: center; width: 50px;">Commentaire</th>
             </thead>
-        @for(score <- game.scoresByPlayers(platform, difficulty, mode)) {
+        @for(score <- game.scoresByPlayers(difficulty, mode)) {
             <tr>
                 <td style="text-align: right;">@score.formattedRank</td>
                 <td><a href="@routes.Player.index(score.player)">@score.player.name</a></td>
@@ -72,48 +72,23 @@
        </a>
    </h2>
 
-    @if(game.platforms.isEmpty) {
-        @if(game.modes.isEmpty) {
-            @if(game.difficulties.isEmpty) {
-                @scores(null, null, null)
-            } else {
-                @for(difficulty <- game.difficulties) {
-                    @scores(null, difficulty, null)
-                }
-            }
+    @if(game.modes.isEmpty) {
+        @if(game.difficulties.isEmpty) {
+            @scores(null, null)
         } else {
-            @for(mode <- game.modes) {
-                @if(game.difficulties.isEmpty) {
-                    @scores(null, null, mode)
-                } else {
-                    @for(difficulty <- game.difficulties) {
-                        @scores(null, difficulty, mode)
-                    }
-                }
+            @for(difficulty <- game.difficulties) {
+                @scores(difficulty, null)
             }
         }
     } else {
-        @for(platform <- game.platforms) {
-            @if(game.modes.isEmpty) {
-                @if(game.difficulties.isEmpty) {
-                    @scores(null, null, null)
-                } else {
-                    @for(difficulty <- game.difficulties) {
-                        @scores(platform, difficulty, null)
-                    }
-                }
+        @for(mode <- game.modes) {
+            @if(game.difficulties.isEmpty) {
+                @scores(null, mode)
             } else {
-                @for(mode <- game.modes) {
-                    @if(game.difficulties.isEmpty) {
-                        @scores(platform, null, mode)
-                    } else {
-                        @for(difficulty <- game.difficulties) {
-                            @scores(platform, difficulty, mode)
-                        }
-                    }
+                @for(difficulty <- game.difficulties) {
+                    @scores(difficulty, mode)
                 }
             }
         }
     }
-
 }

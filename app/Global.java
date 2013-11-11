@@ -48,7 +48,7 @@ public class Global extends GlobalSettings {
     }
 
     private static void mushihime() {
-        Game game = new Game("Mushihimesama Futari ver 1.5", "http://ecx.images-amazon.com/images/I/51WQT7UfPJL.jpg", "http://forum.shmup.com/viewtopic.php?f=20&t=17554");
+        Game game = new Game("Mushihimesama Futari", "http://ecx.images-amazon.com/images/I/51WQT7UfPJL.jpg", "http://forum.shmup.com/viewtopic.php?f=20&t=17554");
         game.save();
         for (String s : asList("Stage 1", "Stage 2", "Stage 3", "Stage 4", "Stage 5", "ALL")) {
             Stage stage = new Stage(s);
