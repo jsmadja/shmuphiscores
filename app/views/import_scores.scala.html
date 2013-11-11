@@ -1,0 +1,20 @@
+@(games: List[models.Game])
+@main() {
+    <h2>Importer des scores</h2>
+    <form role="form" action="/game/scores" method="POST">
+        <div class="form-group">
+            <label for="game">Sélectionnez le jeu</label>
+            <select name="game" class="form-control">
+                @for(game <- games) {
+                    <option value="@game.id">@game.title</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="scores">Scores</label>
+            <textarea name="scores" class="form-control" rows="10"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Valider</button>
+    </form>
+
+}

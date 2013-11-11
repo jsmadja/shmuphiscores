@@ -20,6 +20,7 @@ public class Global extends GlobalSettings {
         akaiKatana();
         viewpoint();
         towardSky();
+        mushihime();
 
         Player sl = new Player("-S.L-");
         sl.save();
@@ -44,6 +45,31 @@ public class Global extends GlobalSettings {
         score.save();
         towards.scores.add(score);
         towards.update();
+    }
+
+    private static void mushihime() {
+        Game game = new Game("Mushihimesama Futari ver 1.5", "http://ecx.images-amazon.com/images/I/51WQT7UfPJL.jpg", "http://forum.shmup.com/viewtopic.php?f=20&t=17554");
+        game.save();
+        for (String s : asList("Stage 1", "Stage 2", "Stage 3", "Stage 4", "Stage 5", "ALL")) {
+            Stage stage = new Stage(s);
+            stage.game = game;
+            stage.save();
+        }
+        for (String s : asList("Original", "Maniac", "God", "Ultra")) {
+            Difficulty difficulty = new Difficulty(s);
+            difficulty.game = game;
+            difficulty.save();
+        }
+        for (String s : asList("ARCADE", "XBOX 360")) {
+            Platform platform = new Platform(s);
+            platform.game = game;
+            platform.save();
+        }
+        for (String s : asList("Version 1.5", "Black Label", "Version arrange")) {
+            Mode mode = new Mode(s);
+            mode.game = game;
+            mode.save();
+        }
     }
 
     private static void towardSky() {

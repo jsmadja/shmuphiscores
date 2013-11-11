@@ -22,7 +22,7 @@ public class Application extends Controller {
     }
 
     public static Result selectGame() {
-        return ok(views.html.select_game.render(Ebean.find(Game.class).order("title").findList()));
+        return ok(views.html.select_game.render(models.Game.findAll()));
     }
 
     public static Result fillForm() {

@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
 import play.db.ebean.Model;
 
@@ -79,4 +80,7 @@ public class Game extends BaseModel<Game> {
         return title;
     }
 
+    public static List<Game> findAll() {
+        return Ebean.find(Game.class).order("title").findList();
+    }
 }

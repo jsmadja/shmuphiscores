@@ -29,4 +29,15 @@ public class Player extends BaseModel<Player> {
         return name;
     }
 
+    public static Player findOrCreatePlayer(String name) {
+        Player player = Player.finder.where()
+                .eq("name", name)
+                .findUnique();
+        if (player == null) {
+            player = new Player(name);
+            player.save();
+        }
+        return player;
+    }
+
 }

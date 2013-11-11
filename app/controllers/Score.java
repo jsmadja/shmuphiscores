@@ -41,23 +41,12 @@ public class Score extends Controller {
         }
         score.platform = score.platform.getFinder().byId(parseLong(score.platform.name));
         score.game = models.Game.finder.byId(parseLong(data.get("gameId")));
-        score.player = findOrCreatePlayer(login);
+        score.player = Player.findOrCreatePlayer(login);
         return score;
     }
 
     private static boolean isAuthenticated(String login, String password) {
         return true;
-    }
-
-    private static Player findOrCreatePlayer(String login) {
-        Player player = Player.finder.where()
-                .eq("name", login)
-                .findUnique();
-        if (player == null) {
-            player = new Player(login);
-            player.save();
-        }
-        return player;
     }
 
 }

@@ -11,7 +11,10 @@ GET     /score/shmup/:id            controllers.Score.shmup(id: models.Score)
 
 POST    /game                       controllers.Game.save()
 GET     /game/new                   controllers.Game.create()
+POST    /game/scores                controllers.Game.saveScores
+GET     /game/scores                controllers.Game.importScores
 GET     /game/:id                   controllers.Game.index(id: models.Game)
+
 GET     /games                      controllers.Games.index()
 
 GET     /player/:id                 controllers.Player.index(id: models.Player)
