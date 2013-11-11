@@ -15,6 +15,6 @@ GET     /games                      controllers.Games.index()
 GET     /player/:id                 controllers.Player.index(id: models.Player)
 GET     /players                    controllers.Players.index()
 
-GET     /ranking.png                controllers.Ranking.index()
+GET     /ranking.png/:game          controllers.Ranking.index(game: models.Game)
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -67,6 +67,9 @@
        <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
            <span class="glyphicon glyphicon-share-alt"></span> forum
        </a>
+       <a href="@routes.Ranking.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+           <span class="glyphicon glyphicon-list-alt"></span> ranking
+       </a>
    </h2>
 
     @if(game.platforms.isEmpty) {
