@@ -1,15 +1,26 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.*;
+import models.Player;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.players;
+
+import java.util.Comparator;
+import java.util.List;
+
+import static java.util.Collections.sort;
 
 public class Players extends Controller {
 
     public static Result index() {
-        return ok(players.render(Ebean.createQuery(models.Player.class).orderBy("name").findList()));
+        List<Player> players = Ebean.createQuery(Player.class).findList();
+        sort(players, new Comparator<Player>() {
+            @Override
+            public int compare(Player player, Player player2) {
+                return player.name.compareToIgnoreCase(player2.name);
+            }
+        });
+        return ok(views.html.players.render(players));
     }
 
 }
