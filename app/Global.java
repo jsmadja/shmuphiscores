@@ -20,12 +20,36 @@ public class Global extends GlobalSettings {
         akaiKatana();
         viewpoint();
         towardSky();
+
+        Player sl = new Player("-S.L-");
+        sl.save();
+
+        Player anzymus = new Player("anzymus");
+        anzymus.save();
+
+        Game viewpoint = Game.finder.byId(2L);
+        models.Score score = new models.Score(viewpoint, sl, viewpoint.stages.get(3), null, viewpoint.difficulties.get(3), "ALL CLEAR! WESTERN RECORD", viewpoint.platforms.get(0), 3300750L, "http://img854.imageshack.us/img854/7086/img1627h.jpg");
+        score.save();
+        viewpoint.scores.add(score);
+        viewpoint.update();
+
+        Game akaiKatana = Game.finder.byId(1L);
+        score = new models.Score(akaiKatana, anzymus, akaiKatana.stages.get(0), akaiKatana.modes.get(0), akaiKatana.difficulties.get(0), "Mon premier score!", akaiKatana.platforms.get(0), 12456543L, null);
+        score.save();
+        akaiKatana.scores.add(score);
+        akaiKatana.update();
+
+        Game towards = Game.finder.byId(3L);
+        score = new Score(towards, anzymus, towards.stages.get(0), null, towards.difficulties.get(0), "Un score pour un jeu imaginaire", towards.platforms.get(0), 2543L, null);
+        score.save();
+        towards.scores.add(score);
+        towards.update();
     }
 
     private static void towardSky() {
         Game game = new Game("Towards the sky : HOPE", "http://i73.servimg.com/u/f73/14/21/34/05/test0410.png", "http://forum.shmup.com/viewtopic.php?f=3&t=18684");
         game.save();
-        for (String s : asList("Stage 1", "Stage 2", "Stage 3")) {
+        for (String s : asList("Stage 1", "Stage 2", "Stage 3", "ALL")) {
             Stage stage = new Stage(s);
             stage.game = game;
             stage.save();
