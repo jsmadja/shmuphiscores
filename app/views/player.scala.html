@@ -20,7 +20,7 @@
             @score.stage
         </td>
         <td style="text-align: right;">
-            @score.formattedValue
+            <a href="@routes.Score.read(score)">@score.formattedValue</a>
         </td>
         <td style="text-align: right;">
             @score.formattedRank
