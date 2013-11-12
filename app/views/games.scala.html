@@ -1,4 +1,5 @@
 @(games: List[models.Game])
+@import play.i18n._
 @main() {
 
    <h2>Liste des jeux</h2>
@@ -6,8 +7,8 @@
    <table class="table table-condensed table-hover table-bordered">
        <tr>
            <th style="text-align: center; width: 65px;">#</th>
-           <th>Jeux</th>
-           <th style="width: 20px;">Scores</th>
+           <th>@Messages.get("Games")</th>
+           <th style="width: 20px;">@Messages.get("Scores")</th>
        </tr>
        @for(game <- games) {
         <tr>

@@ -1,10 +1,11 @@
 @(players: List[models.Player])
+@import play.i18n._
 @main() {
-   <h2>Liste des joueurs</h2>
+   <h2>@Messages.get("players.scala.html.playerlist")</h2>
    <table class="table table-condensed table-hover table-bordered">
        <tr>
-           <th>Joueur</th>
-           <th style="width: 20px;">Scores</th>
+           <th>@Messages.get("Player")</th>
+           <th style="width: 20px;">@Messages.get("Scores")</th>
        </tr>
        @for(player <- players) {
             <tr>

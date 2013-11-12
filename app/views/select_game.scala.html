@@ -1,11 +1,12 @@
 @(games: List[models.Game])
+@import play.i18n._
 @main() {
-    <h2>Ajouter un score</h2>
+    <h2>@Messages.get("AddScore")</h2>
     <form role="form" action="/score/new" method="POST">
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="game">Sélectionnez le jeu</label>
+                    <label for="game">@Messages.get("SelectGame")</label>
                     <select name="game" class="form-control">
                         @for(game <- games) {
                             <option value="@game.id">@game.title</option>
@@ -14,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">Valider</button>
+        <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
     </form>
 
 }

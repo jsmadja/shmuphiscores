@@ -1,5 +1,5 @@
 @(game: models.Game)
-
+@import play.i18n._
 @scores(difficulty: Difficulty, mode: Mode) = {
     @if(!game.scoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
@@ -12,11 +12,11 @@
         </h4>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
-                <th style="width: 70px; text-align: center;">Rang</th>
-                <th style="text-align: center;" >Joueur</th>
-                <th style="width: 120px; text-align: center;" >Score</th>
-                <th style="width: 120px; text-align: center;" >Stage</th>
-                <th style="text-align: center; width: 120px;">Commentaire</th>
+                <th style="width: 70px; text-align: center;">@Messages.get("Rank")</th>
+                <th style="text-align: center;" >@Messages.get("Player")</th>
+                <th style="width: 120px; text-align: center;" >@Messages.get("Score")</th>
+                <th style="width: 120px; text-align: center;" >@Messages.get("Stage")</th>
+                <th style="text-align: center; width: 120px;">@Messages.get("Comment")</th>
             </thead>
         @for(score <- game.scoresByPlayers(difficulty, mode)) {
             <tr>
