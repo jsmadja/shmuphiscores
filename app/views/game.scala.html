@@ -60,19 +60,25 @@
 @main() {
 
    <h2 class="title">
+
+       <img src="@game.cover" alt="@game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
+
        @game.title
-       <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
-           <span class="glyphicon glyphicon-share-alt"></span> forum
-       </a>
-       <a href="@routes.Ranking.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
-           <span class="glyphicon glyphicon-list-alt"></span> ranking
-       </a>
        <p style="font-size: 16pt; margin-top: 10px;">
         @for(platform <- game.platforms) {
             <span class="label label-success">@platform.name</span>
         }
        </p>
+       <p>
+           <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
+               <span class="glyphicon glyphicon-share-alt"></span> forum
+           </a>
+           <a href="@routes.Ranking.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+               <span class="glyphicon glyphicon-list-alt"></span> ranking
+           </a>
+       </p>
    </h2>
+    <br style="clear: both;" />
 
     @if(game.modes.isEmpty) {
         @if(game.difficulties.isEmpty) {
