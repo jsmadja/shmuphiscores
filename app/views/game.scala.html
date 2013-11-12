@@ -38,7 +38,7 @@
                         </a>
                     }
 
-                    @score.formattedValue
+                    <a href="@routes.Score.read(score)">@score.formattedValue</a>
                 </td>
                 <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
