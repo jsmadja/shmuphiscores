@@ -10,7 +10,7 @@
                         <small class="date">@score.formattedDate</small>
                     </div>
                     <p>
-                    <span class="score">@score.formattedValue</span>
+                    <span class="score"><a href="@routes.Score.read(score)">@score.formattedValue</a></span>
                         @if(score.rank > 0) {
                             <span class="rank">(@score.formattedRank)</span>
                         }

@@ -5,9 +5,12 @@
 GET     /                           controllers.Application.index()
 
 GET     /score                      controllers.Application.selectGame()
+GET     /score/:id                  controllers.Score.read(id: models.Score)
 POST    /score                      controllers.Score.save()
 POST    /score/new                  controllers.Application.fillForm()
 GET     /score/shmup/:id            controllers.Score.shmup(id: models.Score)
+POST    /score/update               controllers.Score.update()
+
 
 POST    /game                       controllers.Game.save()
 GET     /game/new                   controllers.Game.create()

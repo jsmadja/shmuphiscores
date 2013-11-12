@@ -1,0 +1,94 @@
+@(score: models.Score)
+@main() {
+    <h2>Score sur @score.game.title</h2>
+    <form role="form" method="POST" action="/score/update">
+        <input type="hidden" name="scoreId" value="@score.id" />
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="value">Score</label>
+                    <input required="true" class="form-control" name="value" placeholder="123456" value="@score.value">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="stage">Stage</label>
+                    <select name="stage" class="form-control">
+                    @for(stage <- score.game.stages) {
+                        <option value="@stage.id" @if(stage.equals(score.stage)){selected} >@stage.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="platform">Plateforme</label>
+                    <select name="platform" class="form-control">
+                    @for(platform <- score.game.platforms) {
+                        <option value="@platform.id" @if(platform.equals(score.platform)){selected} >@platform.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="difficulty">Difficulté</label>
+                    <select name="difficulty" class="form-control">
+                    @for(difficulty <- score.game.difficulties) {
+                        <option value="@difficulty.id" @if(difficulty.equals(score.difficulty)){selected} >@difficulty.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="mode">Mode</label>
+                    <select name="mode" class="form-control">
+                    @for(mode <- score.game.modes) {
+                        <option value="@mode.id" @if(mode.equals(score.mode)){selected} >@mode.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="photo">Photo</label>
+                    <input type="url" class="form-control" value="@score.photo" name="photo" placeholder="Lien direct vers l'image (hébergement: casimages, imageshack, ...)">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="comment">Commentaire</label>
+                    <textarea name="comment" class="form-control" rows="5">@score.comment</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="login">Identifiant</label>
+                    <input class="form-control" value="@score.player.name" disabled="true" required="true" name="login">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="post">Poster sur le forum</label>
+                <select name="post" class="form-control">
+                    <option>OUI</option>
+                    <option>NON</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Mettre à jour</button>
+    </form>
+
+}
