@@ -4,6 +4,22 @@
     <form role="form" method="POST" action="/score">
         <input type="hidden" name="gameId" value="@game.id" />
         <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="value">Score</label>
+                    <input required="true" class="form-control" name="value" placeholder="123456">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="stage">Stage</label>
+                    <select name="stage" class="form-control">
+                    @for(stage <- game.stages) {
+                        <option value="@stage.id">@stage.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="platform">Plateforme</label>
@@ -31,22 +47,6 @@
                         @for(mode <- game.modes) {
                             <option value="@mode.id">@mode.name</option>
                         }
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="value">Score</label>
-                    <input required="true" class="form-control" name="value" placeholder="123456">
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="stage">Stage</label>
-                    <select name="stage" class="form-control">
-                    @for(stage <- game.stages) {
-                        <option value="@stage.id">@stage.name</option>
-                    }
                     </select>
                 </div>
             </div>
