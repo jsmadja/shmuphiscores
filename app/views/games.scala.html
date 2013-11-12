@@ -5,11 +5,13 @@
 
    <table class="table table-condensed table-hover table-bordered">
        <tr>
+           <th style="text-align: center;">#</th>
            <th>Jeux</th>
            <th style="width: 20px;">Scores</th>
        </tr>
        @for(game <- games) {
         <tr>
+            <td><img src="@game.cover" alt="@game.title" width="50px" /></td>
             <td><a href="@routes.Game.index(game)">@game.title</a></td>
             <td style="text-align: right;">
                 @if(game.scores != null) {
