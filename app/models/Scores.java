@@ -6,10 +6,12 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
+import static java.util.Collections.sort;
 
 public class Scores {
 
-    public static List<Score> keepBestScoresForEachPlayer(Collection<Score> scores) {
+    public static List<Score> keepBestScoresForEachPlayer(List<Score> scores) {
+        sort(scores);
         final Set<Player> players = new HashSet<Player>();
         return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
@@ -23,15 +25,17 @@ public class Scores {
         }));
     }
 
-    public static List<Score> keepBestScoresForEachGame(Collection<Score> scores) {
-        final Set<Game> games = new HashSet<Game>();
+    public static List<Score> keepBestScoresForEachGame(List<Score> scores) {
+        sort(scores);
+        final Set<String> games = new HashSet<String>();
         return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                if(games.contains(score.game)) {
+                String key = score.game.title+"_"+score.difficulty+"_"+score.platform+" "+score.mode;
+                if(games.contains(key)) {
                     return false;
                 }
-                games.add(score.game);
+                games.add(key);
                 return true;
             }
         }));

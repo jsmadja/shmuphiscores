@@ -45,7 +45,6 @@ public class Player extends BaseModel<Player> {
 
     public List<Score> bestScores() {
         List<Score> bestScores = new ArrayList<Score>(scores);
-        Collections.sort(bestScores);
         bestScores = Scores.keepBestScoresForEachGame(bestScores);
         Collections.sort(bestScores, new Comparator<Score>() {
             @Override

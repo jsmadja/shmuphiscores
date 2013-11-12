@@ -66,7 +66,6 @@ public class Game extends BaseModel<Game> {
                 return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
             }
         }));
-        sort(filtered);
         filtered = Scores.keepBestScoresForEachPlayer(filtered);
         return filtered;
     }

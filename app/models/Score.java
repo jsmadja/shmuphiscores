@@ -88,7 +88,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public int rank() {
         List<Score> scores = new ArrayList<Score>(game.scores(difficulty, mode));
-        sort(scores);
         scores = Scores.keepBestScoresForEachPlayer(scores);
         for (int i = 0; i < scores.size(); i++) {
             if (this.equals(scores.get(i))) {
