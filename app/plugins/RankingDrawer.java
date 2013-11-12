@@ -23,6 +23,8 @@ public class RankingDrawer {
         void draw(Graphics2D graphics, int y);
     }
 
+    private static final int fontHeight = 12;
+
     private final static Font normalFont = new Font("Courier", PLAIN, 14);
     private final static Font parameterFont = new Font("Courier", BOLD, 14);
     private final static Font gameFont = new Font("Verdana", BOLD, 12);
@@ -91,7 +93,6 @@ public class RankingDrawer {
     }
 
     public static BufferedImage computeRanking(List<PictureLine> pictureLines) {
-        int fontHeight = 13;
         int width = 652;
         int height = fontHeight * pictureLines.size();
         if (height == 0) {
