@@ -40,7 +40,7 @@
 
                     @score.formattedValue
                 </td>
-                <td style="text-align: right;" >@score.stage.name</td>
+                <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
                     @if(score.comment) {
                         <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">

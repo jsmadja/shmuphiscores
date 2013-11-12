@@ -60,7 +60,7 @@ public class Global extends GlobalSettings {
             difficulty.game = game;
             difficulty.save();
         }
-        for (String s : asList("ARCADE", "XBOX 360")) {
+        for (String s : asList("ARCADE", "XBOX 360", "MAME")) {
             Platform platform = new Platform(s);
             platform.game = game;
             platform.save();
