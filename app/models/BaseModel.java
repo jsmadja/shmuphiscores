@@ -4,6 +4,7 @@ import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import org.ocpsoft.prettytime.PrettyTime;
 import play.db.ebean.Model;
+import play.mvc.Http;
 import play.mvc.PathBindable;
 
 import javax.persistence.Column;
@@ -79,13 +80,13 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
         if (createdAt == null) {
             return "";
         }
-        return new PrettyTime(Locale.FRENCH).format(createdAt);
+        return new PrettyTime(Http.Context.current().lang().toLocale()).format(createdAt);
     }
 
     public String getUpdatedSince() {
         if (updatedAt == null) {
             return "";
         }
-        return new PrettyTime(Locale.FRENCH).format(updatedAt);
+        return new PrettyTime(Http.Context.current().lang().toLocale()).format(createdAt);
     }
 }

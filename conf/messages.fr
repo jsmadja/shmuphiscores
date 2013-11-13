@@ -26,3 +26,4 @@ AddScore=Ajouter un score
 SelectGame=Sélectionnez le jeu
 
 players.scala.html.playerlist=Liste des joueurs
+scoreform.scala.html.photo.placeholder=Lien direct vers l'image (hébergement: casimages, imageshack, ...)
