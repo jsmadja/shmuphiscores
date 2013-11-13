@@ -15,12 +15,12 @@ import static com.avaje.ebean.Ebean.find;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
-import views.html.score_read;
+import views.html.score_update;
 
 public class Score extends Controller {
 
     public static Result read(models.Score score) {
-        return ok(score_read.render(score));
+        return ok(score_update.render(score));
     }
 
     public static Result save() {
