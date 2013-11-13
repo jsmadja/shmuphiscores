@@ -24,7 +24,7 @@ public class Game extends Controller {
     }
 
     public static Result create() {
-        return ok(views.html.new_game.render());
+        return ok(views.html.game_create.render());
     }
 
     public static Result save() {
