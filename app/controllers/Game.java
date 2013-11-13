@@ -11,6 +11,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import plugins.ScoreImporter;
 import scala.collection.immutable.List;
+import views.html.game_read;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -20,7 +21,7 @@ import java.util.Scanner;
 public class Game extends Controller {
 
     public static Result index(models.Game game) {
-        return ok(views.html.game.render(game));
+        return ok(game_read.render(game));
     }
 
     public static Result create() {
