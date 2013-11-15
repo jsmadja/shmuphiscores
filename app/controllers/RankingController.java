@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class Ranking extends Controller {
+public class RankingController extends Controller {
 
     public static Result index(models.Game game) throws IOException {
         BufferedImage image = RankingPicture.createRankingPicture(game);

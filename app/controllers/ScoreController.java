@@ -17,7 +17,7 @@ import static play.data.Form.*;
 
 import views.html.score_update;
 
-public class Score extends Controller {
+public class ScoreController extends Controller {
 
     public static Result read(models.Score score) {
         return ok(score_update.render(score));

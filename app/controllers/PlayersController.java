@@ -10,7 +10,7 @@ import java.util.List;
 
 import static java.util.Collections.sort;
 
-public class Players extends Controller {
+public class PlayersController extends Controller {
 
     public static Result index() {
         List<Player> players = Ebean.createQuery(Player.class).findList();

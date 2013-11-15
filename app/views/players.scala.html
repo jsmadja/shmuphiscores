@@ -10,7 +10,7 @@
        @for(player <- players) {
             <tr>
                 <td>
-                    <a href="@routes.Player.index(player)">@player.name</a>
+                    <a href="@routes.PlayerController.index(player)">@player.name</a>
                 </td>
                 <td style="text-align: right;">
                     @player.scores.size()

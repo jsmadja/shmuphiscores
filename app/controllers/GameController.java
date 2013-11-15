@@ -18,7 +18,7 @@ import java.io.StringReader;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Game extends Controller {
+public class GameController extends Controller {
 
     public static Result index(models.Game game) {
         return ok(game_read.render(game));

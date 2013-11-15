@@ -21,7 +21,7 @@
         @for(score <- game.bestScoresByPlayers(difficulty, mode)) {
             <tr>
                 <td style="text-align: right;">@score.formattedRank</td>
-                <td><a href="@routes.Player.index(score.player)">@score.player.name</a></td>
+                <td><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
                 <td style="text-align: right; vertical-align: middle;">
                     @if(score.photo) {
                         <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right: 5px;">
@@ -38,7 +38,7 @@
                         </a>
                     }
 
-                    <a href="@routes.Score.read(score)">@score.formattedValue</a>
+                    <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
                 </td>
                 <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
@@ -73,7 +73,7 @@
            <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
                <span class="glyphicon glyphicon-share-alt"></span> forum
            </a>
-           <a href="@routes.Ranking.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+           <a href="@routes.RankingController.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
                <span class="glyphicon glyphicon-list-alt"></span> ranking
            </a>
        </p>

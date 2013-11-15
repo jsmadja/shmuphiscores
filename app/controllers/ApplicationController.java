@@ -14,7 +14,7 @@ import static play.data.Form.*;
 
 import java.util.List;
 
-public class Application extends Controller {
+public class ApplicationController extends Controller {
 
     public static Result index() {
         Timeline timeline = new Timeline();

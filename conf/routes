@@ -2,28 +2,28 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           controllers.Application.index()
+GET     /                           controllers.ApplicationController.index()
 
-GET     /score                      controllers.Application.selectGame()
-GET     /score/:id                  controllers.Score.read(id: models.Score)
-POST    /score                      controllers.Score.save()
-POST    /score/new                  controllers.Application.fillForm()
-GET     /score/shmup/:id            controllers.Score.shmup(id: models.Score)
-POST    /score/update               controllers.Score.update()
+GET     /score                      controllers.ApplicationController.selectGame()
+GET     /score/:id                  controllers.ScoreController.read(id: models.Score)
+POST    /score                      controllers.ScoreController.save()
+POST    /score/new                  controllers.ApplicationController.fillForm()
+GET     /score/shmup/:id            controllers.ScoreController.shmup(id: models.Score)
+POST    /score/update               controllers.ScoreController.update()
 
 
-POST    /game                       controllers.Game.save()
-GET     /game/new                   controllers.Game.create()
-POST    /game/scores                controllers.Game.saveScores
-GET     /game/scores                controllers.Game.importScores
-GET     /game/:id/ranking.png       controllers.Ranking.index(id: models.Game)
-GET     /game/:id                   controllers.Game.index(id: models.Game)
+POST    /game                       controllers.GameController.save()
+GET     /game/new                   controllers.GameController.create()
+POST    /game/scores                controllers.GameController.saveScores
+GET     /game/scores                controllers.GameController.importScores
+GET     /game/:id/ranking.png       controllers.RankingController.index(id: models.Game)
+GET     /game/:id                   controllers.GameController.index(id: models.Game)
 
-GET     /games                      controllers.Games.index()
+GET     /games                      controllers.GamesController.index()
 
-GET     /player/:id                 controllers.Player.index(id: models.Player)
-GET     /players                    controllers.Players.index()
+GET     /player/:id                 controllers.PlayerController.index(id: models.Player)
+GET     /players                    controllers.PlayersController.index()
 
-GET     /ranking.png/:game          controllers.Ranking.index(game: models.Game)
+GET     /ranking.png/:game          controllers.RankingController.index(game: models.Game)
 
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

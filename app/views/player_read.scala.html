@@ -4,7 +4,7 @@
 @gameLine(score: models.Score) = {
     <tr>
         <td>
-            <a href="@routes.Game.index(score.game)">@score.game.title</a>
+            <a href="@routes.GameController.index(score.game)">@score.game.title</a>
         </td>
         <td>
             @if(score.platform != null) {
@@ -21,7 +21,7 @@
             @score.stage
         </td>
         <td style="text-align: right;">
-            <a href="@routes.Score.read(score)">@score.formattedValue</a>
+            <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
         </td>
         <td style="text-align: right;">
             @score.formattedRank
