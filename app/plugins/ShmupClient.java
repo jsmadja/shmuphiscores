@@ -1,12 +1,8 @@
 package plugins;
 
-import com.gargoylesoftware.htmlunit.*;
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
-import com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener;
-import com.google.common.io.Files;
 
-import java.io.File;
 import java.io.IOException;
 
 public class ShmupClient {
@@ -14,39 +10,24 @@ public class ShmupClient {
     private WebClient webClient;
 
     public ShmupClient() {
-        webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
+        webClient = new WebClient();
     }
 
-    public static void main(String[] args) throws IOException {
-        ShmupClient shmupClient = new ShmupClient();
-        if ((shmupClient.authenticate("anzymus", ""))) {
-            shmupClient.post("http://forum.shmup.com/viewtopic.php?f=3&t=18684", "bonjour ceci est un test");
+    public String getLoginById(Long id) {
+        try {
+            authenticate("anzymus", "");
+            HtmlPage page = webClient.getPage("http://forum.shmup.com/memberlist.php?mode=viewprofile&u=" + id);
+            return page.getBody().getTextContent().split("connexion \\[ ")[1].split(" \\]")[0];
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
         }
     }
 
-    private void post(String target, String message) throws IOException {
-        target = target.replace("viewtopic.php?", "posting.php?mode=reply&");
-        System.err.println(target);
-        HtmlPage formPage = webClient.getPage(target);
-        HtmlTextArea textArea = (HtmlTextArea) formPage.getElementsByName("message").get(0);
-        textArea.setText(message);
-        HtmlSubmitInput submit = (HtmlSubmitInput) formPage.getElementsByName("post").get(0);
-
-        HtmlCheckBoxInput check = (HtmlCheckBoxInput) formPage.getElementsByName("disable_magic_url").get(0);
-        check.setChecked(true);
-
-        Files.write(formPage.asXml().getBytes(), new File("/tmp/pouet_form.html"));
-
-        HtmlPage result = submit.click();
-        Files.write(result.asXml().getBytes(), new File("/tmp/pouet.html"));
-        webClient.closeAllWindows();
-    }
-
-    private boolean authenticate(String login, String password) throws IOException {
+    private void authenticate(String login, String password) throws IOException {
         HtmlPage loginPage = webClient.getPage("http://forum.shmup.com");
         HtmlForm loginForm = fillForm(loginPage, login, password);
         String contentResult = submitForm(loginForm);
-        return contentResult.contains("Vous vous êtes connecté avec succès.");
+        //return contentResult.contains("Vous vous êtes connecté avec succès.");
     }
 
     private HtmlForm fillForm(HtmlPage loginPage, String login, String password) {

@@ -50,6 +50,7 @@ create table platform (
 create table player (
   id                        bigint not null,
   name                      varchar(255),
+  shmup_user_id             bigint,
   created_at                timestamp not null,
   updated_at                timestamp not null,
   constraint pk_player primary key (id))

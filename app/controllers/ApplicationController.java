@@ -4,15 +4,14 @@ import com.avaje.ebean.Ebean;
 import models.Game;
 import models.Score;
 import models.Timeline;
-import play.api.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 import views.html.score_create;
-import static play.data.Form.*;
-
 
 import java.util.List;
+
+import static play.data.Form.form;
 
 public class ApplicationController extends Controller {
 
@@ -26,7 +25,7 @@ public class ApplicationController extends Controller {
     }
 
     public static Result selectGame() {
-        return ok(views.html.select_game.render(models.Game.findAll()));
+        return ok(views.html.select_game.render(Game.findAll()));
     }
 
     public static Result fillForm() {
