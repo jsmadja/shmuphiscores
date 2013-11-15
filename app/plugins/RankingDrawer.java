@@ -28,7 +28,7 @@ public class RankingDrawer {
     private final static Font normalFont = new Font("Courier", PLAIN, 14);
     private final static Font parameterFont = new Font("Courier", BOLD, 14);
     private final static Font gameFont = new Font("Verdana", BOLD, 12);
-    private final static Font playerFont = new Font("Verdana", BOLD, 12);
+    private final static Font playerFont = new Font("Courier", BOLD, 12);
     private final static Font scoreFont = new Font("Courier", BOLD, 14);
 
     public static class GameLine implements PictureLine {
