@@ -13,10 +13,17 @@
        @for(game <- games) {
         <tr>
             <td><img src="@game.cover" alt="@game.title" width="50px" /></td>
-            <td><a href="@routes.Game.index(game)">@game.title</a></td>
+            <td>
+                <a href="@routes.Game.index(game)">@game.title</a>
+                <p style="font-size: 16pt; margin-top: 10px;">
+                    @for(platform <- game.platforms) {
+                        <span class="label label-success label-small" style="font-size: 50%;">@platform.name</span>
+                    }
+                </p>
+            </td>
             <td style="text-align: right;">
                 @if(game.scores != null) {
-                    @game.scores.size
+                    @game.bestScores.size
                 } else {
                     0
                 }

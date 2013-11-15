@@ -112,11 +112,24 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     @Override
     public int compareTo(Score score) {
-        return score.value.compareTo(this.value);
+        int i = score.value.compareTo(this.value);
+        if(i == 0) {
+            return score.stage.id.compareTo(this.stage.id);
+        }
+        return i;
     }
 
     @Override
     public boolean equals(Object o) {
         return value.equals(((Score) o).value);
+    }
+
+    public boolean isWorstThanOlders() {
+        for (Score score : player.bestScores()) {
+            if(score.game.equals(game) && score.compareTo(this) < 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

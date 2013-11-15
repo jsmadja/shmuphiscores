@@ -1,11 +1,10 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Difficulty;
-import models.Mode;
-import models.Platform;
-import models.Stage;
+import models.*;
+import models.Game;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -14,6 +13,7 @@ import java.util.Map;
 import static com.avaje.ebean.Ebean.find;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
+import static play.data.Form.*;
 
 import views.html.score_update;
 
@@ -30,6 +30,10 @@ public class Score extends Controller {
         String password = data.get("password");
         if (isAuthenticated(login, password)) {
             models.Score score = createScore(data);
+            if(score.isWorstThanOlders()) {
+                scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
+                return badRequest(views.html.score_create.render(score.game, scoreForm));
+            }
             score.save();
             if ("OUI".equalsIgnoreCase(data.get("post"))) {
                 return shmup(score);

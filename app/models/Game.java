@@ -7,10 +7,13 @@ import play.db.ebean.Model;
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.*;
+import javax.persistence.OrderBy;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
-import static java.util.Collections.sort;
+import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
 public class Game extends BaseModel<Game> {
@@ -24,6 +27,7 @@ public class Game extends BaseModel<Game> {
     @OneToMany(mappedBy = "game")
     public List<Score> scores;
 
+    @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
 
@@ -56,18 +60,33 @@ public class Game extends BaseModel<Game> {
         });
     }
 
-    public Collection<Score> scoresByPlayers(final Difficulty difficulty, final Mode mode) {
+    public Collection<Score> bestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
-        List<Score> filtered = new ArrayList<Score>(filter(scores, new Predicate<Score>() {
+        return keepBestScoresForEachPlayer(filterBy(difficulty, mode));
+    }
+
+    public Collection<Score> bestScores() {
+        List<Score> bestScores = new ArrayList<Score>();
+        if (scores == null) {
+            return bestScores;
+        }
+        for (final Difficulty difficulty : difficulties) {
+            for (final Mode mode : modes) {
+                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty, mode)));
+            }
+        }
+        return bestScores;
+    }
+
+    private List<Score> filterBy(final Difficulty difficulty, final Mode mode) {
+        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
                 return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
             }
         }));
-        filtered = Scores.keepBestScoresForEachPlayer(filtered);
-        return filtered;
     }
 
     public String post() {

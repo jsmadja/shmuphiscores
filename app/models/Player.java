@@ -15,7 +15,7 @@ public class Player extends BaseModel<Player> {
     public String name;
 
     @OneToMany(mappedBy = "player")
-    public List<Score> scores;
+    public List<Score> scores = new ArrayList<Score>();
 
     public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
 
