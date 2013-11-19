@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Player;
+import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -14,6 +15,9 @@ public class PlayerController extends Controller {
 
     public static Player current() {
         Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
+
+        Logger.info("phpbb3_axtcz_u = "+userId);
+
         if(userId == null) {
             return Player.guest;
         }
