@@ -1,21 +1,19 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
-import models.*;
-import models.Game;
+import models.Difficulty;
+import models.Mode;
+import models.Platform;
+import models.Stage;
 import play.data.Form;
-import play.data.validation.ValidationError;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.score_update;
 
 import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
-import static play.data.Form.*;
-
-import views.html.score_update;
 
 public class ScoreController extends Controller {
 
@@ -26,25 +24,20 @@ public class ScoreController extends Controller {
     public static Result save() {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
-        String login = data.get("login");
-        String password = data.get("password");
-        if (isAuthenticated(login, password)) {
-            models.Score score = createScore(data);
-            if(score.isWorstThanOlders()) {
-                scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
-                return badRequest(views.html.score_create.render(score.game, scoreForm));
-            }
-            score.save();
-            if ("OUI".equalsIgnoreCase(data.get("post"))) {
-                return shmup(score);
-            } else {
-                return redirect("/");
-            }
+        models.Score score = createScore(data);
+        if (score.isWorstThanOlders()) {
+            scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
+            return badRequest(views.html.score_create.render(score.game, scoreForm));
         }
-        return unauthorized();
+        score.save();
+        if ("OUI".equalsIgnoreCase(data.get("post"))) {
+            return shmup(score);
+        }
+        return redirect("/");
     }
 
     public static Result update() {
+        /*
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
         models.Score score = Ebean.find(models.Score.class, Long.valueOf(data.get("scoreId")));
@@ -59,6 +52,7 @@ public class ScoreController extends Controller {
                 return redirect("/");
             }
         }
+        */
         return unauthorized();
     }
 
@@ -67,11 +61,12 @@ public class ScoreController extends Controller {
     }
 
     private static models.Score createScore(Map<String, String> data) {
+        String login = PlayerController.current().name;
         Difficulty difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
         Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
-        models.Player player = models.Player.findOrCreatePlayer(data.get("login"));
+        models.Player player = models.Player.findOrCreatePlayer(login);
         models.Game game = find(models.Game.class, parseLong(data.get("gameId")));
         Long value = value(data);
         String comment = data.get("comment");
@@ -79,6 +74,7 @@ public class ScoreController extends Controller {
         return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
     }
 
+    /*
     private static void updateScore(models.Score score, Map<String, String> data) {
         score.stage = find(Stage.class, parseLong(data.get("stage")));
         score.mode = mode(data);
@@ -88,6 +84,7 @@ public class ScoreController extends Controller {
         score.value = value(data);
         score.photo = data.get("photo");
     }
+    */
 
     private static Long value(Map<String, String> data) {
         String scoreValue = data.get("value");
@@ -110,10 +107,6 @@ public class ScoreController extends Controller {
             mode = find(Mode.class, parseLong(data.get("mode")));
         }
         return mode;
-    }
-
-    private static boolean isAuthenticated(String login, String password) {
-        return true;
     }
 
 }

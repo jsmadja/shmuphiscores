@@ -1,63 +1,60 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
-
 # --- !Ups
 
 create table base_model (
-  id                        bigint not null,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  id                        bigint auto_increment not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_base_model primary key (id))
 ;
 
 create table difficulty (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   game_id                   bigint,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_difficulty primary key (id))
 ;
 
 create table game (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   cover                     varchar(255),
   title                     varchar(255),
   thread                    varchar(255),
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_game primary key (id))
 ;
 
 create table mode (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   game_id                   bigint,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_mode primary key (id))
 ;
 
 create table platform (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   game_id                   bigint,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_platform primary key (id))
 ;
 
 create table player (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   shmup_user_id             bigint,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_player primary key (id))
 ;
 
 create table score (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   game_id                   bigint,
   player_id                 bigint,
   stage_id                  bigint,
@@ -65,37 +62,21 @@ create table score (
   difficulty_id             bigint,
   platform_id               bigint,
   value                     bigint,
-  comment                   clob,
+  comment                   longtext,
   photo                     varchar(255),
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_score primary key (id))
 ;
 
 create table stage (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   name                      varchar(255),
   game_id                   bigint,
-  created_at                timestamp not null,
-  updated_at                timestamp not null,
+  created_at                datetime not null,
+  updated_at                datetime not null,
   constraint pk_stage primary key (id))
 ;
-
-create sequence base_model_seq;
-
-create sequence difficulty_seq;
-
-create sequence game_seq;
-
-create sequence mode_seq;
-
-create sequence platform_seq;
-
-create sequence player_seq;
-
-create sequence score_seq;
-
-create sequence stage_seq;
 
 alter table difficulty add constraint fk_difficulty_game_1 foreign key (game_id) references game (id) on delete restrict on update restrict;
 create index ix_difficulty_game_1 on difficulty (game_id);
@@ -122,39 +103,23 @@ create index ix_stage_game_10 on stage (game_id);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists base_model;
+drop table base_model;
 
-drop table if exists difficulty;
+drop table difficulty;
 
-drop table if exists game;
+drop table game;
 
-drop table if exists mode;
+drop table mode;
 
-drop table if exists platform;
+drop table platform;
 
-drop table if exists player;
+drop table player;
 
-drop table if exists score;
+drop table score;
 
-drop table if exists stage;
+drop table stage;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists base_model_seq;
-
-drop sequence if exists difficulty_seq;
-
-drop sequence if exists game_seq;
-
-drop sequence if exists mode_seq;
-
-drop sequence if exists platform_seq;
-
-drop sequence if exists player_seq;
-
-drop sequence if exists score_seq;
-
-drop sequence if exists stage_seq;
+SET FOREIGN_KEY_CHECKS=1;
 
