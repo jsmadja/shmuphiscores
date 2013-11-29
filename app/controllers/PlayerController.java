@@ -17,20 +17,22 @@ public class PlayerController extends Controller {
     public static Player current() {
         Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
 
-        Logger.info("phpbb3_axtcz_u = " + userId);
+        if(userId != null) {
+            Logger.info("phpbb3_axtcz_u = " + userId.domain()+" = "+userId.value());
+        }
 
-        if (Play.isProd()) {
+        //if (Play.isProd()) {
             if (userId == null) {
                 return Player.guest;
             }
-        }
+        //}
 
         Long shmupUserId;
-        if (Play.isDev()) {
-            shmupUserId = 33489L;
-        } else {
+        //if (Play.isDev()) {
+        //    shmupUserId = 33489L;
+        //} else {
             shmupUserId = Long.parseLong(userId.value());
-        }
+        //}
         if (shmupUserId == null) {
             return Player.guest;
         }

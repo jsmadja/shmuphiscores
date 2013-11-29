@@ -25,5 +25,8 @@ Submit=Valider
 AddScore=Ajouter un score
 SelectGame=Sélectionnez le jeu
 
+Logon=Se connecter
+LogonHelp=Vous devez vous identifier sur le forum shmup.com
+
 players.scala.html.playerlist=Liste des joueurs
 scoreform.scala.html.photo.placeholder=Lien direct vers l''image (hébergement : casimages, imageshack, ...)

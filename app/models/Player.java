@@ -70,4 +70,8 @@ public class Player extends BaseModel<Player> {
         return bestScores;
     }
 
+    public boolean isAuthenticated() {
+        return !this.equals(guest);
+    }
+
 }

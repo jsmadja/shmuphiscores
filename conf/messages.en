@@ -25,5 +25,8 @@ Submit=Submit
 AddScore=Add a score
 SelectGame=Select Game
 
+Logon=Log In
+LogonHelp=You must authenticate on shmup.com
+
 players.scala.html.playerlist=Player List
 scoreform.scala.html.photo.placeholder=Direct Link (hosts: casimages, imageshack, ...)

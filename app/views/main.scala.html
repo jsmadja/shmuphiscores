@@ -17,10 +17,21 @@
         <div class="container">
             <div style="margin-right: -60px;margin-left: -100px;">
                 <div id="menu" class="btn-group btn-group-sm pull-right" style="z-index: 1">
-                    <a href="/score" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> @Messages.get("Score")</a>
+                    @if(controllers.PlayerController.current.isAuthenticated) {
+                        <a href="/score" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> @Messages.get("Score")</a>
+                    }
                     <a href="/games" class="btn btn-danger"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a>
                     <a href="/players" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> @Messages.get("Players")</a>
-                    <a href="@routes.PlayerController.index(controllers.PlayerController.current)" class="btn btn-primary">Mon compte [ @controllers.PlayerController.current.name ]</a>
+
+                    @if(controllers.PlayerController.current.isAuthenticated) {
+                        <a href="@routes.PlayerController.index(controllers.PlayerController.current)" class="btn btn-primary">@controllers.PlayerController.current.name</a>
+                    } else {
+                        <a href="http://forum.shmup.com/ucp.php?mode=login" id="account" class="btn btn-primary" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@Messages.get("LogonHelp")" data-original-title="" title="" >@Messages.get("Logon")</a>
+                        <script>
+                        $('#account').popover('hide');
+                        </script>
+
+                    }
                 </div>
 
                 <div class="col-lg-12">
