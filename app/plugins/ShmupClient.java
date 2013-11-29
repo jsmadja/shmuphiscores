@@ -26,8 +26,7 @@ public class ShmupClient {
     private void authenticate(String login, String password) throws IOException {
         HtmlPage loginPage = webClient.getPage("http://forum.shmup.com");
         HtmlForm loginForm = fillForm(loginPage, login, password);
-        String contentResult = submitForm(loginForm);
-        //return contentResult.contains("Vous vous êtes connecté avec succès.");
+        submitForm(loginForm);
     }
 
     private HtmlForm fillForm(HtmlPage loginPage, String login, String password) {
