@@ -18,20 +18,16 @@ public class PlayerController extends Controller {
         Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
 
         if(userId != null) {
-            Logger.info("phpbb3_axtcz_u = " + userId.domain()+" = "+userId.value());
+            Logger.info("phpbb3_axtcz_u = " +userId.value());
+        } else {
+            return Player.guest;
         }
 
-        //if (Play.isProd()) {
-            if (userId == null) {
-                return Player.guest;
-            }
-        //}
-
         Long shmupUserId;
+        shmupUserId = Long.parseLong(userId.value());
         //if (Play.isDev()) {
         //    shmupUserId = 33489L;
         //} else {
-            shmupUserId = Long.parseLong(userId.value());
         //}
         if (shmupUserId == null) {
             return Player.guest;
