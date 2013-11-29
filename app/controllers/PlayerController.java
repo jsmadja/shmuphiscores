@@ -2,6 +2,7 @@ package controllers;
 
 import models.Player;
 import play.Logger;
+import play.Play;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -16,17 +17,25 @@ public class PlayerController extends Controller {
     public static Player current() {
         Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
 
-        Logger.info("phpbb3_axtcz_u = "+userId);
+        Logger.info("phpbb3_axtcz_u = " + userId);
 
-        if(userId == null) {
-            return Player.guest;
+        if (Play.isProd()) {
+            if (userId == null) {
+                return Player.guest;
+            }
         }
-        Long shmupUserId = Long.parseLong(userId.value());
-        if(shmupUserId == null) {
+
+        Long shmupUserId;
+        if (Play.isDev()) {
+            shmupUserId = 33489L;
+        } else {
+            shmupUserId = Long.parseLong(userId.value());
+        }
+        if (shmupUserId == null) {
             return Player.guest;
         }
         Player player = Player.findByShmupUserId(shmupUserId);
-        if(player == null) {
+        if (player == null) {
             ShmupClient shmupClient = new ShmupClient();
             String login = shmupClient.getLoginById(shmupUserId);
             player = Player.findOrCreatePlayer(login);

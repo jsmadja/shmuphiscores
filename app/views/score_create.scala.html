@@ -10,13 +10,13 @@
             </p>
         }
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="value">@Messages.get("Score")</label>
                     <input required="true" class="form-control" name="value" placeholder="123456">
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="stage">@Messages.get("Stage")</label>
                     <select name="stage" class="form-control">
@@ -26,7 +26,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="platform">@Messages.get("Platform")</label>
                     <select name="platform" class="form-control">
@@ -36,7 +36,9 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="difficulty">@Messages.get("Difficulty")</label>
                     <select name="difficulty" class="form-control">
@@ -46,7 +48,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="mode">@Messages.get("Mode")</label>
                     <select name="mode" class="form-control">
@@ -55,6 +57,13 @@
                         }
                     </select>
                 </div>
+            </div>
+            <div class="col-md-4">
+                <label for="post">@Messages.get("Post")</label>
+                <select name="post" class="form-control">
+                    <option value="OUI">@Messages.get("YES")</option>
+                    <option value="NON">@Messages.get("NO")</option>
+                </select>
             </div>
         </div>
         <div class="row">
@@ -71,15 +80,6 @@
                     <label for="comment">@Messages.get("Comment")</label>
                     <textarea name="comment" class="form-control" rows="5"></textarea>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <label for="post">@Messages.get("Post")</label>
-                <select name="post" class="form-control">
-                    <option value="OUI">@Messages.get("YES")</option>
-                    <option value="NON">@Messages.get("NO")</option>
-                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
