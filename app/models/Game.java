@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
+import static models.Scores.keepBestScoresForEachGame;
 import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
@@ -73,8 +74,12 @@ public class Game extends BaseModel<Game> {
             return bestScores;
         }
         for (final Difficulty difficulty : difficulties) {
-            for (final Mode mode : modes) {
-                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty, mode)));
+            if(modes.isEmpty()) {
+                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty)));
+            } else {
+                for (final Mode mode : modes) {
+                    bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty, mode)));
+                }
             }
         }
         return bestScores;
@@ -85,6 +90,15 @@ public class Game extends BaseModel<Game> {
             @Override
             public boolean apply(@Nullable Score score) {
                 return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
+            }
+        }));
+    }
+
+    private List<Score> filterBy(final Difficulty difficulty) {
+        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return (difficulty == null || score.concerns(difficulty));
             }
         }));
     }
