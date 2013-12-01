@@ -3,11 +3,11 @@
 @scores(difficulty: Difficulty, mode: Mode) = {
     @if(!game.bestScoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
-            @if(difficulty != null) {
-                <span class="label label-warning">@difficulty.name</span>
-            }
             @if(mode != null) {
                 <span class="label label-default">@mode.name</span>
+            }
+            @if(difficulty != null) {
+                <span class="label label-warning">@difficulty.name</span>
             }
         </h4>
         <table class="table table-condensed table-hover table-bordered">

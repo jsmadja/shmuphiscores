@@ -31,9 +31,11 @@ public class Game extends BaseModel<Game> {
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
 
+    @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Difficulty> difficulties;
 
+    @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Mode> modes;
 
