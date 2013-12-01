@@ -31,6 +31,9 @@ public class RankingDrawer {
     private final static Font playerFont = new Font("Courier", BOLD, 12);
     private final static Font scoreFont = new Font("Courier", BOLD, 14);
 
+    private static int SCORE_X = 100;
+    private static int STAGE_PLATFORM_X = SCORE_X + 220;
+
     public static class GameLine implements PictureLine {
 
         private final Mode mode;
@@ -70,17 +73,17 @@ public class RankingDrawer {
 
             graphics.setColor(BLUE);
             graphics.setFont(scoreFont);
-            graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), 200, y);
+            graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), SCORE_X, y);
 
 
             graphics.setColor(DARK_GRAY);
             graphics.setFont(parameterFont);
-            String platform = score.platform == null ? "" : leftPad(score.platform.name, 12);
+            String platform = score.platform == null ? "" : leftPad(score.platform.name, 10);
             if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
                 platform = "";
             }
-            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 12);
-            graphics.drawString(stage + " " + platform, 420, y);
+            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 10);
+            graphics.drawString(stage + " " + platform+ " "+score.comment, STAGE_PLATFORM_X, y);
         }
     }
 
