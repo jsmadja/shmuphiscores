@@ -10,7 +10,7 @@
            <th>@Messages.get("Games")</th>
            <th style="width: 20px;">@Messages.get("Scores")</th>
        </tr>
-       @for(game <- games) {
+       @for(game <- games.sortBy(_.title)) {
         <tr>
             <td>
                 <a href="@routes.GameController.index(game)">

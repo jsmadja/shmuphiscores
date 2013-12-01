@@ -15,22 +15,17 @@ public class PlayerController extends Controller {
     }
 
     public static Player current() {
-        Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
-
-        if(userId != null) {
-            Logger.info("phpbb3_axtcz_u = " +userId.value());
-        } else {
-            return Player.guest;
-        }
-
         Long shmupUserId;
-        shmupUserId = Long.parseLong(userId.value());
-        //if (Play.isDev()) {
-        //    shmupUserId = 33489L;
-        //} else {
-        //}
-        if (shmupUserId == null) {
-            return Player.guest;
+        if (Play.isDev()) {
+            shmupUserId = 33489L;
+        } else {
+            Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
+            if (userId != null) {
+                Logger.info("phpbb3_axtcz_u = " + userId.value());
+            } else {
+                return Player.guest;
+            }
+            shmupUserId = Long.parseLong(userId.value());
         }
         Player player = Player.findByShmupUserId(shmupUserId);
         if (player == null) {

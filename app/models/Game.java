@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.google.common.collect.Collections2.filter;
-import static models.Scores.keepBestScoresForEachGame;
 import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
@@ -74,7 +73,7 @@ public class Game extends BaseModel<Game> {
             return bestScores;
         }
         for (final Difficulty difficulty : difficulties) {
-            if(modes.isEmpty()) {
+            if (modes.isEmpty()) {
                 bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty)));
             } else {
                 for (final Mode mode : modes) {
