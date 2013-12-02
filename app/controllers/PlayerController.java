@@ -20,11 +20,10 @@ public class PlayerController extends Controller {
             shmupUserId = 33489L;
         } else {
             Http.Cookie userId = request().cookie("phpbb3_axtcz_u");
-            if (userId != null) {
-                Logger.info("phpbb3_axtcz_u = " + userId.value());
-            } else {
+            if(userId == null || userId.value().equals("1")) {
                 return Player.guest;
             }
+            Logger.info("phpbb3_axtcz_u = " + userId.value());
             shmupUserId = Long.parseLong(userId.value());
         }
         Player player = Player.findByShmupUserId(shmupUserId);
