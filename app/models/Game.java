@@ -74,6 +74,14 @@ public class Game extends BaseModel<Game> {
         if (scores == null) {
             return bestScores;
         }
+
+        if(difficulties.isEmpty()) {
+            for (Mode mode : modes) {
+                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(mode)));
+            }
+            return bestScores;
+        }
+
         for (final Difficulty difficulty : difficulties) {
             if (modes.isEmpty()) {
                 bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty)));
@@ -99,7 +107,16 @@ public class Game extends BaseModel<Game> {
         return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                return (difficulty == null || score.concerns(difficulty));
+                return difficulty == null || score.concerns(difficulty);
+            }
+        }));
+    }
+
+    private List<Score> filterBy(final Mode mode) {
+        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return mode == null || score.concerns(mode);
             }
         }));
     }
