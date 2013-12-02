@@ -31,7 +31,7 @@ public class RankingDrawer {
     private final static Font playerFont = new Font("Courier", BOLD, 12);
     private final static Font scoreFont = new Font("Courier", BOLD, 14);
 
-    private static int SCORE_X = 100;
+    private static int SCORE_X = 80;
     private static int STAGE_PLATFORM_X = SCORE_X + 220;
 
     public static class GameLine implements PictureLine {
@@ -82,7 +82,7 @@ public class RankingDrawer {
             if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
                 platform = "";
             }
-            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 10);
+            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 20);
             graphics.drawString(stage + " " + platform+ " "+score.comment, STAGE_PLATFORM_X, y);
         }
     }
@@ -96,7 +96,7 @@ public class RankingDrawer {
     }
 
     public static BufferedImage computeRanking(List<PictureLine> pictureLines) {
-        int width = 652;
+        int width = 710;
         int height = fontHeight * pictureLines.size();
         if (height == 0) {
             height = 1;
