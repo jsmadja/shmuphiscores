@@ -33,4 +33,8 @@ public class ApplicationController extends Controller {
         return ok(score_create.render(game, form(Score.class)));
     }
 
+    public static Result fillFormWithGame(Game game) {
+        return ok(score_create.render(game, form(Score.class)));
+    }
+
 }
