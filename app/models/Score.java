@@ -6,8 +6,6 @@ import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Collections.sort;
-
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
 
@@ -113,7 +111,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @Override
     public int compareTo(Score score) {
         int i = score.value.compareTo(this.value);
-        if(i == 0) {
+        if (i == 0) {
             return score.stage.id.compareTo(this.stage.id);
         }
         return i;
@@ -126,10 +124,52 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public boolean isWorstThanOlders() {
         for (Score score : player.bestScores()) {
-            if(score.game.equals(game) && score.compareTo(this) <= 0) {
+            if (score.isWorstThan(this)) {
                 return true;
             }
         }
         return false;
     }
+
+    public boolean isWorstThan(Score score) {
+        if(isComparableWith(score)) {
+            return score.compareTo(this) > 0;
+        }
+        return false;
+    }
+
+    private boolean isComparableWith(Score score) {
+        return hasDifficulty(score.difficulty) && hasMode(score.mode) && hasGame(score.game);
+    }
+
+    private boolean hasDifficulty(Difficulty difficulty) {
+        if(difficulty == null && this.difficulty == null) {
+            return true;
+        }
+        if(difficulty == null) {
+            return false;
+        }
+        if(this.difficulty == null) {
+            return false;
+        }
+        return this.difficulty.equals(difficulty);
+    }
+
+    private boolean hasGame(Game game) {
+        return this.game.equals(game);
+    }
+
+    private boolean hasMode(Mode mode) {
+        if(mode == null && this.mode == null) {
+            return true;
+        }
+        if(mode == null) {
+            return false;
+        }
+        if(this.mode == null) {
+            return false;
+        }
+        return this.mode.equals(mode);
+    }
+
 }

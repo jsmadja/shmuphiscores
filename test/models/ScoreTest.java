@@ -1,5 +1,6 @@
 package models;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -15,6 +16,15 @@ public class ScoreTest {
     private String comment = "comment";
     private Platform platform = new Platform("platform");
     private String photo = "photo";
+
+    @Before
+    public void init() {
+        mode.id = 0L;
+        difficulty.id = 0L;
+        platform.id = 0L;
+        player.id = 0L;
+        stage.id = 0L;
+    }
 
     @Test
     public void should_detect_that_score1_is_worse_than_score2() {
@@ -39,6 +49,7 @@ public class ScoreTest {
     @Test
     public void should_detect_worse_only_for_same_player() {
         Player player2 = new Player("player2");
+        player2.id = 2L;
 
         Score score1 = new Score(game, player, stage, mode, difficulty, comment, platform, 1L, photo);
         Score score2 = new Score(game, player2, stage, mode, difficulty, comment, platform, 2L, photo);
@@ -66,6 +77,23 @@ public class ScoreTest {
         Score score2 = new Score(game, player, stage2, mode, difficulty, comment, platform, 1L, photo);
 
         assertTrue(score1.compareTo(score2) > 0);
+    }
+
+    @Test
+    public void mode_is_not_important_in_comparison() {
+        stage.id = 1L;
+        Mode mode1 = new Mode("mode1");
+        mode1.id = 1L;
+
+        Score score1 = new Score(game, player, stage, mode1, difficulty, comment, platform, 1L, photo);
+
+        Mode mode2 = new Mode("mode2");
+        mode2.id = 2L;
+
+        Score score2 = new Score(game, player, stage, mode2, difficulty, comment, platform, 1L, photo);
+
+        assertFalse(score1.isWorstThan(score2));
+        assertFalse(score2.isWorstThan(score1));
     }
 
 }
