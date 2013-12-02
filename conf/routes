@@ -7,7 +7,6 @@ GET     /                           controllers.ApplicationController.index()
 GET     /score                      controllers.ApplicationController.selectGame()
 GET     /score/:id                  controllers.ScoreController.read(id: models.Score)
 POST    /score                      controllers.ScoreController.save()
-GET     /score/:id/new              controllers.ApplicationController.fillFormWithGame(id: models.Game)
 POST    /score/new                  controllers.ApplicationController.fillForm()
 GET     /score/shmup/:id            controllers.ScoreController.shmup(id: models.Score)
 POST    /score/update               controllers.ScoreController.update()
@@ -19,6 +18,7 @@ POST    /game/scores                controllers.GameController.saveScores
 GET     /game/scores                controllers.GameController.importScores
 GET     /game/:id/ranking.png       controllers.RankingController.index(id: models.Game)
 GET     /game/:id                   controllers.GameController.index(id: models.Game)
+GET     /game/:id/new_score         controllers.ApplicationController.fillFormWithGame(id: models.Game)
 
 GET     /games                      controllers.GamesController.index()
 
