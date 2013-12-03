@@ -82,7 +82,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+        @if(PlayerController.current().isAuthenticated) {
+            <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+        }
     </form>
 
 }
