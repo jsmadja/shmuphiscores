@@ -43,12 +43,16 @@
                 <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
                     @if(score.comment) {
-                        <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </button>
-                        <script>
-                            $('#comment_@score.id').popover('hide');
-                        </script>
+                        @if(score.comment.length < 20) {
+                            @score.comment
+                        } else {
+                            <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                            <script>
+                                $('#comment_@score.id').popover('hide');
+                            </script>
+                        }
                     }
                 </td>
             </tr>
