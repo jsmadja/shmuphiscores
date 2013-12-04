@@ -10,6 +10,8 @@
             @if(score.mode != null) {
                 <span class="label label-default" style="vertical-align: middle;">@score.mode.name</span>
             }
+        </td>
+        <td>
             @if(score.difficulty != null) {
                 <span class="label label-warning">@score.difficulty.name</span>
             }
@@ -31,7 +33,8 @@
    <table class="table table-condensed table-hover table-bordered">
        <thead>
            <th>@Messages.get("Game")</th>
-           <th>@Messages.get("Mode") / @Messages.get("Difficulty")</th>
+           <th>@Messages.get("Mode")</th>
+           <th>@Messages.get("Difficulty")</th>
            <th style="text-align: center;">@Messages.get("Stage")</th>
            <th style="text-align: center;">@Messages.get("Score")</th>
            <th style="text-align: center; width: 50px;">@Messages.get("Rank")</th>
