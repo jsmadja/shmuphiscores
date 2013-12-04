@@ -76,6 +76,9 @@ public class Game extends BaseModel<Game> {
         }
 
         if(difficulties.isEmpty()) {
+            if(modes.isEmpty()) {
+                return keepBestScoresForEachPlayer(scores);
+            }
             for (Mode mode : modes) {
                 bestScores.addAll(keepBestScoresForEachPlayer(filterBy(mode)));
             }
