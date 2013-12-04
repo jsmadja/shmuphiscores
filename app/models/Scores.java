@@ -31,7 +31,7 @@ public class Scores {
         return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                String key = score.game.title+"_"+score.difficulty+"_"+score.platform+" "+score.mode;
+                String key = score.game.title+"_"+score.difficulty+" "+score.mode;
                 if(games.contains(key)) {
                     return false;
                 }
