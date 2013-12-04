@@ -1,7 +1,9 @@
 package plugins;
 
 import models.*;
+import play.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.defaultString;
@@ -10,6 +12,7 @@ public class ScoreImporter {
 
     public static void importScores(Game game, List<String[]> lines) {
         for (String[] string : lines) {
+            Logger.info(Arrays.toString(string));
             Player player = player(string[2]);
             Stage stage = stage(game, string[4]);
             Mode mode = mode(game, string[0]);

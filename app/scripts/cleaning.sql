@@ -115,6 +115,10 @@ SET player_id = (SELECT id FROM player WHERE name = 'としまと-HUU')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'としまと-HUU_4');
 
 UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'HUU')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'としまと-HUU');
+
+UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Sulf\'')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Sulfateur');
 
