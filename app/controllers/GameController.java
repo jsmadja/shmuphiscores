@@ -20,6 +20,10 @@ import java.util.Scanner;
 
 public class GameController extends Controller {
 
+    public static Result indexWithName(models.Game game, String name) {
+        return ok(game_read.render(game));
+    }
+
     public static Result index(models.Game game) {
         return ok(game_read.render(game));
     }

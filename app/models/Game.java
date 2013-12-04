@@ -75,8 +75,8 @@ public class Game extends BaseModel<Game> {
             return bestScores;
         }
 
-        if(difficulties.isEmpty()) {
-            if(modes.isEmpty()) {
+        if (difficulties.isEmpty()) {
+            if (modes.isEmpty()) {
                 return keepBestScoresForEachPlayer(scores);
             }
             for (Mode mode : modes) {
@@ -135,5 +135,14 @@ public class Game extends BaseModel<Game> {
 
     public static List<Game> findAll() {
         return Ebean.find(Game.class).order("title").findList();
+    }
+
+    public String getEscapedTitle() {
+        String s = title.replaceAll("[^a-zA-Z]", "_");
+        s = s.replaceAll("_(_)*", "_");
+        if (s.endsWith("_")) {
+            s = s.substring(0, s.length() - 1);
+        }
+        return s;
     }
 }

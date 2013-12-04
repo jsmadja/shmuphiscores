@@ -4,7 +4,7 @@
 @gameLine(score: models.Score) = {
     <tr>
         <td>
-            <a href="@routes.GameController.index(score.game)">@score.game.title</a>
+            <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
         </td>
         <td>
             @if(score.mode != null) {
