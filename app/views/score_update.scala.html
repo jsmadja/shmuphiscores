@@ -1,7 +1,7 @@
 @(score: models.Score)
 @import play.i18n._
 @main() {
-    <h2>@Messages.get("UpdateScore") @score.game.title</h2>
+    <h2>@score.game.title</h2>
     <form role="form" method="POST" action="/score/update">
         <input type="hidden" name="scoreId" value="@score.id" />
         <div class="row">
@@ -77,6 +77,10 @@
                 </div>
             </div>
         </div>
+
+        @if(score.isPlayedBy(PlayerController.current)) {
+            <button type="submit" class="btn btn-success">@Messages.get("Update")</button>
+        }
     </form>
 
 }

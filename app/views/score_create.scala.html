@@ -1,7 +1,7 @@
 @(game: models.Game, scoreForm: Form[models.Score])
 @import play.i18n._
 @main() {
-    <h2>@Messages.get("AddScore") : @game.title</h2>
+    <h2>@game.title</h2>
     <form role="form" method="POST" action="/score">
         <input type="hidden" name="gameId" value="@game.id" />
         @if(scoreForm.hasGlobalErrors) {

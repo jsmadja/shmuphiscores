@@ -20,7 +20,6 @@ Post=Poster sur le forum
 YES=Oui
 NO=Non
 Update=Mettre à jour
-UpdateScore=Mettre à jour le score sur
 Submit=Valider
 AddScore=Ajouter un score
 SelectGame=Sélectionnez le jeu

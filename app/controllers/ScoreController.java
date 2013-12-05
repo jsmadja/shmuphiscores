@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import models.Difficulty;
 import models.Mode;
 import models.Platform;
@@ -37,23 +38,19 @@ public class ScoreController extends Controller {
     }
 
     public static Result update() {
-        /*
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
         models.Score score = Ebean.find(models.Score.class, Long.valueOf(data.get("scoreId")));
-        String login = score.player.name;
-        String password = data.get("password");
-        if (isAuthenticated(login, password)) {
-            updateScore(score, data);
-            score.update();
-            if ("OUI".equalsIgnoreCase(data.get("post"))) {
-                return shmup(score);
-            } else {
-                return redirect("/");
-            }
+        if (!score.isPlayedBy(PlayerController.current())) {
+            return unauthorized();
         }
-        */
-        return unauthorized();
+        updateScore(score, data);
+        score.update();
+        if ("OUI".equalsIgnoreCase(data.get("post"))) {
+            return shmup(score);
+        } else {
+            return redirect("/");
+        }
     }
 
     public static Result shmup(models.Score score) {
@@ -74,7 +71,6 @@ public class ScoreController extends Controller {
         return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
     }
 
-    /*
     private static void updateScore(models.Score score, Map<String, String> data) {
         score.stage = find(Stage.class, parseLong(data.get("stage")));
         score.mode = mode(data);
@@ -84,7 +80,6 @@ public class ScoreController extends Controller {
         score.value = value(data);
         score.photo = data.get("photo");
     }
-    */
 
     private static Long value(Map<String, String> data) {
         String scoreValue = data.get("value");

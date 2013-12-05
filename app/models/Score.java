@@ -172,4 +172,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return this.mode.equals(mode);
     }
 
+    public boolean isPlayedBy(Player player) {
+        if(player == null) {
+            return false;
+        }
+        return this.player.equals(player);
+    }
+
 }
