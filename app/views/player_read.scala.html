@@ -6,12 +6,12 @@
         <td>
             <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
         </td>
-        <td>
+        <td style="vertical-align: middle;">
             @if(score.mode != null) {
                 <span class="label label-default" style="vertical-align: middle;">@score.mode.name</span>
             }
         </td>
-        <td>
+        <td style="vertical-align: middle;">
             @if(score.difficulty != null) {
                 <span class="label label-warning">@score.difficulty.name</span>
             }
