@@ -66,6 +66,9 @@ public class Game extends BaseModel<Game> {
         if (scores == null) {
             return new ArrayList<Score>();
         }
+        if(difficulty == null) {
+            return keepBestScoresForEachPlayer(filterBy(mode));
+        }
         return keepBestScoresForEachPlayer(filterBy(difficulty, mode));
     }
 

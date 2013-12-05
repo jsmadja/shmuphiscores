@@ -126,4 +126,22 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'dodonpasim')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'dodonpasism');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = '123RYU')
+WHERE player_id IN (SELECT id FROM player WHERE name = '123 RYU');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Johnny_Crypt')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Johnny Crypt');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Knuckels')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'KPE');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Sephyross')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'SePhyr0ss');
+
+
+
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL
