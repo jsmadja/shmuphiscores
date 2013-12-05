@@ -41,7 +41,7 @@ public class RankingPicture {
                 }
             }
         }
-        return computeRanking(pictureLines);
+        return computeRanking(pictureLines, new RankingGameConfiguration(game));
     }
 
 }

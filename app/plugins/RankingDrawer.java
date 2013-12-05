@@ -20,7 +20,7 @@ import static org.apache.commons.lang3.StringUtils.rightPad;
 public class RankingDrawer {
 
     interface PictureLine {
-        void draw(Graphics2D graphics, int y);
+        void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration);
     }
 
     private static final int fontHeight = 12;
@@ -45,7 +45,7 @@ public class RankingDrawer {
         }
 
         @Override
-        public void draw(Graphics2D graphics, int y) {
+        public void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
             graphics.setColor(RED);
             graphics.setFont(gameFont);
             graphics.drawString((mode == null ? "" : mode) + " " + (difficulty == null ? "" : difficulty), 30, y);
@@ -61,7 +61,7 @@ public class RankingDrawer {
         }
 
         @Override
-        public void draw(Graphics2D graphics, int y) {
+        public void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
             graphics.setColor(DARK_GRAY);
             graphics.setFont(normalFont);
             String rank = leftPad(score.rank() + ".", 3);
@@ -78,24 +78,24 @@ public class RankingDrawer {
 
             graphics.setColor(DARK_GRAY);
             graphics.setFont(parameterFont);
-            String platform = score.platform == null ? "" : leftPad(score.platform.name, 10);
+            String platform = score.platform == null ? "" : leftPad(score.platform.name, rankingGameConfiguration.maxPlatformLength);
             if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
                 platform = "";
             }
-            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), 20);
-            graphics.drawString(stage + " " + platform+ " "+score.comment, STAGE_PLATFORM_X, y);
+            String stage = score.stage == null ? "" : rightPad(score.stage.toString(), rankingGameConfiguration.maxStageLength);
+            graphics.drawString(stage + "   " + platform+ "    "+score.comment, STAGE_PLATFORM_X, y);
         }
     }
 
     public static class BreakLine implements PictureLine {
 
         @Override
-        public void draw(Graphics2D graphics, int y) {
+        public void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
             graphics.drawString("", 0, y);
         }
     }
 
-    public static BufferedImage computeRanking(List<PictureLine> pictureLines) {
+    public static BufferedImage computeRanking(List<PictureLine> pictureLines, RankingGameConfiguration rankingGameConfiguration) {
         int width = 710;
         int height = fontHeight * pictureLines.size();
         if (height == 0) {
@@ -112,7 +112,7 @@ public class RankingDrawer {
         FontMetrics fontMetrics = graphics.getFontMetrics();
         int stringHeight = fontMetrics.getAscent();
         for (int i = 0; i < pictureLines.size(); i++) {
-            pictureLines.get(i).draw(graphics, 10 + (i * stringHeight));
+            pictureLines.get(i).draw(graphics, 10 + (i * stringHeight), rankingGameConfiguration);
         }
         return bi;
     }
