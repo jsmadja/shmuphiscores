@@ -2,11 +2,11 @@
 @import play.i18n._
 @main() {
    <h2>@Messages.get("players.scala.html.playerlist")</h2>
-   <table class="table table-condensed table-hover table-bordered">
-       <tr>
-           <th>@Messages.get("Player")</th>
-           <th style="width: 20px;">@Messages.get("Scores")</th>
-       </tr>
+    <table id="players">
+       <thead>
+           <th>@Messages.get("Players")</th>
+           <th style="width: 100px;">@Messages.get("Scores")</th>
+       </thead>
        @for(player <- players) {
             <tr>
                 <td>
@@ -18,4 +18,14 @@
             </tr>
        }
    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#players').dataTable({
+                "bJQueryUI": true,
+            "bPaginate": false,
+            "bLengthChange": false
+            });
+        } );
+    </script>
 }

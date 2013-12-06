@@ -142,6 +142,53 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Sephyross')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'SePhyr0ss');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'neo')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'dku-neo');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK\'');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'neo90')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'neo 90');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'neo90')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'NEO');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'raisonnable')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Mumuladkos');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Yami9999')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Yami');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'The vagrant')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'The vgrant');
+
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Shû Shirakawa')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Shû');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'chtimi')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'ch\'timi');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'rj47_2004')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'rj47');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Undef-UND')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Undef');
 
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL

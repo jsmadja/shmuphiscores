@@ -1,4 +1,4 @@
-Player=joueur
+Player=Joueur
 players=joueurs
 Players=Joueurs
 Game=Jeu
