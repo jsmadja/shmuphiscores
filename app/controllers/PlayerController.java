@@ -23,7 +23,6 @@ public class PlayerController extends Controller {
             if(userId == null || userId.value().equals("1")) {
                 return Player.guest;
             }
-            Logger.info("phpbb3_axtcz_u = " + userId.value());
             shmupUserId = Long.parseLong(userId.value());
         }
         Player player = Player.findByShmupUserId(shmupUserId);
@@ -34,6 +33,7 @@ public class PlayerController extends Controller {
             player.shmupUserId = shmupUserId;
             player.update();
         }
+        Logger.info("phpbb3_axtcz_u = " + player.name);
         return player;
     }
 
