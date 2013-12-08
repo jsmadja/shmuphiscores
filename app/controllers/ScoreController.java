@@ -74,11 +74,19 @@ public class ScoreController extends Controller {
     private static void updateScore(models.Score score, Map<String, String> data) {
         score.stage = find(Stage.class, parseLong(data.get("stage")));
         score.mode = mode(data);
-        score.difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
+        score.difficulty = difficulty(data);
         score.comment = data.get("comment");
         score.platform = find(Platform.class, parseLong(data.get("platform")));
         score.value = value(data);
         score.photo = data.get("photo");
+    }
+
+    private static Difficulty difficulty(Map<String, String> data) {
+        Difficulty difficulty = null;
+        if(data.get("difficulty") != null) {
+            difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
+        }
+        return difficulty;
     }
 
     private static Long value(Map<String, String> data) {
