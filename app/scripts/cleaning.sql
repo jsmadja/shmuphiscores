@@ -27,24 +27,12 @@ SET player_id = (SELECT id FROM player WHERE name = 'KAB')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'DKU-KAB');
 
 UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'KPE')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'DKU-KPE');
-
-UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'KPE')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'KPE_');
-
-UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Sharivan')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Sharivan 59');
 
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Sharivan')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Sharivan59');
-
-UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'Yami')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'Yami9999');
 
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Undef')
@@ -95,14 +83,6 @@ SET player_id = (SELECT id FROM player WHERE name = 'Doudinou')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'doudinou_');
 
 UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'NEO')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'neo_');
-
-UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'NEO')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'NEO__');
-
-UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'baboulinet')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Baboulinet_');
 
@@ -136,6 +116,14 @@ WHERE player_id IN (SELECT id FROM player WHERE name = 'Johnny Crypt');
 
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Knuckels')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'DKU-KPE');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Knuckels')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'KPE_');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Knuckels')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'KPE');
 
 UPDATE score
@@ -143,16 +131,16 @@ SET player_id = (SELECT id FROM player WHERE name = 'Sephyross')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'SePhyr0ss');
 
 UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'neo')
+SET player_id = (SELECT id FROM player WHERE name = 'neo90')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'neo_');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'neo90')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'NEO__');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'neo90')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'dku-neo');
-
-UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK');
-
-UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK\'');
 
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'neo90')
@@ -161,6 +149,14 @@ WHERE player_id IN (SELECT id FROM player WHERE name = 'neo 90');
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'neo90')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'NEO');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MsK`')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MsK\'');
 
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'raisonnable')
@@ -188,7 +184,7 @@ SET player_id = (SELECT id FROM player WHERE name = 'rj47_2004')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'rj47');
 
 UPDATE score
-SET player_id = (SELECT id FROM player WHERE name = 'Undef-UND')
-WHERE player_id IN (SELECT id FROM player WHERE name = 'Undef');
+SET player_id = (SELECT id FROM player WHERE name = 'Undef')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Undef-UND');
 
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL
