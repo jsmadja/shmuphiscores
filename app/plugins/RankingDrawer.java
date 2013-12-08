@@ -27,7 +27,7 @@ public class RankingDrawer {
         void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration);
     }
 
-    private static int width = 710;
+    private static int width = 652;
 
     private static final int fontHeight = 12;
     private static final int fontWidth = 12;
