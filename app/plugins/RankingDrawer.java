@@ -19,9 +19,10 @@ import static org.apache.commons.lang3.StringUtils.rightPad;
 public class RankingDrawer {
 
     public static final Color COLOR_SHMUP_GREY = new Color(240, 243, 244);
-    public static final Color COLOR_SHMUP_PINK = new Color(242, 55, 108);
-    public static final Color COLOR_SHMUP_GREEN = new Color(157, 167, 82);
-
+    public static final Color COLOR_SHMUP_TITLE = new Color(46, 13, 34);
+    public static final Color COLOR_SHMUP_PLAYER = new Color(247, 127, 74);
+    public static final Color COLOR_SHMUP_SCORE = new Color(245, 70, 52);
+    public static final Color COLOR_SHMUP_COMMENT = new Color(193, 193, 193);
 
     interface PictureLine {
         void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration);
@@ -54,7 +55,7 @@ public class RankingDrawer {
 
         @Override
         public void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
-            graphics.setColor(COLOR_SHMUP_PINK);
+            graphics.setColor(COLOR_SHMUP_TITLE);
             graphics.setFont(gameFont);
             String title = "";
 
@@ -95,6 +96,11 @@ public class RankingDrawer {
             if (score.game.platforms.isEmpty() || score.game.platforms.size() == 1) {
                 platform = "";
             }
+            if (score.rank() == 1) {
+                graphics.setColor(WHITE);
+            } else {
+                graphics.setColor(COLOR_SHMUP_COMMENT);
+            }
             graphics.setFont(parameterFont);
             graphics.drawString(platform + "    " + score.comment, STAGE_PLATFORM_X + (rankingGameConfiguration.maxStageLength * fontWidth), y);
         }
@@ -115,7 +121,7 @@ public class RankingDrawer {
             if (score.rank() == 1) {
                 graphics.setColor(WHITE);
             } else {
-                graphics.setColor(COLOR_SHMUP_PINK);
+                graphics.setColor(COLOR_SHMUP_SCORE);
             }
             graphics.setFont(scoreFont);
             graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), SCORE_X, y);
@@ -127,7 +133,7 @@ public class RankingDrawer {
             if (score.rank() == 1) {
                 graphics.setColor(WHITE);
             } else {
-                graphics.setColor(COLOR_SHMUP_GREEN);
+                graphics.setColor(COLOR_SHMUP_PLAYER);
             }
             graphics.drawString(score.player.name, 30, y);
         }
@@ -145,7 +151,7 @@ public class RankingDrawer {
 
         private void pyjama(Graphics2D graphics, int y) {
             if (score.rank() == 1) {
-                graphics.setColor(COLOR_SHMUP_PINK);
+                graphics.setColor(COLOR_SHMUP_TITLE);
             } else {
                 if (score.rank() % 2 == 0) {
                     graphics.setColor(WHITE);
@@ -177,7 +183,7 @@ public class RankingDrawer {
         graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
         FontMetrics fontMetrics = graphics.getFontMetrics();
-        int stringHeight = fontMetrics.getAscent();
+        int stringHeight = fontMetrics.getAscent() + 5;
         for (int i = 0; i < pictureLines.size(); i++) {
             pictureLines.get(i).draw(graphics, 10 + (i * stringHeight), rankingGameConfiguration);
         }
