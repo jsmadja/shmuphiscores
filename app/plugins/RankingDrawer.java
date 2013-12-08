@@ -174,7 +174,7 @@ public class RankingDrawer {
     }
 
     public static BufferedImage computeRanking(List<PictureLine> pictureLines, RankingGameConfiguration rankingGameConfiguration) {
-        int height = fontHeight * pictureLines.size();
+        int height = (fontHeight+5) * (pictureLines.size());
         if (height == 0) {
             height = 1;
         }
