@@ -36,6 +36,7 @@ public class ScoreController extends Controller {
             return badRequest(views.html.score_create.render(score.game, scoreForm));
         }
         score.save();
+        RankingController.getRankingCache().remove(score.game);
         if ("OUI".equalsIgnoreCase(data.get("post"))) {
             return shmup(score);
         }
@@ -52,6 +53,7 @@ public class ScoreController extends Controller {
         }
         updateScore(score, data);
         score.update();
+        RankingController.getRankingCache().remove(score.game);
         if ("OUI".equalsIgnoreCase(data.get("post"))) {
             return shmup(score);
         } else {
