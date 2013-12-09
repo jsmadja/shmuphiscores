@@ -59,7 +59,7 @@ public class ScoreController extends Controller {
 
     private static models.Score createScore(Map<String, String> data) {
         String login = PlayerController.current().name;
-        Difficulty difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
+        Difficulty difficulty = difficulty(data);
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
         Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
