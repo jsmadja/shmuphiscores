@@ -33,12 +33,12 @@ public class RankingDrawer {
     private static final int fontHeight = 12;
     private static final int fontWidth = 12;
 
-    private final static Font normalFont = new Font("Courier", PLAIN, 12);
-    private final static Font parameterFont = new Font("Courier", PLAIN, 14);
-    private final static Font gameFont = new Font("Verdana", BOLD | ITALIC, 16);
-    private final static Font playerFont = new Font("Courier", BOLD, 12);
-    private final static Font scoreFont = new Font("Courier", BOLD, 14);
-    private final static Font stageFont = new Font("Courier", ITALIC, 14);
+    private final static Font normalFont = new Font("Liberation Mono", PLAIN, 12);
+    private final static Font parameterFont = new Font("Liberation Mono", PLAIN, 14);
+    private final static Font gameFont = new Font("Liberation Mono", BOLD | ITALIC, 16);
+    private final static Font playerFont = new Font("Liberation Mono", BOLD, 12);
+    private final static Font scoreFont = new Font("Liberation Mono", BOLD, 14);
+    private final static Font stageFont = new Font("Liberation Mono", ITALIC, 14);
 
     private static int SCORE_X = 80;
     private static int STAGE_PLATFORM_X = SCORE_X + 220;
@@ -153,7 +153,7 @@ public class RankingDrawer {
             if (score.rank() == 1) {
                 graphics.setColor(COLOR_SHMUP_TITLE);
             } else {
-                if (score.rank() % 2 == 0) {
+                if (score.rank() % 2 == 1) {
                     graphics.setColor(WHITE);
                 } else {
                     graphics.setColor(COLOR_SHMUP_GREY);
@@ -167,7 +167,7 @@ public class RankingDrawer {
 
         @Override
         public void draw(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
-            graphics.setColor(WHITE);
+            graphics.setColor(COLOR_SHMUP_GREY);
             graphics.fillRect(0, y - fontHeight, width, y);
             graphics.drawString("", 0, y);
         }
