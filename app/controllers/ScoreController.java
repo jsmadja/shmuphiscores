@@ -19,6 +19,9 @@ import static org.apache.commons.lang3.StringUtils.isNumeric;
 public class ScoreController extends Controller {
 
     public static Result read(models.Score score) {
+        if(score == null) {
+            return notFound();
+        }
         return ok(score_update.render(score));
     }
 

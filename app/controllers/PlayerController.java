@@ -11,6 +11,9 @@ import plugins.ShmupClient;
 public class PlayerController extends Controller {
 
     public static Result index(Player player) {
+        if(player == null) {
+            return notFound();
+        }
         return ok(views.html.player_read.render(player));
     }
 

@@ -25,6 +25,9 @@ public class GameController extends Controller {
     }
 
     public static Result index(models.Game game) {
+        if(game == null) {
+            return notFound();
+        }
         return ok(game_read.render(game));
     }
 
