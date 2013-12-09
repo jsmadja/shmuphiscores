@@ -5,6 +5,7 @@ import models.Difficulty;
 import models.Mode;
 import models.Platform;
 import models.Stage;
+import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -19,7 +20,7 @@ import static org.apache.commons.lang3.StringUtils.isNumeric;
 public class ScoreController extends Controller {
 
     public static Result read(models.Score score) {
-        if(score == null) {
+        if (score == null) {
             return notFound();
         }
         return ok(score_update.render(score));
@@ -28,6 +29,7 @@ public class ScoreController extends Controller {
     public static Result save() {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
+        Logger.info("Nouveau score envoyé par " + PlayerController.current().name + ", " + data.toString());
         models.Score score = createScore(data);
         if (score.isWorstThanOlders()) {
             scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
@@ -43,6 +45,7 @@ public class ScoreController extends Controller {
     public static Result update() {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
+        Logger.info("Mise a jour du score envoyé par " + PlayerController.current().name + ", " + data.toString());
         models.Score score = Ebean.find(models.Score.class, Long.valueOf(data.get("scoreId")));
         if (!score.isPlayedBy(PlayerController.current())) {
             return unauthorized();
@@ -86,7 +89,7 @@ public class ScoreController extends Controller {
 
     private static Difficulty difficulty(Map<String, String> data) {
         Difficulty difficulty = null;
-        if(data.get("difficulty") != null) {
+        if (data.get("difficulty") != null) {
             difficulty = find(Difficulty.class, parseLong(data.get("difficulty")));
         }
         return difficulty;
