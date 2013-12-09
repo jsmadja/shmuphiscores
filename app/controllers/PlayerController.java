@@ -36,7 +36,7 @@ public class PlayerController extends Controller {
             player.shmupUserId = shmupUserId;
             player.update();
         }
-        Logger.info("phpbb3_axtcz_u = " + player.name);
+        //Logger.info("phpbb3_axtcz_u = " + player.name);
         return player;
     }
 
