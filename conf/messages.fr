@@ -14,8 +14,6 @@ scores=scores
 Rank=Rang
 Photo=Photo
 Comment=Commentaire
-Login=Identifiant
-Password=Mot de passe
 Post=Poster sur le forum
 YES=Oui
 NO=Non
@@ -27,5 +25,6 @@ SelectGame=Sélectionnez le jeu
 Logon=Se connecter
 LogonHelp=Vous devez vous identifier sur le forum shmup.com
 
+games.scala.html.gamelist=Liste des jeux
 players.scala.html.playerlist=Liste des joueurs
 scoreform.scala.html.photo.placeholder=Lien direct vers l''image (hébergement : casimages, imageshack, ...)

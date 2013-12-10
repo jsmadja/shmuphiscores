@@ -2,9 +2,9 @@
 @import play.i18n._
 @main() {
 
-   <h2>Liste des jeux</h2>
+   <h2>@Messages.get("games.scala.html.gamelist")</h2>
 
-   <table class="table table-condensed table-hover table-bordered">
+   <table id="games" class="table table-condensed table-hover table-bordered">
        <tr>
            <th style="text-align: center; width: 65px;">#</th>
            <th>@Messages.get("Games")</th>

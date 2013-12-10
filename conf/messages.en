@@ -14,8 +14,6 @@ scores=scores
 Rank=Rank
 Photo=Photo
 Comment=Comment
-Login=Login
-Password=Password
 Post=Post to shmup.com
 YES=Yes
 NO=No
@@ -27,5 +25,6 @@ SelectGame=Select Game
 Logon=Log In
 LogonHelp=You must authenticate on shmup.com
 
+games.scala.html.gamelist=Game List
 players.scala.html.playerlist=Player List
 scoreform.scala.html.photo.placeholder=Direct Link (hosts: casimages, imageshack, ...)
