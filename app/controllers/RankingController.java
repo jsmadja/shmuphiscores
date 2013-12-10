@@ -25,6 +25,9 @@ public class RankingController extends Controller {
     }
 
     public static Result index(models.Game game) throws IOException {
+        if(game == null) {
+            return notFound();
+        }
         Map<Game, byte[]> rankings = getRankingCache();
         byte[] bytes = rankings.get(game);
         if (bytes == null) {
