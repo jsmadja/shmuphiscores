@@ -17,9 +17,9 @@ GET     /game/new                   controllers.GameController.create()
 POST    /game/scores                controllers.GameController.saveScores
 GET     /game/scores                controllers.GameController.importScores
 GET     /game/:id/ranking.png       controllers.RankingController.index(id: models.Game)
+GET     /game/:id/new_score         controllers.ApplicationController.fillFormWithGame(id: models.Game)
 GET     /game/:id/:name             controllers.GameController.indexWithName(id: models.Game, name: String)
 GET     /game/:id                   controllers.GameController.index(id: models.Game)
-GET     /game/:id/new_score         controllers.ApplicationController.fillFormWithGame(id: models.Game)
 
 GET     /games                      controllers.GamesController.index()
 
