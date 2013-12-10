@@ -2,14 +2,12 @@ package controllers;
 
 import actions.User;
 import com.avaje.ebean.Ebean;
-import models.Difficulty;
-import models.Mode;
-import models.Platform;
-import models.Stage;
+import models.*;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.score_create;
 import views.html.score_update;
 
 import java.util.Map;
@@ -17,8 +15,22 @@ import java.util.Map;
 import static com.avaje.ebean.Ebean.find;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
+import static play.data.Form.form;
 
 public class ScoreController extends Controller {
+
+    public static Result selectGame() {
+        return ok(views.html.select_game.render(Game.findAll()));
+    }
+
+    public static Result fillForm() {
+        models.Game game = Game.finder.byId(Long.parseLong(request().body().asFormUrlEncoded().get("game")[0]));
+        return ok(score_create.render(game, form(Score.class)));
+    }
+
+    public static Result fillFormWithGame(Game game) {
+        return ok(score_create.render(game, form(Score.class)));
+    }
 
     public static Result read(models.Score score) {
         if (score == null) {

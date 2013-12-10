@@ -24,17 +24,4 @@ public class ApplicationController extends Controller {
         return ok(index.render(timeline));
     }
 
-    public static Result selectGame() {
-        return ok(views.html.select_game.render(Game.findAll()));
-    }
-
-    public static Result fillForm() {
-        models.Game game = Game.finder.byId(Long.parseLong(request().body().asFormUrlEncoded().get("game")[0]));
-        return ok(score_create.render(game, form(Score.class)));
-    }
-
-    public static Result fillFormWithGame(Game game) {
-        return ok(score_create.render(game, form(Score.class)));
-    }
-
 }
