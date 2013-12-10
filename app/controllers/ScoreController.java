@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.User;
 import com.avaje.ebean.Ebean;
 import models.Difficulty;
 import models.Mode;
@@ -29,7 +30,7 @@ public class ScoreController extends Controller {
     public static Result save() {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
-        Logger.info("Nouveau score envoyé par " + PlayerController.current().name + ", " + data.toString());
+        Logger.info("Nouveau score envoyé par " + User.current().name + ", " + data.toString());
         models.Score score = createScore(data);
         if (score.isWorstThanOlders()) {
             scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
@@ -46,9 +47,9 @@ public class ScoreController extends Controller {
     public static Result update() {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
-        Logger.info("Mise a jour du score envoyé par " + PlayerController.current().name + ", " + data.toString());
+        Logger.info("Mise a jour du score envoyé par " + User.current().name + ", " + data.toString());
         models.Score score = Ebean.find(models.Score.class, Long.valueOf(data.get("scoreId")));
-        if (!score.isPlayedBy(PlayerController.current())) {
+        if (!score.isPlayedBy(User.current())) {
             return unauthorized();
         }
         updateScore(score, data);
@@ -66,7 +67,7 @@ public class ScoreController extends Controller {
     }
 
     private static models.Score createScore(Map<String, String> data) {
-        String login = PlayerController.current().name;
+        String login = User.current().name;
         Difficulty difficulty = difficulty(data);
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
         Mode mode = mode(data);

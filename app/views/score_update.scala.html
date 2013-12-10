@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        @if(score.isPlayedBy(PlayerController.current)) {
+        @if(score.isPlayedBy(actions.User.current)) {
             <button type="submit" class="btn btn-success">@Messages.get("Update")</button>
         }
     </form>
