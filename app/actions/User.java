@@ -2,6 +2,7 @@ package actions;
 
 import models.Player;
 import org.apache.commons.lang3.time.StopWatch;
+import org.slf4j.MDC;
 import play.Logger;
 import play.Play;
 import play.libs.F;
@@ -25,10 +26,16 @@ public class User extends Action.Simple {
     public F.Promise<SimpleResult> call(Http.Context context) throws Throwable {
         startWatch();
         context.args.put("user", getPlayerFromCookie(context));
+        mdc(context);
         F.Promise<SimpleResult> call = delegate.call(context);
         stopWatch();
-        Logger.info(context.request().uri() + " " + stopWatch.getTime() + "ms");
+        Logger.info(stopWatch.getTime() + "ms");
         return call;
+    }
+
+    private void mdc(Http.Context context) {
+        MDC.put("user", current().name);
+        MDC.put("uri", context.request().uri());
     }
 
     private void stopWatch() {
