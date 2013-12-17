@@ -1,7 +1,21 @@
 @(game: models.Game, scoreForm: Form[models.Score])
 @import play.i18n._
 @main() {
-    <h2>@game.title</h2>
+    <h2 class="title">
+        <img src="@game.cover" alt="@game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
+        <span>@game.title</span>
+        <p>
+            <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-share-alt"></span> forum
+            </a>
+            <a href="@routes.RankingController.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-list-alt"></span> ranking
+            </a>
+        </p>
+    </h2>
+
+    <div style="clear: both;"/>
+
     <form role="form" method="POST" action="/score">
         <input type="hidden" name="gameId" value="@game.id" />
         @if(scoreForm.hasGlobalErrors) {

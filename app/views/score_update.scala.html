@@ -1,8 +1,20 @@
 @(score: models.Score)
 @import play.i18n._
 @main() {
-    <h2>@score.game.title</h2>
-    <form role="form" method="POST" action="/score/update">
+    <h2 class="title">
+        <img src="@score.game.cover" alt="@score.game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
+        <span>@score.game.title</span>
+        <p>
+            <a href="@score.game.thread" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-share-alt"></span> forum
+            </a>
+            <a href="@routes.RankingController.index(score.game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-list-alt"></span> ranking
+            </a>
+        </p>
+    </h2>
+
+    <div style="clear: both;"/>    <form role="form" method="POST" action="/score/update">
         <input type="hidden" name="scoreId" value="@score.id" />
         <div class="row">
             <div class="col-md-4">
