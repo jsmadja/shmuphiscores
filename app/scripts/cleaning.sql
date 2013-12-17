@@ -191,4 +191,8 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'bogardan')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Bogardman');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Gwürz!')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Gwürz');
+
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL

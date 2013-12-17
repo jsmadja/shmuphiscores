@@ -54,6 +54,7 @@ h1 {
 
 .score {
     font-weight: bold;
+    margin-top: 10px;
 }
 
 .stage {
@@ -66,7 +67,11 @@ h1 {
 }
 
 .rank {
-    font-style: italic;
+    font-weight: bold;
+    font-size: 30pt;
+    float: right;
+    margin-top: 10px;
+    font-family: "Courier New";
 }
 
 /* Space out content a bit */

@@ -34,7 +34,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public String photo;
 
-    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo) {
+    public String replay;
+
+    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
         this.player = player;
         this.stage = stage;
@@ -44,6 +46,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.platform = platform;
         this.value = value;
         this.photo = photo;
+        this.replay = replay;
     }
 
     public String formattedDate() {

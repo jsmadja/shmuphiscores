@@ -88,8 +88,9 @@ public class ScoreController extends Controller {
         models.Game game = find(models.Game.class, parseLong(data.get("gameId")));
         Long value = value(data);
         String comment = data.get("comment");
+        String replay = data.get("replay");
         String photo = data.get("photo");
-        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo);
+        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
     }
 
     private static void updateScore(models.Score score, Map<String, String> data) {
@@ -100,6 +101,7 @@ public class ScoreController extends Controller {
         score.platform = find(Platform.class, parseLong(data.get("platform")));
         score.value = value(data);
         score.photo = data.get("photo");
+        score.replay = data.get("replay");
     }
 
     private static Difficulty difficulty(Map<String, String> data) {

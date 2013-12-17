@@ -20,7 +20,8 @@ public class ScoreImporter {
             String comment = comment(string);
             Platform platform = platform(game, string[5]);
             Long score = score(string[3]);
-            Score newScore = new Score(game, player, stage, mode, difficulty, comment, platform, score, null);
+            String replay = replay(string[7]);
+            Score newScore = new Score(game, player, stage, mode, difficulty, comment, platform, score, null, replay);
             newScore.save();
         }
     }
@@ -47,12 +48,14 @@ public class ScoreImporter {
     }
 
     private static String comment(String[] string) {
-        String comment = "";
-        for (int i = 6; i < string.length; i++) {
-            comment += defaultString(string[i]) + " ";
+        return defaultString(string[6]).trim();
+    }
+
+    private static String replay(String string) {
+        if (string == null) {
+            return null;
         }
-        comment = comment.trim();
-        return comment;
+        return string.trim();
     }
 
     private static Mode mode(Game game, String str) {

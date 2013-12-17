@@ -65,7 +65,15 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="photo">@Messages.get("Photo")</label>
-                    <input type="url" class="form-control" value="@score.photo" name="photo" placeholder="Lien direct vers l'image (hébergement: casimages, imageshack, ...)">
+                    <input type="url" class="form-control" value="@score.photo" name="photo" placeholder="@Messages.get("scoreform.scala.html.photo.placeholder")">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="replay">@Messages.get("Replay")</label>
+                    <input type="url" class="form-control" value="@score.replay" name="replay" placeholder="@Messages.get("scoreform.scala.html.replay.placeholder")">
                 </div>
             </div>
         </div>
