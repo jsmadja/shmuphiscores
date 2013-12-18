@@ -3,7 +3,7 @@
 
 @gameLine(score: models.Score) = {
     <tr>
-        <td>
+        <td style="vertical-align: middle;">
             <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
         </td>
         <td style="vertical-align: middle;">
@@ -16,13 +16,13 @@
                 <span class="label label-warning">@score.difficulty.name</span>
             }
         </td>
-        <td>
+        <td style="vertical-align: middle; text-align: right;">
             @score.stage
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; vertical-align: middle;">
             <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
         </td>
-        <td style="text-align: right;">
+        <td style="text-align: right; vertical-align: middle">
             @score.formattedRank
         </td>
     </tr>
