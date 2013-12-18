@@ -20,7 +20,10 @@ public class ScoreImporter {
             String comment = comment(string);
             Platform platform = platform(game, string[5]);
             Long score = score(string[3]);
-            String replay = replay(string[7]);
+            String replay = null;
+            if (string.length > 7) {
+                replay = replay(string[7]);
+            }
             Score newScore = new Score(game, player, stage, mode, difficulty, comment, platform, score, null, replay);
             newScore.save();
         }
