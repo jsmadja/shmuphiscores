@@ -12,11 +12,11 @@
         </h4>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
-                <th style="width: 70px; text-align: center;">@Messages.get("Rank")</th>
-                <th style="text-align: center;" >@Messages.get("Player")</th>
-                <th style="width: 120px; text-align: center;" >@Messages.get("Score")</th>
-                <th style="width: 120px; text-align: center;" >@Messages.get("Stage")</th>
-                <th style="text-align: center; width: 120px;">@Messages.get("Precisions")</th>
+                <th style="width: 10%; text-align: center;">@Messages.get("Rank")</th>
+                <th style="text-align: center; width: 25%;" >@Messages.get("Player")</th>
+                <th style="width: 25%; text-align: center;" >@Messages.get("Score")</th>
+                <th style="width: 15%; text-align: center;" >@Messages.get("Stage")</th>
+                <th style="text-align: center; width: 25%;">@Messages.get("Precisions")</th>
             </thead>
         @for(score <- game.bestScoresByPlayers(difficulty, mode)) {
             <tr>
@@ -37,13 +37,17 @@
                             </script>
                         </a>
                     }
-
+                    @if(score.replay) {
+                        <a href="@score.replay" target="_blank" class="label label-primary pull-left" style="margin-right: 5px;">
+                            <span class="glyphicon glyphicon-play"></span>
+                        </a>
+                    }
                     <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
                 </td>
                 <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
                     @if(score.comment) {
-                        @if(score.comment.length < 20) {
+                        @if(score.comment.length < 25) {
                             @score.comment
                         } else {
                             <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
