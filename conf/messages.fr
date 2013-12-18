@@ -5,6 +5,7 @@ Game=Jeu
 Games=Jeux
 games=jeux
 Platform=Plateforme
+Platforms=Plateformes
 Difficulty=Difficulté
 Mode=Mode
 Stage=Stage

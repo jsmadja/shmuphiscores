@@ -6,24 +6,19 @@
 
    <table id="games" class="table table-condensed table-hover table-bordered">
        <tr>
-           <th style="text-align: center; width: 65px;">#</th>
            <th>@Messages.get("Games")</th>
+           <th>@Messages.get("Platforms")</th>
            <th style="width: 20px;">@Messages.get("Scores")</th>
        </tr>
        @for(game <- games.sortBy(_.title)) {
         <tr>
             <td>
-                <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)">
-                    <img src="@game.cover" alt="@game.title" width="50px" />
-                </a>
-            </td>
-            <td>
                 <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)">@game.title</a>
-                <p style="font-size: 16pt; margin-top: 10px;">
-                    @for(platform <- game.platforms) {
-                        <span class="label label-success label-small" style="font-size: 50%;">@platform.name</span>
-                    }
-                </p>
+            </td>
+            <td style="vertical-align: middle;">
+                @for(platform <- game.platforms) {
+                    <span class="label label-success">@platform.name</span>
+                }
             </td>
             <td style="text-align: center; vertical-align: middle">
                 @if(game.scores != null) {
