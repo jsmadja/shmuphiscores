@@ -2,12 +2,14 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
+import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,6 +72,16 @@ public class Game extends BaseModel<Game> {
             return keepBestScoresForEachPlayer(filterBy(mode));
         }
         return keepBestScoresForEachPlayer(filterBy(difficulty, mode));
+    }
+
+    public String averageScore(Difficulty difficulty, Mode mode) {
+        BigDecimal sum = new BigDecimal(0);
+        Collection<Score> scores = bestScoresByPlayers(difficulty, mode);
+        for (Score score : scores) {
+            sum = sum.add(new BigDecimal(score.value));
+        }
+        Long average = sum.divideToIntegralValue(new BigDecimal(scores.size())).longValue();
+        return ScoreFormatter.format(average);
     }
 
     public Collection<Score> bestScores() {

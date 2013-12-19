@@ -1,5 +1,7 @@
 package models;
 
+import formatters.ScoreFormatter;
+
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -54,18 +56,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedValue() {
-        String score = String.valueOf(value);
-        StringBuilder sb = new StringBuilder();
-        int chara = 0;
-        for (int i = score.length() - 1; i >= 0; i--) {
-            if (chara % 3 == 0 && chara != 0) {
-                sb.append(".");
-            }
-            sb.append(score.charAt(i));
-            chara++;
-        }
-        score = sb.reverse().toString();
-        return score;
+        return ScoreFormatter.format(value);
     }
 
     public String formattedRank() {

@@ -3,6 +3,14 @@
 @scores(difficulty: Difficulty, mode: Mode) = {
     @if(!game.bestScoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
+
+            <button id="average_@formatters.KeyFormatter.unique(difficulty, mode)" data-html="true" type="button" class="btn btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="@Messages.get("AverageScore") :  <b>@game.averageScore(difficulty, mode) pts</b>" data-original-title="" title="">
+                <span class="glyphicon glyphicon-stats"></span>
+            </button>
+            <script>
+            $('#average_@formatters.KeyFormatter.unique(difficulty, mode)').popover('hide');
+            </script>
+
             @if(mode != null) {
                 <span class="label label-default">@mode.name</span>
             }
@@ -13,9 +21,9 @@
         <table class="table table-condensed table-hover table-bordered">
             <thead>
                 <th style="width: 10%; text-align: center;">@Messages.get("Rank")</th>
-                <th style="text-align: center; width: 25%;" >@Messages.get("Player")</th>
+                <th style="text-align: center; width: 20%;" >@Messages.get("Player")</th>
                 <th style="width: 25%; text-align: center;" >@Messages.get("Score")</th>
-                <th style="width: 15%; text-align: center;" >@Messages.get("Stage")</th>
+                <th style="width: 20%; text-align: center;" >@Messages.get("Stage")</th>
                 <th style="text-align: center; width: 25%;">@Messages.get("Precisions")</th>
             </thead>
         @for(score <- game.bestScoresByPlayers(difficulty, mode)) {

@@ -23,6 +23,7 @@ Update=Update
 Submit=Submit
 AddScore=Add a score
 SelectGame=Select Game
+AverageScore=Average Score
 
 Logon=Log In
 LogonHelp=You must authenticate on shmup.com
