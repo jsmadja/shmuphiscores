@@ -17,7 +17,7 @@
                 <span class="label label-warning">@difficulty.name</span>
             }
         </h4>
-        <table class="table table-condensed table-hover table-striped table-bordered">
+        <table class="table table-condensed table-hover table-bordered">
             <thead>
                 <th style="width: 10%; text-align: center;">@Messages.get("Rank")</th>
                 <th style="text-align: center; width: 20%;" >@Messages.get("Player")</th>
@@ -26,7 +26,7 @@
                 <th style="text-align: center; width: 25%;">@Messages.get("Precisions")</th>
             </thead>
         @for(score <- game.bestScoresByPlayers(difficulty, mode)) {
-            <tr @if(score.player.equals(actions.User.current)) {style="background-color: #acecb4;"}>
+            <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
                 <td style="text-align: right;">@score.formattedRank</td>
                 <td><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
                 <td style="text-align: right; vertical-align: middle;">
