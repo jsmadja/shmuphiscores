@@ -33,14 +33,15 @@ public class Game extends BaseModel<Game> {
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
 
-    @OrderBy("name")
+    @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Difficulty> difficulties;
 
-    @OrderBy("name")
+    @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Mode> modes;
 
+    @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
 

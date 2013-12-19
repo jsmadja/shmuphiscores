@@ -8,6 +8,8 @@ public class Difficulty extends BaseModel<Difficulty> {
 
     public String name;
 
+    public String sortOrder;
+
     @ManyToOne
     public Game game;
 

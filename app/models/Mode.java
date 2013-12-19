@@ -8,6 +8,8 @@ public class Mode extends BaseModel<Mode> {
 
     public String name;
 
+    public String sortOrder;
+    
     @ManyToOne
     public Game game;
 
