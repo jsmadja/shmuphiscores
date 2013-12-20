@@ -77,7 +77,7 @@ public class Player extends BaseModel<Player> {
     public int oneCreditCount() {
         int oneCreditCount = 0;
         for (Score score : bestScores()) {
-            if (score.stage != null && score.stage.name.toLowerCase().endsWith("all")) {
+            if (score.stage != null && score.stage.name.toLowerCase().contains("all")) {
                 oneCreditCount++;
             }
         }
