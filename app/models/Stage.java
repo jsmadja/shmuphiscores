@@ -9,7 +9,7 @@ public class Stage extends BaseModel<Stage> {
     public String name;
 
     public String sortOrder;
-    
+
     @ManyToOne
     public Game game;
 

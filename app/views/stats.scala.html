@@ -1,0 +1,13 @@
+@(games: List[models.Game])
+@main() {
+
+    <table class="table table-striped table-bordered table-hover">
+        @for(x <- games.map(game =>  (game.title, game.scores.maxBy(_.value))).sortBy(_._2)) {
+            <tr>
+                <td>@x._1</td>
+                <td style="text-align: right;">@x._2</td>
+            </tr>
+        }
+    </table>
+
+}

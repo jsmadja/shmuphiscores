@@ -22,6 +22,8 @@ GET     /game/:id                   controllers.GameController.index(id: models.
 
 GET     /games                      controllers.GamesController.index()
 
+GET     /stats                      controllers.StatsController.index()
+
 GET     /player/:id                 controllers.PlayerController.index(id: models.Player)
 GET     /players                    controllers.PlayersController.index()
 
