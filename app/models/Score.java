@@ -173,4 +173,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return this.player.equals(player);
     }
 
+    public boolean isOneCredited() {
+        if(stage == null) {
+            return false;
+        }
+        String stageName = stage.name.toLowerCase();
+        return stageName.contains("all") || stageName.startsWith("2-");
+    }
 }
