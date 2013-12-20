@@ -5,7 +5,10 @@
     <table id="players">
        <thead>
            <th>@Messages.get("Players")</th>
-           <th style="width: 100px;">@Messages.get("Scores")</th>
+           <th>1st</th>
+           <th>Top 3</th>
+           <th>Top 10</th>
+           <th>1CC</th>
        </thead>
        @for(player <- players) {
             <tr>
@@ -13,7 +16,16 @@
                     <a href="@routes.PlayerController.index(player)">@player.name</a>
                 </td>
                 <td style="text-align: right;">
-                    @player.scores.size()
+                    @player.firstRankCount
+                </td>
+                <td style="text-align: right;">
+                    @player.top3Count
+                </td>
+                <td style="text-align: right;">
+                    @player.top10Count
+                </td>
+                <td style="text-align: right;">
+                    @player.oneCreditCount
                 </td>
             </tr>
        }
@@ -23,8 +35,8 @@
         $(document).ready(function() {
             $('#players').dataTable({
                 "bJQueryUI": true,
-            "bPaginate": false,
-            "bLengthChange": false
+                "bPaginate": false,
+                "bLengthChange": false
             });
         } );
     </script>
