@@ -35,7 +35,7 @@
             type: 'pie',
             name: 'Plateforme',
             data: [
-                @for(p <- platforms.groupBy(_.name)) {
+                @for(p <- platforms.groupBy(_.name.toUpperCase)) {
                     [' @p._1 ',   @p._2.size],
                 }
             ]
