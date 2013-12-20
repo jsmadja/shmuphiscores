@@ -1,13 +1,47 @@
-@(games: List[models.Game])
+@(games: List[models.Game], platforms: List[models.Platform])
 @main() {
 
-    <table class="table table-striped table-bordered table-hover">
-        @for(x <- games.map(game =>  (game.title, game.scores.maxBy(_.value))).sortBy(_._2)) {
-            <tr>
-                <td>@x._1</td>
-                <td style="text-align: right;">@x._2</td>
-            </tr>
-        }
-    </table>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script>
+    $(function () {
+    $('#container').highcharts({
+    chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: 'Répartition par plateforme'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: false,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Plateforme',
+            data: [
+                @for(p <- platforms.groupBy(_.name)) {
+                    [' @p._1 ',   @p._2.size],
+                }
+            ]
+        }]
+        });
+    });
+    </script>
 
 }
