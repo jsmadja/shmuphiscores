@@ -54,7 +54,7 @@
         $(function () {
             $('#container2').highcharts({
                 title: {
-                    text: 'Nombre de scores postés par jour'
+                    text: 'Scores'
                 },
                 xAxis: {
                     type: 'datetime'
@@ -63,11 +63,9 @@
                     type: 'area',
                     name: 'Scores',
                     pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2013, 11, 01),
+                    pointStart: Date.UTC(2013, 10, 29),
                     data: [
-                        @for(s <- scores.groupBy(_.creationWeek)) {
-                            @s._2.size ,
-                        }
+                        @controllers.StatsController.scoresPerDay
                     ]
                 }]
             });
