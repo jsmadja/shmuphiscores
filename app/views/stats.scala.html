@@ -1,47 +1,76 @@
-@(games: List[models.Game], platforms: List[models.Platform])
+@(games: List[models.Game], platforms: List[models.Platform], scores: List[models.Score])
 @main() {
-
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
-    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 45px;">
+            <div id="container"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="container2"></div>
+        </div>
+    </div>
     <script>
-    $(function () {
-    $('#container').highcharts({
-    chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: {
-            text: 'Répartition par plateforme'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: false,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+        $(function () {
+        $('#container').highcharts({
+        chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Répartition par plateforme'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: false,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
                 }
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Plateforme',
-            data: [
-                @for(p <- platforms.groupBy(_.name.toUpperCase)) {
-                    [' @p._1 ',   @p._2.size],
-                }
-            ]
-        }]
+            },
+            series: [{
+                type: 'pie',
+                name: 'Plateforme',
+                data: [
+                    @for(p <- platforms.groupBy(_.name.toUpperCase)) {
+                        [' @p._1 ',   @p._2.size],
+                    }
+                ]
+            }]
+            });
         });
-    });
     </script>
 
+    <script>
+        $(function () {
+            $('#container2').highcharts({
+                title: {
+                    text: 'Nombre de scores postés par jour'
+                },
+                xAxis: {
+                    type: 'datetime'
+                },
+                series: [{
+                    type: 'area',
+                    name: 'Scores',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2013, 11, 01),
+                    data: [
+                        @for(s <- scores.groupBy(_.creationWeek)) {
+                            @s._2.size ,
+                        }
+                    ]
+                }]
+            });
+        });
+    </script>
 }

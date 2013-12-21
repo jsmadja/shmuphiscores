@@ -1,11 +1,15 @@
 package models;
 
 import formatters.ScoreFormatter;
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
+import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,6 +41,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public String photo;
 
     public String replay;
+
+    public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
     public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
@@ -179,5 +185,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         }
         String stageName = stage.name.toLowerCase();
         return stageName.contains("all") || stageName.startsWith("2-");
+    }
+
+    public DateMidnight creationWeek() {
+        return new DateMidnight(getCreatedAt());
     }
 }
