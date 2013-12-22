@@ -195,4 +195,24 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Gwürz!')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Gwürz');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Amiral_Popov')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Amiral Popov');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'heiwa')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'heiwa fr');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MAOHI98')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MAOHI 98');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'MK_o0')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MK_oO');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'psykokat')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Psychokat');
+
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL
