@@ -12,6 +12,8 @@ import play.mvc.SimpleResult;
 import plugins.ShmupClient;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class User extends Action.Simple {
 
@@ -70,7 +72,6 @@ public class User extends Action.Simple {
             player.shmupUserId = shmupUserId;
             player.update();
         }
-        //Logger.info("phpbb3_axtcz_u = " + player.name);
         return player;
     }
 
