@@ -1,4 +1,5 @@
 @(games: List[models.Game], platforms: List[models.Platform], scores: List[models.Score])
+@import play.i18n._
 @main() {
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
@@ -11,7 +12,10 @@
             <div id="container2"></div>
         </div>
         <div class="col-md-12">
-            <div id="container3"></div>
+            <h3>@Messages.get("Games")</h3>
+            @for(game <- games.sortBy(_.title)) {
+                <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" height="130px" alt="@game.title" /></a>
+            }
         </div>
     </div>
     <script>
