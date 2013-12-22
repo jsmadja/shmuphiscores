@@ -29,7 +29,11 @@
 }
 
 @main() {
-   <h2>@player.name</h2>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
+    <h2>@player.name</h2>
    <table class="table table-condensed table-striped table-hover table-bordered">
        <thead>
            <th>@Messages.get("Game")</th>
@@ -41,4 +45,77 @@
        </thead>
        @player.bestScores.map(gameLine(_))
    </table>
+
+    <div id="container3"></div>
+
+    <script>
+    $(function () {
+
+    $('#container3').highcharts({
+    chart: {
+        type: 'area',
+        zoomType: 'x',
+        spacingRight: 20
+    },
+    colors: [
+    '#d9534f',
+    '#428bca',
+    '#5cb85c',
+    '#910000',
+    '#1aadce',
+    '#492970',
+    '#f28f43',
+    '#77a1e5',
+    '#c42525',
+    '#a6c96a'
+    ],
+    title: {
+        text: ''
+    },
+    xAxis: {
+        tickmarkPlacement: 'on',
+        title: {
+            enabled: false
+        },
+        categories: [
+            @for(title <- controllers.StatsController.playedGameTitlesForPlayer(player)) {
+                '@title',
+            }
+        ]
+    },
+    yAxis: {
+        type: 'logarithmic',
+        title: {
+            text: 'Scores'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' pts'
+    },
+    plotOptions: {
+        area: {
+            marker: {
+                enabled: false
+            }
+        }
+    },
+    series: [
+        {
+            name: 'TOP',
+            data: [@controllers.StatsController.bestScoresByGameForPlayer(player)]
+        },
+
+    {
+    name: 'Average',
+    data: [@controllers.StatsController.averageScoresByGameForPlayer(player)]
+    },
+        {
+            name: '@player.name',
+            data: [@controllers.StatsController.bestPlayerScoresByGameForPlayer(player)]
+        }
+    ]
+    });
+    });
+    </script>
 }

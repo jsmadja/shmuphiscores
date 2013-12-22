@@ -76,13 +76,17 @@ public class Game extends BaseModel<Game> {
     }
 
     public String averageScore(Difficulty difficulty, Mode mode) {
+        return ScoreFormatter.format(averageScoreAsLong(difficulty, mode));
+    }
+
+    public Long averageScoreAsLong(Difficulty difficulty, Mode mode) {
         BigDecimal sum = new BigDecimal(0);
         Collection<Score> scores = bestScoresByPlayers(difficulty, mode);
         for (Score score : scores) {
             sum = sum.add(new BigDecimal(score.value));
         }
         Long average = sum.divideToIntegralValue(new BigDecimal(scores.size())).longValue();
-        return ScoreFormatter.format(average);
+        return average;
     }
 
     public Collection<Score> bestScores() {

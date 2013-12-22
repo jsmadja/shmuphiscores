@@ -1,16 +1,17 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import formatters.ScoreFormatter;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.eq;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
@@ -132,7 +133,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public boolean isWorstThan(Score score) {
-        if(isComparableWith(score)) {
+        if (isComparableWith(score)) {
             return score.compareTo(this) > 0;
         }
         return false;
@@ -143,13 +144,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     private boolean hasDifficulty(Difficulty difficulty) {
-        if(difficulty == null && this.difficulty == null) {
+        if (difficulty == null && this.difficulty == null) {
             return true;
         }
-        if(difficulty == null) {
+        if (difficulty == null) {
             return false;
         }
-        if(this.difficulty == null) {
+        if (this.difficulty == null) {
             return false;
         }
         return this.difficulty.equals(difficulty);
@@ -160,34 +161,45 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     private boolean hasMode(Mode mode) {
-        if(mode == null && this.mode == null) {
+        if (mode == null && this.mode == null) {
             return true;
         }
-        if(mode == null) {
+        if (mode == null) {
             return false;
         }
-        if(this.mode == null) {
+        if (this.mode == null) {
             return false;
         }
         return this.mode.equals(mode);
     }
 
     public boolean isPlayedBy(Player player) {
-        if(player == null) {
+        if (player == null) {
             return false;
         }
         return this.player.equals(player);
     }
 
     public boolean isOneCredited() {
-        if(stage == null) {
+        if (stage == null) {
             return false;
         }
         String stageName = stage.name.toLowerCase();
         return stageName.contains("all") || stageName.startsWith("2-");
     }
 
-    public DateMidnight creationWeek() {
-        return new DateMidnight(getCreatedAt());
+    public String getGameTitle() {
+        String title = game.title;
+        if (mode != null) {
+            title += " " + mode.name;
+        }
+        if (difficulty != null) {
+            title += " " + difficulty.name;
+        }
+        return title;
+    }
+
+    public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
+        return Ebean.createQuery(Score.class).setMaxRows(1).orderBy("value desc").where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).findUnique();
     }
 }
