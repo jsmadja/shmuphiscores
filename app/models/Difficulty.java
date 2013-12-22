@@ -1,5 +1,7 @@
 package models;
 
+import play.db.ebean.Model;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -12,6 +14,8 @@ public class Difficulty extends BaseModel<Difficulty> {
 
     @ManyToOne
     public Game game;
+
+    public static Finder<Long, Difficulty> finder = new Model.Finder(Long.class, Difficulty.class);
 
     public Difficulty(String name) {
         this.name = name;
