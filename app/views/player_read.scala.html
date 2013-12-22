@@ -54,8 +54,6 @@
     $('#container3').highcharts({
     chart: {
         type: 'area',
-        zoomType: 'x',
-        spacingRight: 20
     },
     colors: [
     '#d9534f',
@@ -70,7 +68,7 @@
     '#a6c96a'
     ],
     title: {
-        text: ''
+        text: 'Progression'
     },
     xAxis: {
         tickmarkPlacement: 'on',
@@ -84,7 +82,6 @@
         ]
     },
     yAxis: {
-        type: 'logarithmic',
         title: {
             text: 'Scores'
         }
@@ -95,6 +92,7 @@
     },
     plotOptions: {
         area: {
+            stacking: 'percent',
             marker: {
                 enabled: false
             }

@@ -202,4 +202,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
         return Ebean.createQuery(Score.class).setMaxRows(1).orderBy("value desc").where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).findUnique();
     }
+
+    public Double getGapWithTop() {
+        Long max = getBestScoreFor(game, mode, difficulty).value;
+        return (max - value) / (double) max;
+    }
 }
