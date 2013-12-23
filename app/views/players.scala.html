@@ -35,8 +35,10 @@
         $(document).ready(function() {
             $('#players').dataTable({
                 "bJQueryUI": true,
+                "sDom": "<'row dataTables_utils'<'col-md-6'l><'col-md-6'f>r>t<'row dataTables_utils'<'col-md-6'i><'col-md-6'p>>",
                 "bPaginate": false,
-                "bLengthChange": false
+                "bLengthChange": false,
+                "bInfo": false
             });
         } );
     </script>

@@ -142,3 +142,32 @@ body {
         border-bottom: 0;
     }
 }
+
+table.dataTable {
+    border: 1px solid #ddd;
+}
+
+table.dataTable tr.even td.sorting_1 {
+    background-color: white;
+}
+
+table.dataTable tr.even {
+    border: 1px solid #ddd;
+    background-color: white;
+}
+
+table.dataTable td {
+    border: 1px solid #ddd;
+}
+
+table.dataTable tr.odd td.sorting_1 {
+    background-color: #f9f9f9;
+}
+
+table.dataTable tr.odd {
+    background-color: #f9f9f9;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    color: #333;
+}
