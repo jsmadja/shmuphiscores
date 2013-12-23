@@ -2,22 +2,18 @@ package controllers;
 
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Ordering;
-import com.google.common.primitives.Longs;
 import models.*;
 import org.joda.time.DateMidnight;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.stats;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.TreeMap;
 
 import static com.avaje.ebean.Expr.le;
-import static com.google.common.collect.Collections2.filter;
 
 public class StatsController extends Controller {
 
@@ -39,22 +35,17 @@ public class StatsController extends Controller {
         return Joiner.on(",").join(getCategories(game, difficulty, mode));
     }
 
-    private static List<Long> getCategories(Game game, Difficulty difficulty, Mode mode) {
+    private static Collection<Long> getCategories(Game game, Difficulty difficulty, Mode mode) {
+        TreeMap<Long, Score> scoresMaps = scoreMap(game, difficulty, mode);
         List<Long> scoreCategories = new ArrayList<Long>();
-        Collection<Score> scores = game.bestScoresByPlayers(difficulty, mode);
-        Ordering<Score> ordering = new Ordering<Score>() {
-            @Override
-            public int compare(Score left, Score right) {
-                return Longs.compare(left.value, right.value);
-            }
-        };
-        Long min = ordering.min(scores).value;
-        Long max = ordering.max(scores).value;
-        if(min.equals(max)) {
+        Long min = scoresMaps.firstKey();
+        Long max = scoresMaps.lastKey();
+        if (min.equals(max)) {
             min = 0L;
         }
-        long step = (max - min) / STEP;
-        for (int i = 1; i <= STEP; i++) {
+        long step = (max - min) / scoresMaps.size();
+        scoreCategories.add(min);
+        for (int i = 1; i < (scoresMaps.size() - 1); i++) {
             scoreCategories.add(i * step);
         }
         scoreCategories.add(max);
@@ -62,22 +53,20 @@ public class StatsController extends Controller {
     }
 
     public static String playerPerCategories(Game game, Difficulty difficulty, Mode mode) {
-        final List<Long> scoreCategories = getCategories(game, difficulty, mode);
+        TreeMap<Long, Score> scores = scoreMap(game, difficulty, mode);
         List<Integer> playerPerCategories = new ArrayList<Integer>();
-        Collection<Score> scores = game.bestScoresByPlayers(difficulty, mode);
-        for (int i = 0; i <= STEP; i++) {
-            final long min = i * scoreCategories.get(0);
-            final long max = (i + 1) * scoreCategories.get(0);
-            int count = filter(scores, new Predicate<Score>() {
-                @Override
-                public boolean apply(@Nullable Score score) {
-                    return min <= score.value && score.value < max;
-                }
-            }).size();
-            playerPerCategories.add(count);
+        for (Long category : getCategories(game, difficulty, mode)) {
+            playerPerCategories.add(scores.tailMap(category).size());
         }
         return Joiner.on(",").join(playerPerCategories);
     }
 
-    static int STEP = 4;
+    private static TreeMap<Long, Score> scoreMap(Game game, Difficulty difficulty, Mode mode) {
+        TreeMap<Long, Score> scoresMaps = new TreeMap<Long, Score>();
+        for (Score score : game.bestScoresByPlayers(difficulty, mode)) {
+            scoresMaps.put(score.value, score);
+        }
+        return scoresMaps;
+    }
+
 }

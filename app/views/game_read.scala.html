@@ -20,48 +20,49 @@
                 $('#average_@formatters.KeyFormatter.unique(difficulty, mode)').popover('hide');
             </script>
 
-            <div id="container_@formatters.KeyFormatter.unique(difficulty, mode)"></div>
+            <div id="container_@formatters.KeyFormatter.unique(difficulty, mode)" style="display:none; width: 860px; margin-bottom: 10px;" ></div>
 
             <script>
                 $(function () {
+                    $( "#average_@formatters.KeyFormatter.unique(difficulty, mode)" ).click(
+                        function() {
+                            $('#container_@formatters.KeyFormatter.unique(difficulty, mode)').show();
+                        }
+                    );
+
                     $('#container_@formatters.KeyFormatter.unique(difficulty, mode)').highcharts({
                         chart: {
-                        type: 'spline'
-                    },
-                    title: {
-                        text: 'Répartition des scores'
-                    },
-                    xAxis: {
-                        categories: [
-                            @controllers.StatsController.scoreCategories(game, difficulty, mode)
-                        ],
-                        labels: {
-                            formatter: function() {
-                                return this.value;
-                            }
-                        }
-                    },
-                    yAxis: {
+                            type: 'areaspline'
+                        },
                         title: {
-                            text: 'Joueurs'
-                        }
-                    },
-                    tooltip: {
-                        crosshairs: true,
-                        shared: true
-                    },
-                    plotOptions: {
-                        spline: {
-                            marker: {
-                                radius: 4,
-                                lineColor: '#666666',
-                                lineWidth: 1
+                            text: 'Répartition'
+                        },
+                        xAxis: {
+                            categories: [
+                                @controllers.StatsController.scoreCategories(game, difficulty, mode)
+                            ],
+                            labels: {
+                                formatter: function() {
+                                    return '';
+                                }
                             }
-                        }
-                    },
-                    series: [{
-                        data: [@controllers.StatsController.playerPerCategories(game, difficulty, mode)]
-                    }]
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Joueurs'
+                            }
+                        },
+                        plotOptions: {
+                            areaspline: {
+                                marker: {
+                                enabled: false
+                                }
+                            }
+                        },
+                        series: [{
+                            name: 'Joueurs',
+                            data: [@controllers.StatsController.playerPerCategories(game, difficulty, mode)]
+                        }]
                     });
                 });
             </script>
