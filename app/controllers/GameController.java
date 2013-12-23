@@ -62,7 +62,7 @@ public class GameController extends Controller {
     private static void createPlatforms(models.Game game) {
         Scanner sc = new Scanner(game.platforms.get(0).name);
         while (sc.hasNextLine()) {
-            Platform platform = new Platform(sc.nextLine());
+            Platform platform = new Platform(sc.nextLine().trim());
             platform.game = game;
             platform.save();
         }
@@ -71,7 +71,7 @@ public class GameController extends Controller {
     private static void createDifficulties(models.Game game) {
         Scanner sc = new Scanner(game.difficulties.get(0).name);
         while (sc.hasNextLine()) {
-            Difficulty difficulty = new Difficulty(sc.nextLine());
+            Difficulty difficulty = new Difficulty(sc.nextLine().trim());
             difficulty.game = game;
             difficulty.save();
         }
@@ -80,7 +80,7 @@ public class GameController extends Controller {
     private static void createModes(models.Game game) {
         Scanner sc = new Scanner(game.modes.get(0).name);
         while (sc.hasNextLine()) {
-            Mode mode = new Mode(sc.nextLine());
+            Mode mode = new Mode(sc.nextLine().trim());
             mode.game = game;
             mode.save();
         }
@@ -89,7 +89,7 @@ public class GameController extends Controller {
     private static void createStages(models.Game game) {
         Scanner sc = new Scanner(game.stages.get(0).name);
         while (sc.hasNextLine()) {
-            Stage stage = new Stage(sc.nextLine());
+            Stage stage = new Stage(sc.nextLine().trim());
             stage.game = game;
             stage.save();
         }
