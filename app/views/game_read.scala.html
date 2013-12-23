@@ -3,11 +3,76 @@
 @scores(difficulty: Difficulty, mode: Mode) = {
     @if(!game.bestScoresByPlayers(difficulty, mode).isEmpty) {
         <h4>
-            <button id="average_@formatters.KeyFormatter.unique(difficulty, mode)" data-html="true" type="button" class="btn btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="@Messages.get("AverageScore") : <b>@game.averageScore(difficulty, mode) pts</b>" data-original-title="" title="">
+            <button id="average_@formatters.KeyFormatter.unique(difficulty, mode)"
+                    data-html="true"
+                    type="button"
+                    class="btn btn-default"
+                    data-container="body"
+                    data-trigger="hover"
+                    data-toggle="popover"
+                    data-placement="top"
+                    data-content="@Messages.get("AverageScore") : <b>@game.averageScore(difficulty, mode) pts</b>"
+                    data-original-title=""
+                    title="">
                 <span class="glyphicon glyphicon-stats"></span>
             </button>
             <script>
-            $('#average_@formatters.KeyFormatter.unique(difficulty, mode)').popover('hide');
+                $('#average_@formatters.KeyFormatter.unique(difficulty, mode)').popover('hide');
+            </script>
+            <div id="container_@formatters.KeyFormatter.unique(difficulty, mode)" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
+            <script>
+                $(function () {
+                    $( "#average_@formatters.KeyFormatter.unique(difficulty, mode)" ).click(
+                        function() {
+                            var chart = $('#container_@formatters.KeyFormatter.unique(difficulty, mode)');
+                            if( chart.is(':visible') ) {
+                                chart.hide();
+                            } else {
+                                chart.show();
+                            }
+                        }
+                    );
+                    $('#container_@formatters.KeyFormatter.unique(difficulty, mode)').highcharts({
+                        chart: {
+                            type: 'areaspline'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            categories: [
+                                @controllers.StatsController.scoreCategories(game, difficulty, mode)
+                            ],
+                            labels: {
+                                formatter: function() {
+                                    return '';
+                                }
+                            }
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return this.x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+ " pts";
+                            }
+
+                        },
+                        yAxis: {
+                            title: {
+                                text: '@Messages.get("Players")'
+                            }
+                        },
+                        plotOptions: {
+                            areaspline: {
+                                marker: {
+                                enabled: false
+                                }
+                            }
+                        },
+                        series: [{
+                            name: '@Messages.get("Players")',
+                            data: [@controllers.StatsController.playerPerCategories(game, difficulty, mode)]
+                        }]
+                    });
+                });
             </script>
 
             @if(mode != null) {
@@ -73,6 +138,8 @@
 }
 
 @main(game) {
+    <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
 
    <h2 class="title">
 
