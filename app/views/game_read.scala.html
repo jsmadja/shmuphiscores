@@ -92,8 +92,8 @@
             </thead>
         @for(score <- game.bestScoresByPlayers(difficulty, mode)) {
             <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
-                <td style="text-align: right;">@score.formattedRank</td>
-                <td><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
+                <td style="text-align: right; vertical-align: middle;">@score.formattedRank</td>
+                <td style="vertical-align: middle;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
                 <td style="text-align: right; vertical-align: middle;">
                     @if(score.photo) {
                         <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right: 5px;">
@@ -116,7 +116,7 @@
                     }
                     <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
                 </td>
-                <td style="text-align: right;" >@if(score.stage != null) { @score.stage.name }</td>
+                <td style="text-align: right; vertical-align: middle;" >@if(score.stage != null) { @score.stage.name }</td>
                 <td style="text-align: center; vertical-align: middle;">
                     @if(score.comment) {
                         @if(score.comment.length < 25) {
