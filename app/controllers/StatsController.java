@@ -115,7 +115,7 @@ public class StatsController extends Controller {
         long step = (max - min) / scoresMaps.size();
         scoreCategories.add(min);
         for (int i = 1; i < (scoresMaps.size() - 1); i++) {
-            scoreCategories.add(i * step);
+            scoreCategories.add(scoreCategories.get(i - 1).longValue() + step);
         }
         scoreCategories.add(max);
         return scoreCategories;
