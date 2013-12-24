@@ -1,4 +1,4 @@
-@(players: List[models.Player])
+@(players: List[models.Player], counts: Map[models.Player,controllers.PlayersController.Counts])
 @import play.i18n._
 @main() {
    <h2>@Messages.get("players.scala.html.playerlist")</h2>
@@ -16,16 +16,16 @@
                     <a href="@routes.PlayerController.index(player)">@player.name</a>
                 </td>
                 <td style="text-align: right;">
-                    @player.firstRankCount
+                    @counts.get(player).firstRankCount
                 </td>
                 <td style="text-align: right;">
-                    @player.top3Count
+                    @counts.get(player).top3Count
                 </td>
                 <td style="text-align: right;">
-                    @player.top10Count
+                    @counts.get(player).top10Count
                 </td>
                 <td style="text-align: right;">
-                    @player.oneCreditCount
+                    @counts.get(player).oneCreditCount
                 </td>
             </tr>
        }
