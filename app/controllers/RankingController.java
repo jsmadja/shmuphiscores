@@ -28,6 +28,9 @@ public class RankingController extends Controller {
         if(game == null) {
             return notFound();
         }
+        if(request().getQueryString("refresh") != null) {
+            getRankingCache().remove(game);
+        }
         Map<Game, byte[]> rankings = getRankingCache();
         byte[] bytes = rankings.get(game);
         if (bytes == null) {
