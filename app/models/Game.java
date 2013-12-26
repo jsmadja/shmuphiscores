@@ -145,7 +145,7 @@ public class Game extends BaseModel<Game> {
     }
 
     public String post() {
-        return thread.replace("viewtopic.php?", "posting.php?mode=reply@f=20&");
+        return thread.replace("viewtopic.php?", "posting.php?mode=reply&f=20&");
     }
 
     @Override
