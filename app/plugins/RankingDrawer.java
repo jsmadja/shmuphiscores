@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import models.Difficulty;
 import models.Mode;
 import models.Score;
+import org.apache.commons.lang3.StringUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,6 +14,7 @@ import static java.awt.Color.*;
 import static java.awt.Font.*;
 import static java.awt.RenderingHints.*;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import static org.apache.commons.lang3.StringUtils.defaultString;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 import static org.apache.commons.lang3.StringUtils.rightPad;
 
@@ -102,7 +104,7 @@ public class RankingDrawer {
                 graphics.setColor(COLOR_SHMUP_COMMENT);
             }
             graphics.setFont(parameterFont);
-            graphics.drawString(platform + "    " + score.comment, STAGE_PLATFORM_X + (rankingGameConfiguration.maxStageLength * fontWidth), y);
+            graphics.drawString(platform + "    " + defaultString(score.comment).trim(), STAGE_PLATFORM_X + (rankingGameConfiguration.maxStageLength * fontWidth), y);
         }
 
         private void stage(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
