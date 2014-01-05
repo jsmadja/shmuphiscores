@@ -2,8 +2,10 @@
 @import play.i18n._
 @main() {
     <h2 class="title">
-        <img src="@score.game.cover" alt="@score.game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
-        <span>@score.game.title</span>
+        <a href="@routes.GameController.indexWithName(score.game, score.game.title)"><img src="@score.game.cover" alt="@score.game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" /></a>
+        <span>
+            <a href="@routes.GameController.indexWithName(score.game, score.game.title)">@score.game.title</a>
+        </span>
         <p>
             <a href="@score.game.thread" class="btn btn-default btn-lg btn-xs">
                 <span class="glyphicon glyphicon-share-alt"></span> forum
@@ -16,6 +18,14 @@
 
     <div style="clear: both;"/>    <form role="form" method="POST" action="/score/update">
         <input type="hidden" name="scoreId" value="@score.id" />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="playerName">@Messages.get("Player")</label>
+                    <a href="@routes.PlayerController.index(score.player)">@score.player.name</a>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
