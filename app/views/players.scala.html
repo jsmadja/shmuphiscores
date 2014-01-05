@@ -38,7 +38,13 @@
                 "sDom": "<'row dataTables_utils'<'col-md-6'l><'col-md-6'f>r>t<'row dataTables_utils'<'col-md-6'i><'col-md-6'p>>",
                 "bPaginate": false,
                 "bLengthChange": false,
-                "bInfo": false
+                "bInfo": false,
+                "aoColumnDefs": [
+                { "asSorting": [ "desc" ], "aTargets": [ 1 ] },
+                { "asSorting": [ "desc"], "aTargets": [ 2 ] },
+                { "asSorting": [ "desc" ], "aTargets": [ 3 ] },
+                { "asSorting": [ "desc" ], "aTargets": [ 4 ] }
+                ]
             });
         } );
     </script>
