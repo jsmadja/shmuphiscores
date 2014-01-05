@@ -215,4 +215,12 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'psykokat')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Psychokat');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Doudinou')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Alexileptique');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Dondy')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Vega');
+
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL
