@@ -27,4 +27,6 @@ GET     /stats                      controllers.StatsController.index()
 GET     /player/:id                 controllers.PlayerController.index(id: models.Player)
 GET     /players                    controllers.PlayersController.index()
 
+GET     /backup                     controllers.BackupController.index
+
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
