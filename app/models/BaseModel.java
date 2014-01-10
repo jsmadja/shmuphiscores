@@ -10,21 +10,28 @@ import play.mvc.PathBindable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.Locale;
 
 @Entity
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BaseModel<T extends BaseModel<T>> extends Model implements PathBindable<T> {
 
     @Id
+    @XmlTransient
     public Long id;
 
     @CreatedTimestamp
     @Column(name = "created_at")
+    @XmlTransient
     private Date createdAt;
 
     @UpdatedTimestamp
     @Column(name = "updated_at")
+    @XmlTransient
     private Date updatedAt;
 
     public BaseModel() {

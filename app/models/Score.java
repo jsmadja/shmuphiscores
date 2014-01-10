@@ -7,15 +7,18 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
 
+    @XmlTransient
     @ManyToOne
     public Game game;
 
@@ -25,9 +28,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @ManyToOne
     public Stage stage;
 
+    @XmlTransient
     @ManyToOne
     public Mode mode;
 
+    @XmlTransient
     @ManyToOne
     public Difficulty difficulty;
 
@@ -86,10 +91,12 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public int rank() {
-        List<Score> scores = new ArrayList<Score>(game.scores(difficulty, mode));
-        scores = Scores.keepBestScoresForEachPlayer(scores);
-        for (int i = 0; i < scores.size(); i++) {
-            if (this.equals(scores.get(i))) {
+        Ranking ranking = game.findRankingMatching(difficulty, mode);
+        if(ranking == null) {
+            return 0;
+        }
+        for (int i = 0; i < ranking.scores.size(); i++) {
+            if (this.equals(ranking.scores.get(i))) {
                 return i + 1;
             }
         }

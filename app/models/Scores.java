@@ -25,19 +25,4 @@ public class Scores {
         }));
     }
 
-    public static List<Score> keepBestScoresForEachGame(List<Score> scores) {
-        sort(scores);
-        final Set<String> games = new HashSet<String>();
-        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                String key = score.game.title+"_"+score.difficulty+" "+score.mode;
-                if(games.contains(key)) {
-                    return false;
-                }
-                games.add(key);
-                return true;
-            }
-        }));
-    }
 }

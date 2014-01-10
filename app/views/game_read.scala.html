@@ -1,9 +1,8 @@
 @(game: models.Game)
 @import play.i18n._
-@scores(difficulty: Difficulty, mode: Mode) = {
-    @if(!game.bestScoresByPlayers(difficulty, mode).isEmpty) {
+@scores(ranking: Ranking) = {
         <h4>
-            <button id="average_@formatters.KeyFormatter.unique(difficulty, mode)"
+            <button id="average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)"
                     data-html="true"
                     type="button"
                     class="btn btn-default"
@@ -11,20 +10,20 @@
                     data-trigger="hover"
                     data-toggle="popover"
                     data-placement="top"
-                    data-content="@Messages.get("AverageScore") : <b>@game.averageScore(difficulty, mode) pts</b>"
+                    data-content="@Messages.get("AverageScore") : <b>@ranking.averageScore() pts</b>"
                     data-original-title=""
                     title="">
                 <span class="glyphicon glyphicon-stats"></span>
             </button>
             <script>
-                $('#average_@formatters.KeyFormatter.unique(difficulty, mode)').popover('hide');
+                $('#average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)').popover('hide');
             </script>
-            <div id="container_@formatters.KeyFormatter.unique(difficulty, mode)" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
+            <div id="container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
             <script>
                 $(function () {
-                    $( "#average_@formatters.KeyFormatter.unique(difficulty, mode)" ).click(
+                    $( "#average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)" ).click(
                         function() {
-                            var chart = $('#container_@formatters.KeyFormatter.unique(difficulty, mode)');
+                            var chart = $('#container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)');
                             if( chart.is(':visible') ) {
                                 chart.hide();
                             } else {
@@ -32,16 +31,16 @@
                             }
                         }
                     );
-                    $('#container_@formatters.KeyFormatter.unique(difficulty, mode)').highcharts({
+                    $('#container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)').highcharts({
                         chart: {
                             type: 'areaspline'
                         },
                         title: {
-                            text: '@game.getEscapedTitle @mode @difficulty'
+                            text: '@game.getEscapedTitle @ranking.mode @ranking.difficulty'
                         },
                         xAxis: {
                             categories: [
-                                @controllers.StatsController.scoreCategories(game, difficulty, mode)
+                                @controllers.StatsController.scoreCategories(ranking)
                             ],
                             labels: {
                                 formatter: function() {
@@ -69,17 +68,17 @@
                         },
                         series: [{
                             name: '@Messages.get("Players")',
-                            data: [@controllers.StatsController.playerPerCategories(game, difficulty, mode)]
+                            data: [@controllers.StatsController.playerPerCategories(ranking)]
                         }]
                     });
                 });
             </script>
 
-            @if(mode != null) {
-                <span class="label label-default">@mode.name</span>
+            @if(ranking.mode != null) {
+                <span class="label label-default">@ranking.mode.name</span>
             }
-            @if(difficulty != null) {
-                <span class="label label-warning">@difficulty.name</span>
+            @if(ranking.difficulty != null) {
+                <span class="label label-warning">@ranking.difficulty.name</span>
             }
         </h4>
         <table class="table table-condensed table-hover table-bordered">
@@ -90,7 +89,7 @@
                 <th style="width: 20%; text-align: center;" >@Messages.get("Stage")</th>
                 <th style="text-align: center; width: 25%;">@Messages.get("Precisions")</th>
             </thead>
-        @for(score <- game.bestScoresByPlayers(difficulty, mode)) {
+        @for(score <- ranking.getScores) {
             <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
                 <td style="text-align: right; vertical-align: middle;">@score.formattedRank</td>
                 <td style="vertical-align: middle;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
@@ -134,7 +133,6 @@
             </tr>
         }
         </table>
-    }
 }
 
 @main(game) {
@@ -162,23 +160,9 @@
    </h2>
     <br style="clear: both;" />
 
-    @if(game.modes.isEmpty) {
-        @if(game.difficulties.isEmpty) {
-            @scores(null, null)
-        } else {
-            @for(difficulty <- game.difficulties) {
-                @scores(difficulty, null)
-            }
-        }
-    } else {
-        @for(mode <- game.modes) {
-            @if(game.difficulties.isEmpty) {
-                @scores(null, mode)
-            } else {
-                @for(difficulty <- game.difficulties) {
-                    @scores(difficulty, mode)
-                }
-            }
+    @for(ranking <- game.rankings) {
+        @if(!ranking.scores.isEmpty) {
+            @scores(ranking)
         }
     }
 }

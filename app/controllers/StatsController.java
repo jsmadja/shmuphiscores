@@ -77,18 +77,6 @@ public class StatsController extends Controller {
         }));
     }
 
-    public static String averageScoresByGameForPlayer(Player player) {
-        List<Score> scores = getScoresOrderByProgression(player);
-        return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
-            @Nullable
-            @Override
-            public String apply(@Nullable Score score) {
-                Long average = score.game.averageScoreAsLong(score.difficulty, score.mode);
-                return average.toString();
-            }
-        }));
-    }
-
     public static String bestPlayerScoresByGameForPlayer(Player player) {
         List<Score> scores = getScoresOrderByProgression(player);
         return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
@@ -100,12 +88,12 @@ public class StatsController extends Controller {
         }));
     }
 
-    public static String scoreCategories(Game game, Difficulty difficulty, Mode mode) {
-        return Joiner.on(",").join(getCategories(game, difficulty, mode));
+    public static String scoreCategories(Ranking ranking) {
+        return Joiner.on(",").join(getCategories(ranking));
     }
 
-    private static Collection<Long> getCategories(Game game, Difficulty difficulty, Mode mode) {
-        TreeMap<Long, Score> scoresMaps = scoreMap(game, difficulty, mode);
+    private static Collection<Long> getCategories(Ranking ranking) {
+        TreeMap<Long, Score> scoresMaps = scoreMap(ranking);
         List<Long> scoreCategories = new ArrayList<Long>();
         Long min = scoresMaps.firstKey();
         Long max = scoresMaps.lastKey();
@@ -121,18 +109,18 @@ public class StatsController extends Controller {
         return scoreCategories;
     }
 
-    public static String playerPerCategories(Game game, Difficulty difficulty, Mode mode) {
-        TreeMap<Long, Score> scores = scoreMap(game, difficulty, mode);
+    public static String playerPerCategories(Ranking ranking) {
+        TreeMap<Long, Score> scores = scoreMap(ranking);
         List<Integer> playerPerCategories = new ArrayList<Integer>();
-        for (Long category : getCategories(game, difficulty, mode)) {
+        for (Long category : getCategories(ranking)) {
             playerPerCategories.add(scores.tailMap(category).size());
         }
         return Joiner.on(",").join(playerPerCategories);
     }
 
-    private static TreeMap<Long, Score> scoreMap(Game game, Difficulty difficulty, Mode mode) {
+    private static TreeMap<Long, Score> scoreMap(Ranking ranking) {
         TreeMap<Long, Score> scoresMaps = new TreeMap<Long, Score>();
-        for (Score score : game.bestScoresByPlayers(difficulty, mode)) {
+        for (Score score : ranking.getScores()) {
             scoresMaps.put(score.value, score);
         }
         return scoresMaps;

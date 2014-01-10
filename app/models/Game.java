@@ -2,14 +2,14 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
-import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import java.math.BigDecimal;
+import javax.persistence.PostLoad;
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,32 +18,49 @@ import static com.google.common.collect.Collections2.filter;
 import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
+@XmlRootElement(name = "game")
 public class Game extends BaseModel<Game> {
 
+    @XmlAttribute
     public String cover;
 
+    @XmlAttribute
     public String title;
 
+    @XmlAttribute
     public String thread;
 
+    @XmlTransient
     @OneToMany(mappedBy = "game")
     public List<Score> scores;
 
+    @XmlElementWrapper
+    @XmlElement(name = "platform")
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
 
+    @XmlElementWrapper
+    @XmlElement(name = "difficulty")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Difficulty> difficulties;
 
+    @XmlElementWrapper
+    @XmlElement(name = "mode")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Mode> modes;
 
+    @XmlElementWrapper
+    @XmlElement(name = "stage")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
+
+    @XmlElementWrapper
+    @XmlElement(name = "ranking")
+    public Collection<Ranking> rankings;
 
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
 
@@ -53,92 +70,43 @@ public class Game extends BaseModel<Game> {
         this.thread = thread;
     }
 
-    public Collection<Ranking> getRankings() {
-        Collection<Ranking> rankings = new ArrayList<Ranking>();
+    @PostLoad
+    public void computeRankings() {
+        rankings = new ArrayList<Ranking>();
         if (modes.isEmpty()) {
-            if (difficulties == null) {
-                rankings.add(new Ranking(this));
+            if (difficulties.isEmpty()) {
+                rankings.add(new Ranking(findBestScoresByPlayers(null, null)));
             } else {
                 for (Difficulty difficulty : difficulties) {
-                    rankings.add(new Ranking(this, difficulty));
+                    rankings.add(new Ranking(findBestScoresByPlayers(difficulty, null), difficulty));
                 }
             }
         } else {
             for (Mode mode : modes) {
                 if (difficulties.isEmpty()) {
-                    rankings.add(new Ranking(this, mode));
+                    rankings.add(new Ranking(findBestScoresByPlayers(null, mode), mode));
                 } else {
                     for (Difficulty difficulty : difficulties) {
-                        rankings.add(new Ranking(this, difficulty, mode));
+                        rankings.add(new Ranking(findBestScoresByPlayers(difficulty, mode), difficulty, mode));
                     }
                 }
             }
         }
-        return rankings;
     }
 
-    public Collection<Score> scores(final Difficulty difficulty, final Mode mode) {
+    private Collection<Score> findBestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
-        }
-        return filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
-            }
-        });
-    }
-
-    public Collection<Score> bestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
-        if (scores == null) {
-            return new ArrayList<Score>();
-        }
-        if(difficulty == null) {
-            return keepBestScoresForEachPlayer(filterBy(mode));
         }
         return keepBestScoresForEachPlayer(filterBy(difficulty, mode));
     }
 
-    public String averageScore(Difficulty difficulty, Mode mode) {
-        return ScoreFormatter.format(averageScoreAsLong(difficulty, mode));
-    }
-
-    public Long averageScoreAsLong(Difficulty difficulty, Mode mode) {
-        BigDecimal sum = new BigDecimal(0);
-        Collection<Score> scores = bestScoresByPlayers(difficulty, mode);
-        for (Score score : scores) {
-            sum = sum.add(new BigDecimal(score.value));
+    public int getScoreCount() {
+        int count = 0;
+        for (Ranking ranking : rankings) {
+            count += ranking.getScores().size();
         }
-        Long average = sum.divideToIntegralValue(new BigDecimal(scores.size())).longValue();
-        return average;
-    }
-
-    public Collection<Score> bestScores() {
-        List<Score> bestScores = new ArrayList<Score>();
-        if (scores == null) {
-            return bestScores;
-        }
-
-        if (difficulties.isEmpty()) {
-            if (modes.isEmpty()) {
-                return keepBestScoresForEachPlayer(scores);
-            }
-            for (Mode mode : modes) {
-                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(mode)));
-            }
-            return bestScores;
-        }
-
-        for (final Difficulty difficulty : difficulties) {
-            if (modes.isEmpty()) {
-                bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty)));
-            } else {
-                for (final Mode mode : modes) {
-                    bestScores.addAll(keepBestScoresForEachPlayer(filterBy(difficulty, mode)));
-                }
-            }
-        }
-        return bestScores;
+        return count;
     }
 
     private List<Score> filterBy(final Difficulty difficulty, final Mode mode) {
@@ -146,24 +114,6 @@ public class Game extends BaseModel<Game> {
             @Override
             public boolean apply(@Nullable Score score) {
                 return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
-            }
-        }));
-    }
-
-    private List<Score> filterBy(final Difficulty difficulty) {
-        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return difficulty == null || score.concerns(difficulty);
-            }
-        }));
-    }
-
-    private List<Score> filterBy(final Mode mode) {
-        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return mode == null || score.concerns(mode);
             }
         }));
     }
@@ -188,5 +138,14 @@ public class Game extends BaseModel<Game> {
             s = s.substring(0, s.length() - 1);
         }
         return s;
+    }
+
+    public Ranking findRankingMatching(Difficulty difficulty, Mode mode) {
+        for (Ranking ranking : rankings) {
+            if (ranking.difficulty == difficulty && ranking.mode == mode) {
+                return ranking;
+            }
+        }
+        return null;
     }
 }

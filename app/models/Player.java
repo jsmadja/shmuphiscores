@@ -1,22 +1,30 @@
 package models;
 
+import com.google.common.base.Predicate;
 import play.db.ebean.Model;
 
+import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.*;
+
+import static com.google.common.collect.Collections2.filter;
+import static java.util.Collections.sort;
 
 @Entity
 public class Player extends BaseModel<Player> {
 
     public static Player guest = new Player(0L, "guest");
+
+    @XmlAttribute
     public String name;
 
+    @XmlTransient
     public Long shmupUserId;
 
+    @XmlTransient
     @OneToMany(mappedBy = "player")
     public List<Score> scores = new ArrayList<Score>();
 
@@ -60,7 +68,19 @@ public class Player extends BaseModel<Player> {
 
     public List<Score> bestScores() {
         List<Score> bestScores = new ArrayList<Score>(scores);
-        bestScores = Scores.keepBestScoresForEachGame(bestScores);
+        sort(bestScores);
+        final Set<String> games = new HashSet<String>();
+        bestScores = new ArrayList<Score>(filter(bestScores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                String key = score.game.title + "_" + score.difficulty + " " + score.mode;
+                if (games.contains(key)) {
+                    return false;
+                }
+                games.add(key);
+                return true;
+            }
+        }));
         Collections.sort(bestScores, new Comparator<Score>() {
             @Override
             public int compare(Score score, Score score2) {
