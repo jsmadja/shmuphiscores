@@ -46,6 +46,26 @@
        @player.bestScores.map(gameLine(_))
    </table>
 
+    @if(player.hasReplays) {
+        <h3>@Messages.get("Replays")</h3>
+        <table class="table table-condensed table-striped table-hover table-bordered">
+        @for(score <- player.bestReplayableScores) {
+            <tr>
+                <td style="width: 50px; text-align: center; vertical-align: middle;">
+                    <a href="@score.replay" target="_blank" class="label label-primary">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </a>
+                </td>
+                <td><a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a></td>
+                <td style="text-align: right;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>
+                <td style="text-align: right;">@score.formattedDate</td>
+            </tr>
+        }
+        </table>
+    }
+
+    <h3>@Messages.get("Progression")</h3>
+
     <div id="container3"></div>
 
     <script>
@@ -68,7 +88,7 @@
     '#a6c96a'
     ],
     title: {
-        text: 'Progression'
+        text: ''
     },
     xAxis: {
         tickmarkPlacement: 'on',

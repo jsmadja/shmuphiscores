@@ -3,7 +3,9 @@ package models;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import controllers.StatsController;
+import org.apache.commons.lang3.StringUtils;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
@@ -138,6 +140,19 @@ public class Player extends BaseModel<Player> {
 
     public boolean isAuthenticated() {
         return !this.equals(guest);
+    }
+
+    public Collection<Score> bestReplayableScores() {
+        return filter(bestScores(), new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return StringUtils.isNotBlank(score.replay);
+            }
+        });
+    }
+
+    public boolean hasReplays() {
+        return !bestReplayableScores().isEmpty();
     }
 
 }
