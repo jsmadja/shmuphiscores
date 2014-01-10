@@ -20,7 +20,7 @@ public class BackupController extends Controller {
             insertDifficulties(builder, game);
             insertPlatforms(builder, game);
             insertModes(builder, game);
-            insertRankins(builder, game);
+            insertRankings(builder, game);
             builder.append("</game>");
         }
         builder.append("</games>");
@@ -29,48 +29,32 @@ public class BackupController extends Controller {
         return ok(builder.toString());
     }
 
-    private static void insertRankins(StringBuilder builder, Game game) {
+    private static void insertRankings(StringBuilder builder, Game game) {
         builder.append("<rankings>");
-        if (game.modes.isEmpty()) {
-            if (game.difficulties == null) {
-                scores(builder, game, null, null);
-            } else {
-                for (Difficulty difficulty : game.difficulties) {
-                    scores(builder, game, difficulty, null);
-                }
-            }
-        } else {
-            for (Mode mode : game.modes) {
-                if (game.difficulties.isEmpty()) {
-                    scores(builder, game, null, mode);
-                } else {
-                    for (Difficulty difficulty : game.difficulties) {
-                        scores(builder, game, difficulty, mode);
-                    }
-                }
-            }
+        for (Ranking ranking : game.getRankings()) {
+            scores(builder, ranking);
         }
         builder.append("</rankings>");
     }
 
-    private static void scores(StringBuilder builder, Game game, Difficulty difficulty, Mode mode) {
+    private static void scores(StringBuilder builder, Ranking ranking) {
         builder.append("<ranking>");
-        if (!game.bestScoresByPlayers(difficulty, mode).isEmpty()) {
-            if (mode != null) {
-                insert(builder, "mode", mode.name);
+        if (!ranking.getScores().isEmpty()) {
+            if (ranking.mode != null) {
+                insert(builder, "mode", ranking.mode.name);
             }
-            if (difficulty != null) {
-                insert(builder, "difficulty", difficulty.name);
+            if (ranking.difficulty != null) {
+                insert(builder, "difficulty", ranking.difficulty.name);
             }
-            insertScores(builder, game, difficulty, mode);
+            insertScores(builder, ranking);
         }
         builder.append("</ranking>");
 
     }
 
-    private static void insertScores(StringBuilder builder, Game game, Difficulty difficulty, Mode mode) {
+    private static void insertScores(StringBuilder builder, Ranking ranking) {
         builder.append("<scores>");
-        for (Score score : game.bestScoresByPlayers(difficulty, mode)) {
+        for (Score score : ranking.getScores()) {
             insertScore(builder, score);
         }
         builder.append("</scores>");

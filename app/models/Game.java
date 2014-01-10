@@ -53,6 +53,30 @@ public class Game extends BaseModel<Game> {
         this.thread = thread;
     }
 
+    public Collection<Ranking> getRankings() {
+        Collection<Ranking> rankings = new ArrayList<Ranking>();
+        if (modes.isEmpty()) {
+            if (difficulties == null) {
+                rankings.add(new Ranking(this));
+            } else {
+                for (Difficulty difficulty : difficulties) {
+                    rankings.add(new Ranking(this, difficulty));
+                }
+            }
+        } else {
+            for (Mode mode : modes) {
+                if (difficulties.isEmpty()) {
+                    rankings.add(new Ranking(this, mode));
+                } else {
+                    for (Difficulty difficulty : difficulties) {
+                        rankings.add(new Ranking(this, difficulty, mode));
+                    }
+                }
+            }
+        }
+        return rankings;
+    }
+
     public Collection<Score> scores(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
