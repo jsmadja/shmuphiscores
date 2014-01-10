@@ -60,7 +60,7 @@ public class Game extends BaseModel<Game> {
 
     @XmlElementWrapper
     @XmlElement(name = "ranking")
-    public Collection<Ranking> rankings;
+    public List<Ranking> rankings;
 
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
 
