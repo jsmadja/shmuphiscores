@@ -15,32 +15,6 @@ public class ShmupClient {
         webClient = new WebClient();
     }
 
-/*
-    public static void main(String[] args) {
-        new ShmupClient().getids();
-    }
-    public String getids() {
-        try {
-            StringBuilder stringBuilder = new StringBuilder();
-            authenticate("anzymus", System.getProperty("shmup.password"));
-            for (int i = 0; i <= 33510; i++) {
-                try {
-                    HtmlPage page = webClient.getPage("http://forum.shmup.com/memberlist.php?mode=viewprofile&u=" + i);
-                    String login = page.getBody().getTextContent().split("Consulte un profil - ")[1].split(" ")[0];
-                    String s = "INSERT INTO player (`id`, `name`, `shmup_user_id`, `created_at`, `updated_at`) VALUES (NULL, '" + login + "', '" + i + "', CURTIME(), CURTIME());";
-                    System.err.println(s);
-                    stringBuilder.append(s).append("\n");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                }
-            }
-            Files.write(stringBuilder.toString().getBytes(), new File("/tmp/users.sql"));
-            return "";
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-*/
-
     public String getLoginById(Long id) {
         try {
             authenticate("anzymus", System.getProperty("shmup.password"));

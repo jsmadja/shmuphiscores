@@ -4,7 +4,7 @@ import models.Game;
 import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Result;
-import plugins.RankingPicture;
+import drawer.RankingPicture;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

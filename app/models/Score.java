@@ -8,14 +8,12 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
 
@@ -40,13 +38,17 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @ManyToOne
     public Platform platform;
 
+    @XmlAttribute
     public Long value;
 
     @Lob
+    @XmlAttribute
     public String comment;
 
+    @XmlAttribute
     public String photo;
 
+    @XmlAttribute
     public String replay;
 
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);

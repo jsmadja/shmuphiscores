@@ -1,16 +1,22 @@
-package plugins;
+package drawer;
 
 import models.Game;
 import models.Score;
 
+import java.awt.*;
 import java.util.List;
 
 import static java.lang.Math.max;
 
 public class RankingGameConfiguration {
 
-    public int maxStageLength;
-    public int maxPlatformLength;
+    static final int fontHeight = 12;
+    static final int width = 652;
+    static final Color COLOR_SHMUP_TITLE = new Color(46, 13, 34);
+    static final Color COLOR_SHMUP_GREY = new Color(240, 243, 244);
+
+    int maxStageLength;
+    int maxPlatformLength;
 
     public RankingGameConfiguration(Game game) {
         List<Score> scores = game.scores;
