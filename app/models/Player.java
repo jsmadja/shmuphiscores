@@ -1,6 +1,9 @@
 package models;
 
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
+import controllers.StatsController;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
@@ -11,6 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.*;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Collections2.transform;
 import static java.util.Collections.sort;
 
 @Entity
@@ -39,7 +43,49 @@ public class Player extends BaseModel<Player> {
         this.name = name;
     }
 
-    public List<Score> getScores() {
+    public Collection<String> playedGameTitlesForPlayer() {
+        List<Score> scores = getScoresOrderByProgression();
+        return transform(scores, new Function<Score, String>() {
+            @Nullable
+            @Override
+            public String apply(@Nullable Score score) {
+                return score.getGameTitle();
+            }
+        });
+    }
+
+    public String bestPlayerScoresByGameForPlayer() {
+        List<Score> scores = getScoresOrderByProgression();
+        return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
+            @Nullable
+            @Override
+            public String apply(@Nullable Score score) {
+                return score.value.toString();
+            }
+        }));
+    }
+
+    public String bestScoresByGameForPlayer() {
+        List<Score> scores = getScoresOrderByProgression();
+        return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
+            @Nullable
+            @Override
+            public String apply(@Nullable Score score) {
+                return Score.getBestScoreFor(score.game, score.mode, score.difficulty).value.toString();
+            }
+        }));
+    }
+
+    private List<Score> getScoresOrderByProgression() {
+        List<Score> scores = bestScores();
+        scores = new ArrayList<Score>(filter(scores, StatsController.NO_FIRST_PLACE));
+        sort(scores, new Comparator<Score>() {
+            @Override
+            public int compare(Score score, Score score2) {
+                return score2.getGapWithTop().compareTo(score.getGapWithTop());
+            }
+        });
+        scores = scores.subList(0, scores.size() > StatsController.MAX_GAMES_IN_GRAPH ? StatsController.MAX_GAMES_IN_GRAPH : scores.size());
         return scores;
     }
 

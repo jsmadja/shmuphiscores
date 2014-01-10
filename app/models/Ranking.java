@@ -1,16 +1,19 @@
 package models;
 
-import com.google.common.base.Predicate;
+import actions.User;
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import formatters.ScoreFormatter;
 
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
-import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Lists.transform;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ranking {
@@ -21,7 +24,7 @@ public class Ranking {
     public Mode mode;
 
     @XmlElementWrapper
-    @XmlElement(name="score")
+    @XmlElement(name = "score")
     public List<Score> scores;
 
     Ranking() {
@@ -29,6 +32,9 @@ public class Ranking {
 
     public Ranking(Collection<Score> scores) {
         this.scores = new ArrayList<Score>(scores);
+        for (Score score : scores) {
+            score.ranking = this;
+        }
     }
 
     public Ranking(Collection<Score> scores, Difficulty difficulty) {
@@ -47,42 +53,87 @@ public class Ranking {
         this.mode = mode;
     }
 
-    public Collection<Score> getScores() {
+    public String joinedPlayerCountPerSplittedScore() {
+        TreeSet<Long> scores = new TreeSet<Long>(scoresWithAverageScore());
+        List<Integer> playerPerCategories = new ArrayList<Integer>();
+        for (Long category : getSplittedScores()) {
+            playerPerCategories.add(scores.tailSet(category).size());
+        }
+        return Joiner.on(",").join(playerPerCategories);
+    }
+
+    public String joinedSplittedScores() {
+        return Joiner.on(",").join(getSplittedScores());
+    }
+
+    public int averageScoreIndex() {
+        Long averageScore = averageScoreAsLong();
+        return getSplittedScores().indexOf(averageScore);
+    }
+
+    public int playerScoreIndex() {
+        Player player = User.current();
+        if(player.isAuthenticated()) {
+            for (Score score : scores) {
+                if(score.isPlayedBy(player)) {
+                    return getSplittedScores().indexOf(score.value);
+                }
+            }
+        }
+        return Integer.MAX_VALUE;
+    }
+
+    private List<Long> scoresWithAverageScore() {
+        List<Long> scores = newArrayList(transform(this.scores, new Function<Score, Long>() {
+            @Nullable
+            @Override
+            public Long apply(@Nullable Score score) {
+                return score.value;
+            }
+        }));
+        scores.add(averageScoreAsLong());
+        Collections.sort(scores);
         return scores;
     }
 
-    @XmlTransient
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    @XmlTransient
-    public Mode getMode() {
-        return mode;
-    }
-
-    public Collection<Score> findScoresMatching(final Difficulty difficulty, final Mode mode) {
-        if (scores == null) {
-            return new ArrayList<Score>();
+    private List<Long> getSplittedScores() {
+        TreeSet<Long> scoresMaps = new TreeSet<Long>(scoresWithAverageScore());
+        List<Long> scoreCategories = new ArrayList<Long>();
+        Long min = scoresMaps.first();
+        Long max = scoresMaps.last();
+        if (min.equals(max)) {
+            min = 0L;
         }
-        return filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
+        long step = (max - min) / scoresMaps.size();
+        scoreCategories.add(min);
+        for (int i = 1; i < (scoresMaps.size() - 1); i++) {
+            scoreCategories.add(scoreCategories.get(i - 1).longValue() + step);
+        }
+        scoreCategories.add(max);
+        TreeSet<Long> longs = new TreeSet<Long>(scoreCategories);
+        longs.add(averageScoreAsLong());
+
+        Player current = User.current();
+        for (Score score : scores) {
+            if(score.isPlayedBy(current)) {
+                longs.add(score.value);
+                break;
             }
-        });
+        }
+
+        return new ArrayList<Long>(longs);
     }
 
     public String averageScore() {
         return ScoreFormatter.format(averageScoreAsLong());
     }
 
-    public Long averageScoreAsLong() {
+    private Long averageScoreAsLong() {
         BigDecimal sum = new BigDecimal(0);
         for (Score score : scores) {
             sum = sum.add(new BigDecimal(score.value));
         }
-        if(sum.longValue() == 0L) {
+        if (sum.longValue() == 0L) {
             return 0L;
         }
         Long average = sum.divideToIntegralValue(new BigDecimal(scores.size())).longValue();

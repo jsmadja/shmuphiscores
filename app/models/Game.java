@@ -104,7 +104,7 @@ public class Game extends BaseModel<Game> {
     public int getScoreCount() {
         int count = 0;
         for (Ranking ranking : rankings) {
-            count += ranking.getScores().size();
+            count += ranking.scores.size();
         }
         return count;
     }
@@ -140,12 +140,4 @@ public class Game extends BaseModel<Game> {
         return s;
     }
 
-    public Ranking findRankingMatching(Difficulty difficulty, Mode mode) {
-        for (Ranking ranking : rankings) {
-            if (ranking.difficulty == difficulty && ranking.mode == mode) {
-                return ranking;
-            }
-        }
-        return null;
-    }
 }

@@ -76,7 +76,7 @@
             enabled: false
         },
         categories: [
-            @for(title <- controllers.StatsController.playedGameTitlesForPlayer(player)) {
+            @for(title <- player.playedGameTitlesForPlayer()) {
                 '@title',
             }
         ]
@@ -101,11 +101,11 @@
     series: [
         {
             name: 'TOP',
-            data: [@controllers.StatsController.bestScoresByGameForPlayer(player)]
+            data: [@player.bestScoresByGameForPlayer()]
         },
         {
             name: '@player.name',
-            data: [@controllers.StatsController.bestPlayerScoresByGameForPlayer(player)]
+            data: [@player.bestPlayerScoresByGameForPlayer()]
         }
     ]
     });

@@ -25,16 +25,13 @@ public class RankingPicture {
         }
         List<PictureLine> pictureLines = new ArrayList<PictureLine>();
         for (Ranking ranking : game.rankings) {
-            Collection<Score> scores = ranking.getScores();
-            if (!scores.isEmpty()) {
-                pictureLines.add(new BreakLine());
-                pictureLines.add(new GameLine(ranking.mode, ranking.difficulty));
-                pictureLines.add(new BreakLine());
-                for (Score score : scores) {
-                    pictureLines.add(new ScoreLine(score));
-                }
-                pictureLines.add(new BreakLine());
+            pictureLines.add(new BreakLine());
+            pictureLines.add(new GameLine(ranking.mode, ranking.difficulty));
+            pictureLines.add(new BreakLine());
+            for (Score score : ranking.scores) {
+                pictureLines.add(new ScoreLine(score));
             }
+            pictureLines.add(new BreakLine());
         }
         return computeRanking(pictureLines, new RankingGameConfiguration(game));
     }

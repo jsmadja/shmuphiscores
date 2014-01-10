@@ -2,14 +2,15 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import formatters.ScoreFormatter;
+import play.Logger;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
@@ -49,6 +50,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public String replay;
 
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
+
+    @XmlTransient
+    public Ranking ranking;
 
     public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
@@ -91,8 +95,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public int rank() {
-        Ranking ranking = game.findRankingMatching(difficulty, mode);
-        if(ranking == null) {
+        if (ranking == null) {
+            Logger.warn("Le score " + id + " est invalide");
             return 0;
         }
         for (int i = 0; i < ranking.scores.size(); i++) {
@@ -139,7 +143,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return false;
     }
 
-    public boolean isWorstThan(Score score) {
+    boolean isWorstThan(Score score) {
         if (isComparableWith(score)) {
             return score.compareTo(this) > 0;
         }
