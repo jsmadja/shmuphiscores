@@ -98,7 +98,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public int rank() {
         if (ranking == null) {
-            Logger.warn("Le score " + id + " est invalide");
             return 0;
         }
         for (int i = 0; i < ranking.scores.size(); i++) {
