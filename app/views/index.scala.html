@@ -9,7 +9,7 @@
                         <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a> <a class="author" href="@routes.PlayerController.index(score.player)">@score.player.name</a>
                         <small class="date">@score.formattedDate</small>
                     </div>
-                    @if(score.rank > 0) {
+                    @if(score.hasRank) {
                         <p class="rank">@score.formattedRank</p>
                     }
                     <p class="score">

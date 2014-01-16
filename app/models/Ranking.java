@@ -3,8 +3,6 @@ package models;
 import actions.User;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.Lists;
 import formatters.ScoreFormatter;
 
 import javax.annotation.Nullable;
@@ -32,8 +30,12 @@ public class Ranking {
 
     public Ranking(Collection<Score> scores) {
         this.scores = new ArrayList<Score>(scores);
+        int rank = 1;
         for (Score score : scores) {
-            score.ranking = this;
+            if (score.rank() == null) {
+                score.updateRank(rank++);
+                score.update();
+            }
         }
     }
 
@@ -73,9 +75,9 @@ public class Ranking {
 
     public int playerScoreIndex() {
         Player player = User.current();
-        if(player.isAuthenticated()) {
+        if (player.isAuthenticated()) {
             for (Score score : scores) {
-                if(score.isPlayedBy(player)) {
+                if (score.isPlayedBy(player)) {
                     return getSplittedScores().indexOf(score.value);
                 }
             }
@@ -115,7 +117,7 @@ public class Ranking {
 
         Player current = User.current();
         for (Score score : scores) {
-            if(score.isPlayedBy(current)) {
+            if (score.isPlayedBy(current)) {
                 longs.add(score.value);
                 break;
             }

@@ -2,7 +2,6 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import formatters.ScoreFormatter;
-import play.Logger;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -53,8 +52,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
-    @XmlTransient
-    public Ranking ranking;
+    @XmlAttribute
+    private Integer rank;
 
     public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
@@ -96,16 +95,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         }
     }
 
-    public int rank() {
-        if (ranking == null) {
-            return 0;
-        }
-        for (int i = 0; i < ranking.scores.size(); i++) {
-            if (this.equals(ranking.scores.get(i))) {
-                return i + 1;
-            }
-        }
-        return 0;
+    public Integer rank() {
+        return rank;
     }
 
     public boolean concerns(Difficulty difficulty) {
@@ -219,4 +210,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         Long max = getBestScoreFor(game, mode, difficulty).value;
         return (max - value) / (double) max;
     }
+
+    public void updateRank(int rank) {
+        this.rank = rank;
+    }
+
+    public boolean hasRank() {
+        return rank != null;
+    }
+
 }

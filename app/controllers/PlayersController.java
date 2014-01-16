@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
 import com.google.common.base.Predicate;
 import models.Player;
 import models.Score;
@@ -10,8 +11,11 @@ import play.mvc.Result;
 import javax.annotation.Nullable;
 import java.util.*;
 
+import static com.avaje.ebean.Ebean.find;
+import static com.avaje.ebean.Expr.*;
 import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
+import static views.html.players.render;
 
 public class PlayersController extends Controller {
 
@@ -29,32 +33,15 @@ public class PlayersController extends Controller {
                 return !player.scores.isEmpty();
             }
         }));
-
         Map<Player, Counts> counts = new HashMap<Player, Counts>();
         for (Player player : players) {
-            int oneCreditCount = 0;
-            int firstRankCount = 0;
-            int top3Count = 0;
-            int top10Count = 0;
-            for (Score score : player.bestScores()) {
-                int rank = score.rank();
-                if (score.isOneCredited()) {
-                    oneCreditCount++;
-                }
-                if (rank == 1) {
-                    firstRankCount++;
-                }
-                if (rank <= 3) {
-                    top3Count++;
-                }
-                if (rank <= 10) {
-                    top10Count++;
-                }
-            }
+            int oneCreditCount = find(Score.class).where(and(eq("player", player), or(ilike("stage.name", "%all%"), Expr.startsWith("stage.name", "2-")))).findRowCount();
+            int firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
+            int top3Count = find(Score.class).where(and(eq("player", player), le("rank", 4))).findRowCount();
+            int top10Count = find(Score.class).where(and(eq("player", player), le("rank", 10))).findRowCount();
             counts.put(player, new Counts(firstRankCount, top3Count, top10Count, oneCreditCount));
         }
-
-        return ok(views.html.players.render(players, counts));
+        return ok(render(players, counts));
     }
 
     public static class Counts {
