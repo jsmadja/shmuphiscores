@@ -26,7 +26,7 @@ public class RankingPicture {
             modes.add(null);
         }
         List<PictureLine> pictureLines = new ArrayList<PictureLine>();
-        for (Ranking ranking : game.rankings) {
+        for (Ranking ranking : game.rankings()) {
             if (!ranking.scores.isEmpty()) {
                 pictureLines.add(new BreakLine());
                 pictureLines.add(new GameLine(ranking));

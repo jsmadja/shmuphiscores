@@ -211,7 +211,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return (max - value) / (double) max;
     }
 
-    public void updateRank(int rank) {
+    public void updateRank(Integer rank) {
         this.rank = rank;
     }
 

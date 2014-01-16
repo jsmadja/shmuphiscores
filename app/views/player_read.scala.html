@@ -8,12 +8,12 @@
         </td>
         <td style="vertical-align: middle;">
             @if(score.mode != null) {
-                <span class="label label-default" style="vertical-align: middle;">@score.mode.name</span>
+                <span class="label label-default" style="vertical-align: middle;">@score.mode</span>
             }
         </td>
         <td style="vertical-align: middle;">
             @if(score.difficulty != null) {
-                <span class="label label-warning">@score.difficulty.name</span>
+                <span class="label label-warning">@score.difficulty</span>
             }
         </td>
         <td style="vertical-align: middle; text-align: right;">
@@ -31,7 +31,6 @@
 @main() {
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
-
 
     <h2>@player.name</h2>
    <table class="table table-condensed table-striped table-hover table-bordered">
@@ -56,7 +55,14 @@
                         <span class="glyphicon glyphicon-play"></span>
                     </a>
                 </td>
-                <td><a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a></td>
+                <td>
+                    <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
+                </td>
+                <td>
+                    <span class="label label-default" style="vertical-align: middle;">@score.mode</span>
+                    <span class="label label-warning">@score.difficulty</span>
+                    <span class="label label-success">@score.platform</span>
+                </td>
                 <td style="text-align: right;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>
                 <td style="text-align: right;">@score.formattedDate</td>
             </tr>

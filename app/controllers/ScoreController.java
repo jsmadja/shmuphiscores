@@ -10,6 +10,7 @@ import play.mvc.Result;
 import views.html.score_create;
 import views.html.score_update;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
@@ -50,6 +51,8 @@ public class ScoreController extends Controller {
         }
         score.save();
         RankingController.getRankingCache().remove(score.game);
+        score.game.clearRankings();
+
         if ("OUI".equalsIgnoreCase(data.get("post"))) {
             return shmup(score);
         }
@@ -67,6 +70,8 @@ public class ScoreController extends Controller {
         updateScore(score, data);
         score.update();
         RankingController.getRankingCache().remove(score.game);
+        score.game.clearRankings();
+
         if ("OUI".equalsIgnoreCase(data.get("post"))) {
             return shmup(score);
         } else {

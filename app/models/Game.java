@@ -8,7 +8,6 @@ import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.PostLoad;
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,10 +57,6 @@ public class Game extends BaseModel<Game> {
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
 
-    @XmlElementWrapper
-    @XmlElement(name = "ranking")
-    public List<Ranking> rankings;
-
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
 
     public Game(String title, String cover, String thread) {
@@ -70,9 +65,8 @@ public class Game extends BaseModel<Game> {
         this.thread = thread;
     }
 
-    @PostLoad
-    public void computeRankings() {
-        rankings = new ArrayList<Ranking>();
+    public List<Ranking> rankings() {
+        List<Ranking> rankings = new ArrayList<Ranking>();
         if (modes.isEmpty()) {
             if (difficulties.isEmpty()) {
                 rankings.add(new Ranking(findBestScoresByPlayers(null, null)));
@@ -92,6 +86,7 @@ public class Game extends BaseModel<Game> {
                 }
             }
         }
+        return rankings;
     }
 
     private Collection<Score> findBestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
@@ -103,7 +98,7 @@ public class Game extends BaseModel<Game> {
 
     public int getScoreCount() {
         int count = 0;
-        for (Ranking ranking : rankings) {
+        for (Ranking ranking : rankings()) {
             count += ranking.scores.size();
         }
         return count;
@@ -140,4 +135,9 @@ public class Game extends BaseModel<Game> {
         return s;
     }
 
+    public void clearRankings() {
+        for (Score score : scores) {
+            score.updateRank(null);
+        }
+    }
 }
