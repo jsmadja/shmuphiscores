@@ -13,6 +13,7 @@ import views.html.index;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ApplicationController extends Controller {
             entry.setAuthor(score.player.name);
             entry.setLink("http://hiscores.shmup.com/score/" + score.id);
             SyndContentImpl syndContent = new SyndContentImpl();
-            syndContent.setValue(score.getGameTitle() + " " + score.formattedValue() + " pts");
+            syndContent.setValue(score.tweet());
             entry.setDescription(syndContent);
             entry.setUpdatedDate(score.getCreatedAt());
             entries.add(entry);

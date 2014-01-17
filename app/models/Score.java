@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
+import static java.text.MessageFormat.format;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
@@ -54,7 +55,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
     @Transient
-    @XmlAttribute(name ="stage")
+    @XmlAttribute(name = "stage")
     public String stageName;
 
     @XmlAttribute
@@ -223,4 +224,15 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return rank != null;
     }
 
+    public String tweet() {
+        return format("{3} - {1} pts - {4} - {2} - {0}", formattedRank(), formattedValue(), player.name, game.title, (modeName() + " " + difficultyName()).trim());
+    }
+
+    private String difficultyName() {
+        return difficulty == null ? "" : difficulty.name;
+    }
+
+    private String modeName() {
+        return mode == null ? "" : mode.name;
+    }
 }
