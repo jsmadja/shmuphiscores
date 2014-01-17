@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <h3>@Messages.get("Games")</h3>
             @for(game <- games.sortBy(_.title)) {
-                <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" height="130px" alt="@game.title" /></a>
+                <a href="@game.post"><img src="@game.cover" height="130px" alt="@game.title" /></a>
             }
         </div>
     </div>
