@@ -28,7 +28,7 @@ Logon=Se connecter
 LogonHelp=Vous devez vous identifier sur le forum shmup.com
 AverageScore=Score moyen
 Participations=Participations
-
+PlayerCount=Nombre de joueurs
 games.scala.html.gamelist=Liste des jeux
 players.scala.html.playerlist=Liste des joueurs
 scoreform.scala.html.photo.placeholder=Lien direct vers l''image (hébergement : casimages, imageshack, ...)
