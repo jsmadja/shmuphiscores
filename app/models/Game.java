@@ -8,7 +8,10 @@ import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,17 +20,16 @@ import static com.google.common.collect.Collections2.filter;
 import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
-@XmlRootElement(name = "game")
 public class Game extends BaseModel<Game> {
+
+    @XmlAttribute
+    public String thread;
 
     @XmlAttribute
     public String cover;
 
     @XmlAttribute
     public String title;
-
-    @XmlAttribute
-    public String thread;
 
     @XmlTransient
     @OneToMany(mappedBy = "game")
@@ -58,6 +60,10 @@ public class Game extends BaseModel<Game> {
     public List<Stage> stages;
 
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
+
+    @XmlElementWrapper(name = "rankings")
+    @XmlElement(name = "ranking")
+    private List<Ranking> initializedRankings;
 
     public Game(String title, String cover, String thread) {
         this.title = title;
@@ -141,5 +147,13 @@ public class Game extends BaseModel<Game> {
             score.update();
         }
         rankings();
+    }
+
+    public void initializeRankings() {
+        this.initializedRankings = rankings();
+        for (Score score : scores) {
+            score.playerName = score.player.name;
+            score.stageName = score.stage == null ? null : score.stage.name;
+        }
     }
 }

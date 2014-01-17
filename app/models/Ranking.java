@@ -6,6 +6,7 @@ import com.google.common.base.Joiner;
 import formatters.ScoreFormatter;
 
 import javax.annotation.Nullable;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.*;
@@ -19,11 +20,23 @@ public class Ranking {
     @XmlTransient
     public Difficulty difficulty;
 
+    @XmlTransient
     public Mode mode;
 
-    @XmlElementWrapper
     @XmlElement(name = "score")
     public List<Score> scores;
+
+    @Transient
+    @XmlAttribute(name = "platform")
+    public String platformName;
+
+    @Transient
+    @XmlAttribute(name = "difficulty")
+    public String difficultyName;
+
+    @Transient
+    @XmlAttribute(name = "mode")
+    public String modeName;
 
     Ranking() {
     }
@@ -43,17 +56,22 @@ public class Ranking {
     public Ranking(Collection<Score> scores, Difficulty difficulty) {
         this(scores);
         this.difficulty = difficulty;
+        this.difficultyName = difficulty.name;
     }
 
     public Ranking(Collection<Score> scores, Mode mode) {
         this(scores);
         this.mode = mode;
+        this.modeName = mode.name;
     }
 
     public Ranking(Collection<Score> scores, Difficulty difficulty, Mode mode) {
         this(scores);
         this.difficulty = difficulty;
+        this.difficultyName = difficulty.name;
+
         this.mode = mode;
+        this.modeName = mode.name;
     }
 
     public String joinedPlayerCountPerSplittedScore() {

@@ -18,9 +18,12 @@ public class BackupController extends Controller {
         JAXBContext jaxbContext = JAXBContext.newInstance(Games.class);
         Marshaller marshaller = jaxbContext.createMarshaller();
         StringWriter wr = new StringWriter();
-        List<Game> all = Game.findAll();
         Games games = new Games();
-        games.games = all;
+        games.games = Game.findAll();
+        for (Game game : games.games) {
+            game.initializeRankings();
+        }
+
         marshaller.marshal(games, wr);
         response().setContentType("application/xml");
         return ok(wr.toString());

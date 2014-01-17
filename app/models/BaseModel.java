@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 import java.util.Locale;
@@ -21,7 +22,7 @@ import java.util.Locale;
 public abstract class BaseModel<T extends BaseModel<T>> extends Model implements PathBindable<T> {
 
     @Id
-    @XmlTransient
+    @XmlAttribute
     public Long id;
 
     @CreatedTimestamp

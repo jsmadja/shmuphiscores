@@ -7,6 +7,7 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -20,9 +21,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @ManyToOne
     public Game game;
 
+    @XmlTransient
     @ManyToOne
     public Player player;
 
+    @XmlTransient
     @ManyToOne
     public Stage stage;
 
@@ -35,10 +38,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public Difficulty difficulty;
 
     @ManyToOne
+    @XmlTransient
     public Platform platform;
-
-    @XmlAttribute
-    public Long value;
 
     @Lob
     @XmlAttribute
@@ -51,6 +52,17 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public String replay;
 
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
+
+    @Transient
+    @XmlAttribute(name ="stage")
+    public String stageName;
+
+    @XmlAttribute
+    public Long value;
+
+    @Transient
+    @XmlAttribute(name = "player")
+    public String playerName;
 
     @XmlAttribute
     private Integer rank;
@@ -181,14 +193,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
             return false;
         }
         return this.player.equals(player);
-    }
-
-    public boolean isOneCredited() {
-        if (stage == null) {
-            return false;
-        }
-        String stageName = stage.name.toLowerCase();
-        return stageName.contains("all") || stageName.startsWith("2-");
     }
 
     public String getGameTitle() {
