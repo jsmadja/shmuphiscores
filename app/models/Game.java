@@ -135,9 +135,11 @@ public class Game extends BaseModel<Game> {
         return s;
     }
 
-    public void clearRankings() {
+    public void resetRankings() {
         for (Score score : scores) {
             score.updateRank(null);
+            score.update();
         }
+        rankings();
     }
 }

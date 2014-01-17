@@ -33,9 +33,10 @@ public class Ranking {
         int rank = 1;
         for (Score score : scores) {
             if (score.rank() == null) {
-                score.updateRank(rank++);
+                score.updateRank(rank);
                 score.update();
             }
+            rank++;
         }
     }
 
