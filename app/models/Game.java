@@ -12,12 +12,11 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.eq;
 import static com.google.common.collect.Collections2.filter;
-import static models.Scores.keepBestScoresForEachPlayer;
 
 @Entity
 public class Game extends BaseModel<Game> {
@@ -99,7 +98,18 @@ public class Game extends BaseModel<Game> {
         if (scores == null) {
             return new ArrayList<Score>();
         }
-        return keepBestScoresForEachPlayer(filterBy(difficulty, mode));
+        List<Score> scores = Score.finder.where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).orderBy("value desc").findList();
+        final Set<Player> players = new HashSet<Player>();
+        return filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                if (players.contains(score.player)) {
+                    return false;
+                }
+                players.add(score.player);
+                return true;
+            }
+        });
     }
 
     public int getScoreCount() {
@@ -108,15 +118,6 @@ public class Game extends BaseModel<Game> {
             count += ranking.scores.size();
         }
         return count;
-    }
-
-    private List<Score> filterBy(final Difficulty difficulty, final Mode mode) {
-        return new ArrayList<Score>(filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return (difficulty == null || score.concerns(difficulty)) && (mode == null || score.concerns(mode));
-            }
-        }));
     }
 
     public String post() {
