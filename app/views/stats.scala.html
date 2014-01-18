@@ -7,13 +7,13 @@
 
     <div class="row">
         <div class="col-md-12" style="margin-top: 45px;">
-            <div id="container"></div>
+            <div id="container2"></div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <div id="container2"></div>
+            <div id="container"></div>
         </div>
     </div>
 
@@ -77,12 +77,7 @@
         $(function () {
             $('#container2').highcharts({
                 title: {
-                    text: 'Scores'
-                },
-                subtitle: {
-                    text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' :
-                    'Pinch the chart to zoom in'
+                    text: '@Messages.get("Scores") & @Messages.get("Players")'
                 },
                 xAxis: {
                     type: 'datetime',
@@ -93,7 +88,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Scores'
+                        text: '@Messages.get("Scores") & @Messages.get("Players")'
                     }
                 },
                 tooltip: {
@@ -125,7 +120,8 @@
                     }
                 },
 
-                series: [{
+                series: [
+                {
                     type: 'area',
                     name: 'Scores',
                     pointInterval: 24 * 3600 * 1000,
@@ -133,9 +129,21 @@
                     data: [
                         @controllers.StatsController.scoresPerDay
                     ]
-                }]
+                },
+                {
+                    type: 'areaspline',
+                    name: '@Messages.get("Players")',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2013, 10, 29),
+                    marker: {
+                    enabled: false
+                    },
+                    data: [
+                        @controllers.StatsController.playersPerDay
+                    ]
+                }
+                ]
             });
         });
-
     </script>
 }

@@ -3,17 +3,20 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
-import models.*;
+import models.Game;
+import models.Platform;
+import models.Player;
+import models.Score;
 import org.joda.time.DateMidnight;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.stats;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.avaje.ebean.Expr.le;
-import static java.util.Collections.sort;
+import static com.avaje.ebean.Expr.*;
 
 public class StatsController extends Controller {
 
@@ -37,6 +40,16 @@ public class StatsController extends Controller {
             dt = dt.plusDays(1);
         }
         return Joiner.on(",").join(scores);
+    }
+
+    public static String playersPerDay() {
+        List<String> players = new ArrayList<String>();
+        DateMidnight dt = new DateMidnight(2013, 11, 29);
+        while (dt.isBeforeNow()) {
+            players.add(Ebean.createQuery(Player.class).where(and(isNotNull("shmupUserId"), le("updatedAt", dt.plusDays(1).toDate()))).findRowCount() + "");
+            dt = dt.plusDays(1);
+        }
+        return Joiner.on(",").join(players);
     }
 
 }
