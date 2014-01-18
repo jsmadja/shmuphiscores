@@ -1,22 +1,21 @@
 package plugins;
 
-import com.avaje.ebean.Ebean;
+import models.Game;
+import models.Player;
 import models.Score;
-
-import java.util.List;
 
 public class Stats {
 
     public static long gameCount() {
-        return Ebean.createQuery(models.Game.class).findRowCount();
+        return Game.finder.findRowCount();
     }
 
     public static long playerCount() {
-        return Ebean.createQuery(models.Player.class).findRowCount();
+        return Player.finder.findRowCount();
     }
 
     public static long scoreCount() {
-        return Ebean.createQuery(models.Score.class).findRowCount();
+        return Score.finder.findRowCount();
     }
 
 }
