@@ -1,5 +1,6 @@
 @(timeline: Timeline)
 @main() {
+    <div style="padding-top: 40px;">
     <ul id="timeline">
         @for(score <- timeline.scores) {
             <li>
@@ -55,4 +56,5 @@
             </li>
         }
     </ul>
+    </div>
 }

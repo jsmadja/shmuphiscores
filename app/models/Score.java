@@ -90,7 +90,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedRank() {
-        int value = rank();
+        Integer value = rank();
+        if(value == null) {
+            value = 0;
+        }
         int hundredRemainder = value % 100;
         int tenRemainder = value % 10;
         if (hundredRemainder - tenRemainder == 10) {
