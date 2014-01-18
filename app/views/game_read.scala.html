@@ -2,7 +2,7 @@
 @import play.i18n._
 @scores(ranking: Ranking) = {
         <h4>
-            <button id="average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)"
+            <button id="average_@ranking.uniqueKey"
                     data-html="true"
                     type="button"
                     class="btn btn-default"
@@ -16,14 +16,14 @@
                 <span class="glyphicon glyphicon-stats"></span>
             </button>
             <script>
-                $('#average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)').popover('hide');
+                $('#average_@ranking.uniqueKey').popover('hide');
             </script>
-            <div id="container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
+            <div id="container_@ranking.uniqueKey" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
             <script>
                 $(function () {
-                    $( "#average_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)" ).click(
+                    $( "#average_@ranking.uniqueKey" ).click(
                         function() {
-                            var chart = $('#container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)');
+                            var chart = $('#container_@ranking.uniqueKey');
                             if( chart.is(':visible') ) {
                                 chart.hide();
                             } else {
@@ -31,7 +31,7 @@
                             }
                         }
                     );
-                    $('#container_@formatters.KeyFormatter.unique(ranking.difficulty, ranking.mode)').highcharts({
+                    $('#container_@ranking.uniqueKey').highcharts({
                         chart: {
                             type: 'areaspline'
                         },

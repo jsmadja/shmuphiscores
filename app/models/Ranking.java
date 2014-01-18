@@ -161,4 +161,16 @@ public class Ranking {
         return average;
     }
 
+    public String uniqueKey() {
+        String difficultyId = "";
+        if (difficulty != null) {
+            difficultyId = difficulty.id.toString();
+        }
+        String modeId = "";
+        if (mode != null) {
+            modeId = mode.id.toString();
+        }
+        return difficultyId + "_" + modeId;
+    }
+
 }
