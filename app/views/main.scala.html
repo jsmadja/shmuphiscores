@@ -30,7 +30,7 @@
                     }
                     <a href="@routes.GamesController.index" class="btn btn-danger"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a>
                     <a href="@routes.PlayersController.index" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> @Messages.get("Players")</a>
-
+                    <a href="http://www.shmup.com/index.php?page=doss/Hiscores/hiscores_tuto" target="_blank" class="btn btn-danger"><span class="glyphicon glyphicon-question-sign"></span> @Messages.get("Help")</a>
                     @if(actions.User.current.isAuthenticated) {
                         <a href="@routes.PlayerController.index(actions.User.current)" class="btn btn-primary">@actions.User.current.name</a>
                     } else {

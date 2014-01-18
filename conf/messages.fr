@@ -1,3 +1,4 @@
+Help=Aide
 Player=Joueur
 players=joueurs
 Players=Joueurs
