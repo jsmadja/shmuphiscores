@@ -115,14 +115,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return rank;
     }
 
-    public boolean concerns(Difficulty difficulty) {
-        return difficulty.equals(this.difficulty);
-    }
-
-    public boolean concerns(Mode mode) {
-        return mode.equals(this.mode);
-    }
-
     @Override
     public String toString() {
         return formattedValue();
