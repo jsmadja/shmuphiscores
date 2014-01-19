@@ -44,7 +44,7 @@ public class Ranking {
     public Ranking(Collection<Score> scores) {
         this.scores = new ArrayList<Score>(scores);
         int rank = 1;
-        for (Score score : scores) {
+        for (Score score : this.scores) {
             if (score.rank() == null) {
                 score.updateRank(rank);
                 score.update();
