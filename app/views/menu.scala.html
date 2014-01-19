@@ -8,12 +8,12 @@
             <a href="@routes.ScoreController.fillFormWithGame(game)" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> @Messages.get("Score")</a>
         }
     }
+    <a href="@routes.GamesController.index" class="btn btn-danger"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a>
 <div class="btn-group btn-group-sm">
     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
         @Messages.get("Menu") <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu">
-        <li><a href="@routes.GamesController.index"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a></li>
         <li><a href="@routes.PlayersController.index"><span class="glyphicon glyphicon-user"></span> @Messages.get("Players")</a></li>
         <li><a href="@routes.StatsController.index"><span class="glyphicon glyphicon-stats"></span> @Messages.get("Stats")</a></li>
         <li class="divider"></li>
