@@ -91,7 +91,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public String formattedRank() {
         Integer value = rank();
-        if(value == null) {
+        if (value == null) {
             value = 0;
         }
         int hundredRemainder = value % 100;
@@ -220,7 +220,14 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String tweet() {
-        return format("{3} - {1} pts - {4} - {2} - {0}", formattedRank(), formattedValue(), player.name, game.title, (modeName() + " " + difficultyName()).trim());
+        return format("{3} - {1} pts - {4} - {2}{5} - {0}", formattedRank(), formattedValue(), player.name, game.title, (modeName() + " " + difficultyName()).trim(), twitterAccount());
+    }
+
+    private String twitterAccount() {
+        if (player.twitter != null) {
+            return " (" + player.twitter + ")";
+        }
+        return "";
     }
 
     private String difficultyName() {

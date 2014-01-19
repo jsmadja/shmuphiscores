@@ -37,6 +37,9 @@ public class Player extends BaseModel<Player> {
 
     public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
 
+    @XmlTransient
+    public String twitter;
+
     public Player(Long id, String name) {
         this.id = id;
         this.name = name;
