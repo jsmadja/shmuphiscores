@@ -79,25 +79,13 @@
 
     $('#container3').highcharts({
     chart: {
-        type: 'area',
+        type: 'area'
     },
-    colors: [
-    '#d9534f',
-    '#428bca',
-    '#5cb85c',
-    '#910000',
-    '#1aadce',
-    '#492970',
-    '#f28f43',
-    '#77a1e5',
-    '#c42525',
-    '#a6c96a'
-    ],
     title: {
         text: ''
     },
     xAxis: {
-        tickmarkPlacement: 'on',
+        tickmarkPlacement: 'true',
         title: {
             enabled: false
         },
@@ -105,15 +93,18 @@
             @for(title <- player.playedGameTitlesForPlayer()) {
                 '@title',
             }
-        ]
+        ],
+        labels: {
+        enabled: false
+        }
     },
     yAxis: {
         title: {
-            text: 'Scores'
+            text: '@Messages.get("Gap")'
         }
     },
     tooltip: {
-        shared: true,
+        shared: false,
         valueSuffix: ' pts'
     },
     plotOptions: {
@@ -130,7 +121,7 @@
             data: [@player.bestScoresByGameForPlayer()]
         },
         {
-            name: '@player.name',
+            name: '@player.name.replaceAll("'","")',
             data: [@player.bestPlayerScoresByGameForPlayer()]
         }
     ]
