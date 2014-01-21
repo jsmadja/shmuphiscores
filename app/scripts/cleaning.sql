@@ -107,6 +107,10 @@ SET player_id = (SELECT id FROM player WHERE name = 'dodonpasim')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'dodonpasism');
 
 UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'dodonpasim')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Dondonpasim');
+
+UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = '123RYU')
 WHERE player_id IN (SELECT id FROM player WHERE name = '123 RYU');
 
@@ -222,5 +226,14 @@ WHERE player_id IN (SELECT id FROM player WHERE name = 'Alexileptique');
 UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Dondy')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'Vega');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Dusk Stalker')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Dust Stalker');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'FlyingShark')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Flying Shark');
+
 
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL
