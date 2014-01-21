@@ -220,7 +220,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String tweet() {
-        return format("{3} - {1} pts - {4} - {2}{5} - {0}", formattedRank(), formattedValue(), player.name, game.title, (modeName() + " " + difficultyName()).trim(), twitterAccount());
+        return format("{3} - {1} pts - {4} - {2}{5} - {0} {6}", formattedRank(), formattedValue(), player.name, game.title, (modeName() + " " + difficultyName()).trim(), twitterAccount(), "hiscores.shmup.com/game/" + game.id + "/" + game.getEscapedTitle());
     }
 
     private String twitterAccount() {
