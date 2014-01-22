@@ -53,11 +53,7 @@ public class ScoreLine implements PictureLine {
     }
 
     private void stage(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
-        if (score.rank() == 1) {
-            graphics.setColor(WHITE);
-        } else {
-            graphics.setColor(DARK_GRAY);
-        }
+        graphics.setColor(DARK_GRAY);
         graphics.setFont(parameterFont);
         String stage = score.stage == null ? "" : rightPad(score.stage.toString(), rankingGameConfiguration.maxStageLength);
         graphics.setFont(stageFont);
