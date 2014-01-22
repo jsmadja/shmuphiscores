@@ -42,4 +42,14 @@ public class StatsController extends Controller {
         return Joiner.on(",").join(players);
     }
 
+    public static String gamesPerDay() {
+        List<String> games = new ArrayList<String>();
+        DateMidnight dt = new DateMidnight(2013, 11, 29);
+        while (dt.isBeforeNow()) {
+            games.add(Ebean.createQuery(Game.class).where(le("updatedAt", dt.plusDays(1).toDate())).findRowCount() + "");
+            dt = dt.plusDays(1);
+        }
+        return Joiner.on(",").join(games);
+    }
+
 }

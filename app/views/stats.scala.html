@@ -89,13 +89,14 @@
                 yAxis: {
                     title: {
                         text: '@Messages.get("Scores") & @Messages.get("Players")'
-                    }
+                    },
+                    minorTickInterval: 1
                 },
                 tooltip: {
                     shared: true
                 },
                 legend: {
-                    enabled: false
+                    enabled: true
                 },
                 plotOptions: {
                     area: {
@@ -122,10 +123,13 @@
 
                 series: [
                 {
-                    type: 'area',
+                    type: 'areaspline',
                     name: 'Scores',
                     pointInterval: 24 * 3600 * 1000,
                     pointStart: Date.UTC(2013, 10, 29),
+                    marker: {
+                        enabled: false
+                    },
                     data: [
                         @controllers.StatsController.scoresPerDay
                     ]
@@ -136,12 +140,24 @@
                     pointInterval: 24 * 3600 * 1000,
                     pointStart: Date.UTC(2013, 10, 29),
                     marker: {
-                    enabled: false
+                        enabled: false
                     },
                     data: [
                         @controllers.StatsController.playersPerDay
                     ]
-                }
+                },
+                {
+                    type: 'areaspline',
+                    name: '@Messages.get("Games")',
+                    pointInterval: 24 * 3600 * 1000,
+                    pointStart: Date.UTC(2013, 10, 29),
+                    marker: {
+                    enabled: false
+                    },
+                    data: [
+                        @controllers.StatsController.gamesPerDay
+                    ]
+                    }
                 ]
             });
         });
