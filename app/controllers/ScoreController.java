@@ -51,11 +51,7 @@ public class ScoreController extends Controller {
         score.save();
         RankingController.getRankingCache().remove(score.game);
         score.game.resetRankings();
-
-        if ("OUI".equalsIgnoreCase(data.get("post"))) {
-            return shmup(score);
-        }
-        return redirect("/");
+        return shmup(score);
     }
 
     public static Result update() {
@@ -70,12 +66,7 @@ public class ScoreController extends Controller {
         score.update();
         RankingController.getRankingCache().remove(score.game);
         score.game.resetRankings();
-
-        if ("OUI".equalsIgnoreCase(data.get("post"))) {
-            return shmup(score);
-        } else {
-            return redirect("/");
-        }
+        return redirect("/");
     }
 
     public static Result shmup(models.Score score) {
