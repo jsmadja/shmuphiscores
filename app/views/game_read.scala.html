@@ -1,96 +1,96 @@
 @(game: models.Game)
 @import play.i18n._
-@scores(ranking: Ranking) = {
+    @scores(ranking: Ranking) = {
         <h4>
             <button id="average_@ranking.uniqueKey"
-                    data-html="true"
-                    type="button"
-                    class="btn btn-default"
-                    data-container="body"
-                    data-trigger="hover"
-                    data-toggle="popover"
-                    data-placement="top"
-                    data-content="@Messages.get("AverageScore") : <b>@ranking.averageScore() pts</b>"
-                    data-original-title=""
-                    title="">
-                <span class="glyphicon glyphicon-stats"></span>
+            data-html="true"
+            type="button"
+            class="btn btn-default"
+            data-container="body"
+            data-trigger="hover"
+            data-toggle="popover"
+            data-placement="top"
+            data-content="@Messages.get("AverageScore") : <b>@ranking.averageScore() pts</b>"
+            data-original-title=""
+            title="">
+            <span class="glyphicon glyphicon-stats"></span>
             </button>
             <script>
-                $('#average_@ranking.uniqueKey').popover('hide');
+            $ ( '#average_   @ranking.uniqueKey ').popover(' hide ');
             </script>
-            <div id="container_@ranking.uniqueKey" style="display:none; width: 860px; margin-bottom: 10px; margin-top:10px;" ></div>
+            <div id="container_@ranking.uniqueKey" style="display : none ; width : 860 px ; margin-bottom : 10 px ; margin-top : 10 px ;" ></div>
             <script>
-                $(function () {
-                    $( "#average_@ranking.uniqueKey" ).click(
-                        function() {
-                            var chart = $('#container_@ranking.uniqueKey');
-                            if( chart.is(':visible') ) {
-                                chart.hide();
-                            } else {
-                                chart.show();
-                            }
-                        }
-                    );
-                    $('#container_@ranking.uniqueKey').highcharts({
-                        chart: {
-                            type: 'areaspline'
-                        },
-                        title: {
-                            text: '@game.getEscapedTitle @ranking.mode @ranking.difficulty'
-                        },
-                        xAxis: {
-                            categories: [
-                                @ranking.joinedSplittedScores()
-                            ],
-                            labels: {
-                                formatter: function() {
-                                    return '';
-                                }
-                            },
-                            plotLines: [{
-                                color: '#FF0000',
-                                dashStyle: 'ShortDash',
-                                width: 2,
-                                value: @ranking.averageScoreIndex(),
-                                zIndex: 0,
-                                label : {
-                                    text : '@Messages.get("AverageScore")'
-                                }
-                            }, {
-                                color: '#00FF00',
-                                dashStyle: 'ShortDash',
-                                width: 2,
-                                value: @ranking.playerScoreIndex(),
-                                zIndex: 0,
-                                label : {
-                                    text : '@actions.User.current().name'
-                                }
-                            }]
-                        },
-                        tooltip: {
-                            formatter: function() {
-                                return this.x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+ " pts";
-                            }
+            $ ( function ( ) {
+            $ ( "#average_   @ranking.uniqueKey " ).click(
+            function ( ) {
+            var chart = $ ( '#container_   @ranking.uniqueKey ');
+            if ( chart.is ( ':visible' ) ) {
+            chart.hide ( ) ;
+            } else {
+            chart.show ( ) ;
+            }
+            }
+            ) ;
+            $ ( '#container_   @ranking.uniqueKey ').highcharts({
+            chart : {
+            type : 'areaspline'
+            },
+            title : {
+            text : '   @game.getEscapedTitle @ranking.mode @ranking.difficulty '
+            },
+            xAxis : {
+            categories :[
+                @ranking.joinedSplittedScores()
+            ],
+            labels : {
+            formatter : function ( ) {
+            return '' ;
+            }
+            },
+            plotLines :[ {
+            color : '#FF0000',
+            dashStyle : 'ShortDash',
+            width : 2,
+            value : @ranking.averageScoreIndex(),
+            zIndex : 0,
+            label : {
+            text : '   @Messages.get("AverageScore") '
+            }
+            }, {
+            color : '#00FF00',
+            dashStyle : 'ShortDash',
+            width : 2,
+            value : @ranking.playerScoreIndex(),
+            zIndex : 0,
+            label : {
+            text : '   @actions.User.current().name '
+            }
+            } ]
+            },
+            tooltip : {
+            formatter : function ( ) {
+            return this.x.toString ( ).replace ( /\B(?=(\d{3})+(?!\d))/g, "." ) + " pts" ;
+            }
 
-                        },
-                        yAxis: {
-                            title: {
-                                text: '@Messages.get("PlayerCount")'
-                            }
-                        },
-                        plotOptions: {
-                            areaspline: {
-                                marker: {
-                                enabled: false
-                                }
-                            }
-                        },
-                        series: [{
-                            name: '@Messages.get("Players")',
-                            data: [@ranking.joinedPlayerCountPerSplittedScore()]
-                        }]
-                    });
-                });
+            },
+            yAxis : {
+            title : {
+            text : '   @Messages.get("PlayerCount") '
+            }
+            },
+            plotOptions : {
+            areaspline : {
+            marker : {
+            enabled : false
+            }
+            }
+            },
+            series :[ {
+            name : '   @Messages.get("Players") ',
+            data :[ @ranking.joinedPlayerCountPerSplittedScore() ]
+            } ]
+            } ) ;
+            } ) ;
             </script>
 
             @if(ranking.mode != null) {
@@ -102,19 +102,19 @@
         </h4>
         <table class="table table-condensed table-hover table-bordered">
             <thead>
-                <th style="width: 10%; text-align: center;">@Messages.get("Rank")</th>
-                <th style="text-align: center; width: 20%;" >@Messages.get("Player")</th>
-                <th style="width: 25%; text-align: center;" >@Messages.get("Score")</th>
-                <th style="width: 20%; text-align: center;" >@Messages.get("Stage")</th>
-                <th style="text-align: center; width: 25%;">@Messages.get("Precisions")</th>
+                <th style="width : 10 % ; text-align : center ;">@Messages.get("Rank")</th>
+                <th style="text-align : center ; width : 20 % ;" >@Messages.get("Player")</th>
+                <th style="width : 25 % ; text-align : center ;" >@Messages.get("Score")</th>
+                <th style="width : 20 % ; text-align : center ;" >@Messages.get("Stage")</th>
+                <th style="text-align : center ; width : 25 % ;">@Messages.get("Precisions")</th>
             </thead>
-        @for(score <- ranking.scores) {
-            <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
-                <td style="text-align: right; vertical-align: middle;">@score.formattedRank</td>
-                <td style="vertical-align: middle;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
-                <td style="text-align: right; vertical-align: middle;">
+            @for(score <- ranking.scores) {
+                <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
+                <td style="text-align : right ; vertical-align : middle ;">@score.formattedRank</td>
+                <td style="vertical-align : middle ;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
+                <td style="text-align : right ; vertical-align : middle ;">
                     @if(score.photo) {
-                        <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right: 5px;">
+                        <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right : 5 px ;">
                             <span id="photo_@score.id"
                             data-html="true"
                             data-container="body"
@@ -123,61 +123,67 @@
                             data-placement="top" data-content="<img width='250px' src='@score.photo'/>"
                             data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                             <script>
-                            $('#photo_@score.id').popover('hide');
+                            $ ( '#photo_   @score.id ').popover(' hide ');
                             </script>
                         </a>
                     }
                     @if(score.replay) {
-                        <a href="@score.replay" target="_blank" class="label label-primary pull-left" style="margin-right: 5px;">
+                        <a href="@score.replay" target="_blank" class="label label-primary pull-left" style="margin-right : 5 px ;">
                             <span class="glyphicon glyphicon-play"></span>
                         </a>
                     }
-                    <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
+                <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
                 </td>
-                <td style="text-align: right; vertical-align: middle;" >@if(score.stage != null) { @score.stage.name }</td>
-                <td style="text-align: center; vertical-align: middle;">
-                    @if(score.comment) {
-                        @if(score.comment.length < 25) {
-                            @score.comment
-                        } else {
-                            <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </button>
-                            <script>
-                                $('#comment_@score.id').popover('hide');
-                            </script>
-                        }
+                <td style="text-align : right ; vertical-align : middle ;" >@if(score.stage != null) {
+                    @score.stage.name
+                }</td>
+                <td style="text-align : center ; vertical-align : middle ;">
+                @if(score.comment) {
+                    @if(score.comment.length < 25) {
+                        @score.comment
+                    } else {
+                        <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                        <script>
+                        $ ( '#comment_   @score.id ').popover(' hide ');
+                        </script>
                     }
+                }
                 </td>
-            </tr>
-        }
+                </tr>
+            }
         </table>
-}
+    }
 
 @main(game) {
     <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
     <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
 
-   <h2 class="title">
+    <h2 class="title">
 
-       <img src="@game.cover" alt="@game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
+        <img src="@game.cover" alt="@game.title" class="pull-left thumbnail" width="150px" style="margin-right:20px;" />
 
-       @game.title
-       <p style="font-size: 16pt; margin-top: 10px;">
-        @for(platform <- game.platforms) {
-            <span class="label label-success">@platform.name</span>
-        }
-       </p>
-       <p>
-           <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
-               <span class="glyphicon glyphicon-share-alt"></span> forum
-           </a>
-           <a href="@routes.RankingController.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
-               <span class="glyphicon glyphicon-list-alt"></span> ranking
-           </a>
-       </p>
-   </h2>
-    <br style="clear: both;" />
+        @game.title
+        <p>
+            <a href="@game.thread" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-share-alt"></span> forum
+            </a>
+            <a href="@routes.RankingController.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
+                <span class="glyphicon glyphicon-list-alt"></span> ranking
+            </a>
+        </p>
+    </h2>
+    <h4>
+    @for(platform <- game.platforms) {
+        <span class="label label-success" style="margin-right: 5px;">
+            <a class="platform" href="@routes.PlatformController.read(platform.name.toUpperCase)">
+            @platform.name
+            </a>
+        </span>
+    }
+    </h4>
+    <br style="clear : both ;" />
 
     @for(ranking <- game.rankings) {
         @if(!ranking.scores.isEmpty) {

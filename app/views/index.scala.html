@@ -1,7 +1,7 @@
 @(timeline: Timeline)
 @main() {
-    <div style="padding-top: 40px;">
-    <ul id="timeline">
+    <div style="padding-top : 40 px ;">
+        <ul id="timeline">
         @for(score <- timeline.scores) {
             <li>
                 <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
@@ -22,28 +22,28 @@
                             <span class="comment">@score.comment</span>
                         }
                     </p>
-                    <div style="float:left;">
+                    <div style="float : left ;">
                         @if(score.photo) {
-                            <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right: 5px;">
+                            <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5 px ;">
                                 <span id="photo_@score.id"
-                                      data-html="true"
-                                      data-container="body"
-                                      data-trigger="hover"
-                                      data-toggle="popover"
-                                      data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
-                                      data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
+                                data-html="true"
+                                data-container="body"
+                                data-trigger="hover"
+                                data-toggle="popover"
+                                data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
+                                data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                                 <script>
-                                    $('#photo_@score.id').popover('hide');
+                                $ ( '#photo_ @score.id ').popover(' hide ');
                                 </script>
                             </a>
                         }
                         @if(score.replay) {
-                            <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right: 5px;">
+                            <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5 px ;">
                                 <span class="glyphicon glyphicon-play"></span>
                             </a>
                         }
                         @if(score.platform != null) {
-                            <span class="label label-success">@score.platform.name</span>
+                            <span class="label label-success"><a class="platform" class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a></span>
                         }
                         @if(score.mode != null) {
                             <span class="label label-default">@score.mode.name</span>
@@ -55,6 +55,7 @@
                 </div>
             </li>
         }
-    </ul>
+        </ul>
     </div>
+
 }

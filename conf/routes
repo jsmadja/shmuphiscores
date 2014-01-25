@@ -5,6 +5,8 @@
 GET     /                           controllers.ApplicationController.index()
 GET     /index.rss                  controllers.ApplicationController.indexRss()
 
+GET     /platform/:name             controllers.PlatformController.read(name: String)
+
 GET     /score                      controllers.ScoreController.selectGame()
 GET     /score/:id                  controllers.ScoreController.read(id: models.Score)
 POST    /score                      controllers.ScoreController.save()

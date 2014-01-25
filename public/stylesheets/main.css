@@ -43,7 +43,6 @@ h1 {
 }
 
 .title {
-    margin-bottom: 30px;
 }
 
 .author {
@@ -176,4 +175,13 @@ table.dataTable tr.odd {
 
 .dead {
     color: grey;
+}
+
+.platform {
+    color: white;
+}
+
+a.platform:hover {
+    color:white;
+    text-decoration: none;
 }
