@@ -62,7 +62,9 @@
                     <span class="label label-default" style="vertical-align: middle;">@score.mode</span>
                     <span class="label label-warning">@score.difficulty</span>
                     <span class="label label-success">
-                        <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                        @if(score.platform != null) {
+                            <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                        }
                     </span>
                 </td>
                 <td style="text-align: right;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>
