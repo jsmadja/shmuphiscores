@@ -5,7 +5,7 @@
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${application.home}/logs/application.log</file>
         <encoder>
-            <pattern>%date - [%level] [%X{user}] %X{uri} - from %logger in %thread %n%message%n%xException%n</pattern>
+            <pattern>%date %coloredLevel [%X{user}] %X{uri} - %message%n%xException{5}</pattern>
         </encoder>
     </appender>
 
