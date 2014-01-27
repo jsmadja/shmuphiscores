@@ -134,7 +134,7 @@ public class Game extends BaseModel<Game> {
     }
 
     public String getEscapedTitle() {
-        String s = title.replaceAll("[^a-zA-Z]", "_");
+        String s = title.replaceAll("[^a-zA-Z0-9]", "_");
         s = s.replaceAll("_(_)*", "_");
         if (s.endsWith("_")) {
             s = s.substring(0, s.length() - 1);

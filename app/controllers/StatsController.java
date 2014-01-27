@@ -26,7 +26,8 @@ public class StatsController extends Controller {
         List<String> scores = new ArrayList<String>();
         DateMidnight dt = new DateMidnight(2013, 11, 29);
         while (dt.isBeforeNow()) {
-            scores.add(Ebean.createQuery(Score.class).where(le("createdAt", dt.plusDays(1).toDate())).findRowCount() + "");
+            int createdAt = Ebean.createQuery(Score.class).where(le("createdAt", dt.plusDays(1).toDate())).findRowCount();
+            scores.add(((double) createdAt) / 10 + "");
             dt = dt.plusDays(1);
         }
         return Joiner.on(",").join(scores);

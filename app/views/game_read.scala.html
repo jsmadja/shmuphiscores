@@ -16,27 +16,27 @@
             <span class="glyphicon glyphicon-stats"></span>
             </button>
             <script>
-            $ ( '#average_   @ranking.uniqueKey ').popover(' hide ');
+            $('#average_@ranking.uniqueKey').popover('hide');
             </script>
             <div id="container_@ranking.uniqueKey" style="display : none ; width : 860 px ; margin-bottom : 10 px ; margin-top : 10 px ;" ></div>
             <script>
-            $ ( function ( ) {
-            $ ( "#average_   @ranking.uniqueKey " ).click(
+            $(function() {
+            $("#average_@ranking.uniqueKey").click(
             function ( ) {
-            var chart = $ ( '#container_   @ranking.uniqueKey ');
-            if ( chart.is ( ':visible' ) ) {
-            chart.hide ( ) ;
+            var chart = $ ('#container_@ranking.uniqueKey');
+            if ( chart.is (':visible') ) {
+            chart.hide();
             } else {
-            chart.show ( ) ;
+            chart.show();
             }
             }
             ) ;
-            $ ( '#container_   @ranking.uniqueKey ').highcharts({
+            $('#container_@ranking.uniqueKey').highcharts({
             chart : {
             type : 'areaspline'
             },
             title : {
-            text : '   @game.getEscapedTitle @ranking.mode @ranking.difficulty '
+            text : '@game.getEscapedTitle @ranking.mode @ranking.difficulty'
             },
             xAxis : {
             categories :[
@@ -123,7 +123,7 @@
                             data-placement="top" data-content="<img width='250px' src='@score.photo'/>"
                             data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                             <script>
-                            $ ( '#photo_   @score.id ').popover(' hide ');
+                            $('#photo_@score.id ').popover('hide');
                             </script>
                         </a>
                     }
