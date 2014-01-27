@@ -1,25 +1,8 @@
 @(game: models.Game)
 @import play.i18n._
-    @scores(ranking: Ranking) = {
-        <h4>
-            <button id="average_@ranking.uniqueKey"
-            data-html="true"
-            type="button"
-            class="btn btn-default"
-            data-container="body"
-            data-trigger="hover"
-            data-toggle="popover"
-            data-placement="top"
-            data-content="@Messages.get("AverageScore") : <b>@ranking.averageScore() pts</b>"
-            data-original-title=""
-            title="">
-            <span class="glyphicon glyphicon-stats"></span>
-            </button>
-            <script>
-            $('#average_@ranking.uniqueKey').popover('hide');
-            </script>
-            <div id="container_@ranking.uniqueKey" style="display : none ; width : 860 px ; margin-bottom : 10 px ; margin-top : 10 px ;" ></div>
-            <script>
+
+    @chart(ranking: Ranking) = {
+        <script>
             $(function() {
             $("#average_@ranking.uniqueKey").click(
             function ( ) {
@@ -33,10 +16,10 @@
             ) ;
             $('#container_@ranking.uniqueKey').highcharts({
             chart : {
-            type : 'areaspline'
+            type :'areaspline'
             },
             title : {
-            text : '@game.getEscapedTitle @ranking.mode @ranking.difficulty'
+            text :'@game.getEscapedTitle @ranking.mode @ranking.difficulty'
             },
             xAxis : {
             categories :[
@@ -44,26 +27,26 @@
             ],
             labels : {
             formatter : function ( ) {
-            return '' ;
+            return'' ;
             }
             },
             plotLines :[ {
-            color : '#FF0000',
-            dashStyle : 'ShortDash',
+            color :'#FF0000',
+            dashStyle :'ShortDash',
             width : 2,
             value : @ranking.averageScoreIndex(),
             zIndex : 0,
             label : {
-            text : '   @Messages.get("AverageScore") '
+            text :'   @Messages.get("AverageScore")'
             }
             }, {
-            color : '#00FF00',
-            dashStyle : 'ShortDash',
+            color :'#00FF00',
+            dashStyle :'ShortDash',
             width : 2,
             value : @ranking.playerScoreIndex(),
             zIndex : 0,
             label : {
-            text : '   @actions.User.current().name '
+            text :'   @actions.User.current().name'
             }
             } ]
             },
@@ -75,7 +58,7 @@
             },
             yAxis : {
             title : {
-            text : '   @Messages.get("PlayerCount") '
+            text :'   @Messages.get("PlayerCount")'
             }
             },
             plotOptions : {
@@ -86,13 +69,34 @@
             }
             },
             series :[ {
-            name : '   @Messages.get("Players") ',
+            name :'   @Messages.get("Players")',
             data :[ @ranking.joinedPlayerCountPerSplittedScore() ]
             } ]
             } ) ;
             } ) ;
-            </script>
+        </script>
+    }
 
+    @scores(ranking: Ranking) = {
+        <h4>
+            <button id="average_@ranking.uniqueKey"
+            data-html="true"
+            type="button"
+            class="btn btn-default"
+            data-container="body"
+            data-trigger="hover"
+            data-toggle="popover"
+            data-placement="top"
+            data-content="@Messages.get("AverageScore") :<b>@ranking.averageScore() pts</b>"
+            data-original-title=""
+            title="">
+                <span class="glyphicon glyphicon-stats"></span>
+            </button>
+            <script>
+                $('#average_@ranking.uniqueKey').popover('hide');
+            </script>
+            <div id="container_@ranking.uniqueKey" style="display : none ; width : 860px; margin-bottom : 10px; margin-top : 10px;" ></div>
+            @chart(ranking)
             @if(ranking.mode != null) {
                 <span class="label label-default">@ranking.mode.name</span>
             }
@@ -114,7 +118,7 @@
                 <td style="vertical-align : middle ;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
                 <td style="text-align : right ; vertical-align : middle ;">
                     @if(score.photo) {
-                        <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right : 5 px ;">
+                        <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right : 5px;">
                             <span id="photo_@score.id"
                             data-html="true"
                             data-container="body"
@@ -123,12 +127,12 @@
                             data-placement="top" data-content="<img width='250px' src='@score.photo'/>"
                             data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                             <script>
-                            $('#photo_@score.id ').popover('hide');
+                                $('#photo_@score.id').popover('hide');
                             </script>
                         </a>
                     }
                     @if(score.replay) {
-                        <a href="@score.replay" target="_blank" class="label label-primary pull-left" style="margin-right : 5 px ;">
+                        <a href="@score.replay" target="_blank" class="label label-primary pull-left" style="margin-right : 5px;">
                             <span class="glyphicon glyphicon-play"></span>
                         </a>
                     }
@@ -146,7 +150,7 @@
                             <span class="glyphicon glyphicon-eye-open"></span>
                         </button>
                         <script>
-                        $ ( '#comment_   @score.id ').popover(' hide ');
+                        $('#comment_@score.id').popover('hide');
                         </script>
                     }
                 }
