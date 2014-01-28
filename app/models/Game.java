@@ -157,4 +157,14 @@ public class Game extends BaseModel<Game> {
             score.stageName = score.stage == null ? null : score.stage.name;
         }
     }
+
+    public String getCoverType() {
+        if (cover.endsWith("jpg") || cover.endsWith("jpeg")) {
+            return "image/jpeg";
+        }
+        if (cover.endsWith("png")) {
+            return "image/png";
+        }
+        return "image/gif";
+    }
 }

@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.google.common.collect.Lists;
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
@@ -36,6 +37,7 @@ public class Timeline {
         feed.setEntries(entries);
         for (Score score : scores) {
             SyndEntry entry = new SyndEntryImpl();
+            entry.setTitle(score.getGameTitle());
             entry.setAuthor(score.player.name);
             entry.setLink("http://hiscores.shmup.com/score/" + score.id);
             SyndContentImpl content = new SyndContentImpl();
@@ -43,6 +45,10 @@ public class Timeline {
             entry.setDescription(content);
             entry.setPublishedDate(score.getCreatedAt());
             entry.setUpdatedDate(score.getCreatedAt());
+            SyndEnclosureImpl enclosure = new SyndEnclosureImpl();
+            enclosure.setUrl(score.game.cover);
+            enclosure.setType(score.game.getCoverType());
+            entry.setEnclosures(Lists.newArrayList(enclosure));
             entries.add(entry);
         }
         Writer writer = new StringWriter();
