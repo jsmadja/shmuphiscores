@@ -64,6 +64,9 @@ public class Game extends BaseModel<Game> {
     @XmlElement(name = "ranking")
     private List<Ranking> initializedRankings;
 
+    @XmlTransient
+    private boolean generalRanking;
+
     public Game(String title, String cover, String thread) {
         this.title = title;
         this.cover = cover;
@@ -72,9 +75,12 @@ public class Game extends BaseModel<Game> {
 
     public List<Ranking> rankings() {
         List<Ranking> rankings = new ArrayList<Ranking>();
+        if (generalRanking) {
+            rankings.add(createGeneralRanking());
+        }
         if (modes.isEmpty()) {
             if (difficulties.isEmpty()) {
-                rankings.add(new Ranking(findBestScoresByPlayers(null, null)));
+                rankings.add(createGeneralRanking());
             } else {
                 for (Difficulty difficulty : difficulties) {
                     rankings.add(new Ranking(findBestScoresByPlayers(difficulty, null), difficulty));
@@ -94,11 +100,35 @@ public class Game extends BaseModel<Game> {
         return rankings;
     }
 
+    private Ranking createGeneralRanking() {
+        Ranking ranking = new Ranking(findBestScoresByPlayers());
+        List<Score> scores = new ArrayList<Score>();
+        for (int rank = 0; rank < ranking.scores.size(); rank++) {
+            Score score = ranking.scores.get(rank);
+            scores.add(new Score(score.id, score.game, score.player, score.stage, score.mode, score.difficulty, score.comment, score.platform, score.value, score.photo, score.replay, rank + 1));
+        }
+        Ranking ranking1 = new Ranking(scores);
+        ranking1.general = true;
+        return ranking1;
+    }
+
     private Collection<Score> findBestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).orderBy("value desc").findList();
+        return keepBestScoreByPlayer(scores);
+    }
+
+    private Collection<Score> findBestScoresByPlayers() {
+        if (scores == null) {
+            return new ArrayList<Score>();
+        }
+        List<Score> scores = Score.finder.where(eq("game", this)).orderBy("value desc").findList();
+        return keepBestScoreByPlayer(scores);
+    }
+
+    private Collection<Score> keepBestScoreByPlayer(List<Score> scores) {
         final Set<Player> players = new HashSet<Player>();
         return filter(scores, new Predicate<Score>() {
             @Override

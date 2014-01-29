@@ -33,3 +33,4 @@ players.scala.html.playerlist=Liste des joueurs
 scoreform.scala.html.photo.placeholder=Lien direct vers l''image (hébergement : casimages, imageshack, ...)
 scoreform.scala.html.replay.placeholder=Lien direct vers la vidéo (hébergement : Youtube, Dailymotion, ...)
 Gap=Différence avec le 1er score en %
+GeneralRanking=Classement général

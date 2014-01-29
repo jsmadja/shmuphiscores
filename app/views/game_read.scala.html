@@ -97,6 +97,10 @@
             </script>
             <div id="container_@ranking.uniqueKey" style="display : none ; width : 860px; margin-bottom : 10px; margin-top : 10px;" ></div>
             @chart(ranking)
+            @if(ranking.general) {
+                <span class="label label-default">@Messages.get("GeneralRanking")</span>
+            }
+
             @if(ranking.mode != null) {
                 <span class="label label-default">@ranking.mode.name</span>
             }

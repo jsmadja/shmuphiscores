@@ -81,6 +81,12 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.replay = replay;
     }
 
+    public Score(Long id, Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay, Integer rank) {
+        this(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
+        this.rank = rank;
+        this.id = id;
+    }
+
     public String formattedDate() {
         return getUpdatedSince();
     }
@@ -236,5 +242,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     private String modeName() {
         return mode == null ? "" : mode.name;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

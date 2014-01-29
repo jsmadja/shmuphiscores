@@ -3,6 +3,7 @@ package drawer;
 import models.Difficulty;
 import models.Mode;
 import models.Ranking;
+import play.i18n.Messages;
 
 import java.awt.*;
 
@@ -18,10 +19,12 @@ public class GameLine implements PictureLine {
 
     private final Mode mode;
     private final Difficulty difficulty;
+    private final Ranking ranking;
 
     public GameLine(Ranking ranking) {
         this.mode = ranking.mode;
         this.difficulty = ranking.difficulty;
+        this.ranking = ranking;
     }
 
     @Override
@@ -30,6 +33,9 @@ public class GameLine implements PictureLine {
         graphics.setColor(COLOR_SHMUP_TITLE);
         graphics.setFont(gameFont);
         String title = "";
+        if (ranking.general) {
+            title += Messages.get("GeneralRanking");
+        }
         if (mode != null) {
             title = mode.toString();
             if (difficulty != null) {

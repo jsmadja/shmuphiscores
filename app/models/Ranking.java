@@ -38,6 +38,8 @@ public class Ranking {
     @XmlAttribute(name = "mode")
     public String modeName;
 
+    public boolean general;
+
     Ranking() {
     }
 
