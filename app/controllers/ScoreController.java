@@ -40,6 +40,9 @@ public class ScoreController extends Controller {
     }
 
     public static Result save() {
+        if (!User.current().isAuthenticated()) {
+            return unauthorized();
+        }
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
         Logger.info("Nouveau score envoyé par " + User.current().name + ", " + data.toString());
