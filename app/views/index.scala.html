@@ -1,6 +1,6 @@
 @(timeline: Timeline)
 @main() {
-    <div style="padding-top : 40 px ;">
+    <div style="padding-top : 40px;">
         <ul id="timeline">
         @for(score <- timeline.scores) {
             <li>
@@ -24,7 +24,7 @@
                     </p>
                     <div style="float : left ;">
                         @if(score.photo) {
-                            <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5 px ;">
+                            <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                 <span id="photo_@score.id"
                                 data-html="true"
                                 data-container="body"
@@ -33,12 +33,26 @@
                                 data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
                                 data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                                 <script>
-                                $ ( '#photo_ @score.id ').popover(' hide ');
+                                    $('#photo_@score.id').popover('hide');
+                                </script>
+                            </a>
+                        }
+                        @if(score.photoBase64) {
+                            <a target="_blank" class="label label-primary" style="margin-right : 5px ;">
+                                <span id="photo_base64_@score.id"
+                                data-html="true"
+                                data-container="body"
+                                data-trigger="hover"
+                                data-toggle="popover"
+                                data-placement="left" data-content="<img width='250px' src='@score.photoBase64'/>"
+                                data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
+                                <script>
+                                    $('#photo_base64_@score.id').popover('hide');
                                 </script>
                             </a>
                         }
                         @if(score.replay) {
-                            <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5 px ;">
+                            <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                 <span class="glyphicon glyphicon-play"></span>
                             </a>
                         }
@@ -57,5 +71,4 @@
         }
         </ul>
     </div>
-
 }

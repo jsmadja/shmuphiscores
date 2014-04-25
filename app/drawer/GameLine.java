@@ -6,6 +6,9 @@ import models.Ranking;
 import play.i18n.Messages;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import static drawer.RankingGameConfiguration.COLOR_SHMUP_TITLE;
 import static drawer.RankingGameConfiguration.width;
@@ -48,4 +51,5 @@ public class GameLine implements PictureLine {
         }
         graphics.drawString(title, 30, y);
     }
+
 }

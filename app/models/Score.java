@@ -4,10 +4,7 @@ import com.avaje.ebean.Ebean;
 import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -17,6 +14,7 @@ import static java.text.MessageFormat.format;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
+
 
     @XmlTransient
     @ManyToOne
@@ -52,6 +50,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @XmlAttribute
     public String replay;
 
+    @Lob
+    @Column(name = "photo_base_64")
+    public String photoBase64;
+
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
     @Transient
@@ -85,6 +87,18 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
         this.rank = rank;
         this.id = id;
+    }
+
+    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photoBase64) {
+        this.game = game;
+        this.player = player;
+        this.stage = stage;
+        this.mode = mode;
+        this.difficulty = difficulty;
+        this.comment = comment;
+        this.platform = platform;
+        this.value = value;
+        this.photoBase64 = photoBase64;
     }
 
     public String formattedDate() {

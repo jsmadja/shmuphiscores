@@ -239,4 +239,29 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Loup')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'WLF');
 
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'M.Knight')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'MKnight');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'M.Knight')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'M Knight');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Erhune')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'Ehrune');
+
+UPDATE score
+SET player_id = (SELECT id FROM player WHERE name = 'Colas')
+WHERE player_id IN (SELECT id FROM player WHERE name = 'COL');
+
+-- distinctes :
+-- HUmar HUU
+-- Vince2 et Vincere
+--  RYU et Ryusensh
+-- GUS (un américain) et Guts
+-- Dangaioh danmaker
+-- Jonathan Jonathan Ingram
+
+
 DELETE FROM player WHERE id NOT IN (SELECT distinct player_id FROM score) AND shmup_user_id IS NULL

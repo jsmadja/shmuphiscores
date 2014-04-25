@@ -2,34 +2,39 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /                           controllers.ApplicationController.index()
-GET     /index.rss                  controllers.ApplicationController.indexRss()
+GET         /                            controllers.ApplicationController.index()
+GET         /index.rss                   controllers.ApplicationController.indexRss()
 
-GET     /platform/:name             controllers.PlatformController.read(name: String)
+GET         /platform/:name              controllers.PlatformController.read(name: String)
 
-GET     /score                      controllers.ScoreController.selectGame()
-GET     /score/:id                  controllers.ScoreController.read(id: models.Score)
-POST    /score                      controllers.ScoreController.save()
-POST    /score/new                  controllers.ScoreController.fillForm()
-GET     /score/shmup/:id            controllers.ScoreController.shmup(id: models.Score)
-POST    /score/update               controllers.ScoreController.update()
+GET         /score                       controllers.ScoreController.selectGame()
+GET         /score/:id                   controllers.ScoreController.read(id: models.Score)
+POST        /score                       controllers.ScoreController.save()
+POST        /score/new                   controllers.ScoreController.fillForm()
+GET         /score/shmup/:id             controllers.ScoreController.shmup(id: models.Score)
+POST        /score/update                controllers.ScoreController.update()
 
-POST    /game                       controllers.GameController.save()
-GET     /game/new                   controllers.GameController.create()
-POST    /game/scores                controllers.GameController.saveScores
-GET     /game/scores                controllers.GameController.importScores
-GET     /game/:id/ranking.png       controllers.RankingController.index(id: models.Game)
-GET     /game/:id/new_score         controllers.ScoreController.fillFormWithGame(id: models.Game)
-GET     /game/:id/:name             controllers.GameController.indexWithName(id: models.Game, name: String)
-GET     /game/:id                   controllers.GameController.index(id: models.Game)
+POST        /game                        controllers.GameController.save()
+GET         /game/new                    controllers.GameController.create()
+POST        /game/scores                 controllers.GameController.saveScores
+GET         /game/scores                 controllers.GameController.importScores
+GET         /game/:id/ranking.png        controllers.RankingController.index(id: models.Game)
+GET         /game/:id/new_score          controllers.ScoreController.fillFormWithGame(id: models.Game)
+GET         /game/:id/:name              controllers.GameController.indexWithName(id: models.Game, name: String)
+GET         /game/:id                    controllers.GameController.index(id: models.Game)
 
-GET     /games                      controllers.GamesController.index()
+GET         /games                       controllers.GamesController.index()
 
-GET     /stats                      controllers.StatsController.index()
+GET         /stats                       controllers.StatsController.index()
 
-GET     /player/:id                 controllers.PlayerController.index(id: models.Player)
-GET     /players                    controllers.PlayersController.index()
+GET         /player/:id                  controllers.PlayerController.index(id: models.Player)
+GET         /players                     controllers.PlayersController.index()
 
-GET     /backup                     controllers.BackupController.index
+GET         /backup                      controllers.BackupController.index
 
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /mobile/games                controllers.MobileController.games()
+GET         /mobile/games/:id            controllers.MobileController.game(id: models.Game)
+GET         /mobile/players              controllers.MobileController.players()
+POST        /mobile/score              controllers.MobileController.score()
+
+GET         /assets/*file                controllers.Assets.at(path="/public", file)

@@ -19,7 +19,7 @@ import static com.avaje.ebean.Expr.eq;
 import static com.google.common.collect.Collections2.filter;
 
 @Entity
-public class Game extends BaseModel<Game> {
+public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     @XmlAttribute
     public String thread;
@@ -196,5 +196,10 @@ public class Game extends BaseModel<Game> {
             return "image/png";
         }
         return "image/gif";
+    }
+
+    @Override
+    public int compareTo(Game game) {
+        return this.title.compareTo(game.title);
     }
 }

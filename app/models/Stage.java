@@ -12,7 +12,7 @@ public class Stage extends BaseModel<Stage> {
     public String name;
 
     @XmlTransient
-    public String sortOrder;
+    public Long sortOrder;
 
     @ManyToOne
     @XmlTransient
