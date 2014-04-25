@@ -95,7 +95,7 @@
         },
         categories: [
             @for(title <- player.playedGameTitlesForPlayer()) {
-                '@title',
+                '@title.replaceAll("'","")',
             }
         ],
         labels: {
