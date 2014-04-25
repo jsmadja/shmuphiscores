@@ -37,7 +37,7 @@ public class PlayersController extends Controller {
         for (Player player : players) {
             int oneCreditCount = find(Score.class).where(and(eq("player", player), or(ilike("stage.name", "%all%"), Expr.startsWith("stage.name", "2-")))).findRowCount();
             int firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
-            int top3Count = find(Score.class).where(and(eq("player", player), le("rank", 4))).findRowCount();
+            int top3Count = find(Score.class).where(and(eq("player", player), le("rank", 3))).findRowCount();
             int top10Count = find(Score.class).where(and(eq("player", player), le("rank", 10))).findRowCount();
             counts.put(player, new Counts(firstRankCount, top3Count, top10Count, oneCreditCount));
         }
