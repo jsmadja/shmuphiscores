@@ -2,6 +2,8 @@ package controllers;
 
 import actions.User;
 import com.avaje.ebean.Ebean;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
 import models.*;
 import play.Logger;
 import play.data.Form;
@@ -10,6 +12,9 @@ import play.mvc.Result;
 import views.html.score_create;
 import views.html.score_update;
 
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
@@ -131,6 +136,18 @@ public class ScoreController extends Controller {
             mode = find(Mode.class, parseLong(data.get("mode")));
         }
         return mode;
+    }
+
+    public static Collection<Score> findProgressionOf(final Score score) {
+        List<Score> scores = score.player.scores;
+
+        return Collections2.filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score _score) {
+                return score.game.equals(_score.game) && score.mode == _score.mode && score.difficulty == _score.difficulty;
+            }
+        });
+
     }
 
 }

@@ -113,6 +113,62 @@
             @if(score.isPlayedBy(actions.User.current)) {
                 <button type="submit" class="btn btn-success">@Messages.get("Update")</button>
             }
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h3>Progression</h3>
+
+                        <table class="table table-condensed table-hover table-striped table-bordered">
+                            <tr>
+                                <th>
+                                    Date
+                                </th>
+                                <th style="text-align: center;">
+                                    Mode
+                                </th>
+                                <th style="text-align: center;">
+                                    Difficulté
+                                </th>
+                                <th style="text-align: center;">
+                                    Stage
+                                </th>
+                                <th style="text-align: center;">
+                                    Score
+                                </th>
+                                <th style="text-align: center;">
+                                    Précisions
+                                </th>
+                            </tr>
+
+                            @for(score <- ScoreController.findProgressionOf(score)) {
+                                <tr>
+                                    <td>
+                                        @score.getCreatedAt.format("dd/MM/yyyy")
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @score.mode
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @score.difficulty
+                                    </td>
+                                    <td style="text-align: right">
+                                        @score.stage
+                                    </td>
+                                    <td style="text-align: right;">
+                                        @score.formattedValue()
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @score.comment
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
         </form>
 
     }
