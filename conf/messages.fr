@@ -34,3 +34,4 @@ scoreform.scala.html.photo.placeholder=Lien direct vers l''image (hébergement :
 scoreform.scala.html.replay.placeholder=Lien direct vers la vidéo (hébergement : Youtube, Dailymotion, ...)
 Gap=Différence avec le 1er score en %
 GeneralRanking=Classement général
+GapWithPreviousScore=Ecart

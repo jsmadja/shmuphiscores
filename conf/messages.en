@@ -37,3 +37,4 @@ scoreform.scala.html.replay.placeholder=Direct Link (hosts\: Youtube, Dailymotio
 GeneralRanking=General Ranking
 
 Gap=Gap
+GapWithPreviousScore=Gap

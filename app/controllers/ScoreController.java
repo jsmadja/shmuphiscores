@@ -3,7 +3,6 @@ package controllers;
 import actions.User;
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import models.*;
 import play.Logger;
 import play.data.Form;
@@ -13,11 +12,13 @@ import views.html.score_create;
 import views.html.score_update;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
+import static com.google.common.collect.Collections2.filter;
 import static java.lang.Long.parseLong;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static play.data.Form.form;
@@ -140,14 +141,22 @@ public class ScoreController extends Controller {
 
     public static Collection<Score> findProgressionOf(final Score score) {
         List<Score> scores = score.player.scores;
-
-        return Collections2.filter(scores, new Predicate<Score>() {
+        scores = new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score _score) {
                 return score.game.equals(_score.game) && score.mode == _score.mode && score.difficulty == _score.difficulty;
             }
-        });
-
+        }));
+        if (scores.size() > 1) {
+            for (int i = 1; i < scores.size(); i++) {
+                Score previous = scores.get(i - 1);
+                Score current = scores.get(i);
+                long gap = current.value - previous.value;
+                double percent = (double) gap / previous.value;
+                current.gapWithPreviousScore = (long) (percent * 100);
+            }
+        }
+        return scores;
     }
 
 }

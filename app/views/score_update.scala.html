@@ -122,22 +122,25 @@
                         <table class="table table-condensed table-hover table-striped table-bordered">
                             <tr>
                                 <th>
-                                    Date
+                                    @Messages.get("Date")
                                 </th>
                                 <th style="text-align: center;">
-                                    Mode
+                                    @Messages.get("Mode")
                                 </th>
                                 <th style="text-align: center;">
-                                    Difficulté
+                                    @Messages.get("Difficulty")
                                 </th>
                                 <th style="text-align: center;">
-                                    Stage
+                                    @Messages.get("Stage")
                                 </th>
                                 <th style="text-align: center;">
-                                    Score
+                                    @Messages.get("Score")
                                 </th>
                                 <th style="text-align: center;">
-                                    Précisions
+                                    @Messages.get("GapWithPreviousScore")
+                                </th>
+                                <th style="text-align: center;">
+                                    @Messages.get("Precisions")
                                 </th>
                             </tr>
 
@@ -157,6 +160,11 @@
                                     </td>
                                     <td style="text-align: right;">
                                         @score.formattedValue()
+                                    </td>
+                                    <td style="text-align: right;">
+                                        @if(score.gapWithPreviousScore != null) {
+                                            +@score.gapWithPreviousScore%
+                                        }
                                     </td>
                                     <td style="text-align: center;">
                                         @score.comment

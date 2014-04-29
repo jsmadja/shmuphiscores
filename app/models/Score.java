@@ -70,6 +70,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @XmlAttribute
     private Integer rank;
 
+    @Transient
+    public Long gapWithPreviousScore;
+
     public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
         this.player = player;
