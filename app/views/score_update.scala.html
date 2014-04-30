@@ -1,7 +1,11 @@
 @(score: models.Score)
     @import play.i18n._
     @main() {
-        <h2 class="title">
+    <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
+
+
+    <h2 class="title">
             <a href="@routes.GameController.indexWithName(score.game, score.game.title)"><img src="@score.game.cover" alt="@score.game.title" class="pull-left thumbnail" width="150px" style="margin-right : 20px ;" /></a>
             <span>
                 <a href="@routes.GameController.indexWithName(score.game, score.game.title)">@score.game.title</a>
@@ -118,17 +122,22 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <h3>Progression</h3>
+                        <p>
+                            @if(score.platform != null) {
+                                <span class="label label-success">@score.platform.name.toUpperCase</span>
+                            }
+                            @if(score.mode != null) {
+                                <span class="label label-default">@score.mode.name</span>
+                            }
+                            @if(score.difficulty != null) {
+                                <span class="label label-warning">@score.difficulty.name</span>
+                            }
+                        </p>
 
                         <table class="table table-condensed table-hover table-striped table-bordered">
                             <tr>
                                 <th>
                                     @Messages.get("Date")
-                                </th>
-                                <th style="text-align: center;">
-                                    @Messages.get("Mode")
-                                </th>
-                                <th style="text-align: center;">
-                                    @Messages.get("Difficulty")
                                 </th>
                                 <th style="text-align: center;">
                                     @Messages.get("Stage")
@@ -149,17 +158,11 @@
                                     <td>
                                         @score.getCreatedAt.format("dd/MM/yyyy")
                                     </td>
-                                    <td style="text-align: center;">
-                                        @score.mode
-                                    </td>
-                                    <td style="text-align: center;">
-                                        @score.difficulty
-                                    </td>
                                     <td style="text-align: right">
                                         @score.stage
                                     </td>
                                     <td style="text-align: right;">
-                                        @score.formattedValue()
+                                        <a href="@routes.ScoreController.read(score)">@score.formattedValue()</a>
                                     </td>
                                     <td style="text-align: right;">
                                         @if(score.gapWithPreviousScore != null) {
@@ -172,6 +175,57 @@
                                 </tr>
                             }
                         </table>
+
+                        <div id="container3"></div>
+                        <script>
+                        $(function () {
+                            $('#container3').highcharts({
+                                chart: {
+                                    type: 'area'
+                                },
+                                title: {
+                                    text: ''
+                                },
+                                xAxis: {
+                                    tickmarkPlacement: 'true',
+                                    title: {
+                                        enabled: false
+                                    },
+                                    categories: [
+                                        @for(_score <- ScoreController.findProgressionOf(score)) {
+                                            '@_score.getCreatedAt.format("dd/MM/yyyy")',
+                                        }
+                                    ],
+                                    labels: {
+                                        enabled: false
+                                    },
+                                    plotLines :[{
+                                        color :'#FF0000',
+                                        dashStyle :'ShortDash',
+                                        width : 2,
+                                        value : @ScoreController.findProgressionOf(score).toArray().indexOf(score),
+                                        zIndex : 0,
+                                        label : {
+                                            text :'@Messages.get("Score")'
+                                        }
+                                    }]
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '@Messages.get("Score")'
+                                    }
+                                },
+                                tooltip: {
+                                    shared: false,
+                                    valueSuffix: ' pts'
+                                },
+                                series: [{
+                                    name: 'Score',
+                                    data: [@ScoreController.findProgressionOf(score).map(score =>  score.value+",")]
+                                }]
+                            });
+                        });
+                        </script>
 
                     </div>
                 </div>
