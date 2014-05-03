@@ -8,12 +8,10 @@
         </td>
         <td style="vertical-align: middle;">
             @if(score.mode != null) {
-                <span class="label label-default" style="vertical-align: middle;">@score.mode.name.toUpperCase</span>
+                <span class="label label-default" style="vertical-align: middle; line-height: 30px;">@score.mode.name.toUpperCase</span>
             }
-        </td>
-        <td style="vertical-align: middle;">
             @if(score.difficulty != null) {
-                <span class="label label-warning">@score.difficulty.name.toUpperCase</span>
+                <span class="label label-warning" style="line-height: 20px;">@score.difficulty.name.toUpperCase</span>
             }
         </td>
         <td style="vertical-align: middle; text-align: right;">
@@ -41,8 +39,7 @@
    <table id="scores" class="table table-condensed table-striped table-hover table-bordered">
        <thead>
            <th>@Messages.get("Game")</th>
-           <th style="text-align: center">@Messages.get("Mode")</th>
-           <th style="text-align: center">@Messages.get("Difficulty")</th>
+           <th style="text-align: center">@Messages.get("Mode") / @Messages.get("Difficulty")</th>
            <th style="text-align: center">@Messages.get("Stage")</th>
            <th style="text-align: center">@Messages.get("Score")</th>
            <th style="text-align: center">@Messages.get("Rank")</th>
@@ -61,10 +58,10 @@
         "bLengthChange": false,
         "bInfo": false,
         "aoColumnDefs": [
-        { "iDataSort": 7, "aTargets": [ 4 ] },
-        { "iDataSort": 6, "aTargets": [ 5 ] },
-        { "bVisible": false, "aTargets": [ 6 ] },
-        { "bVisible": false, "aTargets": [ 7 ] }
+        { "iDataSort": 6, "aTargets": [ 3 ] },
+        { "iDataSort": 5, "aTargets": [ 4 ] },
+        { "bVisible": false, "aTargets": [ 5 ] },
+        { "bVisible": false, "aTargets": [ 6 ] }
         ]
         });
         });
