@@ -37,6 +37,8 @@ public class Player extends BaseModel<Player> {
     @XmlTransient
     public String twitter;
 
+    private boolean vip;
+
     public Player(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -165,4 +167,7 @@ public class Player extends BaseModel<Player> {
         return !bestReplayableScores().isEmpty();
     }
 
+    public boolean isVip() {
+        return vip;
+    }
 }

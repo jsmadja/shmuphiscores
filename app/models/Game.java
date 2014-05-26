@@ -83,16 +83,16 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                 rankings.add(createGeneralRanking());
             } else {
                 for (Difficulty difficulty : difficulties) {
-                    rankings.add(new Ranking(findBestScoresByPlayers(difficulty, null), difficulty));
+                    rankings.add(new Ranking(findBestScoresByVIPPlayers(difficulty, null), difficulty));
                 }
             }
         } else {
             for (Mode mode : modes) {
                 if (difficulties.isEmpty()) {
-                    rankings.add(new Ranking(findBestScoresByPlayers(null, mode), mode));
+                    rankings.add(new Ranking(findBestScoresByVIPPlayers(null, mode), mode));
                 } else {
                     for (Difficulty difficulty : difficulties) {
-                        rankings.add(new Ranking(findBestScoresByPlayers(difficulty, mode), difficulty, mode));
+                        rankings.add(new Ranking(findBestScoresByVIPPlayers(difficulty, mode), difficulty, mode));
                     }
                 }
             }
@@ -101,7 +101,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     private Ranking createGeneralRanking() {
-        Ranking ranking = new Ranking(findBestScoresByPlayers());
+        Ranking ranking = new Ranking(findBestScoresByVIPPlayers());
         List<Score> scores = new ArrayList<Score>();
         for (int rank = 0; rank < ranking.scores.size(); rank++) {
             Score score = ranking.scores.get(rank);
@@ -112,23 +112,23 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return ranking1;
     }
 
-    private Collection<Score> findBestScoresByPlayers(final Difficulty difficulty, final Mode mode) {
+    private Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).orderBy("value desc").findList();
-        return keepBestScoreByPlayer(scores);
+        return keepBestScoreByVIPPlayer(scores);
     }
 
-    private Collection<Score> findBestScoresByPlayers() {
+    private Collection<Score> findBestScoresByVIPPlayers() {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(eq("game", this)).orderBy("value desc").findList();
-        return keepBestScoreByPlayer(scores);
+        return keepBestScoreByVIPPlayer(scores);
     }
 
-    private Collection<Score> keepBestScoreByPlayer(List<Score> scores) {
+    private Collection<Score> keepBestScoreByVIPPlayer(List<Score> scores) {
         final Set<Player> players = new HashSet<Player>();
         return filter(scores, new Predicate<Score>() {
             @Override
@@ -137,6 +137,9 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                     return false;
                 }
                 players.add(score.player);
+                if(!score.player.isVip()) {
+                    return false;
+                }
                 return true;
             }
         });
