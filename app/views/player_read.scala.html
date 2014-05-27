@@ -21,10 +21,18 @@
             <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
         </td>
         <td style="text-align: right; vertical-align: middle">
-            @score.formattedRank
+            @if(actions.User.current.isVip) {
+                @score.formattedRank
+            } else {
+                N/A
+            }
         </td>
         <td style="text-align: right; vertical-align: middle">
-            @score.rank
+            @if(player.isVip) {
+                @score.rank
+            } else {
+                N/A
+            }
         </td>
         <td style="text-align: right; vertical-align: middle">
             @score.value
@@ -58,10 +66,10 @@
         "bLengthChange": false,
         "bInfo": false,
         "aoColumnDefs": [
-        { "iDataSort": 6, "aTargets": [ 3 ] },
-        { "iDataSort": 5, "aTargets": [ 4 ] },
-        { "bVisible": false, "aTargets": [ 5 ] },
-        { "bVisible": false, "aTargets": [ 6 ] }
+            { "iDataSort": 6, "aTargets": [3] },
+            { "iDataSort": 5, "aTargets": [4] },
+            { "bVisible": false, "aTargets": [5] },
+            { "bVisible": false, "aTargets": [6] }
         ]
         });
         });

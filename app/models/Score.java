@@ -264,4 +264,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    public boolean isVip() {
+        return player.isVip();
+    }
 }

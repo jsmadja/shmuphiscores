@@ -18,6 +18,9 @@
         <h1 style="text-align: center;">
             <a href="/"><img src="http://forum.shmup.com/styles/avalon/imageset/logo.png"></a>
         </h1>
+        @if(actions.User.current.isAuthenticated && !actions.User.current.isVip) {
+            <div id="vip-alert" class="alert alert-warning">@Html(Messages.get("NotVip"))</div>
+        }
         <div class="container">
             <div style="margin-right: -60px;margin-left: -100px;">
                 @menu(game)

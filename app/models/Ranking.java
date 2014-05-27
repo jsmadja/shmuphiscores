@@ -44,14 +44,17 @@ public class Ranking {
     }
 
     public Ranking(Collection<Score> scores) {
-        this.scores = new ArrayList<Score>(scores);
+        this.scores = new ArrayList<Score>();
         int rank = 1;
-        for (Score score : this.scores) {
-            if (score.rank() == null) {
-                score.updateRank(rank);
-                score.update();
+        for (Score score : scores) {
+            if (score.isVip()) {
+                if(score.rank() == null) {
+                    score.updateRank(rank);
+                    score.update();
+                }
+                this.scores.add(score);
+                rank++;
             }
-            rank++;
         }
     }
 

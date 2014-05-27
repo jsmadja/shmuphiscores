@@ -130,19 +130,21 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     private Collection<Score> keepBestScoreByVIPPlayer(List<Score> scores) {
         final Set<Player> players = new HashSet<Player>();
-        return filter(scores, new Predicate<Score>() {
+        Collection<Score> filtered = filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
                 if (players.contains(score.player)) {
                     return false;
                 }
-                players.add(score.player);
-                if(!score.player.isVip()) {
+                if (!score.player.isVip()) {
                     return false;
                 }
+                players.add(score.player);
                 return true;
             }
         });
+        ArrayList<Score> scores1 = new ArrayList<Score>(filtered);
+        return scores1;
     }
 
     public int getScoreCount() {

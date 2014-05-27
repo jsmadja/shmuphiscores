@@ -35,3 +35,4 @@ scoreform.scala.html.replay.placeholder=Lien direct vers la vidéo (hébergement
 Gap=Différence avec le 1er score en %
 GeneralRanking=Classement général
 GapWithPreviousScore=Ecart
+NotVip=Vous n''êtes pas un utilisateur VIP, vos fonctionnalités sont limitées. Vous pouvez faire la demande sur <a href="http://forum.shmup.com">le forum</a>

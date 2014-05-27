@@ -185,3 +185,10 @@ a.platform:hover {
     color:white;
     text-decoration: none;
 }
+
+#vip-alert {
+    max-width: 790px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
