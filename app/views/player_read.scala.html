@@ -21,18 +21,14 @@
             <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
         </td>
         <td style="text-align: right; vertical-align: middle">
-            @if(actions.User.current.isVip) {
+            @if(player.isVip) {
                 @score.formattedRank
             } else {
-                N/A
+                VIP Only
             }
         </td>
         <td style="text-align: right; vertical-align: middle">
-            @if(player.isVip) {
-                @score.rank
-            } else {
-                N/A
-            }
+            @score.rank
         </td>
         <td style="text-align: right; vertical-align: middle">
             @score.value
