@@ -114,6 +114,7 @@ public class Player extends BaseModel<Player> {
                 .findUnique();
         if (player == null) {
             player = new Player(name);
+            player.vip = true;
             player.save();
         }
         return player;
