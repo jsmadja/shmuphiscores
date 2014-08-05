@@ -1,0 +1,137 @@
+@(game: models.Game, scoreForm: Form[models.Score])
+@import play.i18n._
+@main() {
+    <h2 class="title">
+        <span>@game.title</span>
+    </h2>
+
+    <div style="clear : both ;"/>
+
+    <form role="form" method="POST" action="/import/@game.id/score">
+        <input type="hidden" name="gameId" value="@game.id" />
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="platform">@Messages.get("Platform")</label>
+                    <select name="platform" class="form-control">
+                    @for(platform <- game.platforms) {
+                        <option value="@platform.id">@platform.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            @if(!game.difficulties.isEmpty) {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="difficulty">@Messages.get("Difficulty")</label>
+                        <select name="difficulty" class="form-control">
+                        @for(difficulty <- game.difficulties) {
+                            <option value="@difficulty.id">@difficulty.name</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+            }
+            @if(!game.modes.isEmpty) {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="mode">@Messages.get("Mode")</label>
+                        <select name="mode" class="form-control">
+                        @for(mode <- game.modes) {
+                            <option value="@mode.id">@mode.name</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+            }
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="player">@Messages.get("Player")</label>
+                    <input required="true" class="form-control" id="player" name="player" autocomplete="false">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="value">@Messages.get("Score")</label>
+                    <input required="true" class="form-control" name="value" placeholder="123456">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="stage">@Messages.get("Stage")</label>
+                    <select name="stage" class="form-control">
+                    @for(stage <- game.stages) {
+                        <option value="@stage.id">@stage.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="photo">@Messages.get("Photo")</label>
+                    <input type="url" class="form-control" name="photo" placeholder="@Messages.get("scoreform.scala.html.photo.placeholder")">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="replay">@Messages.get("Replay")</label>
+                    <input type="url" class="form-control" name="replay" placeholder="@Messages.get("scoreform.scala.html.replay.placeholder")">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="comment">@Messages.get("Comment")</label>
+                    <textarea name="comment" class="form-control" rows="1"></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+    </form>
+
+    <h2 class="title">
+        <span>Ranking</span>
+    </h2>
+
+    <div style="text-align : center">
+        <img src="/game/@game.id/ranking.png" />
+    </div>
+
+    <h2 class="title">
+        <span>Actions</span>
+    </h2>
+
+    <form role="form" method="POST" action="/score/delete">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="score">Supprimer un score </label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <select name="score" class="form-control">
+                    @for(score <- game.scores.toSeq.sortBy(_.player.name)) {
+                        <option value="@score.id">
+                            @score.player.name - @score.formattedValue
+                            @if(score.difficulty != null) {
+                                @score.difficulty.name
+                            }
+                            @if(score.mode != null) {
+                                @score.mode.name
+                            }
+                        </option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+}

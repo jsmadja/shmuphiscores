@@ -7,12 +7,16 @@ GET         /index.rss                   controllers.ApplicationController.index
 
 GET         /platform/:name              controllers.PlatformController.read(name: String)
 
+GET         /import/:id                  controllers.ScoreController.importScores(id: models.Game)
+POST        /import/:id/score            controllers.ScoreController.importScore(id: models.Game)
+
 GET         /score                       controllers.ScoreController.selectGame()
 GET         /score/:id                   controllers.ScoreController.read(id: models.Score)
 POST        /score                       controllers.ScoreController.save()
 POST        /score/new                   controllers.ScoreController.fillForm()
 GET         /score/shmup/:id             controllers.ScoreController.shmup(id: models.Score)
 POST        /score/update                controllers.ScoreController.update()
+POST        /score/delete                controllers.ScoreController.delete()
 
 POST        /game                        controllers.GameController.save()
 GET         /game/new                    controllers.GameController.create()

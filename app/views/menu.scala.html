@@ -16,6 +16,9 @@
     <ul class="dropdown-menu" role="menu">
         <li><a href="@routes.PlayersController.index"><span class="glyphicon glyphicon-user"></span> @Messages.get("Players")</a></li>
         <li><a href="@routes.StatsController.index"><span class="glyphicon glyphicon-stats"></span> @Messages.get("Stats")</a></li>
+        @if(actions.User.current.canImportScores) {
+            <li><a href="@routes.GameController.create"><span class="glyphicon glyphicon-th-large"></span> @Messages.get("AddGame")</a></li>
+        }
         <li class="divider"></li>
         <li><a href="http://www.shmup.com/index.php?page=doss/Hiscores/hiscores_tuto" target="_blank"><span class="glyphicon glyphicon-question-sign"></span> @Messages.get("Help")</a></li>
     </ul>

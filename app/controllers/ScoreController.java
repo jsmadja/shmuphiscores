@@ -10,6 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.score_create;
 import views.html.score_update;
+import views.html.score_import;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -36,6 +37,10 @@ public class ScoreController extends Controller {
 
     public static Result fillFormWithGame(Game game) {
         return ok(score_create.render(game, form(Score.class)));
+    }
+
+    public static Result importScores(Game game) {
+        return ok(score_import.render(game, form(Score.class)));
     }
 
     public static Result read(models.Score score) {
@@ -84,17 +89,21 @@ public class ScoreController extends Controller {
 
     private static models.Score createScore(Map<String, String> data) {
         String login = User.current().name;
+        return createScore(data, login);
+    }
+
+    private static Score createScore(Map<String, String> data, String login) {
         Difficulty difficulty = difficulty(data);
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
         Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
-        models.Player player = models.Player.findOrCreatePlayer(login);
-        models.Game game = find(models.Game.class, parseLong(data.get("gameId")));
+        Player player = Player.findOrCreatePlayer(login);
+        Game game = find(Game.class, parseLong(data.get("gameId")));
         Long value = value(data);
         String comment = data.get("comment");
         String replay = data.get("replay");
         String photo = data.get("photo");
-        return new models.Score(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
+        return new Score(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
     }
 
     private static void updateScore(models.Score score, Map<String, String> data) {
@@ -157,6 +166,33 @@ public class ScoreController extends Controller {
             }
         }
         return scores;
+    }
+
+    public static Result importScore(Game game) {
+        if (!User.current().isAuthenticated()) {
+            return unauthorized();
+        }
+        Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
+        Map<String, String> data = scoreForm.data();
+        models.Score score = createScore(data, data.get("player"));
+        score.save();
+        RankingController.getRankingCache().remove(game);
+        game.resetRankings();
+        return ok(score_import.render(game, form(Score.class)));
+    }
+
+    public static Result delete() {
+        if (!User.current().isAuthenticated()) {
+            return unauthorized();
+        }
+        Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
+        Map<String, String> data = scoreForm.data();
+        models.Score score = Score.finder.byId(Long.parseLong(data.get("score")));
+        score.delete();
+        Game game = score.game;
+        RankingController.getRankingCache().remove(game);
+        game.resetRankings();
+        return ok(score_import.render(game, form(Score.class)));
     }
 
 }

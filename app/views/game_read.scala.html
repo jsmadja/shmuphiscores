@@ -180,6 +180,11 @@
             <a href="@routes.RankingController.index(game)" target="_blank" class="btn btn-default btn-lg btn-xs">
                 <span class="glyphicon glyphicon-list-alt"></span> ranking
             </a>
+            @if(actions.User.current().canImportScores) {
+                <a href="@routes.ScoreController.importScores(game)" class="btn btn-default btn-lg btn-xs">
+                    <span class="glyphicon glyphicon-download-alt"></span> import
+                </a>
+            }
         </p>
     </h2>
     <h4>

@@ -69,29 +69,38 @@ public class GameController extends Controller {
     }
 
     private static void createDifficulties(models.Game game) {
+        Integer index = 0;
         Scanner sc = new Scanner(game.difficulties.get(0).name);
         while (sc.hasNextLine()) {
             Difficulty difficulty = new Difficulty(sc.nextLine().trim());
             difficulty.game = game;
+            difficulty.sortOrder = index.toString();
             difficulty.save();
+            index++;
         }
     }
 
     private static void createModes(models.Game game) {
+        Integer index = 0;
         Scanner sc = new Scanner(game.modes.get(0).name);
         while (sc.hasNextLine()) {
             Mode mode = new Mode(sc.nextLine().trim());
             mode.game = game;
+            mode.sortOrder = index.toString();
             mode.save();
+            index++;
         }
     }
 
     private static void createStages(models.Game game) {
+        Long index = 0L;
         Scanner sc = new Scanner(game.stages.get(0).name);
         while (sc.hasNextLine()) {
             Stage stage = new Stage(sc.nextLine().trim());
             stage.game = game;
+            stage.sortOrder = index;
             stage.save();
+            index++;
         }
     }
 

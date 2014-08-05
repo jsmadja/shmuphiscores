@@ -171,4 +171,16 @@ public class Player extends BaseModel<Player> {
     public boolean isVip() {
         return vip;
     }
+
+    public boolean canImportScores() {
+        return id == 1 // anzymus
+                || id == 42 // mickey
+                || id == 137 // trizeal
+                || id == 705 // Vzurkr
+                || id == 191 // lerebours
+                || id == 7 // SL
+                || id == 231 // MKNIGHT
+                || id == 269 // Yami
+                ;
+    }
 }
