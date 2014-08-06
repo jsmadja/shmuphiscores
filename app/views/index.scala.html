@@ -17,7 +17,9 @@
                         <a href="@routes.ScoreController.read(score)">@score.formattedValue pts</a>
                     </p>
                     <p class="stage">
-                        Stage @score.stage
+                        @if(score.stage != null && !score.stage.name.trim.isEmpty) {
+                            Stage @score.stage
+                        }
                         @if(score.comment != null) {
                             <span class="comment">@score.comment</span>
                         }

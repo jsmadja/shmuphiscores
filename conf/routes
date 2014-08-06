@@ -34,11 +34,4 @@ GET         /stats                       controllers.StatsController.index()
 GET         /player/:id                  controllers.PlayerController.index(id: models.Player)
 GET         /players                     controllers.PlayersController.index()
 
-GET         /backup                      controllers.BackupController.index
-
-GET         /mobile/games                controllers.MobileController.games()
-GET         /mobile/games/:id            controllers.MobileController.game(id: models.Game)
-GET         /mobile/players              controllers.MobileController.players()
-POST        /mobile/score              controllers.MobileController.score()
-
 GET         /assets/*file                controllers.Assets.at(path="/public", file)

@@ -10,7 +10,7 @@
     <form role="form" method="POST" action="/import/@game.id/score">
         <input type="hidden" name="gameId" value="@game.id" />
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="platform">@Messages.get("Platform")</label>
                     <select name="platform" class="form-control">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             @if(!game.difficulties.isEmpty) {
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="difficulty">@Messages.get("Difficulty")</label>
                         <select name="difficulty" class="form-control">
@@ -33,7 +33,7 @@
                 </div>
             }
             @if(!game.modes.isEmpty) {
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="mode">@Messages.get("Mode")</label>
                         <select name="mode" class="form-control">
@@ -44,19 +44,21 @@
                     </div>
                 </div>
             }
-            <div class="col-md-2">
+        </div>
+        <div class="row">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="player">@Messages.get("Player")</label>
                     <input required="true" class="form-control" id="player" name="player" autocomplete="false">
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="value">@Messages.get("Score")</label>
                     <input required="true" class="form-control" name="value" placeholder="123456">
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label for="stage">@Messages.get("Stage")</label>
                     <select name="stage" class="form-control">
@@ -67,6 +69,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
