@@ -8,7 +8,6 @@
        <tr>
            <th>@Messages.get("Games")</th>
            <th>@Messages.get("Platforms")</th>
-           <th style="width: 20px;">@Messages.get("Players")</th>
        </tr>
        @for(game <- games.sortBy(_.title)) {
         <tr>
@@ -18,13 +17,6 @@
             <td style="vertical-align: middle;">
                 @for(platform <- game.platforms) {
                     <span class="label label-success"><a class="platform" href="@routes.PlatformController.read(platform.name.toUpperCase)">@platform.name.toUpperCase</a></span>
-                }
-            </td>
-            <td style="text-align: center; vertical-align: middle">
-                @if(game.scores != null) {
-                    @game.getScoreCount
-                } else {
-                    0
                 }
             </td>
         </tr>

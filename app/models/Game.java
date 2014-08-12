@@ -147,14 +147,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return scores1;
     }
 
-    public int getScoreCount() {
-        int count = 0;
-        for (Ranking ranking : rankings()) {
-            count += ranking.scores.size();
-        }
-        return count;
-    }
-
     public String post() {
         return thread.replace("viewtopic.php?", "posting.php?mode=reply&f=20&");
     }
@@ -183,14 +175,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             score.update();
         }
         rankings();
-    }
-
-    public void initializeRankings() {
-        this.initializedRankings = rankings();
-        for (Score score : scores) {
-            score.playerName = score.player.name;
-            score.stageName = score.stage == null ? null : score.stage.name;
-        }
     }
 
     public String getCoverType() {
