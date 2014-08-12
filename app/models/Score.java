@@ -147,7 +147,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public int compareTo(Score score) {
         int i = score.value.compareTo(this.value);
         if (i == 0) {
-            return score.stage.id.compareTo(this.stage.id);
+            if (score.stage != null && this.stage != null) {
+                return score.stage.id.compareTo(this.stage.id);
+            }
         }
         return i;
     }
