@@ -151,7 +151,6 @@
                 }</td>
                 <td style="text-align : center ; vertical-align : middle ;">
                 @if(score.comment) {
-                    <span class="score-date">@score.getUpdatedAt.format("dd/MM/yyyy")</span>
                     @if(score.comment.length < 25) {
                         @score.comment
                     } else {
