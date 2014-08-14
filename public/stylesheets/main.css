@@ -25,8 +25,8 @@ h1 {
 }
 
 .cover {
-    width:100px;
-    float:left;
+    width: 100px;
+    float: left;
 }
 
 .game {
@@ -86,6 +86,7 @@ body {
 /* Custom page header */
 .header {
 }
+
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
     margin-top: 0;
@@ -107,6 +108,7 @@ body {
         max-width: 730px;
     }
 }
+
 .container-narrow > hr {
     margin: 30px 0;
 }
@@ -116,6 +118,7 @@ body {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
 }
+
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
@@ -130,10 +133,12 @@ body {
         padding-left: 0;
         padding-right: 0;
     }
+
     /* Space out the masthead */
     .header {
         margin-bottom: 50px;
     }
+
     /* Remove the bottom border on the jumbotron for visual effect */
     .jumbotron {
         border-bottom: 0;
@@ -182,7 +187,7 @@ table.dataTable tr.odd {
 }
 
 a.platform:hover {
-    color:white;
+    color: white;
     text-decoration: none;
 }
 
@@ -191,4 +196,58 @@ a.platform:hover {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+#game-stats {
+    width: 100%;
+}
+
+#game-stats li {
+    list-style: none;
+    font-size: 12px;
+}
+
+#game-stats ul {
+    padding-left: 0;
+}
+
+#game-stats tr {
+    border-top: solid 1px #EEE;
+}
+
+#game-stats tr td{
+    padding-top: 0;
+}
+
+#game-stats tr td:last-child {
+    width: 5px;
+}
+
+.active-game {
+    background-color: rgba(203, 255, 155, 0.49);
+}
+
+.inactive-game {
+    width: 15px;
+    background-color: rgba(255, 0, 26, 0.48);
+}
+
+#game-detail-stat tr{
+    border: none;
+}
+
+#game-detail-stat tr td:last-child {
+    width: 200px;
+    padding-left: 5px;
+}
+
+#game-detail-stat tr td:first-child {
+    text-align: right;
+    font-weight: bold;
+    width: 10px;
+}
+
+.score-date {
+    font-size: 11px;
+    display: block;
 }

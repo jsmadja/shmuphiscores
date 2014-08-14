@@ -6,6 +6,34 @@
     <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
 
     <div class="row">
+        <div class="col-md-12">
+            <h3>@Messages.get("Games")</h3>
+            <table id="game-stats">
+                @for(game <- games.sortBy(-_.getScoreCountLast30Days)) {
+                    <tr>
+                        <td width="130px;">
+                            <div style="overflow-y: hidden; height: 80px;">
+                                <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="120px" alt="@game.title" /></a>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="author" style="float: right; margin-right: 10px;font-size:10px; ">Importé @game.getCreatedSince</span>
+                            <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)" class="game">@game.title</a>
+                            <table id="game-detail-stat" class="author">
+                                <tr><td>@game.getScoreCountLast30Days</td><td>scores ces 30 derniers jours</td></tr>
+                                <tr><td>@game.getScoreCountLast90Days</td><td>scores ce trimestre</td></tr>
+                                <tr><td>@game.scores.size</td><td>scores au total</td></tr>
+                                <tr><td>@game.getPlayers.size</td><td>joueurs uniques</td></tr>
+                            </table>
+                        </td>
+                        <td @if(game.getScoreCountLast30Days > 3 ){class="active-game"} else {class="inactive-game"}></td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-12" style="margin-top: 45px;">
             <div id="container2"></div>
         </div>
@@ -17,58 +45,41 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <h3>@Messages.get("Games")</h3>
-            @for(game <- games.sortBy(_.title)) {
-                <a href="@game.post"><img src="@game.cover" height="130px" alt="@game.title" /></a>
-            }
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6" style="margin-top: 45px;">
-            <div id="container3"></div>
-        </div>
-        <div class="col-md-6">
-        </div>
-    </div>
-
     <script>
         $(function () {
-        $('#container').highcharts({
-        chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Répartition par plateforme'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: false,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        color: '#000000',
-                        connectorColor: '#000000',
-                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            $('#container').highcharts({
+            chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                },
+                title: {
+                    text: 'Répartition par plateforme'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: false,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            color: '#000000',
+                            connectorColor: '#000000',
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
                     }
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Plateforme',
-                data: [
-                    @for(p <- platforms.groupBy(_.name.toUpperCase)) {
-                        [' @p._1 ',   @p._2.size],
-                    }
-                ]
-            }]
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Plateforme',
+                    data: [
+                        @for(p <- platforms.groupBy(_.name.toUpperCase)) {
+                            [' @p._1 ',   @p._2.size],
+                        }
+                    ]
+                }]
             });
         });
     </script>
@@ -77,7 +88,7 @@
         $(function () {
             $('#container2').highcharts({
                 title: {
-                    text: '@Messages.get("Scores") & @Messages.get("Players")'
+                    text: '@Messages.get("Scores")'
                 },
                 xAxis: {
                     type: 'datetime',
@@ -88,7 +99,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: '@Messages.get("Scores") & @Messages.get("Players")'
+                        text: '@Messages.get("Scores")'
                     },
                     minorTickInterval: 1
                 },
@@ -133,31 +144,7 @@
                     data: [
                         @controllers.StatsController.scoresPerDay
                     ]
-                },
-                {
-                    type: 'areaspline',
-                    name: '@Messages.get("Players")',
-                    pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2013, 10, 29),
-                    marker: {
-                        enabled: false
-                    },
-                    data: [
-                        @controllers.StatsController.playersPerDay
-                    ]
-                },
-                {
-                    type: 'areaspline',
-                    name: '@Messages.get("Games")',
-                    pointInterval: 24 * 3600 * 1000,
-                    pointStart: Date.UTC(2013, 10, 29),
-                    marker: {
-                    enabled: false
-                    },
-                    data: [
-                        @controllers.StatsController.gamesPerDay
-                    ]
-                    }
+                }
                 ]
             });
         });

@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
+import java.util.Date;
+
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 import static java.text.MessageFormat.format;

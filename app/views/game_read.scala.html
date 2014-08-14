@@ -118,8 +118,12 @@
             </thead>
             @for(score <- ranking.scores) {
                 <tr @if(score.player.equals(actions.User.current)) {style="background-color: #fdd49c;"}>
-                <td style="text-align : right ; vertical-align : middle ;">@score.formattedRank</td>
-                <td style="vertical-align : middle ;"><a href="@routes.PlayerController.index(score.player)">@score.player.name</a></td>
+                <td style="text-align : right; vertical-align : middle; padding-bottom: 0; padding-top: 0;">
+                    @score.formattedRank
+                </td>
+                <td style="vertical-align : middle ;">
+                    <a href="@routes.PlayerController.index(score.player)">@score.player.name</a>
+                </td>
                 <td style="text-align : right ; vertical-align : middle ;">
                     @if(score.photo) {
                         <a href="@score.photo" target="_blank" class="label label-primary pull-left" style="margin-right : 5px;">
@@ -147,6 +151,7 @@
                 }</td>
                 <td style="text-align : center ; vertical-align : middle ;">
                 @if(score.comment) {
+                    <span class="score-date">@score.getUpdatedAt.format("dd/MM/yyyy")</span>
                     @if(score.comment.length < 25) {
                         @score.comment
                     } else {

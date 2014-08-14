@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
+import org.joda.time.DateMidnight;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
@@ -185,6 +186,34 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             return "image/png";
         }
         return "image/gif";
+    }
+
+    public Integer getScoreCountLast30Days() {
+        final Date _30DaysAgo = new DateMidnight().minusDays(30).toDate();
+        return filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return score.getCreatedAt().after(_30DaysAgo);
+            }
+        }).size();
+    }
+
+    public Integer getScoreCountLast90Days() {
+        final Date _30DaysAgo = new DateMidnight().minusDays(90).toDate();
+        return filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return score.getCreatedAt().after(_30DaysAgo);
+            }
+        }).size();
+    }
+
+    public Collection<Player> getPlayers() {
+        Set<Player> players = new HashSet<Player>();
+        for (Score score : scores) {
+            players.add(score.player);
+        }
+        return players;
     }
 
     @Override

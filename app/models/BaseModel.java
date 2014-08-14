@@ -97,4 +97,5 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
         }
         return new PrettyTime(Http.Context.current().lang().toLocale()).format(createdAt);
     }
+
 }
