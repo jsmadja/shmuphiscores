@@ -12,21 +12,22 @@
                 @for(game <- games.sortBy(-_.getScoreCountLast30Days)) {
                     <tr>
                         <td width="130px;">
-                            <div style="overflow-y: hidden; height: 80px;">
+                            <div style="overflow-y: hidden; height: 65px;">
                                 <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="120px" alt="@game.title" /></a>
                             </div>
                         </td>
-                        <td>
+                        <td style="vertical-align: top">
                             <span class="author" style="float: right; margin-right: 10px;font-size:10px; ">Importé @game.getCreatedSince</span>
                             <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)" class="game">@game.title</a>
                             <table id="game-detail-stat" class="author">
-                                <tr><td>@game.getScoreCountLast30Days</td><td>scores ces 30 derniers jours</td></tr>
-                                <tr><td>@game.getScoreCountLast90Days</td><td>scores ce trimestre</td></tr>
+                                @if(game.getScoreCountLast30Days > 0){
+                                    <tr><td>@game.getScoreCountLast30Days</td><td>scores ces 30 derniers jours</td></tr>
+                                }
                                 <tr><td>@game.scores.size</td><td>scores au total</td></tr>
-                                <tr><td>@game.getPlayers.size</td><td>joueurs uniques</td></tr>
+                                <tr><td>@game.getPlayers.size</td><td>joueurs</td></tr>
                             </table>
                         </td>
-                        <td @if(game.getScoreCountLast30Days > 3 ){class="active-game"} else {class="inactive-game"}></td>
+                        <td @if(game.getScoreCountLast30Days > 0 ){class="active-game"} else {class="inactive-game"}></td>
                     </tr>
                 }
             </table>

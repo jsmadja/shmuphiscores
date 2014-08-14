@@ -190,20 +190,11 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public Integer getScoreCountLast30Days() {
         final Date _30DaysAgo = new DateMidnight().minusDays(30).toDate();
+        final Date gameCreatedAt = new DateMidnight(Game.this.getCreatedAt()).plusDays(1).toDate();
         return filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
-                return score.getCreatedAt().after(_30DaysAgo);
-            }
-        }).size();
-    }
-
-    public Integer getScoreCountLast90Days() {
-        final Date _30DaysAgo = new DateMidnight().minusDays(90).toDate();
-        return filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return score.getCreatedAt().after(_30DaysAgo);
+                return score.getCreatedAt().after(_30DaysAgo) && score.getCreatedAt().after(gameCreatedAt);
             }
         }).size();
     }
