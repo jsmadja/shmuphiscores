@@ -18,7 +18,7 @@ scores=scores
 Rank=Rang
 Photo=Photo
 Precisions=Précisions
-Comment=Précisions éventuelles (vaisseau utilisé, autofire...)
+Comment=Précisions éventuelles (autofire...)
 Update=Mettre à jour
 Submit=Valider
 AddScore=Ajouter un score
@@ -38,3 +38,4 @@ GapWithPreviousScore=Ecart
 NotVip=Les rankings de <a href="http://hiscores.shmup.com">hiscores.shmup.com</a> sont réservés aux membres actifs du forum de <a href="http://shmup.com">shmup.com</a>, vos droits sont donc actuellement limités. Pour profiter pleinement des fonctionnalités du site, venez participer à la vie du forum, en commençant notamment par vous présenter dans <a href="http://forum.shmup.com/viewforum.php?f=11">la section dédiée</a> !
 AddGame=Nouveau jeu
 Delete=Supprimer
+Ship=Vaisseau

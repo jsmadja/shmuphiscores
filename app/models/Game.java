@@ -54,6 +54,12 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public List<Mode> modes;
 
     @XmlElementWrapper
+    @XmlElement(name = "ship")
+    @OrderBy("sortOrder")
+    @OneToMany(mappedBy = "game")
+    public List<Ship> ships;
+
+    @XmlElementWrapper
     @XmlElement(name = "stage")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
@@ -106,7 +112,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         List<Score> scores = new ArrayList<Score>();
         for (int rank = 0; rank < ranking.scores.size(); rank++) {
             Score score = ranking.scores.get(rank);
-            scores.add(new Score(score.id, score.game, score.player, score.stage, score.mode, score.difficulty, score.comment, score.platform, score.value, score.photo, score.replay, rank + 1));
+            scores.add(new Score(score.id, score.game, score.player, score.stage, score.ship, score.mode, score.difficulty, score.comment, score.platform, score.value, score.photo, score.replay, rank + 1));
         }
         Ranking ranking1 = new Ranking(scores);
         ranking1.general = true;

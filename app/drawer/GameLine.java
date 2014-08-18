@@ -3,6 +3,7 @@ package drawer;
 import models.Difficulty;
 import models.Mode;
 import models.Ranking;
+import models.Ship;
 import play.i18n.Messages;
 
 import java.awt.*;

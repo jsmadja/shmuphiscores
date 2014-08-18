@@ -114,6 +114,7 @@
                 <th style="text-align : center ; width : 20 % ;" >@Messages.get("Player")</th>
                 <th style="width : 25 % ; text-align : center ;" >@Messages.get("Score")</th>
                 <th style="width : 20 % ; text-align : center ;" >@Messages.get("Stage")</th>
+                <th style="width : 20 % ; text-align : center ;" >@Messages.get("Ship")</th>
                 <th style="text-align : center ; width : 25 % ;">@Messages.get("Precisions")</th>
             </thead>
             @for(score <- ranking.scores) {
@@ -149,6 +150,9 @@
                 <td style="text-align : right ; vertical-align : middle ;" >@if(score.stage != null) {
                     @score.stage.name
                 }</td>
+                <td style="text-align : center ; vertical-align : middle ;" >
+                    @score.shipName
+                </td>
                 <td style="text-align : center ; vertical-align : middle ;">
                 @if(score.comment) {
                     @if(score.comment.length < 25) {

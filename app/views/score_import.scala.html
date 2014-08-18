@@ -44,14 +44,14 @@
                     </div>
                 </div>
             }
-        </div>
-        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="player">@Messages.get("Player")</label>
                     <input required="true" class="form-control" id="player" name="player" autocomplete="false">
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="value">@Messages.get("Score")</label>
@@ -64,6 +64,16 @@
                     <select name="stage" class="form-control">
                     @for(stage <- game.stages) {
                         <option value="@stage.id">@stage.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="ship">@Messages.get("Ship")</label>
+                    <select name="ship" class="form-control">
+                    @for(ship <- game.ships) {
+                        <option value="@ship.id">@ship.name</option>
                     }
                     </select>
                 </div>

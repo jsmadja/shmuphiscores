@@ -95,6 +95,7 @@ public class ScoreController extends Controller {
     private static Score createScore(Map<String, String> data, String login) {
         Difficulty difficulty = difficulty(data);
         Stage stage = find(Stage.class, parseLong(data.get("stage")));
+        Ship ship = ship(data);
         Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
         Player player = Player.findOrCreatePlayer(login);
@@ -103,7 +104,7 @@ public class ScoreController extends Controller {
         String comment = data.get("comment");
         String replay = data.get("replay");
         String photo = data.get("photo");
-        return new Score(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
+        return new Score(game, player, stage, ship, mode, difficulty, comment, platform, value, photo, replay);
     }
 
     private static void updateScore(models.Score score, Map<String, String> data) {
@@ -146,6 +147,14 @@ public class ScoreController extends Controller {
             mode = find(Mode.class, parseLong(data.get("mode")));
         }
         return mode;
+    }
+
+    private static Ship ship(Map<String, String> data) {
+        Ship ship = null;
+        if (data.get("ship") != null) {
+            ship = find(Ship.class, parseLong(data.get("ship")));
+        }
+        return ship;
     }
 
     public static Collection<Score> findProgressionOf(final Score score) {

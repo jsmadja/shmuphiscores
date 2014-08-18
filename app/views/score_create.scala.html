@@ -42,16 +42,26 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="platform">@Messages.get("Platform")</label>
-                    <select name="platform" class="form-control">
-                        @for(platform <- game.platforms) {
-                            <option value="@platform.id">@platform.name</option>
-                        }
+                    <label for="ship">@Messages.get("Ship")</label>
+                    <select name="ship" class="form-control">
+                    @for(ship <- game.ships) {
+                        <option value="@ship.id">@ship.name</option>
+                    }
                     </select>
                 </div>
             </div>
         </div>
         <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="platform">@Messages.get("Platform")</label>
+                    <select name="platform" class="form-control">
+                    @for(platform <- game.platforms) {
+                        <option value="@platform.id">@platform.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="difficulty">@Messages.get("Difficulty")</label>

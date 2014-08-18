@@ -20,6 +20,7 @@
                         @if(score.stage != null && !score.stage.name.trim.isEmpty) {
                             Stage @score.stage
                         }
+                        <b>@score.shipName</b>
                         @if(score.comment != null) {
                             <span class="comment">@score.comment</span>
                         }

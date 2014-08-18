@@ -38,6 +38,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @ManyToOne
     public Difficulty difficulty;
 
+    @XmlTransient
+    @ManyToOne
+    public Ship ship;
+
     @ManyToOne
     @XmlTransient
     public Platform platform;
@@ -75,11 +79,12 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @Transient
     public Long gapWithPreviousScore;
 
-    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
+    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
         this.game = game;
         this.player = player;
         this.stage = stage;
         this.mode = mode;
+        this.ship = ship;
         this.difficulty = difficulty;
         this.comment = comment;
         this.platform = platform;
@@ -88,16 +93,17 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.replay = replay;
     }
 
-    public Score(Long id, Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay, Integer rank) {
-        this(game, player, stage, mode, difficulty, comment, platform, value, photo, replay);
+    public Score(Long id, Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay, Integer rank) {
+        this(game, player, stage, ship, mode, difficulty, comment, platform, value, photo, replay);
         this.rank = rank;
         this.id = id;
     }
 
-    public Score(Game game, Player player, Stage stage, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photoBase64) {
+    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photoBase64) {
         this.game = game;
         this.player = player;
         this.stage = stage;
+        this.ship = ship;
         this.mode = mode;
         this.difficulty = difficulty;
         this.comment = comment;
@@ -263,6 +269,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     private String modeName() {
         return mode == null ? "" : mode.name;
+    }
+
+    public String shipName() {
+        return ship == null ? "" : ship.name;
     }
 
     public void setRank(int rank) {

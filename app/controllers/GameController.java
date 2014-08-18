@@ -1,9 +1,6 @@
 package controllers;
 
-import models.Difficulty;
-import models.Mode;
-import models.Platform;
-import models.Stage;
+import models.*;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -34,6 +31,7 @@ public class GameController extends Controller {
         game.save();
         createPlatforms(game);
         createDifficulties(game);
+        createShips(game);
         createModes(game);
         createStages(game);
         return index(game);
@@ -68,6 +66,18 @@ public class GameController extends Controller {
             mode.game = game;
             mode.sortOrder = index.toString();
             mode.save();
+            index++;
+        }
+    }
+
+    private static void createShips(models.Game game) {
+        Integer index = 0;
+        Scanner sc = new Scanner(game.ships.get(0).name);
+        while (sc.hasNextLine()) {
+            Ship ship = new Ship(sc.nextLine().trim());
+            ship.game = game;
+            ship.sortOrder = index.toString();
+            ship.save();
             index++;
         }
     }

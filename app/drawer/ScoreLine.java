@@ -49,7 +49,7 @@ public class ScoreLine implements PictureLine {
         }
         graphics.setColor(COLOR_SHMUP_COMMENT);
         graphics.setFont(parameterFont);
-        graphics.drawString(platform + "    " + defaultString(score.comment).trim(), STAGE_PLATFORM_X + (rankingGameConfiguration.maxStageLength * fontWidth), y);
+        graphics.drawString(platform + "   " + score.shipName() + " " + defaultString(score.comment).trim(), STAGE_PLATFORM_X + (rankingGameConfiguration.maxStageLength * fontWidth), y);
     }
 
     private void stage(Graphics2D graphics, int y, RankingGameConfiguration rankingGameConfiguration) {
