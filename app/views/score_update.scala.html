@@ -49,6 +49,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label for="ship">@Messages.get("Ship")</label>
+                        <select name="ship" class="form-control">
+                        @for(ship <- score.game.ships) {
+                            <option value="@ship.id" @if(ship.equals(score.ship)) {selected} >@ship.name </option>
+                        }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label for="platform">@Messages.get("Platform")</label>
                         <select name="platform" class="form-control">
                         @for(platform <- score.game.platforms) {
@@ -57,8 +69,6 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="difficulty">@Messages.get("Difficulty")</label>
