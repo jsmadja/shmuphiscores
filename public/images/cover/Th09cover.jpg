@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="client-nojs">
+<head>
+<meta charset="UTF-8" />
+<title>Touhou Wiki - Characters, games, locations, and more</title>
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="generator" content="MediaWiki 1.23.0" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="Touhou Wiki (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://en.touhouwiki.net/api.php?action=rsd" />
+<link rel="copyright" href="/wiki/Touhou_Wiki:Copyrights" />
+<link rel="alternate" type="application/atom+xml" title="Touhou Wiki Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="http://en.touhouwiki.net/load.php?debug=false&amp;lang=en&amp;modules=ext.gadget.ReferenceTooltips%7Cmediawiki.legacy.commonPrint%2Cshared%7Cmediawiki.skinning.interface%7Cmediawiki.ui.button%7Cskins.vector.styles&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<link rel="stylesheet" href="http://en.touhouwiki.net/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=styles&amp;skin=vector&amp;*" />
+<style>a:lang(ar),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: touhouwiki-touhouwiki_:resourceloader:filter:minify-css:7:b2aec5f278fc2720508c7908afa3fcd8 */</style>
+<script src="http://en.touhouwiki.net/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Touhou_Wiki","wgTitle":"Touhou Wiki","wgCurRevisionId":318831,"wgRevisionId":318831,"wgArticleId":1137,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":[],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Touhou_Wiki","wgIsProbablyEditable":false,"wgRestrictionEdit":["sysop"],"wgRestrictionMove":["sysop"],"wgIsMainPage":true,"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"preview":true,"previewDialog":false,"publish":false},"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function($,jQuery){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"editfont":"default","editondblclick":0,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":1,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nickname":"","norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rows":25,"showhiddencats":0,"shownumberswatching":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":1,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,
+"useeditwarning":1,"prefershttps":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"wikieditor-preview":1,"language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs828":false,"searchNs829":false,"gadget-ReferenceTooltips":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function($,jQuery){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: touhouwiki-touhouwiki_:resourceloader:filter:minify-js:7:b5289efc5963bd5f9ff7970d6bf81aa1 */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","skins.vector.js"]);
+}</script>
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Touhou_Wiki skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><div id="localNotice" lang="en" dir="ltr"><div id="scrollDiv">
+<ul>
+<li>Welcome to Touhou Wiki!</li>
+<li>Account registration has been reopened!  <a href="/wiki/Special:UserLogin/signup" title="Special:UserLogin/signup">Register an account</a> if you wish to edit.</li>
+</ul>
+</div>
+</div></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Touhou Wiki</span></h1>
+						<div id="bodyContent">
+								<div id="siteSub">From Touhou Wiki</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><div id="mf-home">
+<div id="MainPage">
+	<div id="mp-LeftColumn">
+		<div id="mp-Welcome" class="mp-box mp-wide">
+			<div class="mp-innerBox">
+				<div class="mp-image"></div>
+				<div class="mp-header incell_top"> <b>Welcome to Touhou Wiki!</b> </div>
+				<div class="mp-content"> 
+<p>					The <b><a href="/wiki/Touhou_Project" title="Touhou Project">Touhou Project</a></b> is a series of 2D vertically-scrolling <a href="/wiki/Danmaku" title="Danmaku">danmaku</a> <a href="/wiki/Shooting_game" title="Shooting game">shooting games</a> made by <a href="/wiki/Team_Shanghai_Alice" title="Team Shanghai Alice">Team Shanghai Alice</a>, with four fighting game spinoffs co-produced with <a href="/wiki/Twilight_Frontier" title="Twilight Frontier">Twilight Frontier</a>.
+</p><p>					Touhou Wiki covers the official Touhou Project games and materials and any fan-made games and media, along with other related games developed by the former members of <a href="/wiki/Amusement_Makers" title="Amusement Makers">Amusement Makers</a> or in conjunction with Team Shanghai Alice.  Everyone is welcome to read and contribute to it. Keep the <a href="/wiki/Touhou_Wiki:Policy" title="Touhou Wiki:Policy">policies</a>, <a href="/wiki/Touhou_Wiki:Copyrights" title="Touhou Wiki:Copyrights">copyrights</a>, and <a href="/wiki/Touhou_Wiki:Guidelines" title="Touhou Wiki:Guidelines">editing guidelines</a> in mind while editing. For starters, check the links next to Articles Needing Attention at the bottom-right of this page.
+</p><p>					Please notify <a href="/wiki/Touhou_Wiki:Administrators" title="Touhou Wiki:Administrators">our staff</a> with issues or suggestions. For real-time communication, visit our IRC channel at <a rel="nofollow" class="external text" href="https://webchat.esper.net/?nick=NamelessFairy...&amp;channels=touhouwiki&amp;prompt=1"><b>irc.esper.net, #touhouwiki</b></a>. Additionally, we have our own page on <a rel="nofollow" class="external text" href="http://www.facebook.com/TouhouWiki">Facebook</a>.
+</p>
+				</div>
+			</div>
+		</div>
+		<div id="mp-WorksColumns" class="mp-box mp-wide">
+		<div id="mp-Games" class="mp-box mp-tall">
+			<div class="mp-innerBox">
+				<div class="mp-image"></div>
+				<div class="mp-header incell_top"> <b>Games</b> </div>
+				<div class="mp-content"> 
+<p>					<b>PC-98 Games</b><br />
+					<a href="/wiki/Highly_Responsive_to_Prayers" title="Highly Responsive to Prayers"><img alt="Icon th01.png" src="/images/thumb/1/11/Icon_th01.png/16px-Icon_th01.png" width="16" height="16" srcset="/images/thumb/1/11/Icon_th01.png/24px-Icon_th01.png 1.5x, /images/1/11/Icon_th01.png 2x" /></a> <a href="/wiki/Highly_Responsive_to_Prayers" title="Highly Responsive to Prayers"><small><b>TH01</b></small> Highly Responsive to Prayers</a><br />
+					<a href="/wiki/Story_of_Eastern_Wonderland" title="Story of Eastern Wonderland"><img alt="Icon th02.png" src="/images/thumb/9/9f/Icon_th02.png/16px-Icon_th02.png" width="16" height="16" srcset="/images/thumb/9/9f/Icon_th02.png/24px-Icon_th02.png 1.5x, /images/9/9f/Icon_th02.png 2x" /></a> <a href="/wiki/Story_of_Eastern_Wonderland" title="Story of Eastern Wonderland"><small><b>TH02</b></small> Story of Eastern Wonderland</a><br />
+					<a href="/wiki/Phantasmagoria_of_Dim.Dream" title="Phantasmagoria of Dim.Dream"><img alt="Icon th03.png" src="/images/thumb/f/f8/Icon_th03.png/16px-Icon_th03.png" width="16" height="16" srcset="/images/thumb/f/f8/Icon_th03.png/24px-Icon_th03.png 1.5x, /images/f/f8/Icon_th03.png 2x" /></a> <a href="/wiki/Phantasmagoria_of_Dim.Dream" title="Phantasmagoria of Dim.Dream"><small><b>TH03</b></small> Phantasmagoria of Dim.Dream</a><br />
+					<a href="/wiki/Lotus_Land_Story" title="Lotus Land Story"><img alt="Icon th04.png" src="/images/thumb/6/6d/Icon_th04.png/16px-Icon_th04.png" width="16" height="16" srcset="/images/thumb/6/6d/Icon_th04.png/24px-Icon_th04.png 1.5x, /images/6/6d/Icon_th04.png 2x" /></a> <a href="/wiki/Lotus_Land_Story" title="Lotus Land Story"><small><b>TH04</b></small> Lotus Land Story</a><br />
+					<a href="/wiki/Mystic_Square" title="Mystic Square"><img alt="Icon th05.png" src="/images/thumb/d/dd/Icon_th05.png/16px-Icon_th05.png" width="16" height="16" srcset="/images/thumb/d/dd/Icon_th05.png/24px-Icon_th05.png 1.5x, /images/d/dd/Icon_th05.png 2x" /></a> <a href="/wiki/Mystic_Square" title="Mystic Square"><small><b>TH05</b></small> Mystic Square</a><br /><br />
+					<b>Windows Games</b><br />
+					<a href="/wiki/Embodiment_of_Scarlet_Devil" title="Embodiment of Scarlet Devil"><img alt="Icon th06.png" src="/images/thumb/c/c9/Icon_th06.png/16px-Icon_th06.png" width="16" height="16" srcset="/images/thumb/c/c9/Icon_th06.png/24px-Icon_th06.png 1.5x, /images/c/c9/Icon_th06.png 2x" /></a> <a href="/wiki/Embodiment_of_Scarlet_Devil" title="Embodiment of Scarlet Devil"><small><b>TH06</b></small> Embodiment of Scarlet Devil</a><br />
+					<a href="/wiki/Perfect_Cherry_Blossom" title="Perfect Cherry Blossom"><img alt="Icon th07.png" src="/images/thumb/2/24/Icon_th07.png/16px-Icon_th07.png" width="16" height="16" srcset="/images/thumb/2/24/Icon_th07.png/24px-Icon_th07.png 1.5x, /images/2/24/Icon_th07.png 2x" /></a> <a href="/wiki/Perfect_Cherry_Blossom" title="Perfect Cherry Blossom"><small><b>TH07</b></small> Perfect Cherry Blossom</a><br />
+					<a href="/wiki/Immaterial_and_Missing_Power" title="Immaterial and Missing Power"><img alt="Icon th075.png" src="/images/thumb/f/f6/Icon_th075.png/16px-Icon_th075.png" width="16" height="16" srcset="/images/thumb/f/f6/Icon_th075.png/24px-Icon_th075.png 1.5x, /images/f/f6/Icon_th075.png 2x" /></a> <a href="/wiki/Immaterial_and_Missing_Power" title="Immaterial and Missing Power"><small><b>TH07.5</b></small> Immaterial and Missing Power</a><br />
+					<a href="/wiki/Imperishable_Night" title="Imperishable Night"><img alt="Icon th08.png" src="/images/thumb/6/63/Icon_th08.png/16px-Icon_th08.png" width="16" height="16" srcset="/images/thumb/6/63/Icon_th08.png/24px-Icon_th08.png 1.5x, /images/6/63/Icon_th08.png 2x" /></a> <a href="/wiki/Imperishable_Night" title="Imperishable Night"><small><b>TH08</b></small> Imperishable Night</a><br />
+					<a href="/wiki/Phantasmagoria_of_Flower_View" title="Phantasmagoria of Flower View"><img alt="Icon th09.png" src="/images/thumb/4/43/Icon_th09.png/16px-Icon_th09.png" width="16" height="16" srcset="/images/thumb/4/43/Icon_th09.png/24px-Icon_th09.png 1.5x, /images/4/43/Icon_th09.png 2x" /></a> <a href="/wiki/Phantasmagoria_of_Flower_View" title="Phantasmagoria of Flower View"><small><b>TH09</b></small> Phantasmagoria of Flower View</a><br />
+					<a href="/wiki/Shoot_the_Bullet" title="Shoot the Bullet"><img alt="Icon th095.png" src="/images/thumb/8/84/Icon_th095.png/16px-Icon_th095.png" width="16" height="16" srcset="/images/thumb/8/84/Icon_th095.png/24px-Icon_th095.png 1.5x, /images/8/84/Icon_th095.png 2x" /></a> <a href="/wiki/Shoot_the_Bullet" title="Shoot the Bullet"><small><b>TH09.5</b></small> Shoot the Bullet</a><br />
+					<a href="/wiki/Mountain_of_Faith" title="Mountain of Faith"><img alt="Icon th10.png" src="/images/thumb/b/b6/Icon_th10.png/16px-Icon_th10.png" width="16" height="16" srcset="/images/thumb/b/b6/Icon_th10.png/24px-Icon_th10.png 1.5x, /images/b/b6/Icon_th10.png 2x" /></a> <a href="/wiki/Mountain_of_Faith" title="Mountain of Faith"><small><b>TH10</b></small> Mountain of Faith</a><br />
+					<a href="/wiki/Scarlet_Weather_Rhapsody" title="Scarlet Weather Rhapsody"><img alt="Icon th105.png" src="/images/thumb/2/20/Icon_th105.png/16px-Icon_th105.png" width="16" height="16" srcset="/images/thumb/2/20/Icon_th105.png/24px-Icon_th105.png 1.5x, /images/2/20/Icon_th105.png 2x" /></a> <a href="/wiki/Scarlet_Weather_Rhapsody" title="Scarlet Weather Rhapsody"><small><b>TH10.5</b></small> Scarlet Weather Rhapsody</a><br />
+					<a href="/wiki/Subterranean_Animism" title="Subterranean Animism"><img alt="Icon th11.png" src="/images/thumb/c/c1/Icon_th11.png/16px-Icon_th11.png" width="16" height="16" srcset="/images/thumb/c/c1/Icon_th11.png/24px-Icon_th11.png 1.5x, /images/c/c1/Icon_th11.png 2x" /></a> <a href="/wiki/Subterranean_Animism" title="Subterranean Animism"><small><b>TH11</b></small> Subterranean Animism</a><br />
+					<a href="/wiki/Undefined_Fantastic_Object" title="Undefined Fantastic Object"><img alt="Icon th12.png" src="/images/thumb/7/7f/Icon_th12.png/16px-Icon_th12.png" width="16" height="16" srcset="/images/thumb/7/7f/Icon_th12.png/24px-Icon_th12.png 1.5x, /images/7/7f/Icon_th12.png 2x" /></a> <a href="/wiki/Undefined_Fantastic_Object" title="Undefined Fantastic Object"><small><b>TH12</b></small> Undefined Fantastic Object</a><br />
+					<a href="/wiki/Touhou_Hisoutensoku" title="Touhou Hisoutensoku"><img alt="Icon th123.png" src="/images/thumb/6/6d/Icon_th123.png/16px-Icon_th123.png" width="16" height="16" srcset="/images/thumb/6/6d/Icon_th123.png/24px-Icon_th123.png 1.5x, /images/6/6d/Icon_th123.png 2x" /></a> <a href="/wiki/Touhou_Hisoutensoku" title="Touhou Hisoutensoku"><small><b>TH12.3</b></small> Touhou Hisoutensoku</a><br />
+					<a href="/wiki/Double_Spoiler" title="Double Spoiler"><img alt="Icon th125.png" src="/images/thumb/4/49/Icon_th125.png/16px-Icon_th125.png" width="16" height="16" srcset="/images/thumb/4/49/Icon_th125.png/24px-Icon_th125.png 1.5x, /images/4/49/Icon_th125.png 2x" /></a> <a href="/wiki/Double_Spoiler" title="Double Spoiler"><small><b>TH12.5</b></small> Double Spoiler</a><br />
+					<a href="/wiki/Fairy_Wars" title="Fairy Wars"><img alt="Icon th128.png" src="/images/thumb/b/b4/Icon_th128.png/16px-Icon_th128.png" width="16" height="16" srcset="/images/thumb/b/b4/Icon_th128.png/24px-Icon_th128.png 1.5x, /images/b/b4/Icon_th128.png 2x" /></a> <a href="/wiki/Fairy_Wars" title="Fairy Wars"><small><b>TH12.8</b></small> Fairy Wars</a><br />
+					<a href="/wiki/Ten_Desires" title="Ten Desires"><img alt="Icon th13.png" src="/images/thumb/f/fe/Icon_th13.png/16px-Icon_th13.png" width="16" height="16" srcset="/images/thumb/f/fe/Icon_th13.png/24px-Icon_th13.png 1.5x, /images/f/fe/Icon_th13.png 2x" /></a> <a href="/wiki/Ten_Desires" title="Ten Desires"><small><b>TH13</b></small> Ten Desires</a><br />
+					<a href="/wiki/Hopeless_Masquerade" title="Hopeless Masquerade"><img alt="Icon th135.png" src="/images/thumb/c/cc/Icon_th135.png/16px-Icon_th135.png" width="16" height="16" srcset="/images/thumb/c/cc/Icon_th135.png/24px-Icon_th135.png 1.5x, /images/c/cc/Icon_th135.png 2x" /></a> <a href="/wiki/Hopeless_Masquerade" title="Hopeless Masquerade"><small><b>TH13.5</b></small> Hopeless Masquerade</a><br />
+					<a href="/wiki/Double_Dealing_Character" title="Double Dealing Character"><img alt="Icon th14.png" src="/images/thumb/2/21/Icon_th14.png/16px-Icon_th14.png" width="16" height="16" srcset="/images/thumb/2/21/Icon_th14.png/24px-Icon_th14.png 1.5x, /images/2/21/Icon_th14.png 2x" /></a> <a href="/wiki/Double_Dealing_Character" title="Double Dealing Character"><small><b>TH14</b></small> Double Dealing Character</a><br />
+					<a href="/wiki/Impossible_Spell_Card" title="Impossible Spell Card"><img alt="Icon th143.png" src="/images/thumb/0/09/Icon_th143.png/16px-Icon_th143.png" width="16" height="16" srcset="/images/thumb/0/09/Icon_th143.png/24px-Icon_th143.png 1.5x, /images/0/09/Icon_th143.png 2x" /></a> <a href="/wiki/Impossible_Spell_Card" title="Impossible Spell Card"><small><b>TH14.3</b></small> Impossible Spell Card</a>
+<br /><br /><br />
+					<b>Other Games</b><br />
+					<a href="/wiki/Seihou_Project" title="Seihou Project">Seihou Project</a><br />
+					<a href="/wiki/Samidare" title="Samidare">Samidare</a><br />
+					<a href="/wiki/Uwabami_Breakers" title="Uwabami Breakers">Uwabami Breakers</a><br />
+					<a href="/wiki/Related_games" title="Related games">Related Games</a><br />
+					<a href="/wiki/Fangames" title="Fangames">Fangames</a>
+</p>
+				</div>
+			</div>
+		</div>
+		<div id="mp-Music" class="mp-box mp-tall">
+			<div class="mp-innerBox">
+				<div class="mp-header incell_top"> <b><a href="/wiki/Music_CDs" title="Music CDs">Music</a></b> </div>
+				<div class="mp-image"></div>
+				<div class="mp-content"> 
+<p>					<b>ZUN's Music CDs</b><br />
+					<a href="/wiki/Dolls_in_Pseudo_Paradise" title="Dolls in Pseudo Paradise">Dolls in Pseudo Paradise</a><br />
+					<a href="/wiki/Ghostly_Field_Club" title="Ghostly Field Club">Ghostly Field Club</a><br />
+					<a href="/wiki/Changeability_of_Strange_Dream" title="Changeability of Strange Dream">Changeability of Strange Dream</a><br />
+					<a href="/wiki/Retrospective_53_minutes" title="Retrospective 53 minutes">Retrospective 53 minutes</a><br />
+					<a href="/wiki/Magical_Astronomy" title="Magical Astronomy">Magical Astronomy</a><br />
+					<a href="/wiki/Unknown_Flower,_Mesmerizing_Journey" title="Unknown Flower, Mesmerizing Journey">Unknown Flower, Mesmerizing Journey</a><br />
+					<a href="/wiki/Trojan_Green_Asteroid" title="Trojan Green Asteroid">Trojan Green Asteroid</a><br />
+					<a href="/wiki/Neo-traditionalism_of_Japan" title="Neo-traditionalism of Japan">Neo-traditionalism of Japan</a><br /><br />
+					<b>Akyu's Untouched Score</b><br />
+					<a href="/wiki/Akyu%27s_Untouched_Score_vol.1" title="Akyu's Untouched Score vol.1">Volume 1</a> (TH04)<br />
+					<a href="/wiki/Akyu%27s_Untouched_Score_vol.2" title="Akyu's Untouched Score vol.2">Volume 2</a> (TH05)<br />
+					<a href="/wiki/Akyu%27s_Untouched_Score_vol.3" title="Akyu's Untouched Score vol.3">Volume 3</a> (TH02)<br />
+					<a href="/wiki/Akyu%27s_Untouched_Score_vol.4" title="Akyu's Untouched Score vol.4">Volume 4</a> (TH03)<br />
+					<a href="/wiki/Akyu%27s_Untouched_Score_vol.5" title="Akyu's Untouched Score vol.5">Volume 5</a> (TH01)<br /><br />
+					<b>Soundtracks</b><br />
+					<a href="/wiki/Immaterial_and_Missing_Power_OST" title="Immaterial and Missing Power OST">Immaterial and Missing Power OST</a><br />
+					<a href="/wiki/Scarlet_Weather_Rhapsody_OST" title="Scarlet Weather Rhapsody OST">Scarlet Weather Rhapsody OST</a><br />
+					<a href="/wiki/Touhou_Hisoutensoku_OST" title="Touhou Hisoutensoku OST">Touhou Hisoutensoku OST</a><br />
+					<a href="/wiki/Hopeless_Masquerade_OST" title="Hopeless Masquerade OST">Hopeless Masquerade OST</a><br /><br />
+					<b>Extras</b><br />
+					<a href="/wiki/Bohemian_Archive_in_Japanese_Red_(CD)" title="Bohemian Archive in Japanese Red (CD)">Bohemian Archive CD</a><br />
+					<a href="/wiki/Seasonal_Dream_Vision_(CD)" title="Seasonal Dream Vision (CD)">Seasonal Dream Vision CD</a><br />
+					<a href="/wiki/Perfect_Memento_in_Strict_Sense_(CD)" title="Perfect Memento in Strict Sense (CD)">Perfect Memento CD</a><br />
+					<a href="/wiki/The_Grimoire_of_Marisa_(CD)" title="The Grimoire of Marisa (CD)">Grimoire of Marisa CD</a><br />
+					<a href="/wiki/Silent_Sinner_in_Blue_(CD)" title="Silent Sinner in Blue (CD)">Silent Sinner in Blue CD</a><br />
+					<a href="/wiki/Eastern_and_Little_Nature_Deity_(CD)" title="Eastern and Little Nature Deity (CD)">Eastern Deity CD</a><br />
+					<a href="/wiki/Strange_and_Bright_Nature_Deity_1_(CD)" title="Strange and Bright Nature Deity 1 (CD)">Strange Deity CD 1</a><br />
+					<a href="/wiki/Strange_and_Bright_Nature_Deity_2_(CD)" title="Strange and Bright Nature Deity 2 (CD)">Strange Deity CD 2</a><br />
+					<a href="/wiki/Strange_and_Bright_Nature_Deity_3_(CD)" title="Strange and Bright Nature Deity 3 (CD)">Strange Deity CD 3</a><br />
+					<a href="/wiki/Oriental_Sacred_Place_1_(CD)" title="Oriental Sacred Place 1 (CD)">Oriental Sacred Place CD 1</a><br />
+					<a href="/wiki/Oriental_Sacred_Place_2_(CD)" title="Oriental Sacred Place 2 (CD)">Oriental Sacred Place CD 2</a><br />
+					<a href="/wiki/Oriental_Sacred_Place_3_(CD)" title="Oriental Sacred Place 3 (CD)">Oriental Sacred Place CD 3</a><br /><br />
+					<b>Fan Music</b><br />
+					<a href="/wiki/Doujin_music" title="Doujin music">Fan Music</a><br />
+</p>
+				</div>
+			</div>
+		</div>
+		<div id="mp-PrintWorks" class="mp-box mp-tall">
+			<div class="mp-innerBox">
+				<div class="mp-header incell_top"> <b><a href="/wiki/Official_Literature" title="Official Literature">Print Works</a></b> </div>
+				<div class="mp-image"></div>
+				<div class="mp-content"> 
+<p>					<b>Touhou Kourindou</b><br />
+					<a href="/wiki/Curiosities_of_Lotus_Asia" title="Curiosities of Lotus Asia">Curiosities of Lotus Asia</a><br /><br />
+					<b>Touhou Bougetsushou</b><br />
+					<a href="/wiki/Silent_Sinner_in_Blue" title="Silent Sinner in Blue">Silent Sinner in Blue</a><br />
+					<a href="/wiki/Cage_in_Lunatic_Runagate" title="Cage in Lunatic Runagate">Cage in Lunatic Runagate</a><br />
+					<a href="/wiki/Inaba_of_the_Moon_and_Inaba_of_the_Earth" title="Inaba of the Moon and Inaba of the Earth">Inaba of the Moon and Inaba of the Earth</a><br /><br />
+					<b>Touhou Sangetsusei</b><br />
+					<a href="/wiki/Eastern_and_Little_Nature_Deity" title="Eastern and Little Nature Deity">Eastern and Little Nature Deity</a><br />
+					<a href="/wiki/Strange_and_Bright_Nature_Deity" title="Strange and Bright Nature Deity">Strange and Bright Nature Deity</a><br />
+					<a href="/wiki/Oriental_Sacred_Place" title="Oriental Sacred Place">Oriental Sacred Place</a><br /><br />
+					<b>Touhou Ibarakasen</b><br />
+					<a href="/wiki/Wild_and_Horned_Hermit" title="Wild and Horned Hermit">Wild and Horned Hermit</a><br /><br />
+					<b>Touhou Suzunaan</b><br />
+					<a href="/wiki/Forbidden_Scrollery" title="Forbidden Scrollery">Forbidden Scrollery</a><br /><br />
+					<b>Artbooks</b><br />
+					<a href="/wiki/Bohemian_Archive_in_Japanese_Red" title="Bohemian Archive in Japanese Red">Bohemian Archive in Japanese Red</a><br />
+					<a href="/wiki/Seasonal_Dream_Vision" title="Seasonal Dream Vision">Seasonal Dream Vision</a><br />
+					<a href="/wiki/Perfect_Memento_in_Strict_Sense" title="Perfect Memento in Strict Sense">Perfect Memento in Strict Sense</a><br />
+					<a href="/wiki/The_Grimoire_of_Marisa" title="The Grimoire of Marisa">The Grimoire of Marisa</a><br />
+					<a href="/wiki/Symposium_of_Post-mysticism" title="Symposium of Post-mysticism">Symposium of Post-mysticism</a><br /><br />
+					<b>Fan Comics</b><br />
+					<a href="/wiki/Comics" title="Comics">List of Circles</a>
+</p>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div id="mp-RightColumn">
+		<div id="mp-News" class="mp-box mp-wide"> 
+			<div class="mp-innerBox">
+				<div class="mp-image"></div>
+				<div class="mp-header incell_top"> <b><a href="/wiki/Template:News" title="Template:News">News</a></b> </div>
+				<div class="mp-content"> 
+									<div class="mp-content">
+<p>					<b><a href="/wiki/Template:News/Official" title="Template:News/Official">Official News</a></b>
+</p>
+						<div class="mp-content" style="overflow: auto; overflow-y: auto; overflow-x: hidden">
+<ul>
+<li><b>2014-08-10</b> <a href="/wiki/Double_Dealing_Character" title="Double Dealing Character">Double Dealing Character</a> will be available for digital purchase on Playism August 13th
+</li>
+<li><b>2014-08-09</b> <a href="/wiki/Wild_and_Horned_Hermit" title="Wild and Horned Hermit">Wild and Horned Hermit</a> Chapter 24 released (Febri Vol. 24)
+</li>
+<li><b>2014-07-26</b> <a href="/wiki/Forbidden_Scrollery" title="Forbidden Scrollery">Forbidden Scrollery</a> Chapter 20 released (Comp Ace September issue 2014)
+</li>
+</ul>
+						</div>
+<p>					<b><a href="/wiki/Template:News/Wiki" title="Template:News/Wiki">Wiki News</a></b>
+</p>
+						<div class="mp-content" style="overflow: auto; overflow-y: auto; overflow-x: hidden">
+<ul>
+<li><b>2014-6-13</b> MediaWiki version upgraded to 1.23.0.
+</li>
+</ul>
+						</div>
+<p>					<b><a href="/wiki/Template:News/Events" title="Template:News/Events">Upcoming Events</a></b>
+</p>
+						<div class="mp-content" style="overflow: auto; overflow-y: auto; overflow-x: hidden">
+<ul>
+<li><b>2014-08-16</b> <a rel="nofollow" class="external text" href="http://www.comiket.co.jp/">Comiket 86 (Touhou only)</a>
+</li>
+<li><b>2014-10-12</b> <a rel="nofollow" class="external text" href="http://koromu-toho.com/">Touhou Kouroumu 10</a>
+</li>
+<li><b>2015-05-10</b> <a rel="nofollow" class="external text" href="http://reitaisai.com/">Reitaisai 12</a>
+</li>
+</ul>
+						</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div id="mp-Info" class="mp-box"> 
+			<div class="mp-innerBox">
+				<div id="mp-Encyclopedia" class="mp-subBox">
+					<div class="mp-header incell_top"> <b>Encyclopedia</b> </div>
+					<div class="mp-content"> 
+<p>						<a href="/wiki/Characters" title="Characters">Characters of Touhou</a><br />
+						<a href="/wiki/Gensokyo" title="Gensokyo">The World of Gensokyo</a><br />
+						<a href="/wiki/Glossary" title="Glossary">Glossary</a>
+</p>
+					</div>
+				</div>
+				<div id="mp-OtherArticles" class="mp-subBox">
+					<div class="mp-header incell"> <b>Other Articles</b> </div>
+					<div class="mp-content"> 
+<p>						<a href="/wiki/High_scores" title="High scores">High Scores</a><br />
+						<a href="/wiki/Replays" title="Replays">Replays</a><br />
+						<a href="/wiki/Buying_Stuff" title="Buying Stuff">Purchasing</a><br />
+						<a href="/wiki/Game_Tools_and_Modifications" title="Game Tools and Modifications">Game Tools and Modifications</a><br />
+						<a href="/wiki/Running_in_Linux_and_Mac_OS_X" title="Running in Linux and Mac OS X">Running in Linux and Mac OS X</a><br />
+						<a href="/wiki/Links" title="Links">Links</a>
+</p>
+					</div>
+				</div>
+				<div id="mp-AttentionArticles" class="mp-subBox">
+					<div class="mp-header incell"> <b>Articles Needing Attention</b> </div>
+					<div class="mp-content"> 
+<p>						<a href="/wiki/Category:Summarize" title="Category:Summarize">Articles needing summaries</a><br />
+						<a href="/wiki/Special:UncategorizedPages" title="Special:UncategorizedPages">Articles needing categories</a><br />
+						<a href="/wiki/Category:Untranslated" title="Category:Untranslated">Articles needing translations</a><br />
+						<a href="/wiki/Category:Genre_Needed" title="Category:Genre Needed">Albums needing genres</a><br />
+						<a href="/wiki/Special:WantedTemplates" title="Special:WantedTemplates">Wanted templates</a>
+</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.170 seconds
+Real time usage: 0.186 seconds
+Preprocessor visited node count: 163/1000000
+Preprocessor generated node count: 354/1000000
+Post‐expand include size: 1588/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 2/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key touhouwiki-touhouwiki_:pcache:idhash:1137-0!*!0!*!*!2!* and timestamp 20140819023154 and revision id 318831
+ -->
+</div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.touhouwiki.net/index.php?title=Touhou_Wiki&amp;oldid=318831">http://en.touhouwiki.net/index.php?title=Touhou_Wiki&amp;oldid=318831</a>"				</div>
+												<div id='catlinks' class='catlinks catlinks-allhidden'></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="/index.php?title=Special:UserLogin&amp;returnto=Touhou+Wiki&amp;type=signup">Create account</a></li><li id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Touhou+Wiki" title="You are encouraged to log in; however, it is not mandatory [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/wiki/Touhou_Wiki"  title="View the content page [c]" accesskey="c">Page</a></span></li>
+					<li  id="ca-talk"><span><a href="/wiki/Talk:Touhou_Wiki"  title="Discussion about the content page [t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/wiki/Touhou_Wiki" >Read</a></span></li>
+					<li id="ca-viewsource"><span><a href="/index.php?title=Touhou_Wiki&amp;action=edit"  title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="/index.php?title=Touhou_Wiki&amp;action=history"  title="Past revisions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/index.php" id="searchform">
+					<div id="simpleSearch">
+					<input type="search" name="search" placeholder="Search" title="Search Touhou Wiki [f]" accesskey="f" id="searchInput" /><input type="hidden" value="Special:Search" name="title" /><input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton mw-fallbackSearchButton" /><input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchButton" class="searchButton" />		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(/skins/common/images/alicelogo.png);" href="/wiki/Touhou_Wiki"  title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id='p-navigation' aria-labelledby='p-navigation-label'>
+	<h3 id='p-navigation-label'>Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="/wiki/Touhou_Wiki" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-portal"><a href="/wiki/Touhou_Wiki:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random page [x]" accesskey="x">Random page</a></li>
+			<li id="n-IRC-Channel"><a href="http://webchat.esper.net/?nick=NamelessFairy...&amp;channels=touhouwiki&amp;prompt=1" rel="nofollow">IRC Channel</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-donate' aria-labelledby='p-donate-label'>
+	<h3 id='p-donate-label'>Donate</h3>
+	<div class="body">
+		<a href="http://en.touhouwiki.net/wiki/User:Drunk_Aya/Donations" title="Donate to the Hakurei Shrine today!"><img alt="Donate to the Hakurei Shrine today!" src="/images/2/2b/Box.png" width="99" height="106"></a>	</div>
+</div>
+<div class="portal" role="navigation" id='p-Games' aria-labelledby='p-Games-label'>
+	<h3 id='p-Games-label'>Games</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Official-Games"><a href="/wiki/Touhou_Wiki">Official Games</a></li>
+			<li id="n-Related-games"><a href="/wiki/Related_games">Related games</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Music' aria-labelledby='p-Music-label'>
+	<h3 id='p-Music-label'>Music</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Official-CDs"><a href="/wiki/Music_CDs">Official CDs</a></li>
+			<li id="n-Game-soundtracks"><a href="/wiki/Category:Music_by_Game">Game soundtracks</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Print_Works' aria-labelledby='p-Print_Works-label'>
+	<h3 id='p-Print_Works-label'>Print Works</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Official-Literature"><a href="/wiki/Official_Literature">Official Literature</a></li>
+			<li id="n-Comics"><a href="/wiki/Comics">Comics</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Derivative_Works' aria-labelledby='p-Derivative_Works-label'>
+	<h3 id='p-Derivative_Works-label'>Derivative Works</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Doujin-Portal"><a href="/wiki/Doujin_portal">Doujin Portal</a></li>
+			<li id="n-Circles"><a href="/wiki/Doujin_circles">Circles</a></li>
+			<li id="n-Games"><a href="/wiki/Fangames">Games</a></li>
+			<li id="n-Music"><a href="/wiki/Doujin_music">Music</a></li>
+			<li id="n-Fanfiction"><a href="/wiki/Category:Fanfiction">Fanfiction</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Encyclopedia' aria-labelledby='p-Encyclopedia-label'>
+	<h3 id='p-Encyclopedia-label'>Encyclopedia</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Gensokyo"><a href="/wiki/Gensokyo">Gensokyo</a></li>
+			<li id="n-Characters"><a href="/wiki/Category:Characters">Characters</a></li>
+			<li id="n-Spell-cards"><a href="/wiki/List_of_Spell_Cards">Spell cards</a></li>
+			<li id="n-Bestiary"><a href="/wiki/Category:Bestiary">Bestiary</a></li>
+			<li id="n-Locations"><a href="/wiki/Category:Locations">Locations</a></li>
+			<li id="n-Gameplay"><a href="/wiki/Category:Gameplay">Gameplay</a></li>
+			<li id="n-Strategy"><a href="/wiki/Category:Strategy">Strategy</a></li>
+			<li id="n-High-scores"><a href="/wiki/High_scores">High scores</a></li>
+			<li id="n-Glossary"><a href="/wiki/Glossary">Glossary</a></li>
+			<li id="n-Config"><a href="/wiki/Config">Config</a></li>
+			<li id="n-Replays"><a href="/wiki/Replays">Replays</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Miscellaneous' aria-labelledby='p-Miscellaneous-label'>
+	<h3 id='p-Miscellaneous-label'>Miscellaneous</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Buying-Stuff"><a href="/wiki/Buying_Stuff">Buying Stuff</a></li>
+			<li id="n-English-patches"><a href="/wiki/English_patches">English patches</a></li>
+			<li id="n-Running-in-Linux-and-MacOS-X"><a href="/wiki/Running_in_Linux_and_MacOS_X">Running in Linux and MacOS X</a></li>
+			<li id="n-Game-Tools-and-Modifications"><a href="/wiki/Game_Tools_and_Modifications">Game Tools and Modifications</a></li>
+			<li id="n-The-Sandbox-of-Eastern-Illusion"><a href="/wiki/Touhou_Wiki:Touhou_Genshajyou">The Sandbox of Eastern Illusion</a></li>
+			<li id="n-Links"><a href="/wiki/Links">Links</a></li>
+			<li id="n-Other-Random-Things"><a href="/wiki/Random_Things">Other Random Things</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-Support' aria-labelledby='p-Support-label'>
+	<h3 id='p-Support-label'>Support</h3>
+	<div class="body">
+		<ul>
+			<li id="n-Community-Discussion"><a href="/wiki/Talk:Touhou_Wiki">Community Discussion</a></li>
+			<li id="n-User-account-rights"><a href="/wiki/Help:Group_rights">User account rights</a></li>
+			<li id="n-Report-an-Issue"><a href="/wiki/Talk:Touhou_Wiki">Report an Issue</a></li>
+			<li id="n-How-to-Edit-a-Wiki"><a href="http://en.wikipedia.org/wiki/How_to_edit_a_page">How to Edit a Wiki</a></li>
+			<li id="n-Editing-Reference"><a href="/wiki/Touhou_Wiki:Wiki_Tutorial">Editing Reference</a></li>
+			<li id="n-Touhou-Wiki-Guidelines"><a href="/wiki/Touhou_Wiki:Guidelines">Touhou Wiki Guidelines</a></li>
+			<li id="n-Staff-Members"><a href="/wiki/Touhou_Wiki:Administrators">Staff Members</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-tb' aria-labelledby='p-tb-label'>
+	<h3 id='p-tb-label'>Tools</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="/wiki/Special:WhatLinksHere/Touhou_Wiki" title="A list of all wiki pages that link here [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="/wiki/Special:RecentChangesLinked/Touhou_Wiki" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://pool.touhouwiki.net/index.php/Special:Upload" title="Upload files [u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-print"><a href="/index.php?title=Touhou_Wiki&amp;printable=yes" rel="alternate" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+			<li id="t-permalink"><a href="/index.php?title=Touhou_Wiki&amp;oldid=318831" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="/index.php?title=Touhou_Wiki&amp;action=info">Page information</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id='p-lang' aria-labelledby='p-lang-label'>
+	<h3 id='p-lang-label'>In other languages</h3>
+	<div class="body">
+		<ul>
+			<li class="interlanguage-link interwiki-de"><a href="http://de.touhouwiki.net/wiki/" title="Deutsch" lang="de" hreflang="de">Deutsch</a></li>
+			<li class="interlanguage-link interwiki-es"><a href="http://es.touhouwiki.net/wiki/" title="español" lang="es" hreflang="es">Español</a></li>
+			<li class="interlanguage-link interwiki-fr"><a href="http://touhou.net/wiki/" title="français" lang="fr" hreflang="fr">Français</a></li>
+			<li class="interlanguage-link interwiki-it"><a href="http://it.touhouwiki.net/wiki/" title="italiano" lang="it" hreflang="it">Italiano</a></li>
+			<li class="interlanguage-link interwiki-ko"><a href="http://ko.touhouwiki.net/wiki/" title="한국어" lang="ko" hreflang="ko">한국어</a></li>
+			<li class="interlanguage-link interwiki-nl"><a href="http://nl.touhouwiki.net/wiki/" title="Nederlands" lang="nl" hreflang="nl">Nederlands</a></li>
+			<li class="interlanguage-link interwiki-pl"><a href="http://pl.touhouwiki.net/wiki/" title="polski" lang="pl" hreflang="pl">Polski</a></li>
+			<li class="interlanguage-link interwiki-pt"><a href="http://pt.touhouwiki.net/wiki/" title="português" lang="pt" hreflang="pt">Português</a></li>
+			<li class="interlanguage-link interwiki-ru"><a href="http://ru.touhouwiki.net/wiki/" title="русский" lang="ru" hreflang="ru">Русский</a></li>
+			<li class="interlanguage-link interwiki-sv"><a href="http://sv.touhouwiki.net/wiki/" title="svenska" lang="sv" hreflang="sv">Svenska</a></li>
+			<li class="interlanguage-link interwiki-uk"><a href="http://uk.touhouwiki.net/wiki/" title="українська" lang="uk" hreflang="uk">Українська</a></li>
+			<li class="interlanguage-link interwiki-zh"><a href="http://zh.touhouwiki.net/wiki/" title="中文" lang="zh" hreflang="zh">中文</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 11 May 2014, at 11:33.</li>
+											<li id="footer-info-viewcount">This page has been accessed 4,297,180 times.</li>
+											<li id="footer-info-copyright">Content is available under <a href="/wiki/Touhou_Wiki:Copyrights" title="Touhou Wiki:Copyrights">a Creative Commons License</a> unless otherwise noted.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="/wiki/Touhou_Wiki:Privacy_policy" title="Touhou Wiki:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="/wiki/Touhou_Wiki:About" title="Touhou Wiki:About">About Touhou Wiki</a></li>
+											<li id="footer-places-disclaimer"><a href="/wiki/Touhou_Wiki:General_disclaimer" title="Touhou Wiki:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.touhouwiki.net/index.php?title=Touhou_Wiki&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://creativecommons.org/licenses/by-sa/3.0/"><img src="/skins/common/images/license.png" alt="a Creative Commons License" width="88" height="31" /></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="//www.mediawiki.org/"><img src="/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31" /></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.ReferenceTooltips","skins.vector.collapsibleNav"],null,true);
+}</script>
+<script src="/index.php?title=MediaWiki:Gadget-ReferenceTooltips.js&amp;action=raw&amp;ctype=text/javascript&amp;275226"></script>
+<script type="text/javascript">
+function toggleDisplay( id, hidetext, showtext ) {
+        link = document.getElementById( id + "l" ).childNodes[0];
+        with( document.getElementById( id ).style ) {
+                if( display == "none" ) {
+                        display = "inline";
+                        link.nodeValue = hidetext;
+                } else {
+                        display = "none";
+                        link.nodeValue = showtext;
+                }
+        }
+}
+</script>
+<script src="http://en.touhouwiki.net/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-34275641-1', 'touhouwiki.net');
+  ga('send', 'pageview');
+
+</script><script>if(window.mw){
+mw.config.set({"wgBackendResponseTime":76});
+}</script>
+	</body>
+</html>

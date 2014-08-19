@@ -7,7 +7,14 @@ h1 {
 }
 
 #menu {
-    margin-right: 15px;
+}
+
+.container .col-lg-12 {
+    padding: 0;
+}
+
+#timeline {
+    padding-left: 0;
 }
 
 #timeline li {
@@ -184,6 +191,7 @@ table.dataTable tr.odd {
 
 .platform {
     color: white;
+    line-height: 30px;
 }
 
 a.platform:hover {
