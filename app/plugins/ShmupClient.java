@@ -16,10 +16,9 @@ public class ShmupClient {
 
     public String getLoginById(Long id) {
         try {
-            authenticate("anzymus", "xeby4bsa");
+            authenticate("anzymus", "xedy4bsa");
             HtmlPage page = webClient.getPage("http://forum.shmup.com/memberlist.php?mode=viewprofile&u=" + id);
             String textContent = page.getBody().getTextContent();
-            Logger.info(textContent);
             return textContent.split("Consulte un profil - ")[1].split(" ")[0];
         } catch (IOException e) {
             throw new IllegalStateException(e);
