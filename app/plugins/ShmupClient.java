@@ -15,7 +15,7 @@ public class ShmupClient {
 
     public String getLoginById(Long id) {
         try {
-            authenticate("anzymus", System.getProperty("shmup.password"));
+            authenticate("anzymus", "xeby4bsa");
             HtmlPage page = webClient.getPage("http://forum.shmup.com/memberlist.php?mode=viewprofile&u=" + id);
             return page.getBody().getTextContent().split("Consulte un profil - ")[1].split(" ")[0];
         } catch (IOException e) {

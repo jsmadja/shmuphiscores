@@ -27,11 +27,14 @@ public class User extends Action.Simple {
     @Override
     public F.Promise<SimpleResult> call(Http.Context context) throws Throwable {
         startWatch();
-        context.args.put("user", getPlayerFromCookie(context));
+        Player player = getPlayerFromCookie(context);
+        context.args.put("user", player);
         mdc(context);
         F.Promise<SimpleResult> call = delegate.call(context);
         stopWatch();
-        Logger.info(stopWatch.getTime() + "ms");
+        if(player.isAuthenticated()) {
+            Logger.info(stopWatch.getTime() + "ms");
+        }
         return call;
     }
 
