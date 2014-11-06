@@ -39,11 +39,18 @@ public class GameController extends Controller {
 
     private static void createPlatforms(models.Game game) {
         Scanner sc = new Scanner(game.platforms.get(0).name);
-        while (sc.hasNextLine()) {
-            Platform platform = new Platform(sc.nextLine().trim());
+        if(sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
+                Platform platform = new Platform(sc.nextLine().trim());
+                platform.game = game;
+                platform.save();
+            }
+        } else {
+            Platform platform = new Platform(" ");
             platform.game = game;
             platform.save();
         }
+
     }
 
     private static void createDifficulties(models.Game game) {
@@ -85,13 +92,21 @@ public class GameController extends Controller {
     private static void createStages(models.Game game) {
         Long index = 0L;
         Scanner sc = new Scanner(game.stages.get(0).name);
-        while (sc.hasNextLine()) {
-            Stage stage = new Stage(sc.nextLine().trim());
+        if(sc.hasNextLine()) {
+            while (sc.hasNextLine()) {
+                Stage stage = new Stage(sc.nextLine().trim());
+                stage.game = game;
+                stage.sortOrder = index;
+                stage.save();
+                index++;
+            }
+        } else {
+            Stage stage = new Stage(" ");
             stage.game = game;
             stage.sortOrder = index;
             stage.save();
-            index++;
         }
+
     }
 
 }
