@@ -182,8 +182,8 @@ public class Player extends BaseModel<Player> {
                 || id == 231 // MKNIGHT
                 || id == 269 // Yami
                 || id == 30 // shadow gallery
-                || id == 4774 // Doudinou
-                || id == 33118 // Undef
+                || id == 116 // Doudinou
+                || id == 150 // Undef
                 ;
     }
 }
