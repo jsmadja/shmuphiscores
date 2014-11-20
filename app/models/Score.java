@@ -263,11 +263,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return "";
     }
 
-    private String difficultyName() {
+    public String difficultyName() {
         return difficulty == null ? "" : difficulty.name;
     }
 
-    private String modeName() {
+    public String modeName() {
         return mode == null ? "" : mode.name;
     }
 
