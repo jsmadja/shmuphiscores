@@ -186,4 +186,8 @@ public class Player extends BaseModel<Player> {
                 || id == 150 // Undef
                 ;
     }
+
+    public boolean isAdministrator() {
+        return id == 1;
+    }
 }

@@ -1,0 +1,39 @@
+@(toClean: List[models.Player], players: List[models.Player])
+@import play.i18n._
+@main() {
+
+    <h2 class="title">
+        Administration
+    </h2>
+
+    <div style="clear: both;"/>
+
+    <form role="form" method="POST" action="/admin">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="from">@Messages.get("From")</label>
+                    <select name="from" class="form-control">
+                    @for(player <- toClean) {
+                        <option value="@player.id">@player.name (@player.scores.size scores)</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="to">@Messages.get("To")</label>
+                    <select name="to" class="form-control">
+                    @for(player <- players) {
+                        <option value="@player.id">@player.name (@player.scores.size scores - @player.shmupUserId)</option>
+                    }
+                    </select>
+                </div>
+            </div>
+        </div>
+        @if(actions.User.current.isAuthenticated) {
+            <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+        }
+    </form>
+
+}
