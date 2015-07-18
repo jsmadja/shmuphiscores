@@ -174,6 +174,7 @@ public class Player extends BaseModel<Player> {
 
     public boolean canImportScores() {
         return id == 1 // anzymus
+                || id == 6 // yace
                 || id == 42 // mickey
                 || id == 137 // trizeal
                 || id == 705 // Vzurkr
