@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
 import org.joda.time.DateMidnight;
 import play.db.ebean.Model;
@@ -36,6 +37,10 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public String title;
     @XmlTransient
     @OneToMany(mappedBy = "game")
+    public List<Score> allScores;
+    @XmlTransient
+    @OneToMany(mappedBy = "game")
+    @Where(clause = "rank > 0")
     public List<Score> scores;
     @XmlElementWrapper
     @XmlElement(name = "platform")
@@ -119,7 +124,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     private Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
-        if (scores == null) {
+        if (allScores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).orderBy("value desc").findList();
@@ -127,7 +132,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     private Collection<Score> findBestScoresByVIPPlayers() {
-        if (scores == null) {
+        if (allScores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(eq("game", this)).orderBy("value desc").findList();
@@ -172,7 +177,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public void recomputeRankings() {
-        for (Score score : scores) {
+        for (Score score : allScores) {
             score.updateRank(null);
             score.update();
         }
@@ -192,7 +197,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public Integer getScoreCountLast30Days() {
         final Date _30DaysAgo = new DateMidnight().minusDays(30).toDate();
         final Date gameCreatedAt = new DateMidnight(Game.this.getCreatedAt()).plusDays(1).toDate();
-        return filter(scores, new Predicate<Score>() {
+        return filter(allScores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
                 return score.getCreatedAt().after(_30DaysAgo) && score.getCreatedAt().after(gameCreatedAt);
@@ -202,7 +207,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public Collection<Player> getPlayers() {
         Set<Player> players = new HashSet<Player>();
-        for (Score score : scores) {
+        for (Score score : allScores) {
             players.add(score.player);
         }
         return players;

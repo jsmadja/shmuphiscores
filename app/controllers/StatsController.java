@@ -14,7 +14,9 @@ import views.html.stats;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.avaje.ebean.Expr.*;
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.isNotNull;
+import static com.avaje.ebean.Expr.le;
 
 public class StatsController extends Controller {
 
@@ -26,7 +28,10 @@ public class StatsController extends Controller {
         List<String> scores = new ArrayList<String>();
         DateMidnight dt = new DateMidnight(2013, 11, 29);
         while (dt.isBeforeNow()) {
-            int createdAt = Ebean.createQuery(Score.class).where(le("createdAt", dt.plusDays(1).toDate())).findRowCount();
+            int createdAt = Ebean.
+                    createQuery(Score.class).
+                    where(le("createdAt", dt.plusDays(1).toDate())).
+                    findRowCount();
             scores.add(((double) createdAt) + "");
             dt = dt.plusDays(1);
         }
