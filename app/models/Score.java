@@ -4,82 +4,72 @@ import com.avaje.ebean.Ebean;
 import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
-
-import java.util.Date;
+import java.math.BigDecimal;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
+import static java.math.RoundingMode.HALF_UP;
 import static java.text.MessageFormat.format;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
 
 
+    public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
     @XmlTransient
     @ManyToOne
     public Game game;
-
     @XmlTransient
     @ManyToOne
     public Player player;
-
     @XmlTransient
     @ManyToOne
     public Stage stage;
-
     @XmlTransient
     @ManyToOne
     public Mode mode;
-
     @XmlTransient
     @ManyToOne
     public Difficulty difficulty;
-
     @XmlTransient
     @ManyToOne
     public Ship ship;
-
     @ManyToOne
     @XmlTransient
     public Platform platform;
-
     @Lob
     @XmlAttribute
     public String comment;
-
     @XmlAttribute
     public String photo;
-
     @XmlAttribute
     public String replay;
-
     @Lob
     @Column(name = "photo_base_64")
     public String photoBase64;
-
-    public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
-
     @Transient
     @XmlAttribute(name = "stage")
     public String stageName;
 
     @XmlAttribute
-    public Long value;
+    public BigDecimal value;
 
     @Transient
     @XmlAttribute(name = "player")
     public String playerName;
-
+    @Transient
+    public Long gapWithPreviousScore;
     @XmlAttribute
     private Integer rank;
 
-    @Transient
-    public Long gapWithPreviousScore;
-
-    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay) {
+    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photo, String replay) {
         this.game = game;
         this.player = player;
         this.stage = stage;
@@ -93,13 +83,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.replay = replay;
     }
 
-    public Score(Long id, Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photo, String replay, Integer rank) {
+    public Score(Long id, Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photo, String replay, Integer rank) {
         this(game, player, stage, ship, mode, difficulty, comment, platform, value, photo, replay);
         this.rank = rank;
         this.id = id;
     }
 
-    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, Long value, String photoBase64) {
+    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photoBase64) {
         this.game = game;
         this.player = player;
         this.stage = stage;
@@ -110,6 +100,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.platform = platform;
         this.value = value;
         this.photoBase64 = photoBase64;
+    }
+
+    public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
+        return Ebean.createQuery(Score.class).setMaxRows(1).orderBy("value desc").where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).findUnique();
     }
 
     public String formattedDate() {
@@ -235,13 +229,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return title;
     }
 
-    public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
-        return Ebean.createQuery(Score.class).setMaxRows(1).orderBy("value desc").where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).findUnique();
-    }
-
     public Double getGapWithTop() {
-        Long max = getBestScoreFor(game, mode, difficulty).value;
-        return (max - value) / (double) max;
+        BigDecimal max = getBestScoreFor(game, mode, difficulty).value;
+        return max.subtract(value).divide(max, HALF_UP).doubleValue();
     }
 
     public void updateRank(Integer rank) {

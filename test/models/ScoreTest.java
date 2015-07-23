@@ -2,6 +2,8 @@ package models;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.fest.assertions.Assertions.assertThat;
 
 public class ScoreTest {
@@ -18,7 +20,7 @@ public class ScoreTest {
     public void should_create_tweet() {
         game.id = 1L;
 
-        Score score = new Score(game, player, stage, ship, mode, difficulty, "comment", platform, 1245L, "http://www.photo.com", "http://www.replay.com");
+        Score score = new Score(game, player, stage, ship, mode, difficulty, "comment", platform, BigDecimal.valueOf(1245L), "http://www.photo.com", "http://www.replay.com");
         assertThat(score.tweet()).isEqualTo("TheGame - 1.245 pts - TheMode TheDifficulty - The Player - 0th hiscores.shmup.com/game/1/TheGame");
     }
 
@@ -26,7 +28,7 @@ public class ScoreTest {
     public void should_create_tweet_with_twitter_account() {
         game.id = 1L;
         player.twitter = "@player";
-        Score score = new Score(game, player, stage, ship, mode, difficulty, "comment", platform, 1245L, "http://www.photo.com", "http://www.replay.com");
+        Score score = new Score(game, player, stage, ship, mode, difficulty, "comment", platform, BigDecimal.valueOf(1245L), "http://www.photo.com", "http://www.replay.com");
         assertThat(score.tweet()).isEqualTo("TheGame - 1.245 pts - TheMode TheDifficulty - The Player (@player) - 0th hiscores.shmup.com/game/1/TheGame");
     }
 

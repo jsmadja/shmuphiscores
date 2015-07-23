@@ -20,6 +20,7 @@ import views.html.score_import;
 import views.html.score_update;
 
 import javax.annotation.Nullable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.Map;
 import static com.avaje.ebean.Ebean.find;
 import static com.google.common.collect.Collections2.filter;
 import static java.lang.Long.parseLong;
+import static java.math.RoundingMode.HALF_UP;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static play.data.Form.form;
 
@@ -107,7 +109,7 @@ public class ScoreController extends Controller {
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
         Player player = Player.findOrCreatePlayer(login);
         Game game = find(Game.class, parseLong(data.get("gameId")));
-        Long value = value(data);
+        BigDecimal value = value(data);
         String comment = data.get("comment");
         String replay = data.get("replay");
         String photo = data.get("photo");
@@ -133,7 +135,7 @@ public class ScoreController extends Controller {
         return difficulty;
     }
 
-    private static Long value(Map<String, String> data) {
+    private static BigDecimal value(Map<String, String> data) {
         String scoreValue = data.get("value");
         StringBuilder strValue = new StringBuilder();
         for (Character c : scoreValue.toCharArray()) {
@@ -141,9 +143,9 @@ public class ScoreController extends Controller {
                 strValue.append(c);
             }
         }
-        Long value = Long.valueOf(strValue.toString());
-        if (value < 0) {
-            value *= -1;
+        BigDecimal value = new BigDecimal(strValue.toString());
+        if (value.longValue() < 0) {
+            value = value.multiply(new BigDecimal("-1"));
         }
         return value;
     }
@@ -165,7 +167,7 @@ public class ScoreController extends Controller {
     }
 
     public static Collection<Score> findProgressionOf(final Score score) {
-        List<Score> scores = score.player.scores;
+        List<Score> scores = score.player.allScores;
         scores = new ArrayList<Score>(filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score _score) {
@@ -176,9 +178,8 @@ public class ScoreController extends Controller {
             for (int i = 1; i < scores.size(); i++) {
                 Score previous = scores.get(i - 1);
                 Score current = scores.get(i);
-                long gap = current.value - previous.value;
-                double percent = (double) gap / previous.value;
-                current.gapWithPreviousScore = (long) (percent * 100);
+                BigDecimal gap = current.value.subtract(previous.value);
+                current.gapWithPreviousScore = gap.multiply(BigDecimal.valueOf(100)).divide(previous.value, HALF_UP).longValue();
             }
         }
         return scores;

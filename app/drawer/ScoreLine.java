@@ -5,9 +5,16 @@ import models.Score;
 
 import java.awt.*;
 
-import static java.awt.Color.*;
-import static java.awt.Font.*;
-import static org.apache.commons.lang3.StringUtils.*;
+import static drawer.RankingGameConfiguration.COLOR_SHMUP_GREY;
+import static java.awt.Color.DARK_GRAY;
+import static java.awt.Color.GRAY;
+import static java.awt.Color.WHITE;
+import static java.awt.Font.BOLD;
+import static java.awt.Font.ITALIC;
+import static java.awt.Font.PLAIN;
+import static org.apache.commons.lang3.StringUtils.defaultString;
+import static org.apache.commons.lang3.StringUtils.leftPad;
+import static org.apache.commons.lang3.StringUtils.rightPad;
 
 public class ScoreLine implements PictureLine {
 
@@ -19,7 +26,7 @@ public class ScoreLine implements PictureLine {
     private final static Font scoreFont = new Font("Liberation Mono", BOLD, 14);
     private final static Font stageFont = new Font("Liberation Mono", ITALIC, 14);
 
-    private static final int SCORE_X = 80;
+    private static final int SCORE_X = 140;
     private static final int STAGE_PLATFORM_X = SCORE_X + 220;
 
     private static final Color COLOR_SHMUP_PLAYER = new Color(247, 127, 74);
@@ -63,7 +70,7 @@ public class ScoreLine implements PictureLine {
     private void score(Graphics2D graphics, int y) {
         graphics.setColor(COLOR_SHMUP_SCORE);
         graphics.setFont(scoreFont);
-        graphics.drawString(Strings.padStart(score.formattedValue(), Long.valueOf(Long.MAX_VALUE).toString().length() + 6, ' '), SCORE_X, y);
+        graphics.drawString(Strings.padStart(score.formattedValue(), "14607555540022222222".length() + 6, ' '), SCORE_X, y);
     }
 
     private void player(Graphics2D graphics, int y) {
@@ -83,7 +90,7 @@ public class ScoreLine implements PictureLine {
         if (score.rank() % 2 == 1) {
             graphics.setColor(WHITE);
         } else {
-            graphics.setColor(RankingGameConfiguration.COLOR_SHMUP_GREY);
+            graphics.setColor(COLOR_SHMUP_GREY);
         }
         graphics.fillRect(0, y - RankingGameConfiguration.fontHeight, RankingGameConfiguration.width, y);
     }

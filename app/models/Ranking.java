@@ -7,12 +7,21 @@ import formatters.ScoreFormatter;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeSet;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
+import static java.math.RoundingMode.HALF_UP;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Ranking {
@@ -48,7 +57,7 @@ public class Ranking {
         int rank = 1;
         for (Score score : scores) {
             if (score.isVip()) {
-                if(score.rank() == null) {
+                if (score.rank() == null) {
                     score.updateRank(rank);
                     score.update();
                 }
@@ -80,9 +89,9 @@ public class Ranking {
     }
 
     public String joinedPlayerCountPerSplittedScore() {
-        TreeSet<Long> scores = new TreeSet<Long>(scoresWithAverageScore());
+        TreeSet<BigDecimal> scores = new TreeSet<BigDecimal>(scoresWithAverageScore());
         List<Integer> playerPerCategories = new ArrayList<Integer>();
-        for (Long category : getSplittedScores()) {
+        for (BigDecimal category : getSplittedScores()) {
             playerPerCategories.add(scores.tailSet(category).size());
         }
         return Joiner.on(",").join(playerPerCategories);
@@ -93,7 +102,7 @@ public class Ranking {
     }
 
     public int averageScoreIndex() {
-        Long averageScore = averageScoreAsLong();
+        BigDecimal averageScore = averageScoreAsBigDecimal();
         return getSplittedScores().indexOf(averageScore);
     }
 
@@ -109,35 +118,35 @@ public class Ranking {
         return Integer.MAX_VALUE;
     }
 
-    private List<Long> scoresWithAverageScore() {
-        List<Long> scores = newArrayList(transform(this.scores, new Function<Score, Long>() {
+    private List<BigDecimal> scoresWithAverageScore() {
+        List<BigDecimal> scores = newArrayList(transform(this.scores, new Function<Score, BigDecimal>() {
             @Nullable
             @Override
-            public Long apply(@Nullable Score score) {
+            public BigDecimal apply(@Nullable Score score) {
                 return score.value;
             }
         }));
-        scores.add(averageScoreAsLong());
+        scores.add(averageScoreAsBigDecimal());
         Collections.sort(scores);
         return scores;
     }
 
-    private List<Long> getSplittedScores() {
-        TreeSet<Long> scoresMaps = new TreeSet<Long>(scoresWithAverageScore());
-        List<Long> scoreCategories = new ArrayList<Long>();
-        Long min = scoresMaps.first();
-        Long max = scoresMaps.last();
+    private List<BigDecimal> getSplittedScores() {
+        TreeSet<BigDecimal> scoresMaps = new TreeSet<BigDecimal>(scoresWithAverageScore());
+        List<BigDecimal> scoreCategories = new ArrayList<BigDecimal>();
+        BigDecimal min = scoresMaps.first();
+        BigDecimal max = scoresMaps.last();
         if (min.equals(max)) {
-            min = 0L;
+            min = BigDecimal.ZERO;
         }
-        long step = (max - min) / scoresMaps.size();
+        BigDecimal step = (max.subtract(min)).divide(BigDecimal.valueOf(scoresMaps.size()), HALF_UP);
         scoreCategories.add(min);
         for (int i = 1; i < (scoresMaps.size() - 1); i++) {
-            scoreCategories.add(scoreCategories.get(i - 1).longValue() + step);
+            scoreCategories.add(scoreCategories.get(i - 1).add(step));
         }
         scoreCategories.add(max);
-        TreeSet<Long> longs = new TreeSet<Long>(scoreCategories);
-        longs.add(averageScoreAsLong());
+        TreeSet<BigDecimal> longs = new TreeSet<BigDecimal>(scoreCategories);
+        longs.add(averageScoreAsBigDecimal());
 
         Player current = User.current();
         for (Score score : scores) {
@@ -147,23 +156,22 @@ public class Ranking {
             }
         }
 
-        return new ArrayList<Long>(longs);
+        return new ArrayList<BigDecimal>(longs);
     }
 
     public String averageScore() {
-        return ScoreFormatter.format(averageScoreAsLong());
+        return ScoreFormatter.format(averageScoreAsBigDecimal());
     }
 
-    private Long averageScoreAsLong() {
-        BigDecimal sum = new BigDecimal(0);
+    private BigDecimal averageScoreAsBigDecimal() {
+        BigDecimal sum = BigDecimal.ZERO;
         for (Score score : scores) {
-            sum = sum.add(new BigDecimal(score.value));
+            sum = sum.add(score.value);
         }
         if (sum.longValue() == 0L) {
-            return 0L;
+            return BigDecimal.ZERO;
         }
-        Long average = sum.divideToIntegralValue(new BigDecimal(scores.size())).longValue();
-        return average;
+        return sum.divide(BigDecimal.valueOf(scores.size()), HALF_UP);
     }
 
     public String uniqueKey() {

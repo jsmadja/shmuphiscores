@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
@@ -11,7 +12,14 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
@@ -21,19 +29,18 @@ import static java.util.Collections.sort;
 public class Player extends BaseModel<Player> {
 
     public static Player guest = new Player(0L, "guest");
-
+    public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
     @XmlAttribute
     public String name;
-
     @XmlTransient
     public Long shmupUserId;
-
     @XmlTransient
     @OneToMany(mappedBy = "player")
+    @Where(clause = "rank > 0")
     public List<Score> scores = new ArrayList<Score>();
-
-    public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
-
+    @XmlTransient
+    @OneToMany(mappedBy = "player")
+    public List<Score> allScores = new ArrayList<Score>();
     @XmlTransient
     public String twitter;
 
@@ -46,6 +53,24 @@ public class Player extends BaseModel<Player> {
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public static Player findOrCreatePlayer(String name) {
+        Player player = Player.finder.where()
+                .eq("name", name)
+                .findUnique();
+        if (player == null) {
+            player = new Player(name);
+            player.vip = true;
+            player.save();
+        }
+        return player;
+    }
+
+    public static Player findByShmupUserId(Long shmupUserId) {
+        return Player.finder.where()
+                .eq("shmupUserId", shmupUserId)
+                .findUnique();
     }
 
     public Collection<String> playedGameTitlesForPlayer() {
@@ -77,13 +102,13 @@ public class Player extends BaseModel<Player> {
             @Nullable
             @Override
             public String apply(@Nullable Score score) {
-                Long bestScore = Score.getBestScoreFor(score.game, score.mode, score.difficulty).value;
+                BigDecimal bestScore = Score.getBestScoreFor(score.game, score.mode, score.difficulty).value;
                 for (Score score1 : topPlayerScores) {
                     boolean sameGame = score.game.equals(score1.game);
                     boolean sameMode = score1.mode == null ? true : score1.mode.equals(score.mode);
                     boolean sameDifficulty = score1.difficulty == null ? true : score1.difficulty.equals(score.difficulty);
                     if (sameGame && sameMode && sameDifficulty) {
-                        bestScore -= score1.value;
+                        bestScore = bestScore.subtract(score1.value);
                         break;
                     }
                 }
@@ -106,25 +131,6 @@ public class Player extends BaseModel<Player> {
     @Override
     public String toString() {
         return name;
-    }
-
-    public static Player findOrCreatePlayer(String name) {
-        Player player = Player.finder.where()
-                .eq("name", name)
-                .findUnique();
-        if (player == null) {
-            player = new Player(name);
-            player.vip = true;
-            player.save();
-        }
-        return player;
-    }
-
-
-    public static Player findByShmupUserId(Long shmupUserId) {
-        return Player.finder.where()
-                .eq("shmupUserId", shmupUserId)
-                .findUnique();
     }
 
     public List<Score> bestScores() {
