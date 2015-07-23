@@ -3,14 +3,21 @@ package controllers;
 import actions.User;
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
-import models.*;
+import models.Difficulty;
+import models.Game;
+import models.Mode;
+import models.Platform;
+import models.Player;
+import models.Score;
+import models.Ship;
+import models.Stage;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.score_create;
-import views.html.score_update;
 import views.html.score_import;
+import views.html.score_update;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -64,7 +71,7 @@ public class ScoreController extends Controller {
         }
         score.save();
         RankingController.getRankingCache().remove(score.game);
-        score.game.resetRankings();
+        score.game.recomputeRankings();
         return shmup(score);
     }
 
@@ -79,7 +86,7 @@ public class ScoreController extends Controller {
         updateScore(score, data);
         score.update();
         RankingController.getRankingCache().remove(score.game);
-        score.game.resetRankings();
+        score.game.recomputeRankings();
         return redirect("/");
     }
 
@@ -186,7 +193,7 @@ public class ScoreController extends Controller {
         models.Score score = createScore(data, data.get("player"));
         score.save();
         RankingController.getRankingCache().remove(game);
-        game.resetRankings();
+        game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }
 
@@ -200,7 +207,7 @@ public class ScoreController extends Controller {
         score.delete();
         Game game = score.game;
         RankingController.getRankingCache().remove(game);
-        game.resetRankings();
+        game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }
 

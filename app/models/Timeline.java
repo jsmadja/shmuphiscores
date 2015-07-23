@@ -2,7 +2,12 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.google.common.collect.Lists;
-import com.sun.syndication.feed.synd.*;
+import com.sun.syndication.feed.synd.SyndContentImpl;
+import com.sun.syndication.feed.synd.SyndEnclosureImpl;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndEntryImpl;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedOutput;
 import play.mvc.Controller;
@@ -20,9 +25,12 @@ public class Timeline {
 
     public static Timeline createTimeLine() {
         Timeline timeline = new Timeline();
-        List<Score> scores = Ebean.createQuery(Score.class).orderBy("createdAt desc").setMaxRows(10).findList();
+        List<Score> scores = Ebean.createQuery(Score.class).orderBy("createdAt desc").setMaxRows(50).findList();
         for (Score score : scores) {
-            timeline.scores.add(score);
+            if (score.hasRank()) {
+                timeline.scores.add(score);
+
+            }
         }
         return timeline;
     }

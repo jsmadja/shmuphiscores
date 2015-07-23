@@ -13,7 +13,12 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
@@ -22,51 +27,41 @@ import static com.google.common.collect.Collections2.filter;
 @Entity
 public class Game extends BaseModel<Game> implements Comparable<Game> {
 
+    public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
     @XmlAttribute
     public String thread;
-
     @XmlAttribute
     public String cover;
-
     @XmlAttribute
     public String title;
-
     @XmlTransient
     @OneToMany(mappedBy = "game")
     public List<Score> scores;
-
     @XmlElementWrapper
     @XmlElement(name = "platform")
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
-
     @XmlElementWrapper
     @XmlElement(name = "difficulty")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Difficulty> difficulties;
-
     @XmlElementWrapper
     @XmlElement(name = "mode")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Mode> modes;
-
     @XmlElementWrapper
     @XmlElement(name = "ship")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Ship> ships;
-
     @XmlElementWrapper
     @XmlElement(name = "stage")
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
-
-    public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
-
     @XmlElementWrapper(name = "rankings")
     @XmlElement(name = "ranking")
     private List<Ranking> initializedRankings;
@@ -78,6 +73,10 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         this.title = title;
         this.cover = cover;
         this.thread = thread;
+    }
+
+    public static List<Game> findAll() {
+        return Ebean.find(Game.class).order("title").findList();
     }
 
     public List<Ranking> rankings() {
@@ -163,10 +162,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return title;
     }
 
-    public static List<Game> findAll() {
-        return Ebean.find(Game.class).order("title").findList();
-    }
-
     public String getEscapedTitle() {
         String s = title.replaceAll("[^a-zA-Z0-9]", "_");
         s = s.replaceAll("_(_)*", "_");
@@ -176,7 +171,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return s;
     }
 
-    public void resetRankings() {
+    public void recomputeRankings() {
         for (Score score : scores) {
             score.updateRank(null);
             score.update();
