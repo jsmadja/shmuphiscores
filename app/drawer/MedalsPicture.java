@@ -10,7 +10,7 @@ import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 import static drawer.RankingGameConfiguration.COLOR_SHMUP_GREY;
-import static drawer.RankingGameConfiguration.COLOR_SHMUP_TITLE;
+import static drawer.RankingGameConfiguration.COLOR_SHMUP_TEXT;
 import static java.awt.Font.PLAIN;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.KEY_TEXT_ANTIALIASING;
@@ -51,7 +51,7 @@ public class MedalsPicture {
         graphics.setFont(new Font("Lucida", PLAIN, 36));
         graphics.drawString("• ", i, (float) fontMetrics.getAscent());
         graphics.setFont(gameFont);
-        graphics.setColor(COLOR_SHMUP_TITLE);
+        graphics.setColor(COLOR_SHMUP_TEXT);
         graphics.drawString(pad(firstRankCount), i + 20, fontMetrics.getAscent());
     }
 

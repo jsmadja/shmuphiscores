@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static drawer.RankingGameConfiguration.COLOR_SHMUP_GREY;
-import static drawer.RankingGameConfiguration.COLOR_SHMUP_TITLE;
+import static drawer.RankingGameConfiguration.COLOR_SHMUP_TEXT;
 import static java.awt.Font.PLAIN;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.KEY_TEXT_ANTIALIASING;
@@ -28,7 +28,7 @@ public class SignaturePicture {
 
         graphics.setColor(COLOR_SHMUP_GREY);
         graphics.fillRect(0, 0, WIDTH, 15);
-        graphics.setColor(COLOR_SHMUP_TITLE);
+        graphics.setColor(COLOR_SHMUP_TEXT);
         graphics.setFont(gameFont);
         Score lastScore = player.getLastScore();
         graphics.drawString(message(lastScore), 0, fontMetrics.getAscent());
