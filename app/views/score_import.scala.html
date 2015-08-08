@@ -125,7 +125,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <select name="score" class="form-control">
-                    @for(score <- game.allScores.toSeq.sortBy(_.player.name)) {
+                    @for(score <- game.scores.toSeq.sortBy(_.player.name)) {
                         <option value="@score.id">
                             @score.player.name - @score.formattedValue
                             @if(score.difficulty != null) {

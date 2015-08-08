@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -71,61 +70,6 @@ public class Player extends BaseModel<Player> {
         return Player.finder.where()
                 .eq("shmupUserId", shmupUserId)
                 .findUnique();
-    }
-
-    public Collection<String> playedGameTitlesForPlayer() {
-        List<Score> scores = getScoresOrderByProgression();
-        return transform(scores, new Function<Score, String>() {
-            @Nullable
-            @Override
-            public String apply(@Nullable Score score) {
-                return score.getGameTitle();
-            }
-        });
-    }
-
-    public String bestPlayerScoresByGameForPlayer() {
-        List<Score> scores = getScoresOrderByProgression();
-        return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
-            @Nullable
-            @Override
-            public String apply(@Nullable Score score) {
-                return score.value.toString();
-            }
-        }));
-    }
-
-    public String bestScoresByGameForPlayer() {
-        List<Score> scores = getScoresOrderByProgression();
-        final List<Score> topPlayerScores = bestScores();
-        return Joiner.on(",").join(transform(scores, new Function<Score, String>() {
-            @Nullable
-            @Override
-            public String apply(@Nullable Score score) {
-                BigDecimal bestScore = Score.getBestScoreFor(score.game, score.mode, score.difficulty).value;
-                for (Score score1 : topPlayerScores) {
-                    boolean sameGame = score.game.equals(score1.game);
-                    boolean sameMode = score1.mode == null ? true : score1.mode.equals(score.mode);
-                    boolean sameDifficulty = score1.difficulty == null ? true : score1.difficulty.equals(score.difficulty);
-                    if (sameGame && sameMode && sameDifficulty) {
-                        bestScore = bestScore.subtract(score1.value);
-                        break;
-                    }
-                }
-                return bestScore.toString();
-            }
-        }));
-    }
-
-    private List<Score> getScoresOrderByProgression() {
-        List<Score> scores = bestScores();
-        sort(scores, new Comparator<Score>() {
-            @Override
-            public int compare(Score score, Score score2) {
-                return score2.getGapWithTop().compareTo(score.getGapWithTop());
-            }
-        });
-        return scores;
     }
 
     @Override

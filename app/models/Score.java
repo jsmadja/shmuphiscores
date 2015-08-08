@@ -23,37 +23,49 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
 
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
+
     @XmlTransient
     @ManyToOne
     public Game game;
+
     @XmlTransient
     @ManyToOne
     public Player player;
+
     @XmlTransient
     @ManyToOne
     public Stage stage;
+
     @XmlTransient
     @ManyToOne
     public Mode mode;
+
     @XmlTransient
     @ManyToOne
     public Difficulty difficulty;
+
     @XmlTransient
     @ManyToOne
     public Ship ship;
+
     @ManyToOne
     @XmlTransient
     public Platform platform;
+
     @Lob
     @XmlAttribute
     public String comment;
+
     @XmlAttribute
     public String photo;
+
     @XmlAttribute
     public String replay;
+
     @Lob
     @Column(name = "photo_base_64")
     public String photoBase64;
+
     @Transient
     @XmlAttribute(name = "stage")
     public String stageName;
@@ -64,8 +76,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @Transient
     @XmlAttribute(name = "player")
     public String playerName;
+
     @Transient
     public Long gapWithPreviousScore;
+
     @XmlAttribute
     private Integer rank;
 
@@ -103,7 +117,12 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
-        return Ebean.createQuery(Score.class).setMaxRows(1).orderBy("value desc").where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).findUnique();
+        Score unique = Ebean.createQuery(Score.class).
+                setMaxRows(1).
+                orderBy((mode != null && mode.isTimerScore()) ? "value asc" : "value desc").
+                where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).
+                findUnique();
+        return unique;
     }
 
     public String formattedDate() {
@@ -111,7 +130,17 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedValue() {
+        if (this.isTimerScore()) {
+            return ScoreFormatter.formatAsTime(value);
+        }
         return ScoreFormatter.format(value);
+    }
+
+    public boolean isTimerScore() {
+        if (this.mode == null) {
+            return false;
+        }
+        return this.mode.isTimerScore();
     }
 
     public String formattedRank() {

@@ -55,7 +55,7 @@
 
     <script>
     $(document).ready(function() {
-        $('#allScores').dataTable({
+        $('#scores').dataTable({
         "bJQueryUI": true,
         "sDom": "<'row dataTables_utils'<'col-md-6'l><'col-md-6'f>r>t<'row dataTables_utils'<'col-md-6'i><'col-md-6'p>>",
         "bPaginate": false,
@@ -99,63 +99,4 @@
         }
         </table>
     }
-
-    <h3>@Messages.get("Progression")</h3>
-
-    <div id="container3"></div>
-
-    <script>
-    $(function () {
-
-    $('#container3').highcharts({
-    chart: {
-        type: 'area'
-    },
-    title: {
-        text: ''
-    },
-    xAxis: {
-        tickmarkPlacement: 'true',
-        title: {
-            enabled: false
-        },
-        categories: [
-            @for(title <- player.playedGameTitlesForPlayer()) {
-                '@title.replaceAll("'","")',
-            }
-        ],
-        labels: {
-        enabled: false
-        }
-    },
-    yAxis: {
-        title: {
-            text: '@Messages.get("Gap")'
-        }
-    },
-    tooltip: {
-        shared: false,
-        valueSuffix: ' pts'
-    },
-    plotOptions: {
-        area: {
-            stacking: 'percent',
-            marker: {
-                enabled: false
-            }
-        }
-    },
-    series: [
-        {
-            name: 'TOP',
-            data: [@player.bestScoresByGameForPlayer()]
-        },
-        {
-            name: '@player.name.replaceAll("'","")',
-            data: [@player.bestPlayerScoresByGameForPlayer()]
-        }
-    ]
-    });
-    });
-    </script>
 }

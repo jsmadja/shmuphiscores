@@ -37,9 +37,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public String title;
     @XmlTransient
     @OneToMany(mappedBy = "game")
-    public List<Score> allScores;
-    @XmlTransient
-    @OneToMany(mappedBy = "game")
     @Where(clause = "rank > 0")
     public List<Score> scores;
     @XmlElementWrapper
@@ -124,15 +121,17 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     private Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
-        if (allScores == null) {
+        if (scores == null) {
             return new ArrayList<Score>();
         }
-        List<Score> scores = Score.finder.where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).orderBy("value desc").findList();
+        List<Score> scores = Score.finder.
+                where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).
+                orderBy(mode.isTimerScore() ? "value asc" : "value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
 
     private Collection<Score> findBestScoresByVIPPlayers() {
-        if (allScores == null) {
+        if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.where(eq("game", this)).orderBy("value desc").findList();
@@ -141,7 +140,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     private Collection<Score> keepBestScoreByVIPPlayer(List<Score> scores) {
         final Set<Player> players = new HashSet<Player>();
-        Collection<Score> filtered = filter(scores, new Predicate<Score>() {
+        return filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
                 if (players.contains(score.player)) {
@@ -154,8 +153,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                 return true;
             }
         });
-        ArrayList<Score> scores1 = new ArrayList<Score>(filtered);
-        return scores1;
     }
 
     public String post() {
@@ -177,7 +174,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public void recomputeRankings() {
-        for (Score score : allScores) {
+        for (Score score : scores) {
             score.updateRank(null);
             score.update();
         }
@@ -197,7 +194,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public Integer getScoreCountLast30Days() {
         final Date _30DaysAgo = new DateMidnight().minusDays(30).toDate();
         final Date gameCreatedAt = new DateMidnight(Game.this.getCreatedAt()).plusDays(1).toDate();
-        return filter(allScores, new Predicate<Score>() {
+        return filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score score) {
                 return score.getCreatedAt().after(_30DaysAgo) && score.getCreatedAt().after(gameCreatedAt);
@@ -207,7 +204,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public Collection<Player> getPlayers() {
         Set<Player> players = new HashSet<Player>();
-        for (Score score : allScores) {
+        for (Score score : scores) {
             players.add(score.player);
         }
         return players;
@@ -216,5 +213,17 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     @Override
     public int compareTo(Game game) {
         return this.title.compareTo(game.title);
+    }
+
+    public boolean hasTimerScores() {
+        if (this.modes == null || this.modes.isEmpty()) {
+            return false;
+        }
+        for (Mode mode : modes) {
+            if (mode.isTimerScore()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

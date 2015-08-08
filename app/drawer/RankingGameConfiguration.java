@@ -19,7 +19,7 @@ public class RankingGameConfiguration {
     int maxPlatformLength;
 
     public RankingGameConfiguration(Game game) {
-        List<Score> scores = game.allScores;
+        List<Score> scores = game.scores;
         for (Score score : scores) {
             if (score.stage != null) {
                 maxStageLength = max(score.stage.name.length(), maxStageLength);
