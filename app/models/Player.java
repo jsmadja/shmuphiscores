@@ -146,7 +146,7 @@ public class Player extends BaseModel<Player> {
     }
 
     public Score getLastScore() {
-        List<Score> scores = new ArrayList<>(this.scores);
+        List<Score> scores = new ArrayList<Score>(this.scores);
         Collections.sort(scores, new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
