@@ -16,21 +16,6 @@
                 <td>
                     <a href="@routes.PlayerController.index(player)" class="@if(player.shmupUserId == null){dead}else{alive}">@player.name</a>
                 </td>
-<<<<<<< HEAD
-                <td style="text-align: right;">
-                @player.getCounts.firstRankCount
-                </td>
-                <td style="text-align: right;">
-                @player.getCounts.secondRankCount
-                </td>
-                <td style="text-align: right;">
-                @player.getCounts.thirdRankCount
-                </td>
-                <td style="text-align: right;">
-                @player.getCounts.oneCreditCount
-                </td>
-                <td style="text-align : right ;">
-=======
                 <td style="text-align : right ; background-color : inherit ;">
                 @player.getCounts.firstRankCount
                 </td>
@@ -44,7 +29,6 @@
                 @player.getCounts.oneCreditCount
                 </td>
                 <td style="text-align : right ; background-color : inherit ;">
->>>>>>> Player Ranking
                 @player.scores.size
                 </td>
             </tr>
