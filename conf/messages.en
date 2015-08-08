@@ -32,7 +32,7 @@ games.scala.html.gamelist=Game List
 players.scala.html.playerlist=Player List
 scoreform.scala.html.photo.placeholder=Direct Link (hosts: casimages, imageshack, ...)
 Replay=Replay
-scoreform.scala.html.replay.placeholder=Direct Link (hosts\: Youtube, Dailymotion, ...)
+scoreform.scala.html.replay.placeholder=Direct Link (hosts: Youtube, Dailymotion, ...)
 
 GeneralRanking=General Ranking
 
