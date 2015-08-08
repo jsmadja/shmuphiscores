@@ -31,7 +31,7 @@ public class SignaturePicture {
         graphics.setColor(COLOR_SHMUP_TITLE);
         graphics.setFont(gameFont);
         Score lastScore = player.getLastScore();
-        graphics.drawString(message(lastScore), 5, fontMetrics.getAscent());
+        graphics.drawString(message(lastScore), 0, fontMetrics.getAscent());
         return bi;
     }
 

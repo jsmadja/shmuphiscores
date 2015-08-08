@@ -21,7 +21,7 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class MedalsPicture {
 
-    public static final int WIDTH = 150;
+    public static final int WIDTH = 145;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
 
     public static BufferedImage createMedalsPicture(Player player) {
@@ -36,20 +36,20 @@ public class MedalsPicture {
         graphics.setFont(gameFont);
 
         Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
-        draw(graphics, firstRankCount, 5, fontMetrics, new Color(255, 215, 0));
+        draw(graphics, firstRankCount, 0, fontMetrics, new Color(255, 215, 0));
         int secondRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 2))).findRowCount();
-        draw(graphics, secondRankCount, 40, fontMetrics, new Color(192, 192, 192));
+        draw(graphics, secondRankCount, 35, fontMetrics, new Color(192, 192, 192));
         int thirdRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 3))).findRowCount();
-        draw(graphics, thirdRankCount, 75, fontMetrics, new Color(205, 127, 50));
+        draw(graphics, thirdRankCount, 70, fontMetrics, new Color(205, 127, 50));
         int oneCreditCount = player.computeOneCredit();
-        draw(graphics, oneCreditCount, 110, fontMetrics, Color.GREEN);
+        draw(graphics, oneCreditCount, 105, fontMetrics, Color.GREEN);
         return bi;
     }
 
     private static void draw(Graphics2D graphics, Integer firstRankCount, int i, FontMetrics fontMetrics, Color color) {
         graphics.setColor(color);
         graphics.setFont(new Font("Lucida", PLAIN, 36));
-        graphics.drawString("• ", i, (float) fontMetrics.getAscent() * 1.5F);
+        graphics.drawString("• ", i, (float) fontMetrics.getAscent());
         graphics.setFont(gameFont);
         graphics.setColor(COLOR_SHMUP_TITLE);
         graphics.drawString(pad(firstRankCount), i + 20, fontMetrics.getAscent());
