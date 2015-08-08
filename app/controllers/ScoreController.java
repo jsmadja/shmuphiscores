@@ -76,6 +76,7 @@ public class ScoreController extends Controller {
         PlayerController.getSignatureCache().remove(score.player);
         PlayerController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
+        score.refresh();
         return shmup(score);
     }
 

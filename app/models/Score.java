@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
@@ -294,5 +295,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
             return stageName.contains("all") || stageName.startsWith("2-") || stageName.startsWith("3-");
         }
         return false;
+    }
+
+    public ScoreDecorator decorator() {
+        return new ScoreDecorator(this);
     }
 }

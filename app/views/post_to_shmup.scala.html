@@ -9,25 +9,7 @@
     <div id="forum">
         <div class="alert" style="background-color: #F0F3F4">
             <p>
-                Je viens juste de réaliser [b]<b>@score.formattedValue()</b>[/b] points.
-                @if(score.photo) {
-                    La photo de l'écran des scores est disponible [url=@score.photo]ici[/url].
-                }
-            </p>
-            <p>
-                Les paramètres de ma partie sont
-                    @if(score.game.platforms.size() > 1) {
-                        [b][color=#008040]<b style="color:#008040">@score.platform</b>[/color][/b]
-                    }
-                    @if(score.ship != null) {
-                        [b]@score.shipName [/b]
-                    }
-                    @if(score.mode != null) {
-                        - [b][color=#0040FF]<b style="color:#0040FF">@score.mode</b>[/color][/b]
-                    } - [b][color=#FF8000]<b>@score.difficulty</b>[/color][/b] - [b]<b>@score.stage</b>[/b].
-            </p>
-            <p>
-                @score.comment
+            @score.decorator.format
             </p>
             <p>
                 <br/>
