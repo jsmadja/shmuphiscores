@@ -17,7 +17,6 @@ import java.util.Map;
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
-import static com.avaje.ebean.Expr.le;
 import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
 import static views.html.players.render;
@@ -42,23 +41,23 @@ public class PlayersController extends Controller {
         for (Player player : players) {
             int oneCreditCount = player.computeOneCredit();
             int firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
-            int top3Count = find(Score.class).where(and(eq("player", player), le("rank", 3))).findRowCount();
-            int top10Count = find(Score.class).where(and(eq("player", player), le("rank", 10))).findRowCount();
-            counts.put(player, new Counts(firstRankCount, top3Count, top10Count, oneCreditCount));
+            int secondRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 2))).findRowCount();
+            int thirdRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 3))).findRowCount();
+            counts.put(player, new Counts(firstRankCount, secondRankCount, thirdRankCount, oneCreditCount));
         }
         return ok(render(players, counts));
     }
 
     public static class Counts {
         public int firstRankCount;
-        public int top3Count;
-        public int top10Count;
+        public int secondRankCount;
+        public int thirdRankCount;
         public int oneCreditCount;
 
-        public Counts(int firstRankCount, int top3Count, int top10Count, int oneCreditCount) {
+        public Counts(int firstRankCount, int secondRankCount, int thirdRankCount, int oneCreditCount) {
             this.firstRankCount = firstRankCount;
-            this.top3Count = top3Count;
-            this.top10Count = top10Count;
+            this.secondRankCount = secondRankCount;
+            this.thirdRankCount = thirdRankCount;
             this.oneCreditCount = oneCreditCount;
         }
     }

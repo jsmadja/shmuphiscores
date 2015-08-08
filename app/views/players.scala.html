@@ -6,8 +6,8 @@
        <thead>
            <th>@Messages.get("Players")</th>
            <th>1st</th>
-           <th>Top 3</th>
-           <th>Top 10</th>
+           <th>2nd</th>
+           <th>3rd</th>
            <th>1CC</th>
        </thead>
        @for(player <- players) {
@@ -19,10 +19,10 @@
                     @counts.get(player).firstRankCount
                 </td>
                 <td style="text-align: right;">
-                    @counts.get(player).top3Count
+                @counts.get(player).secondRankCount
                 </td>
                 <td style="text-align: right;">
-                    @counts.get(player).top10Count
+                @counts.get(player).thirdRankCount
                 </td>
                 <td style="text-align: right;">
                     @counts.get(player).oneCreditCount
