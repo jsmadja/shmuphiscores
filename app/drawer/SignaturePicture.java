@@ -16,7 +16,7 @@ import static java.awt.RenderingHints.VALUE_TEXT_ANTIALIAS_ON;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 
 public class SignaturePicture {
-    public static final int WIDTH = 724 - 150;
+    public static final int WIDTH = 724 - 155;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
 
     public static BufferedImage createSignaturePicture(Player player) {

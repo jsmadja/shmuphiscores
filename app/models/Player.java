@@ -1,8 +1,8 @@
 package models;
 
-import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
+import controllers.PlayersController;
 import org.apache.commons.lang3.StringUtils;
 import play.db.ebean.Model;
 
@@ -23,7 +23,9 @@ import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 import static com.avaje.ebean.Expr.ilike;
+import static com.avaje.ebean.Expr.isNotNull;
 import static com.avaje.ebean.Expr.or;
+import static com.avaje.ebean.Expr.startsWith;
 import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
 
@@ -47,6 +49,7 @@ public class Player extends BaseModel<Player> {
     public String twitter;
 
     private boolean vip;
+    private PlayersController.Counts counts;
 
     public Player(Long id, String name) {
         this.id = id;
@@ -157,7 +160,7 @@ public class Player extends BaseModel<Player> {
     }
 
     public int computeOneCredit() {
-        List<Score> oneCreditScores = find(Score.class).where(and(eq("player", this), or(ilike("stage.name", "%all%"), Expr.startsWith("stage.name", "2-")))).findList();
+        List<Score> oneCreditScores = find(Score.class).where(and(and(isNotNull("rank"), eq("player", this)), or(ilike("stage.name", "%all%"), startsWith("stage.name", "2-")))).findList();
         Set<String> uniqueOneCreditScores = new HashSet<String>();
         for (Score oneCreditScore : oneCreditScores) {
             String gameTitle = oneCreditScore.getGameTitle();
@@ -168,4 +171,11 @@ public class Player extends BaseModel<Player> {
         return uniqueOneCreditScores.size();
     }
 
+    public PlayersController.Counts getCounts() {
+        return counts;
+    }
+
+    public void setCounts(PlayersController.Counts counts) {
+        this.counts = counts;
+    }
 }

@@ -66,10 +66,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     @Column(name = "photo_base_64")
     public String photoBase64;
 
-    @Transient
-    @XmlAttribute(name = "stage")
-    public String stageName;
-
     @XmlAttribute
     public BigDecimal value;
 
@@ -290,5 +286,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public boolean isVip() {
         return player.isVip();
+    }
+
+    public boolean is1CC() {
+        if (this.stage != null) {
+            String stageName = this.stage.name.toLowerCase();
+            return stageName.contains("all") || stageName.startsWith("2-") || stageName.startsWith("3-");
+        }
+        return false;
     }
 }

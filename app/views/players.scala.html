@@ -1,4 +1,4 @@
-@(players: List[models.Player], counts: Map[models.Player,controllers.PlayersController.Counts])
+@(players: List[models.Player])
 @import play.i18n._
 @main() {
    <h2>@Messages.get("players.scala.html.playerlist")</h2>
@@ -9,6 +9,7 @@
            <th>2nd</th>
            <th>3rd</th>
            <th>1CC</th>
+           <th>Scores</th>
        </thead>
        @for(player <- players) {
             <tr>
@@ -16,16 +17,19 @@
                     <a href="@routes.PlayerController.index(player)" class="@if(player.shmupUserId == null){dead}else{alive}">@player.name</a>
                 </td>
                 <td style="text-align: right;">
-                    @counts.get(player).firstRankCount
+                @player.getCounts.firstRankCount
                 </td>
                 <td style="text-align: right;">
-                @counts.get(player).secondRankCount
+                @player.getCounts.secondRankCount
                 </td>
                 <td style="text-align: right;">
-                @counts.get(player).thirdRankCount
+                @player.getCounts.thirdRankCount
                 </td>
                 <td style="text-align: right;">
-                    @counts.get(player).oneCreditCount
+                @player.getCounts.oneCreditCount
+                </td>
+                <td style="text-align : right ;">
+                @player.scores.size
                 </td>
             </tr>
        }
@@ -39,6 +43,7 @@
                 "bPaginate": false,
                 "bLengthChange": false,
                 "bInfo": false,
+                "aaSorting": [ [1,'desc'], [2,'desc'], [3, 'desc'],  [4, 'desc'] ],
                 "aoColumnDefs": [
                 { "asSorting": [ "desc" ], "aTargets": [ 1 ] },
                 { "asSorting": [ "desc"], "aTargets": [ 2 ] },
