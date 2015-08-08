@@ -146,4 +146,25 @@ public class ScoreDecoratorTest {
                 "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]1ère[/b] position du ranking.[/color]");
     }
 
+    @Test
+    public void should_full_format_Score_with_dailymotion() {
+        Game game = new Game("Ketsui", "cover", "thread");
+        Player player = new Player("me");
+        Stage stage = new Stage("2-4");
+        Ship ship = new Ship("ship");
+        Mode mode = null;
+        Difficulty difficulty = null;
+        String comment = null;
+        Platform platform = new Platform("XBox 360");
+        BigDecimal value = BigDecimal.valueOf(360000000L);
+        String photo = "http://volaju.dscloud.me/games/scoring/ketsui/arcade.png";
+        String replay = "http://www.dailymotion.com/video/x2z40n8_x-files-deuxieme-bande-annonce_shortfilms";
+        Score score = new Score(game, player, stage, ship, mode, difficulty, comment, platform, value, photo, replay);
+        score.setRank(1);
+
+        ScoreDecorator scoreDecorator = new ScoreDecorator(score);
+        assertThat(scoreDecorator.format()).isEqualTo(
+                "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]1ère[/b] position du ranking.\n\nReplay : http://www.dailymotion.com/video/x2z40n8_x-files-deuxieme-bande-annonce_shortfilms[/color]");
+    }
+
 }

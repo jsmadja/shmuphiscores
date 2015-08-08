@@ -27,7 +27,11 @@ public class ScoreDecorator {
             str += "\n\nCommentaire : [i]\"" + score.comment + "\"[/i]";
         }
         if (score.replay != null) {
-            str += "\n\n[youtube]" + score.replay.split("v=")[1] + "[/youtube]";
+            if (score.replay.contains("youtube")) {
+                str += "\n\n[youtube]" + score.replay.split("v=")[1] + "[/youtube]";
+            } else {
+                str += "\n\nReplay : " + score.replay;
+            }
         }
         str += "[/color]";
 
