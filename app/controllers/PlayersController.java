@@ -1,7 +1,6 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Expr;
 import com.google.common.base.Predicate;
 import models.Player;
 import models.Score;
@@ -9,10 +8,16 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
-import static com.avaje.ebean.Expr.*;
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.eq;
+import static com.avaje.ebean.Expr.le;
 import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
 import static views.html.players.render;
@@ -35,25 +40,13 @@ public class PlayersController extends Controller {
         }));
         Map<Player, Counts> counts = new HashMap<Player, Counts>();
         for (Player player : players) {
-            int oneCreditCount = computeOneCredit(player);
+            int oneCreditCount = player.computeOneCredit();
             int firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
             int top3Count = find(Score.class).where(and(eq("player", player), le("rank", 3))).findRowCount();
             int top10Count = find(Score.class).where(and(eq("player", player), le("rank", 10))).findRowCount();
             counts.put(player, new Counts(firstRankCount, top3Count, top10Count, oneCreditCount));
         }
         return ok(render(players, counts));
-    }
-
-    private static int computeOneCredit(Player player) {
-        List<Score> oneCreditScores = find(Score.class).where(and(eq("player", player), or(ilike("stage.name", "%all%"), Expr.startsWith("stage.name", "2-")))).findList();
-        Set<String> uniqueOneCreditScores = new HashSet<String>();
-        for (Score oneCreditScore : oneCreditScores) {
-            String gameTitle = oneCreditScore.getGameTitle();
-            String mode = oneCreditScore.modeName();
-            String difficulty = oneCreditScore.difficultyName();
-            uniqueOneCreditScores.add(gameTitle + mode + difficulty);
-        }
-        return uniqueOneCreditScores.size();
     }
 
     public static class Counts {

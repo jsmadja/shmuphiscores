@@ -1,8 +1,7 @@
 package models;
 
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.Where;
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import play.db.ebean.Model;
@@ -20,8 +19,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.avaje.ebean.Ebean.find;
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.eq;
+import static com.avaje.ebean.Expr.ilike;
+import static com.avaje.ebean.Expr.or;
 import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Collections2.transform;
 import static java.util.Collections.sort;
 
 @Entity
@@ -141,4 +144,28 @@ public class Player extends BaseModel<Player> {
     public boolean isAdministrator() {
         return id == 1;
     }
+
+    public Score getLastScore() {
+        List<Score> scores = new ArrayList<>(this.scores);
+        Collections.sort(scores, new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return o2.getUpdatedAt().compareTo(o1.getUpdatedAt());
+            }
+        });
+        return scores.get(0);
+    }
+
+    public int computeOneCredit() {
+        List<Score> oneCreditScores = find(Score.class).where(and(eq("player", this), or(ilike("stage.name", "%all%"), Expr.startsWith("stage.name", "2-")))).findList();
+        Set<String> uniqueOneCreditScores = new HashSet<String>();
+        for (Score oneCreditScore : oneCreditScores) {
+            String gameTitle = oneCreditScore.getGameTitle();
+            String mode = oneCreditScore.modeName();
+            String difficulty = oneCreditScore.difficultyName();
+            uniqueOneCreditScores.add(gameTitle + mode + difficulty);
+        }
+        return uniqueOneCreditScores.size();
+    }
+
 }

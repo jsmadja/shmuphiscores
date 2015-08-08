@@ -34,5 +34,7 @@ POST        /admin                        controllers.AdminController.save()
 
 GET         /player/:id                  controllers.PlayerController.index(id: models.Player)
 GET         /players                     controllers.PlayersController.index()
+GET        /player/:id/signature.png        controllers.PlayerController.signature(id: models.Player)
+GET        /player/:id/medals.png           controllers.PlayerController.medals(id: Long)
 
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
