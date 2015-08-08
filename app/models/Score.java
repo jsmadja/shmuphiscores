@@ -119,7 +119,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
         Score unique = Ebean.createQuery(Score.class).
                 setMaxRows(1).
-                orderBy((mode != null && mode.isTimerScore()) ? "value asc" : "value desc").
+                orderBy("value desc").
                 where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).
                 findUnique();
         return unique;
@@ -130,17 +130,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedValue() {
-        if (this.isTimerScore()) {
-            return ScoreFormatter.formatAsTime(value);
-        }
         return ScoreFormatter.format(value);
-    }
-
-    public boolean isTimerScore() {
-        if (this.mode == null) {
-            return false;
-        }
-        return this.mode.isTimerScore();
     }
 
     public String formattedRank() {

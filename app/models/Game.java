@@ -126,7 +126,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         }
         List<Score> scores = Score.finder.
                 where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).
-                orderBy(mode.isTimerScore() ? "value asc" : "value desc").findList();
+                orderBy("value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
 
@@ -215,15 +215,4 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return this.title.compareTo(game.title);
     }
 
-    public boolean hasTimerScores() {
-        if (this.modes == null || this.modes.isEmpty()) {
-            return false;
-        }
-        for (Mode mode : modes) {
-            if (mode.isTimerScore()) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
