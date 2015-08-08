@@ -27,7 +27,7 @@ public class PlayerController extends Controller {
         Map<Player, byte[]> signatures = (Map<Player, byte[]>) Cache.get("signatureCache");
         if (signatures == null) {
             signatures = new HashMap<Player, byte[]>();
-            Cache.set("signatureCache", signatures);
+            Cache.set("signatureCache", signatures, 3600);
         }
         return signatures;
     }
@@ -36,7 +36,7 @@ public class PlayerController extends Controller {
         Map<Player, byte[]> medals = (Map<Player, byte[]>) Cache.get("medalsCache");
         if (medals == null) {
             medals = new HashMap<Player, byte[]>();
-            Cache.set("medalsCache", medals);
+            Cache.set("medalsCache", medals, 3600);
         }
         return medals;
     }

@@ -73,6 +73,8 @@ public class ScoreController extends Controller {
         }
         score.save();
         RankingController.getRankingCache().remove(score.game);
+        PlayerController.getSignatureCache().remove(score.player);
+        PlayerController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
         return shmup(score);
     }
@@ -88,6 +90,8 @@ public class ScoreController extends Controller {
         updateScore(score, data);
         score.update();
         RankingController.getRankingCache().remove(score.game);
+        PlayerController.getSignatureCache().remove(score.player);
+        PlayerController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
         return redirect("/");
     }
@@ -194,6 +198,8 @@ public class ScoreController extends Controller {
         models.Score score = createScore(data, data.get("player"));
         score.save();
         RankingController.getRankingCache().remove(game);
+        PlayerController.getSignatureCache().remove(score.player);
+        PlayerController.getMedalsCache().remove(score.player);
         game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }
@@ -208,6 +214,8 @@ public class ScoreController extends Controller {
         score.delete();
         Game game = score.game;
         RankingController.getRankingCache().remove(game);
+        PlayerController.getSignatureCache().remove(score.player);
+        PlayerController.getMedalsCache().remove(score.player);
         game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }
