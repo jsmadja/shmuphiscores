@@ -49,7 +49,7 @@ public class MedalsPicture {
     private static void draw(Graphics2D graphics, Integer firstRankCount, int i, FontMetrics fontMetrics, Color color) {
         graphics.setColor(color);
         graphics.setFont(new Font("Lucida", PLAIN, 36));
-        graphics.drawString("• ", i, (float) fontMetrics.getAscent());
+        graphics.drawString("• ", i, (float) fontMetrics.getAscent() * 2F);
         graphics.setFont(gameFont);
         graphics.setColor(COLOR_SHMUP_TEXT);
         graphics.drawString(pad(firstRankCount), i + 20, fontMetrics.getAscent());
