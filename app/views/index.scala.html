@@ -25,7 +25,16 @@
                             <span class="comment">@score.comment</span>
                         }
                     </p>
-                    <div style="float : left ;">
+                    <div style="float: left; width: 100%">
+                        @if(score.mode != null) {
+                            <span class="label label-default">@score.mode.name</span>
+                        }
+                        @if(score.difficulty != null) {
+                            <span class="label label-warning">@score.difficulty.name</span>
+                        }
+                        @if(score.platform != null) {
+                            <span class="label label-success"><a class="platform" class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a></span>
+                        }
                         @if(score.photo) {
                             <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                 <span id="photo_@score.id"
@@ -58,15 +67,6 @@
                             <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                 <span class="glyphicon glyphicon-play"></span>
                             </a>
-                        }
-                        @if(score.platform != null) {
-                            <span class="label label-success"><a class="platform" class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a></span>
-                        }
-                        @if(score.mode != null) {
-                            <span class="label label-default">@score.mode.name</span>
-                        }
-                        @if(score.difficulty != null) {
-                            <span class="label label-warning">@score.difficulty.name</span>
                         }
                     </div>
                 </div>
