@@ -11,6 +11,18 @@
             <p>
             @score.decorator.format
             </p>
+            @if(score.decorator.comment) {
+                <p>
+                    <br/>
+                    [color=#800000] @score.decorator.comment [/color]
+                </p>
+            }
+            @if(score.decorator.replay) {
+                <p>
+                    <br/>
+                    @score.decorator.replay
+                </p>
+            }
             <p>
                 <br/>
                 [size=85]Message généré depuis [url=http://hiscores.shmup.com]hiscores.shmup.com[/url].[/size]

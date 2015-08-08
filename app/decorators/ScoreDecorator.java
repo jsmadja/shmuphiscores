@@ -23,19 +23,26 @@ public class ScoreDecorator {
             str += " en difficulté [b]" + score.difficulty.name + "[/b]";
         }
         str += ".";
+        str += "[/color]";
+        return str;
+    }
+
+    public String comment() {
         if (StringUtils.isNotEmpty(score.comment)) {
-            str += "\n\nCommentaire : [i]\"" + score.comment + "\"[/i]";
+            return "Commentaire : [i]\"" + score.comment + "\"[/i]";
         }
+        return null;
+    }
+
+    public String replay() {
         if (score.replay != null) {
             if (score.replay.contains("youtube")) {
-                str += "\n\n[youtube]" + score.replay.split("v=")[1] + "[/youtube]";
+                return "[youtube]" + score.replay.split("v=")[1] + "[/youtube]";
             } else {
-                str += "\n\nReplay : " + score.replay;
+                return "Replay : " + score.replay;
             }
         }
-        str += "[/color]";
-
-        return str;
+        return null;
     }
 
     private String rankSuffix() {
