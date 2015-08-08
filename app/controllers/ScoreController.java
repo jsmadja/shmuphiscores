@@ -175,7 +175,11 @@ public class ScoreController extends Controller {
                 Score previous = scores.get(i - 1);
                 Score current = scores.get(i);
                 BigDecimal gap = current.value.subtract(previous.value);
-                current.gapWithPreviousScore = gap.multiply(BigDecimal.valueOf(100)).divide(previous.value, HALF_UP).longValue();
+                if (previous.value.equals(BigDecimal.ZERO)) {
+                    current.gapWithPreviousScore = 0L;
+                } else {
+                    current.gapWithPreviousScore = gap.multiply(BigDecimal.valueOf(100)).divide(previous.value, HALF_UP).longValue();
+                }
             }
         }
         return scores;
