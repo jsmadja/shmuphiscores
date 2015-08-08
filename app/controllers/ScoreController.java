@@ -143,11 +143,7 @@ public class ScoreController extends Controller {
                 strValue.append(c);
             }
         }
-        BigDecimal value = new BigDecimal(strValue.toString());
-        if (value.longValue() < 0) {
-            value = value.multiply(new BigDecimal("-1"));
-        }
-        return value;
+        return new BigDecimal(strValue.toString());
     }
 
     private static Mode mode(Map<String, String> data) {
