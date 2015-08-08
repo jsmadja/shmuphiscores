@@ -215,4 +215,8 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return this.title.compareTo(game.title);
     }
 
+    public boolean hasShip() {
+        return ships != null && !ships.isEmpty();
+    }
+
 }
