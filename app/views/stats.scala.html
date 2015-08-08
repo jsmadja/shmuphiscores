@@ -93,7 +93,6 @@
                 },
                 xAxis: {
                     type: 'datetime',
-                    maxZoom: 14 * 24 * 3600000,
                     title: {
                         text: null
                     }
@@ -137,7 +136,7 @@
                 {
                     type: 'areaspline',
                     name: 'Scores',
-                    pointInterval: 24 * 3600 * 1000,
+                    pointIntervalUnit: 'month',
                     pointStart: Date.UTC(2013, 10, 29),
                     marker: {
                         enabled: false
