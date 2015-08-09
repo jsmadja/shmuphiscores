@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -92,9 +93,11 @@ public class ScoreController extends Controller {
     private static void storePhoto(Score score, List<Http.MultipartFormData.FilePart> files) throws IOException {
         Http.MultipartFormData.FilePart filePart = files.get(0);
         File file = filePart.getFile();
-        String pathname = "/photos/" + new Date().getTime() + "-" + filePart.getFilename();
+        String filename = filePart.getFilename();
+        long prefix = new Date().getTime();
+        String pathname = "/photos/" + prefix + "-" + filename;
         Files.copy(file, new File(pathname));
-        score.photo = "http://hiscores.shmup.com" + pathname;
+        score.photo = "http://hiscores.shmup.com" + prefix + "-" + URLEncoder.encode(filename, "UTF-8");
     }
 
     public static Result update() throws IOException {
