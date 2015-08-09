@@ -43,7 +43,7 @@ public class OneCreditController extends Controller {
                 }));
                 if (!game.scores.isEmpty()) {
                     OneCreditGame oneCreditGame = oneCreditPlatform.addGame(game);
-                    TreeSet<Player> players = new TreeSet<>(transform(game.scores, new Function<Score, Player>() {
+                    TreeSet<Player> players = new TreeSet<Player>(transform(game.scores, new Function<Score, Player>() {
                         @Nullable
                         @Override
                         public Player apply(Score score) {
