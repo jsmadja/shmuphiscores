@@ -20,7 +20,7 @@
             </p>
         </h2>
 
-        <div style="clear : both ;"/> <form role="form" method="POST" action="/score/update">
+        <div style="clear : both ;"/> <form role="form" method="POST" action="/score/update" enctype='multipart/form-data'>
             <input type="hidden" name="scoreId" value="@score.id" />
             <div class="row">
                 <div class="col-md-4">
@@ -90,20 +90,11 @@
                     </div>
                 </div>
             </div>
-            @if(score.photoBase64) {
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <img src="@score.photoBase64" style="width : 100 % ;" />
-                        </div>
-                    </div>
-                </div>
-            }
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="photo">@Messages.get("Photo")</label>
-                        <input type="url" class="form-control" value="@score.photo" name="photo" placeholder="@Messages.get("scoreform.scala.html.photo.placeholder")">
+                        <input type="file" class="form-control" name="photo">
                     </div>
                 </div>
             </div>

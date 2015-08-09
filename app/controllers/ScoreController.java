@@ -3,6 +3,7 @@ package controllers;
 import actions.User;
 import com.avaje.ebean.Ebean;
 import com.google.common.base.Predicate;
+import com.google.common.io.Files;
 import models.Difficulty;
 import models.Game;
 import models.Mode;
@@ -14,15 +15,19 @@ import models.Stage;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.score_create;
 import views.html.score_import;
 import views.html.score_update;
 
 import javax.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +64,7 @@ public class ScoreController extends Controller {
         return ok(score_update.render(score));
     }
 
-    public static Result save() {
+    public static Result save() throws IOException {
         if (!User.current().isAuthenticated()) {
             return unauthorized();
         }
@@ -71,6 +76,10 @@ public class ScoreController extends Controller {
             scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
             return badRequest(views.html.score_create.render(score.game, scoreForm));
         }
+        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
+        if (!files.isEmpty()) {
+            storePhoto(score, files);
+        }
         score.save();
         RankingController.getRankingCache().remove(score.game);
         PlayerController.getSignatureCache().remove(score.player);
@@ -80,7 +89,15 @@ public class ScoreController extends Controller {
         return shmup(score);
     }
 
-    public static Result update() {
+    private static void storePhoto(Score score, List<Http.MultipartFormData.FilePart> files) throws IOException {
+        Http.MultipartFormData.FilePart filePart = files.get(0);
+        File file = filePart.getFile();
+        String pathname = "/photos/" + new Date().getTime() + "-" + filePart.getFilename();
+        Files.copy(file, new File(pathname));
+        score.photo = "http://hiscores.shmup.com" + pathname;
+    }
+
+    public static Result update() throws IOException {
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
         Logger.info("Mise a jour du score envoyé par " + User.current().name + ", " + data.toString());
@@ -89,6 +106,12 @@ public class ScoreController extends Controller {
             return unauthorized();
         }
         updateScore(score, data);
+
+        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
+        if (!files.isEmpty()) {
+            storePhoto(score, files);
+        }
+
         score.update();
         RankingController.getRankingCache().remove(score.game);
         PlayerController.getSignatureCache().remove(score.player);

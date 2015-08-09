@@ -17,7 +17,7 @@
 
     <div style="clear: both;"/>
 
-    <form role="form" method="POST" action="/score">
+    <form role="form" method="POST" action="/score" enctype='multipart/form-data'>
         <input type="hidden" name="gameId" value="@game.id" />
         @if(scoreForm.hasGlobalErrors) {
             <p class="alert alert-danger">
@@ -88,7 +88,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="photo">@Messages.get("Photo")</label>
-                    <input type="url" class="form-control" name="photo" placeholder="@Messages.get("scoreform.scala.html.photo.placeholder")">
+                    <input type="file" class="form-control" name="photo">
                 </div>
             </div>
         </div>
