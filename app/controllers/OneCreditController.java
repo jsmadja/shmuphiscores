@@ -22,13 +22,6 @@ import static com.google.common.collect.Collections2.transform;
 public class OneCreditController extends Controller {
 
     public static Result index() {
-        List<Score> all = Score.finder.all();
-        for (Score score : all) {
-            if(!score.onecc && score.is1CC()) {
-                score.onecc = true;
-                score.update();
-            }
-        }
         OneCreditPage oneCreditPage = new OneCreditPage();
 
         Collection<String> platforms = transform(Ebean.createSqlQuery("SELECT DISTINCT name FROM platform ORDER BY name").findList(), new Function<SqlRow, String>() {
