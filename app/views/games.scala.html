@@ -12,13 +12,12 @@
             <th>@Messages.get("Players")</th>
             <th>@Messages.get("Scores")</th>
             <th>@Messages.get("1CC")</th>
-            <th>Actif</th>
         </thead>
        @for(game <- games.sortBy(_.title)) {
         <tr>
             <td style="padding : 0 ; border-right : none ; border-left : none ;">
-                <div style="overflow-y : hidden ; height : 65 px ;">
-                    <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="120px" alt="@game.title" /></a>
+                <div style="overflow-y : hidden ; height : 100px ;">
+                    <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="100px" alt="@game.title" /></a>
                 </div>
             </td>
             <td style="border-left : none ; vertical-align : middle">
@@ -37,9 +36,6 @@
             </td>
             <td style="text-align : right ; vertical-align : middle ;">
             @game.getOneCreditCount
-            </td>
-            <td style="text-align : center ; vertical-align : middle ;">
-            @if(game.getScoreCountLast30Days > 0) { Oui } else { Non }
             </td>
         </tr>
        }
