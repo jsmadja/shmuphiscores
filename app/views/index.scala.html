@@ -4,7 +4,9 @@
         <ul id="timeline">
         @for(score <- timeline.scores) {
             <li>
-                <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
+                <div style="overflow-y : hidden ; height : 100 px ; float : left ;">
+                    <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
+                </div>
                 <div class="item">
                     <div>
                         <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a> <a class="author" href="@routes.PlayerController.index(score.player)">@score.player.name</a>
@@ -25,7 +27,7 @@
                             <span class="comment">@score.comment</span>
                         }
                     </p>
-                    <div style="float: left; width: 100%">
+                    <div style="width : 100 %">
                         @if(score.mode != null) {
                             <span class="label label-default">@score.mode.name</span>
                         }

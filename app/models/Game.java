@@ -11,9 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,46 +26,42 @@ import static com.google.common.collect.Collections2.filter;
 public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
+
     @XmlAttribute
     public String thread;
+
     @XmlAttribute
     public String cover;
+
     @XmlAttribute
     public String title;
-    @XmlTransient
+
     @OneToMany(mappedBy = "game")
     @Where(clause = "rank > 0")
     public List<Score> scores;
-    @XmlElementWrapper
-    @XmlElement(name = "platform")
+
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
-    @XmlElementWrapper
-    @XmlElement(name = "difficulty")
+
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Difficulty> difficulties;
-    @XmlElementWrapper
-    @XmlElement(name = "mode")
+
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Mode> modes;
-    @XmlElementWrapper
-    @XmlElement(name = "ship")
+
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Ship> ships;
-    @XmlElementWrapper
-    @XmlElement(name = "stage")
+
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
-    @XmlElementWrapper(name = "rankings")
-    @XmlElement(name = "ranking")
+
     private List<Ranking> initializedRankings;
 
-    @XmlTransient
     private boolean generalRanking;
 
     public Game(String title, String cover, String thread) {
@@ -217,6 +210,15 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public boolean hasShip() {
         return ships != null && !ships.isEmpty();
+    }
+
+    public int getOneCreditCount() {
+        return filter(this.scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return score.is1CC();
+            }
+        }).size();
     }
 
 }

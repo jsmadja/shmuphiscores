@@ -255,6 +255,39 @@ UPDATE score
 SET player_id = (SELECT id FROM player WHERE name = 'Colas')
 WHERE player_id IN (SELECT id FROM player WHERE name = 'COL');
 
+UPDATE score
+SET player_id = (SELECT id
+                 FROM player
+                 WHERE name = 'BrochetteMaster')
+WHERE player_id IN (SELECT id
+                    FROM player
+                    WHERE name = 'Brochette master');
+
+UPDATE score
+SET player_id = (SELECT id
+                 FROM player
+                 WHERE name = 'BAD')
+WHERE player_id IN (SELECT id
+                    FROM player
+                    WHERE name = 'D-Ku BAD');
+
+UPDATE score
+SET player_id = (SELECT id
+                 FROM player
+                 WHERE name = 'BRX')
+WHERE player_id IN (SELECT id
+                    FROM player
+                    WHERE name = 'D-Ku BRX');
+
+UPDATE score
+SET player_id = (SELECT id
+                 FROM player
+                 WHERE name = 'neo90')
+WHERE player_id IN (SELECT id
+                    FROM player
+                    WHERE name = 'D-Ku NEO');
+
+
 -- distinctes :
 -- HUmar HUU
 -- Vince2 et Vincere

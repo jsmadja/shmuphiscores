@@ -4,14 +4,24 @@
 
    <h2>@Messages.get("games.scala.html.gamelist")</h2>
 
-   <table id="games" class="table table-condensed table-hover table-striped table-bordered">
-       <tr>
+    <table id="games" class="table table-condensed table-bordered">
+        <thead>
+            <th></th>
            <th>@Messages.get("Games")</th>
            <th>@Messages.get("Platforms")</th>
-       </tr>
+            <th>@Messages.get("Players")</th>
+            <th>@Messages.get("Scores")</th>
+            <th>@Messages.get("1CC")</th>
+            <th>Actif</th>
+        </thead>
        @for(game <- games.sortBy(_.title)) {
         <tr>
-            <td>
+            <td style="padding : 0 ; border-right : none ; border-left : none ;">
+                <div style="overflow-y : hidden ; height : 65 px ;">
+                    <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="120px" alt="@game.title" /></a>
+                </div>
+            </td>
+            <td style="border-left : none ; vertical-align : middle">
                 <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)">@game.title</a>
             </td>
             <td style="vertical-align: middle;">
@@ -19,8 +29,32 @@
                     <span class="label label-success"><a class="platform" href="@routes.PlatformController.read(platform.name.toUpperCase)">@platform.name.toUpperCase</a></span>
                 }
             </td>
+            <td style="text-align : right ; vertical-align : middle ;">
+            @game.getPlayers.size
+            </td>
+            <td style="text-align : right ; vertical-align : middle ;">
+            @game.scores.size
+            </td>
+            <td style="text-align : right ; vertical-align : middle ;">
+            @game.getOneCreditCount
+            </td>
+            <td style="text-align : center ; vertical-align : middle ;">
+            @if(game.getScoreCountLast30Days > 0) { Oui } else { Non }
+            </td>
         </tr>
        }
    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#games').dataTable({
+                "bJQueryUI": true,
+                "sDom": "<'row dataTables_utils'<'col-md-6'l><'col-md-6'f>r>t<'row dataTables_utils'<'col-md-6'i><'col-md-6'p>>",
+                "bPaginate": false,
+                "bLengthChange": false,
+                "bInfo": false
+            });
+        } );
+    </script>
 
 }

@@ -6,35 +6,6 @@
     <script src="http://code.highcharts.com/modules/exporting.js" type="text/javascript"></script>
 
     <div class="row">
-        <div class="col-md-12">
-            <h3>@Messages.get("Games")</h3>
-            <table id="game-stats">
-                @for(game <- games.sortBy(-_.getScoreCountLast30Days)) {
-                    <tr>
-                        <td width="130px;">
-                            <div style="overflow-y: hidden; height: 65px;">
-                                <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="120px" alt="@game.title" /></a>
-                            </div>
-                        </td>
-                        <td style="vertical-align: top">
-                            <span class="author" style="float: right; margin-right: 10px;font-size:10px; ">Importé @game.getCreatedSince</span>
-                            <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)" class="game">@game.title</a>
-                            <table id="game-detail-stat" class="author">
-                                @if(game.getScoreCountLast30Days > 0){
-                                    <tr><td>@game.getScoreCountLast30Days</td><td>scores ces 30 derniers jours</td></tr>
-                                }
-                                <tr><td>@game.scores.size</td><td>scores au total</td></tr>
-                                <tr><td>@game.getPlayers.size</td><td>joueurs</td></tr>
-                            </table>
-                        </td>
-                        <td @if(game.getScoreCountLast30Days > 0 ){class="active-game"} else {class="inactive-game"}></td>
-                    </tr>
-                }
-            </table>
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-12" style="margin-top: 45px;">
             <div id="container2"></div>
         </div>

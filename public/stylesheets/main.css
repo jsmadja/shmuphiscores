@@ -20,11 +20,12 @@ h1 {
 #timeline li {
     clear: both;
     list-style: none;
-    min-height: 140px;
+    min-height: 100px;
     border-top: 1px solid #e8e8e8;
 }
 
 #timeline p {
+    margin: 0
 }
 
 .item {
@@ -106,14 +107,6 @@ body {
 .footer {
     padding-top: 19px;
     color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
-/* Customize container */
-@media (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
 }
 
 .container-narrow > hr {
