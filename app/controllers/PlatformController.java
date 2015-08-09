@@ -18,6 +18,11 @@ public class PlatformController extends Controller {
         if (platformName == null) {
             return notFound();
         }
+        List<Game> games = getGamesByPlatform(platformName);
+        return ok(platform_read.render(platformName, games));
+    }
+
+    public static List<Game> getGamesByPlatform(final String platformName) {
         List<Game> games = Game.findAll();
         games = new ArrayList<Game>(Collections2.filter(games, new Predicate<Game>() {
             @Override
@@ -31,8 +36,7 @@ public class PlatformController extends Controller {
                 return false;
             }
         }));
-
-        return ok(platform_read.render(platformName, games));
+        return games;
     }
 
 }

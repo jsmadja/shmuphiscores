@@ -27,6 +27,8 @@ GET         /game/:id                    controllers.GameController.index(id: mo
 
 GET         /games                       controllers.GamesController.index()
 
+GET         /1cc                         controllers.OneCreditController.index()
+
 GET         /stats                       controllers.StatsController.index()
 
 GET         /admin                       controllers.AdminController.index()

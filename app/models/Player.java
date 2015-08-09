@@ -30,7 +30,7 @@ import static com.google.common.collect.Collections2.filter;
 import static java.util.Collections.sort;
 
 @Entity
-public class Player extends BaseModel<Player> {
+public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public static Player guest = new Player(0L, "guest");
     public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
@@ -177,5 +177,10 @@ public class Player extends BaseModel<Player> {
 
     public void setCounts(PlayersController.Counts counts) {
         this.counts = counts;
+    }
+
+    @Override
+    public int compareTo(Player p) {
+        return this.name.compareToIgnoreCase(p.name);
     }
 }
