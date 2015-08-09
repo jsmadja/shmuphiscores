@@ -40,6 +40,10 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     @Where(clause = "rank > 0")
     public List<Score> scores;
 
+    @OneToMany(mappedBy = "game")
+    @Where(clause = "rank > 0 AND onecc = 1")
+    public List<Score> oneccs;
+
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
@@ -213,12 +217,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public int getOneCreditCount() {
-        return filter(this.scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return score.is1CC();
-            }
-        }).size();
+        return oneccs.size();
     }
 
 }

@@ -31,7 +31,7 @@ public class PlayersController extends Controller {
             int thirdRankCount = 0;
             List<Score> scores = player.scores;
             for (Score score : scores) {
-                if (score.is1CC()) {
+                if (score.onecc) {
                     oneCreditCount++;
                 }
                 Integer rank = score.rank();

@@ -5,13 +5,10 @@ import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 
 import static com.avaje.ebean.Expr.and;
@@ -22,62 +19,46 @@ import static java.text.MessageFormat.format;
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
 
-
     public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
-    @XmlTransient
     @ManyToOne
     public Game game;
 
-    @XmlTransient
     @ManyToOne
     public Player player;
 
-    @XmlTransient
     @ManyToOne
     public Stage stage;
 
-    @XmlTransient
     @ManyToOne
     public Mode mode;
 
-    @XmlTransient
     @ManyToOne
     public Difficulty difficulty;
 
-    @XmlTransient
     @ManyToOne
     public Ship ship;
 
     @ManyToOne
-    @XmlTransient
     public Platform platform;
 
     @Lob
-    @XmlAttribute
     public String comment;
 
-    @XmlAttribute
     public String photo;
 
-    @XmlAttribute
     public String replay;
 
-    @Lob
-    @Column(name = "photo_base_64")
-    public String photoBase64;
-
-    @XmlAttribute
     public BigDecimal value;
 
+    public boolean onecc;
+
     @Transient
-    @XmlAttribute(name = "player")
     public String playerName;
 
     @Transient
     public Long gapWithPreviousScore;
 
-    @XmlAttribute
     private Integer rank;
 
     public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photo, String replay) {
@@ -92,6 +73,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.value = value;
         this.photo = photo;
         this.replay = replay;
+        this.onecc = this.is1CC();
     }
 
     public Score(Long id, Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photo, String replay, Integer rank) {
@@ -100,7 +82,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.id = id;
     }
 
-    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photoBase64) {
+    public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value) {
         this.game = game;
         this.player = player;
         this.stage = stage;
@@ -110,7 +92,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.comment = comment;
         this.platform = platform;
         this.value = value;
-        this.photoBase64 = photoBase64;
     }
 
     public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {

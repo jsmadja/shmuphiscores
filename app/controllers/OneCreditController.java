@@ -1,9 +1,9 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import models.Game;
-import models.Platform;
 import models.Player;
 import models.Score;
 import play.mvc.Controller;
@@ -13,37 +13,39 @@ import views.html.onecc;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
-import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
 
 public class OneCreditController extends Controller {
 
     public static Result index() {
-
+        List<Score> all = Score.finder.all();
+        for (Score score : all) {
+            if(!score.onecc && score.is1CC()) {
+                score.onecc = true;
+                score.update();
+            }
+        }
         OneCreditPage oneCreditPage = new OneCreditPage();
 
-        TreeSet<String> platforms = new TreeSet<String>(transform(Platform.finder.all(), new Function<Platform, String>() {
+        Collection<String> platforms = transform(Ebean.createSqlQuery("SELECT DISTINCT name FROM Platform ORDER BY name").findList(), new Function<SqlRow, String>() {
             @Nullable
             @Override
-            public String apply(@Nullable Platform platform) {
-                return platform.name;
+            public String apply(@Nullable SqlRow sqlRow) {
+                return sqlRow.getString("name");
             }
-        }));
+        });
         for (String platform : platforms) {
-            OneCreditPlatform oneCreditPlatform = oneCreditPage.addPlatform(platform.toUpperCase());
+            OneCreditPlatform oneCreditPlatform = oneCreditPage.addPlatform(platform);
             Collection<Game> games = PlatformController.getGamesByPlatform(platform);
             for (Game game : games) {
-                game.scores = new ArrayList<Score>(filter(game.scores, new Predicate<Score>() {
-                    @Override
-                    public boolean apply(Score score) {
-                        return score.is1CC();
-                    }
-                }));
-                if (!game.scores.isEmpty()) {
+                List<Score> oneccs = game.oneccs;
+                if (!oneccs.isEmpty()) {
                     OneCreditGame oneCreditGame = oneCreditPlatform.addGame(game);
-                    TreeSet<Player> players = new TreeSet<Player>(transform(game.scores, new Function<Score, Player>() {
+                    Set<Player> players = new TreeSet<Player>(transform(oneccs, new Function<Score, Player>() {
                         @Nullable
                         @Override
                         public Player apply(Score score) {

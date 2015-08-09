@@ -51,20 +51,6 @@
                                 </script>
                             </a>
                         }
-                        @if(score.photoBase64) {
-                            <a target="_blank" class="label label-primary" style="margin-right : 5px ;">
-                                <span id="photo_base64_@score.id"
-                                data-html="true"
-                                data-container="body"
-                                data-trigger="hover"
-                                data-toggle="popover"
-                                data-placement="left" data-content="<img width='250px' src='@score.photoBase64'/>"
-                                data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
-                                <script>
-                                    $('#photo_base64_@score.id').popover('hide');
-                                </script>
-                            </a>
-                        }
                         @if(score.replay) {
                             <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                 <span class="glyphicon glyphicon-play"></span>
