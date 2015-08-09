@@ -35,7 +35,7 @@ public class ScoreDecorator {
     }
 
     public String replay() {
-        if (score.replay != null) {
+        if (score.replay != null && StringUtils.isNotBlank(score.replay)) {
             if (score.replay.contains("youtube")) {
                 return "[youtube]" + score.replay.split("v=")[1] + "[/youtube]";
             } else {

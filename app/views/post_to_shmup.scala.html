@@ -17,6 +17,12 @@
                     [color=#800000] @score.decorator.comment [/color]
                 </p>
             }
+            @if(score.photo) {
+                <p>
+                    <br/>
+                    [img]@score.photo [/img]
+                </p>
+            }
             @if(score.decorator.replay) {
                 <p>
                     <br/>
@@ -26,6 +32,8 @@
             <p>
                 <br/>
                 [size=85]Message généré depuis [url=http://hiscores.shmup.com]hiscores.shmup.com[/url].[/size]
+                <br/>
+                _______________________________________________
             </p>
         </div>
     </div>
