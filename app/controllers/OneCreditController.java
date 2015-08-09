@@ -31,7 +31,7 @@ public class OneCreditController extends Controller {
         }
         OneCreditPage oneCreditPage = new OneCreditPage();
 
-        Collection<String> platforms = transform(Ebean.createSqlQuery("SELECT DISTINCT name FROM Platform ORDER BY name").findList(), new Function<SqlRow, String>() {
+        Collection<String> platforms = transform(Ebean.createSqlQuery("SELECT DISTINCT name FROM platform ORDER BY name").findList(), new Function<SqlRow, String>() {
             @Nullable
             @Override
             public String apply(@Nullable SqlRow sqlRow) {
