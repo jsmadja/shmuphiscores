@@ -19,7 +19,7 @@
     </head>
     <body>
         <h1 style="text-align: center;">
-            <a href="/"><img style="max-width: 100%;" src="http://forum.shmup.com/styles/avalon/imageset/logo.png"></a>
+            <a href="/"><img style="max-width: 100%;" src="@routes.Assets.at("images/Logo-Hiscore-Shmup.png")"></a>
         </h1>
         @if(actions.User.current.isAuthenticated && !actions.User.current.isVip) {
             <div id="vip-alert" class="alert alert-warning">@Html(Messages.get("NotVip"))</div>
