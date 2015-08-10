@@ -7,11 +7,6 @@ import formatters.ScoreFormatter;
 
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,28 +18,21 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
 import static java.math.RoundingMode.HALF_UP;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Ranking {
 
-    @XmlTransient
     public Difficulty difficulty;
 
-    @XmlTransient
     public Mode mode;
 
-    @XmlElement(name = "score")
     public List<Score> scores;
 
     @Transient
-    @XmlAttribute(name = "platform")
     public String platformName;
 
     @Transient
-    @XmlAttribute(name = "difficulty")
     public String difficultyName;
 
     @Transient
-    @XmlAttribute(name = "mode")
     public String modeName;
 
     public boolean general;

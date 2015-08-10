@@ -9,8 +9,6 @@ import play.db.ebean.Model;
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,18 +32,18 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public static Player guest = new Player(0L, "guest");
     public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
-    @XmlAttribute
+
     public String name;
-    @XmlTransient
+
     public Long shmupUserId;
-    @XmlTransient
+
     @OneToMany(mappedBy = "player")
     @Where(clause = "rank > 0")
     public List<Score> scores = new ArrayList<Score>();
-    @XmlTransient
+
     @OneToMany(mappedBy = "player")
     public List<Score> allScores = new ArrayList<Score>();
-    @XmlTransient
+
     public String twitter;
 
     private boolean vip;
