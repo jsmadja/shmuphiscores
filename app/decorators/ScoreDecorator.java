@@ -46,6 +46,9 @@ public class ScoreDecorator {
     }
 
     private String rankSuffix() {
+        if(score.rank() == null) {
+            return "";
+        }
         if (score.rank() == 1) {
             return "ère";
         }
