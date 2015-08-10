@@ -1,65 +1,69 @@
 @(timeline: Timeline)
 @main() {
-    <div style="padding-top : 40px;">
-        <ul id="timeline">
+    <div id="timeline" style="padding-top : 40px;">
         @for(score <- timeline.scores) {
-            <li>
-                <div style="overflow-y : hidden ; height : 100px ; float : left ;">
-                    <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
-                </div>
-                <div class="item">
-                    <div>
-                        <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a> <a class="author" href="@routes.PlayerController.index(score.player)">@score.player.name</a>
-                        <small class="date">@score.formattedDate</small>
+                <div class="row">
+                    <div class="col-sm-2 cover-col">
+                        <div style="overflow-y : hidden ; height : 100px ; ">
+                            <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
+                        </div>
                     </div>
-                    @if(score.hasRank) {
-                        <p class="rank">@score.formattedRank</p>
-                    }
-                    <p class="score">
-                        <a href="@routes.ScoreController.read(score)">@score.formattedValue pts</a>
-                    </p>
-                    <p class="stage">
-                        @if(score.stage != null && !score.stage.name.trim.isEmpty) {
-                            Stage @score.stage
-                        }
-                        <b>@score.shipName</b>
-                        @if(score.comment != null) {
-                            <span class="comment">@score.comment</span>
-                        }
-                    </p>
-                    <div style="width : 100%">
-                        @if(score.mode != null) {
-                            <span class="label label-default">@score.mode.name</span>
-                        }
-                        @if(score.difficulty != null) {
-                            <span class="label label-warning">@score.difficulty.name</span>
-                        }
-                        @if(score.platform != null) {
-                            <a class="platform label label-success" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
-                        }
-                        @if(score.photo) {
-                            <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
-                                <span id="photo_@score.id"
-                                data-html="true"
-                                data-container="body"
-                                data-trigger="hover"
-                                data-toggle="popover"
-                                data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
-                                data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
-                                <script>
+                    <div class="col-sm-8">
+                        <div class="item">
+                            <div>
+                                <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a> <a class="author" href="@routes.PlayerController.index(score.player)">@score.player.name</a>
+                            </div>
+                            <p class="score">
+                                <a href="@routes.ScoreController.read(score)">@score.formattedValue pts</a>
+                            </p>
+                            <p class="stage">
+                                @if(score.stage != null && !score.stage.name.trim.isEmpty) {
+                                    Stage @score.stage
+                                }
+                            <b>@score.shipName</b>
+                                @if(score.comment != null) {
+                                    <span class="comment">@score.comment</span>
+                                }
+                            </p>
+                            <div style="width : 100%">
+                                @if(score.mode != null) {
+                                    <span class="label label-default">@score.mode.name</span>
+                                }
+                                @if(score.difficulty != null) {
+                                    <span class="label label-warning">@score.difficulty.name</span>
+                                }
+                                @if(score.platform != null) {
+                                    <a class="platform label label-success" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                                }
+                                @if(score.photo) {
+                                    <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
+                                        <span id="photo_@score.id"
+                                        data-html="true"
+                                        data-container="body"
+                                        data-trigger="hover"
+                                        data-toggle="popover"
+                                        data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
+                                        data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
+                                        <script>
                                     $('#photo_@score.id').popover('hide');
                                 </script>
-                            </a>
-                        }
-                        @if(score.replay) {
-                            <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
-                                <span class="glyphicon glyphicon-play"></span>
-                            </a>
+                                    </a>
+                                }
+                                @if(score.replay) {
+                                    <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
+                                        <span class="glyphicon glyphicon-play"></span>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 right-space">
+                        <small class="date">@score.formattedDate</small>
+                        @if(score.hasRank) {
+                            <p class="rank">@score.formattedRank</p>
                         }
                     </div>
                 </div>
-            </li>
         }
-        </ul>
     </div>
 }
