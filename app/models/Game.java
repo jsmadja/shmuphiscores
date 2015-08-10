@@ -1,6 +1,7 @@
 package models;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
 import org.joda.time.DateMidnight;
@@ -18,8 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
+import static com.avaje.ebean.Expr.isNotNull;
 import static com.google.common.collect.Collections2.filter;
 
 @Entity
@@ -117,12 +118,16 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return ranking1;
     }
 
-    private Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
+    public Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
         if (scores == null) {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.
-                where(and(eq("game", this), and(eq("difficulty", difficulty), eq("mode", mode)))).
+                where().conjunction().
+                add(eq("game", this)).
+                add(eq("difficulty", difficulty)).
+                add(eq("mode", mode)).
+                add(isNotNull("rank")).
                 orderBy("value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
@@ -131,7 +136,11 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         if (scores == null) {
             return new ArrayList<Score>();
         }
-        List<Score> scores = Score.finder.where(eq("game", this)).orderBy("value desc").findList();
+        List<Score> scores = Score.finder.
+                where().conjunction().
+                add(eq("game", this)).
+                add(isNotNull("rank")).
+                orderBy("value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
 

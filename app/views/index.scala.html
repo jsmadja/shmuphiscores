@@ -4,7 +4,7 @@
         @for(score <- timeline.scores) {
                 <div class="row">
                     <div class="col-sm-2 cover-col">
-                        <div style="overflow-y : hidden ; height : 100px ; ">
+                        <div style="overflow-y : hidden ; height : 115px ; ">
                             <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                                     <span class="comment">@score.comment</span>
                                 }
                             </p>
-                            <div style="width : 100%">
+                            <div style="width: 100%">
                                 @if(score.mode != null) {
                                     <span class="label label-default">@score.mode.name</span>
                                 }
@@ -61,6 +61,7 @@
                         <small class="date">@score.formattedDate</small>
                         @if(score.hasRank) {
                             <p class="rank">@score.formattedRank</p>
+                            <p class="total-rank"> /@score.getOpponentCount</p>
                         }
                     </div>
                 </div>

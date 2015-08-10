@@ -11,7 +11,7 @@ h1 {
 }
 
 #timeline div.row {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     border-top: 1px solid #e8e8e8;
 }
 
@@ -28,14 +28,14 @@ h1 {
     padding-right: 0;
 }
 
+.item {
+    padding-top: 15px;
+}
+
 .game {
     font-weight: bold;
     color: #333;
     font-size: 14px;
-}
-
-.date {
-    color: #bbb;
 }
 
 .author {
@@ -52,11 +52,34 @@ h1 {
     font-style: italic;
 }
 
+.date {
+    color: #bbb;
+    display: inline-block;
+    min-width: 100%;
+}
+
 .rank {
     font-weight: bold;
-    font-size: 30pt;
+    font-size: 25pt;
     font-family: "Courier New";
+    display: inline-block;
+    min-width: 100%;
 }
+
+.total-rank {
+    color: #EEE;
+    font-size: 16pt;
+    font-family: "Courier New";
+    display: inline-block;
+}
+
+.right-space {
+    padding-top: 15px;
+    padding-right: 15px;
+    padding-left: 0;
+    text-align: right;
+}
+
 
 /* Space out content a bit */
 body {

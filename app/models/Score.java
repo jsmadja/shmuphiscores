@@ -285,4 +285,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public ScoreDecorator decorator() {
         return new ScoreDecorator(this);
     }
+
+    public Integer getOpponentCount() {
+        return this.game.findBestScoresByVIPPlayers(difficulty, mode).size();
+    }
 }
