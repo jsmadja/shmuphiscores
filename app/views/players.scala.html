@@ -12,23 +12,23 @@
            <th>Scores</th>
        </thead>
        @for(player <- players) {
-            <tr>
+            <tr class="@if(player.equals(actions.User.current())){me}">
                 <td>
-                    <a href="@routes.PlayerController.index(player)" class="@if(player.shmupUserId == null){dead}else{alive}">@player.name</a>
+                    <a href="@routes.PlayerController.index(player)" class="dead">@player.name</a>
                 </td>
-                <td style="text-align : right ; background-color : inherit ;">
+                <td style="text-align : right ; ">
                 @player.getCounts.firstRankCount
                 </td>
-                <td style="text-align : right ; background-color : inherit ;">
+                <td style="text-align : right ; ">
                 @player.getCounts.secondRankCount
                 </td>
-                <td style="text-align : right ; background-color : inherit ;">
+                <td style="text-align : right ; ">
                 @player.getCounts.thirdRankCount
                 </td>
-                <td style="text-align : right ; background-color : inherit ;">
+                <td style="text-align : right ; ">
                 @player.getCounts.oneCreditCount
                 </td>
-                <td style="text-align : right ; background-color : inherit ;">
+                <td style="text-align : right ; ">
                 @player.scores.size
                 </td>
             </tr>

@@ -254,3 +254,19 @@ a.platform:hover {
     font-size: 11px;
     display: block;
 }
+
+table.dataTable tr.even td.sorting_2, table.dataTable tr.even td.sorting_3, table.dataTable tr.even td.sorting_4, table.dataTable tr.even td.sorting_5 {
+    background-color: white;
+}
+
+table.dataTable tr.odd td.sorting_2, table.dataTable tr.odd td.sorting_3, table.dataTable tr.odd td.sorting_4, table.dataTable tr.odd td.sorting_5 {
+    background-color: #f9f9f9;
+}
+
+tr.me td {
+    background: #fdd49c !important;
+}
+
+table {
+    font-size: 1em;
+}
