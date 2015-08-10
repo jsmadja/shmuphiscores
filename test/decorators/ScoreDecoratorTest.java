@@ -34,11 +34,7 @@ public class ScoreDecoratorTest {
 
         ScoreDecorator scoreDecorator = new ScoreDecorator(score);
         assertThat(scoreDecorator.format()).isEqualTo(
-                "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]67ème[/b] position du ranking en mode [b]Arcade[/b] et en difficulté [b]Normal[/b].\n" +
-                        "\n" +
-                        "Commentaire : [i]\"no miss sur le premier loop\"[/i]\n" +
-                        "\n" +
-                        "[youtube]Uq_ylvWqm3U[/youtube][/color]");
+                "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]67ème[/b] position du ranking en mode [b]Arcade[/b] et en difficulté [b]Normal[/b].[/color]");
     }
 
     @Test
@@ -164,7 +160,7 @@ public class ScoreDecoratorTest {
 
         ScoreDecorator scoreDecorator = new ScoreDecorator(score);
         assertThat(scoreDecorator.format()).isEqualTo(
-                "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]1ère[/b] position du ranking.\n\nReplay : http://www.dailymotion.com/video/x2z40n8_x-files-deuxieme-bande-annonce_shortfilms[/color]");
+                "[color=#800000]J'ai atteint le [b]stage 2-4[/b] de Ketsui sur [b]XBox 360[/b] avec un score de [size=110][b]360.000.000 points[/b][/size], ce qui me classe en [b]1ère[/b] position du ranking.[/color]");
     }
 
 }
