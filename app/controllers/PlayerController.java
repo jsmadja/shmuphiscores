@@ -1,6 +1,5 @@
 package controllers;
 
-import drawer.MedalsPicture;
 import drawer.SignaturePicture;
 import models.Player;
 import play.cache.Cache;
@@ -13,6 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static drawer.MedalsPicture.createBlankImage;
+import static drawer.MedalsPicture.createMedalsPicture;
 
 public class PlayerController extends Controller {
 
@@ -49,9 +51,7 @@ public class PlayerController extends Controller {
         byte[] bytes = signatures.get(player);
         if (bytes == null) {
             BufferedImage image = SignaturePicture.createSignaturePicture(player);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImageIO.write(image, "PNG", stream);
-            bytes = stream.toByteArray();
+            bytes = toBytes(image);
             signatures.put(player, bytes);
         }
         response().setHeader(CACHE_CONTROL, "max-age=3600");
@@ -60,22 +60,28 @@ public class PlayerController extends Controller {
     }
 
     public static Result medals(Long shmupId) throws IOException {
+        response().setHeader(CACHE_CONTROL, "max-age=3600");
+        response().setContentType("image/png");
         Player player = Player.findByShmupUserId(shmupId);
-        if (player == null) {
-            return notFound();
+        if (player == null || !player.canImportScores()) {
+            return ok(toBytes(createBlankImage()));
         }
         Map<Player, byte[]> medals = getMedalsCache();
         byte[] bytes = medals.get(player);
         if (bytes == null) {
-            BufferedImage image = MedalsPicture.createMedalsPicture(player);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImageIO.write(image, "PNG", stream);
-            bytes = stream.toByteArray();
+            BufferedImage image = createMedalsPicture(player);
+            bytes = toBytes(image);
             medals.put(player, bytes);
         }
-        response().setHeader(CACHE_CONTROL, "max-age=3600");
-        response().setContentType("image/png");
         return ok(bytes);
+    }
+
+    private static byte[] toBytes(BufferedImage image) throws IOException {
+        byte[] bytes;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        ImageIO.write(image, "PNG", stream);
+        bytes = stream.toByteArray();
+        return bytes;
     }
 
 }
