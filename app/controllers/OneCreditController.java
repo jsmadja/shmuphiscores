@@ -30,7 +30,7 @@ public class OneCreditController extends Controller {
                 return sqlRow.getString("name");
             }
         });
-        for (String platform : platforms) {
+        for (final String platform : platforms) {
             OneCreditPlatform oneCreditPlatform = oneCreditPage.addPlatform(platform);
             Collection<Game> games = PlatformController.getGamesByPlatform(platform);
             for (Game game : games) {
