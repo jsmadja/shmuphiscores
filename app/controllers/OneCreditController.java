@@ -4,7 +4,9 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlRow;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
+import models.Difficulty;
 import models.Game;
+import models.Mode;
 import models.Player;
 import models.Score;
 import play.mvc.Controller;
@@ -14,6 +16,8 @@ import views.html.onecc;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
@@ -44,7 +48,7 @@ public class OneCreditController extends Controller {
                     });
                     if (!scores.isEmpty()) {
                         for (Score score : scores) {
-                            oneCreditGame.addPlayer(score.player);
+                            oneCreditGame.addPlayer(score.player, score.difficulty, score.mode);
                         }
                         oneCreditPlatform.addGame(oneCreditGame);
                     }
@@ -80,14 +84,40 @@ public class OneCreditController extends Controller {
 
     public static class OneCreditGame {
         public Game game;
-        public Collection<Player> players = new ArrayList<Player>();
+        public Map<String, Category> categories = new TreeMap<String, Category>();
 
         public OneCreditGame(Game game) {
             this.game = game;
         }
 
-        public void addPlayer(Player player) {
+        public void addPlayer(Player player, Difficulty difficulty, Mode mode) {
+            String key = key(difficulty, mode);
+            Category category = categories.getOrDefault(key, new Category(difficulty, mode));
+            category.add(player);
+            categories.put(key, category);
+        }
+
+        private String key(Difficulty difficulty, Mode mode) {
+            return game.title + "_" + (difficulty == null ? "" : difficulty.name) + "_" + (mode == null ? "" : mode.name);
+        }
+    }
+
+    public static class Category {
+        public Difficulty difficulty;
+        public Mode mode;
+        public Collection<Player> players = new ArrayList<Player>();
+
+        public Category(Difficulty difficulty, Mode mode) {
+            this.difficulty = difficulty;
+            this.mode = mode;
+        }
+
+        public void add(Player player) {
             this.players.add(player);
+        }
+
+        public String key() {
+            return String.format("%s%s", difficulty == null ? "" : difficulty.name, mode == null ? "" : mode.name);
         }
     }
 }

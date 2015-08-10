@@ -8,8 +8,17 @@
             <h3><a style='color: #5cb85c' href="/platform/@platform.platform">@platform.platform.toUpperCase</a></h3>
             <div style="color: #999">
                 @for(game <- platform.games) {
-                    <a href="/game/@game.game.id">@game.game.title</a> : @Html(game.players.toList.distinct.sortBy(_.name.toLowerCase).map(player => "<a style='color: #999' href='/player/" + player.id + "'>" + player.name.trim + "</a>").reduceLeft(_ + ", " + _))
-                    <br/>
+                    <p>
+                    <a href="/game/@game.game.id">@game.game.title</a>
+                    </br>
+                    @for(category <- game.categories.values) {
+                        @if(category.key) {
+                            <u>@category.mode @category.difficulty</u> :
+                        }@Html(category.players.toList.distinct.sortBy(_.name.toLowerCase).map(player => "<a style='color: #999' href='/player/" + player.id + "'>" + player.name.trim + "</a>").reduceLeft(_ + ", " + _))
+                        <br/>
+                    }
+                    </p>
+
                 }
             </div>
         }
