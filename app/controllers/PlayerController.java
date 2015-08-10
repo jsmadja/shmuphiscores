@@ -54,6 +54,7 @@ public class PlayerController extends Controller {
             bytes = stream.toByteArray();
             signatures.put(player, bytes);
         }
+        response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
         return ok(bytes);
     }
@@ -72,6 +73,7 @@ public class PlayerController extends Controller {
             bytes = stream.toByteArray();
             medals.put(player, bytes);
         }
+        response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
         return ok(bytes);
     }
