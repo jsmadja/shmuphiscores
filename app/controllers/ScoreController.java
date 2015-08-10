@@ -81,9 +81,9 @@ public class ScoreController extends Controller {
             storePhoto(score, files);
         }
         score.save();
-        RankingController.getRankingCache().remove(score.game);
-        PlayerController.getSignatureCache().remove(score.player);
-        PlayerController.getMedalsCache().remove(score.player);
+        CacheController.getRankingCache().remove(score.game);
+        CacheController.getSignatureCache().remove(score.player);
+        CacheController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
         score.refresh();
         return shmup(score);
@@ -114,9 +114,9 @@ public class ScoreController extends Controller {
         }
 
         score.update();
-        RankingController.getRankingCache().remove(score.game);
-        PlayerController.getSignatureCache().remove(score.player);
-        PlayerController.getMedalsCache().remove(score.player);
+        CacheController.getRankingCache().remove(score.game);
+        CacheController.getSignatureCache().remove(score.player);
+        CacheController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
         return redirect("/");
     }
@@ -222,9 +222,9 @@ public class ScoreController extends Controller {
         Map<String, String> data = scoreForm.data();
         models.Score score = createScore(data, data.get("player"));
         score.save();
-        RankingController.getRankingCache().remove(game);
-        PlayerController.getSignatureCache().remove(score.player);
-        PlayerController.getMedalsCache().remove(score.player);
+        CacheController.getRankingCache().remove(game);
+        CacheController.getSignatureCache().remove(score.player);
+        CacheController.getMedalsCache().remove(score.player);
         game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }
@@ -238,9 +238,9 @@ public class ScoreController extends Controller {
         models.Score score = Score.finder.byId(Long.parseLong(data.get("score")));
         score.delete();
         Game game = score.game;
-        RankingController.getRankingCache().remove(game);
-        PlayerController.getSignatureCache().remove(score.player);
-        PlayerController.getMedalsCache().remove(score.player);
+        CacheController.getRankingCache().remove(game);
+        CacheController.getSignatureCache().remove(score.player);
+        CacheController.getMedalsCache().remove(score.player);
         game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
     }

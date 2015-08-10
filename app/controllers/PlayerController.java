@@ -2,7 +2,6 @@ package controllers;
 
 import drawer.SignaturePicture;
 import models.Player;
-import play.cache.Cache;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -10,7 +9,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import static drawer.MedalsPicture.createBlankImage;
@@ -25,29 +23,11 @@ public class PlayerController extends Controller {
         return ok(views.html.player_read.render(player));
     }
 
-    public static Map<Player, byte[]> getSignatureCache() {
-        Map<Player, byte[]> signatures = (Map<Player, byte[]>) Cache.get("signatureCache");
-        if (signatures == null) {
-            signatures = new HashMap<Player, byte[]>();
-            Cache.set("signatureCache", signatures, 3600);
-        }
-        return signatures;
-    }
-
-    public static Map<Player, byte[]> getMedalsCache() {
-        Map<Player, byte[]> medals = (Map<Player, byte[]>) Cache.get("medalsCache");
-        if (medals == null) {
-            medals = new HashMap<Player, byte[]>();
-            Cache.set("medalsCache", medals, 3600);
-        }
-        return medals;
-    }
-
     public static Result signature(Player player) throws IOException {
         if (player == null) {
             return notFound();
         }
-        Map<Player, byte[]> signatures = getSignatureCache();
+        Map<Player, byte[]> signatures = CacheController.getSignatureCache();
         byte[] bytes = signatures.get(player);
         if (bytes == null) {
             BufferedImage image = SignaturePicture.createSignaturePicture(player);
@@ -66,7 +46,7 @@ public class PlayerController extends Controller {
         if (player == null || !player.canImportScores()) {
             return ok(toBytes(createBlankImage()));
         }
-        Map<Player, byte[]> medals = getMedalsCache();
+        Map<Player, byte[]> medals = CacheController.getMedalsCache();
         byte[] bytes = medals.get(player);
         if (bytes == null) {
             BufferedImage image = createMedalsPicture(player);
