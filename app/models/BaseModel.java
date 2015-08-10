@@ -95,7 +95,14 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
         if (updatedAt == null) {
             return "";
         }
-        return new PrettyTime(Http.Context.current().lang().toLocale()).format(createdAt);
+        return new PrettyTime(Http.Context.current().lang().toLocale()).format(updatedAt);
+    }
+
+    public String getUpdatedSinceInFrench() {
+        if (updatedAt == null) {
+            return "";
+        }
+        return new PrettyTime(Locale.FRENCH).format(updatedAt);
     }
 
 }

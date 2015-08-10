@@ -36,6 +36,6 @@ public class SignaturePicture {
     }
 
     private static String message(Score lastScore) {
-        return "Dernier score réalisé " + lastScore.formattedDate() + " sur " + lastScore.game.title + " (" + lastScore.formattedValue() + "pts - " + lastScore.formattedRank() + ")";
+        return "Dernier score réalisé " + lastScore.formattedDateInFrench() + " sur " + lastScore.game.title + " (" + lastScore.formattedValue() + "pts - " + lastScore.formattedRank() + ")";
     }
 }
