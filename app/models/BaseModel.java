@@ -90,11 +90,11 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
         return new PrettyTime(Http.Context.current().lang().toLocale()).format(updatedAt);
     }
 
-    public String getUpdatedSinceInFrench() {
-        if (updatedAt == null) {
+    public String getCreatedSinceInFrench() {
+        if (createdAt == null) {
             return "";
         }
-        return new PrettyTime(Locale.FRENCH).format(updatedAt);
+        return new PrettyTime(Locale.FRENCH).format(createdAt);
     }
 
 }

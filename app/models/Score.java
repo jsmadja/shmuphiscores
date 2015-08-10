@@ -108,7 +108,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedDateInFrench() {
-        return getUpdatedSinceInFrench();
+        return getCreatedSinceInFrench();
     }
 
     public String formattedValue() {

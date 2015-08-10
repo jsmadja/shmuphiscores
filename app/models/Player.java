@@ -151,7 +151,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
         Collections.sort(scores, new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
-                return o2.getUpdatedAt().compareTo(o1.getUpdatedAt());
+                return o2.getCreatedAt().compareTo(o1.getCreatedAt());
             }
         });
         return scores.get(0);
