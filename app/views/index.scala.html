@@ -35,7 +35,7 @@
                             <span class="label label-warning">@score.difficulty.name</span>
                         }
                         @if(score.platform != null) {
-                            <span class="label label-success"><a class="platform" class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a></span>
+                            <a class="platform label label-success" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
                         }
                         @if(score.photo) {
                             <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
