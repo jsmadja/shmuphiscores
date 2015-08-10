@@ -92,9 +92,12 @@ public class OneCreditController extends Controller {
 
         public void addPlayer(Player player, Difficulty difficulty, Mode mode) {
             String key = key(difficulty, mode);
-            Category category = categories.getOrDefault(key, new Category(difficulty, mode));
+            Category category = categories.get(key);
+            if(category == null) {
+                category = new Category(difficulty, mode);
+                categories.put(key, category);
+            }
             category.add(player);
-            categories.put(key, category);
         }
 
         private String key(Difficulty difficulty, Mode mode) {
