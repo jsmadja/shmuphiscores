@@ -5,10 +5,10 @@
 
     @for(platform <- page.platforms) {
         @if(!platform.games.isEmpty) {
-            <h3><a style='color: #5cb85c' href="/platform/@platform.platform">@platform.platform</a></h3>
+            <h3><a style='color: #5cb85c' href="/platform/@platform.platform">@platform.platform.toUpperCase</a></h3>
             <div style="color: #999">
                 @for(game <- platform.games) {
-                    <a href="/game/@game.game.id">@game.game.title</a> : @Html(game.players.map(player => "<a style='color: #999' href='/player/" + player.id + "'>" + player.name.trim + "</a>").reduceLeft(_ + ", " + _))
+                    <a href="/game/@game.game.id">@game.game.title</a> : @Html(game.players.toList.distinct.sortBy(_.name.toLowerCase).map(player => "<a style='color: #999' href='/player/" + player.id + "'>" + player.name.trim + "</a>").reduceLeft(_ + ", " + _))
                     <br/>
                 }
             </div>
