@@ -42,6 +42,9 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public List<Score> scores;
 
     @OneToMany(mappedBy = "game")
+    public List<Score> allScores;
+
+    @OneToMany(mappedBy = "game")
     @Where(clause = "rank > 0 AND onecc = 1")
     public List<Score> oneccs;
 
@@ -127,7 +130,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                 add(eq("game", this)).
                 add(eq("difficulty", difficulty)).
                 add(eq("mode", mode)).
-                add(isNotNull("rank")).
                 orderBy("value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
@@ -180,7 +182,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public void recomputeRankings() {
-        for (Score score : scores) {
+        for (Score score : allScores) {
             score.updateRank(null);
             score.update();
         }
