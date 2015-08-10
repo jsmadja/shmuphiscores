@@ -19,18 +19,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.avaje.ebean.Expr.isNotNull;
+
 public class Timeline {
 
     public Collection<Score> scores = new ArrayList<Score>();
 
     public static Timeline createTimeLine() {
         Timeline timeline = new Timeline();
-        List<Score> scores = Ebean.createQuery(Score.class).orderBy("createdAt desc").setMaxRows(50).findList();
+        List<Score> scores = Ebean.createQuery(Score.class).where(isNotNull("rank")).orderBy("createdAt desc").setMaxRows(50).findList();
         for (Score score : scores) {
-            if (score.hasRank()) {
-                timeline.scores.add(score);
-
-            }
+            timeline.scores.add(score);
         }
         return timeline;
     }
