@@ -111,8 +111,9 @@ public class ScoreController extends Controller {
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
             storePhoto(score, files);
+        } else {
+            score.photo = data.get("oldPhoto");
         }
-
         score.update();
         CacheController.getRankingCache().remove(score.game);
         CacheController.getSignatureCache().remove(score.player);

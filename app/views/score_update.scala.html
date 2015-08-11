@@ -22,6 +22,7 @@
 
         <div style="clear : both ;"/> <form role="form" method="POST" action="/score/update" enctype='multipart/form-data'>
             <input type="hidden" name="scoreId" value="@score.id" />
+            <input type="hidden" name="oldPhoto" value="@score.photo" />
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
