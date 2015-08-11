@@ -29,6 +29,10 @@ GET         /games                       controllers.GamesController.index()
 
 GET         /1cc                         controllers.OneCreditController.index()
 
+GET         /player/:player1/versus/:player2    controllers.VersusController.index(player1: models.Player, player2: models.Player)
+GET         /player/:player1/versus      controllers.VersusController.indexChooseVersus(player1: models.Player)
+POST        /players/versus      controllers.VersusController.createVersus()
+
 GET         /stats                       controllers.StatsController.index()
 
 GET         /admin                       controllers.AdminController.index()

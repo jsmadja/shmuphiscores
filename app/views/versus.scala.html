@@ -1,0 +1,95 @@
+@(versus: models.Versus, players: List[models.Player])
+@main() {
+
+    <h2>Versus</h2>
+
+    <form role="form" method="POST" action="/players/versus">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="player1">Joueur 1</label>
+                    <select name="player1" class="form-control">
+                    @for(player <- players) {
+                        <option value="@player.id" @if(player.id==versus.player1.id){selected}>@player.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="player2">Joueur 2</label>
+                    <select name="player2" class="form-control">
+                    @for(player <- players) {
+                        <option value="@player.id" @if(versus.player2 !=null && player.id==versus.player2.id){selected}>@player.name</option>
+                    }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="submit">&nbsp;</label>
+                    <button name="submit" type="submit" class="form-control btn btn-success">Lancer le versus</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if(versus.player2 != null) {
+
+        @if(!versus.comparisons.isEmpty) {
+            <h3>Résultat du versus entre @versus.player1.name et @versus.player2.name</h3>
+            <table id="games" class="table table-condensed table-bordered">
+                <thead>
+                    <th>Jeux</th>
+                    <th>Mode</th>
+                    <th>Difficulty</th>
+                    <th>@versus.player1.name</th>
+                    <th>@versus.player2.name</th>
+                    <th>Ecart</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                @for(comparison <- versus.comparisons.sortBy(_.diff())) {
+                    <tr>
+                        <td><a>@comparison.game.title</a></td>
+                        <td style="vertical-align : middle ;"><span class="label label-default">@comparison.mode</span></td>
+                        <td style="vertical-align : middle ;"><span class="label label-warning">@comparison.difficulty</span></td>
+                        <td style="text-align : right ; @if(comparison.score1.rank < comparison.score2.rank) {color:#2ecc71;} else {color:#FD868A;}"> @comparison.score1.formattedRank() </td>
+                        <td style="text-align : right ; @if(comparison.score1.rank < comparison.score2.rank) {color:#FD868A;} else {color:#2ecc71;}"> @comparison.score2.formattedRank() </td>
+                        <td style="text-align : right ; ">@if(comparison.gap>0){+}@comparison.gap</td>
+                        <td>@comparison.score1.rank()</td>
+                        <td>@comparison.score2.rank()</td>
+                        <td>@comparison.gap</td>
+                    </tr>
+                }
+            </table>
+
+            <script>
+            $ ( document ).ready ( function ( ) {
+            $ ( '#games' ).dataTable ( {
+            "bJQueryUI" : true,
+            "sDom" : "<'row dataTables_utils'<'col-md-6'l><'col-md-6'f>r>t<'row dataTables_utils'<'col-md-6'i><'col-md-6'p>>",
+            "bPaginate" : false,
+            "bLengthChange" : false,
+            "bInfo" : false,
+            "aoColumnDefs" :[
+            { "iDataSort" : 6, "aTargets" :[ 3 ] },
+            { "iDataSort" : 7, "aTargets" :[ 4 ] },
+            { "iDataSort" : 8, "aTargets" :[ 5 ] },
+            { "bVisible" : false, "aTargets" :[ 6 ] },
+            { "bVisible" : false, "aTargets" :[ 7 ] },
+            { "bVisible" : false, "aTargets" :[ 8 ] }
+            ]
+            } ) ;
+            } ) ;
+            </script>
+        } else {
+            <div class="alert alert-info" role="alert">
+                Pas de versus possible entre <b>@versus.player1.name</b> et <b>@versus.player2.name</b>.
+            </div>
+
+        }
+    }
+
+}

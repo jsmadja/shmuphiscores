@@ -181,4 +181,32 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     public int compareTo(Player p) {
         return this.name.compareToIgnoreCase(p.name);
     }
+
+    public Versus getComparisonWith(Player p) {
+        Versus versus = new Versus(this, p);
+        List<Score> scores = this.scores;
+        for (Score score : scores) {
+            Score comparisonScore = p.getEquivalentScore(score);
+            if (comparisonScore != null) {
+                Versus.Comparison comparison = new Versus.Comparison(score.game, score.difficulty, score.mode, score, comparisonScore);
+                versus.add(comparison);
+            }
+        }
+        return versus;
+    }
+
+    private Score getEquivalentScore(Score reference) {
+        for (Score score : scores) {
+            if (score.game.equals(reference.game)) {
+                if (score.hasMode(reference.mode) && score.hasDifficulty(reference.difficulty)) {
+                    return score;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static List<Player> findAll() {
+        return finder.orderBy("name").findList();
+    }
 }

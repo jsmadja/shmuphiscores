@@ -182,7 +182,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return hasDifficulty(score.difficulty) && hasMode(score.mode) && hasGame(score.game);
     }
 
-    private boolean hasDifficulty(Difficulty difficulty) {
+    public boolean hasDifficulty(Difficulty difficulty) {
         if (difficulty == null && this.difficulty == null) {
             return true;
         }
@@ -199,7 +199,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return this.game.equals(game);
     }
 
-    private boolean hasMode(Mode mode) {
+    public boolean hasMode(Mode mode) {
         if (mode == null && this.mode == null) {
             return true;
         }
