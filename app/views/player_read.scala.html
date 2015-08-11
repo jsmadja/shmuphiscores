@@ -42,11 +42,13 @@
     <h2>
         @player.name
     </h2>
+    @if(actions.User.current.isAuthenticated) {
         <p>
             <a href="@routes.VersusController.index(actions.User.current(), player)" class="btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-transfer"></span> Comparer nos scores
             </a>
         </p>
+    }
    <table id="scores" class="table table-condensed table-striped table-hover table-bordered">
        <thead>
            <th>@Messages.get("Game")</th>
