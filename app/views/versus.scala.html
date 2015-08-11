@@ -52,7 +52,9 @@
                 </thead>
                 @for(comparison <- versus.comparisons.sortBy(_.diff())) {
                     <tr>
-                        <td><a>@comparison.game.title</a></td>
+                        <td>
+                            <a href="@routes.GameController.indexWithName(comparison.game, comparison.game.getEscapedTitle)">@comparison.game.title</a>
+                        </td>
                         <td style="vertical-align : middle ;"><span class="label label-default">@comparison.mode</span></td>
                         <td style="vertical-align : middle ;"><span class="label label-warning">@comparison.difficulty</span></td>
                         <td style="text-align : right ; @if(comparison.score1.rank < comparison.score2.rank) {color:#2ecc71;} else {color:#FD868A;}"> @comparison.score1.formattedRank() </td>
