@@ -8,7 +8,8 @@
             <a href="@routes.ScoreController.fillFormWithGame(game)" class="btn btn-danger"><span class="glyphicon glyphicon-plus"></span> @Messages.get("Score")</a>
         }
     }
-    <a href="@routes.GamesController.index" class="btn btn-danger"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a>
+<a href="@routes.GamesController.index" class="btn btn-danger"><span class="glyphicon glyphicon-th-list"></span> @Messages.get("Games")</a>
+<a href="@routes.VersusController.indexChooseVersus(actions.User.current)" class="btn btn-danger"><span class="glyphicon glyphicon-transfer"></span> Versus</a>
 <div class="btn-group btn-group-sm">
     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
         @Messages.get("Menu") <span class="caret"></span>
