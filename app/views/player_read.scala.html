@@ -5,14 +5,38 @@
     <tr>
         <td style="vertical-align: middle;">
             <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
-        </td>
-        <td style="vertical-align: middle;">
-            @if(score.mode != null) {
-                <span class="label label-default" style="vertical-align: middle; line-height: 30px;">@score.mode.name.toUpperCase</span>
-            }
-            @if(score.difficulty != null) {
-                <span class="label label-warning" style="line-height: 20px;">@score.difficulty.name.toUpperCase</span>
-            }
+            <p style="margin-top: 5px; margin-bottom: 0; font-size: 8pt;">
+                @if(score.mode != null) {
+                    <span class="label label-default">@score.mode.name.toUpperCase</span>
+                }
+                @if(score.difficulty != null) {
+                    <span class="label label-warning">@score.difficulty.name.toUpperCase</span>
+                }
+                @if(score.platform != null) {
+                    <span class="label label-success" style="margin-right: 5px;" >
+                        <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                    </span>
+                }
+                @if(score.photo) {
+                    <a href="@score.photo" target="_blank" class="label label-primary" style="margin-right : 5px ;">
+                        <span id="photo_@score.id"
+                        data-html="true"
+                        data-container="body"
+                        data-trigger="hover"
+                        data-toggle="popover"
+                        data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
+                        data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
+                        <script>
+                            $('#photo_@score.id').popover('hide');
+                        </script>
+                    </a>
+                }
+                @if(score.replay) {
+                    <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </a>
+                }
+            </p>
         </td>
         <td style="vertical-align: middle; text-align: right;">
             @score.stage
@@ -106,7 +130,6 @@
    <table id="scores" class="table table-condensed table-striped table-hover table-bordered">
        <thead>
            <th>@Messages.get("Game")</th>
-           <th style="text-align: center">@Messages.get("Mode") / @Messages.get("Difficulty")</th>
            <th style="text-align: center">@Messages.get("Stage")</th>
            <th style="text-align: center">@Messages.get("Score")</th>
            <th style="text-align: center">@Messages.get("Rank")</th>
@@ -125,10 +148,10 @@
         "bLengthChange": false,
         "bInfo": false,
         "aoColumnDefs": [
-            { "iDataSort": 6, "aTargets": [3] },
-            { "iDataSort": 5, "aTargets": [4] },
-            { "bVisible": false, "aTargets": [5] },
-            { "bVisible": false, "aTargets": [6] }
+            { "iDataSort": 5, "aTargets": [2] },
+            { "iDataSort": 4, "aTargets": [3] },
+            { "bVisible": false, "aTargets": [4] },
+            { "bVisible": false, "aTargets": [5] }
         ]
         });
         });
