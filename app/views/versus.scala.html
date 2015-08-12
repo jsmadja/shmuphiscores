@@ -45,8 +45,7 @@
                     <th>Difficulty</th>
                     <th>@versus.player1.name</th>
                     <th>@versus.player2.name</th>
-                    <th>Ecart</th>
-                    <th></th>
+                    <th>Objectif (%)</th>
                     <th></th>
                     <th></th>
                 </thead>
@@ -59,10 +58,10 @@
                         <td style="vertical-align : middle ;"><span class="label label-warning">@comparison.difficulty</span></td>
                         <td style="text-align : right ; @if(comparison.score1.rank < comparison.score2.rank) {color:#2ecc71;} else {color:#FD868A;}"> @comparison.score1.formattedRank() </td>
                         <td style="text-align : right ; @if(comparison.score1.rank < comparison.score2.rank) {color:#FD868A;} else {color:#2ecc71;}"> @comparison.score2.formattedRank() </td>
-                        <td style="text-align : right ; ">@if(comparison.gap>0){+}@comparison.gap</td>
-                        <td>@comparison.score1.rank()</td>
-                        <td>@comparison.score2.rank()</td>
-                        <td>@comparison.gap</td>
+                        <td style="text-align : right ; @if(comparison.score1.rank > comparison.score2.rank) {color:#FD868A;} else {color:#2ecc71;}">@comparison.scoreGap%</td>
+                        <td>@comparison.score1.rank</td>
+                        <td>@comparison.score2.rank</td>
+                        <td>@comparison.scoreGap</td>
                     </tr>
                 }
             </table>
