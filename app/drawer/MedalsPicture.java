@@ -24,14 +24,14 @@ public class MedalsPicture {
     public static final float HEIGHT = 30;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
 
-    public static BufferedImage createMedalsPicture(Player player) {
+    public static BufferedImage createMedalsPicture(Player player, Color color) {
         BufferedImage bi = new BufferedImage(WIDTH, (int) HEIGHT, TYPE_INT_ARGB);
         Graphics2D graphics = bi.createGraphics();
         graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
         graphics.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
         FontMetrics fontMetrics = graphics.getFontMetrics();
 
-        graphics.setColor(COLOR_SHMUP_GREY);
+        graphics.setColor(color);
         graphics.fillRect(0, 0, WIDTH, (int) HEIGHT);
         graphics.setFont(gameFont);
 

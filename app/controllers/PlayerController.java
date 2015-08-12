@@ -1,11 +1,13 @@
 package controllers;
 
+import drawer.RankingGameConfiguration;
 import drawer.SignaturePicture;
 import models.Player;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -40,20 +42,28 @@ public class PlayerController extends Controller {
     }
 
     public static Result medals(Long shmupId) throws IOException {
+        return medalsWithColor(shmupId, RankingGameConfiguration.COLOR_SHMUP_GREY);
+    }
+
+    private static Result medalsWithColor(Long shmupId, Color color) throws IOException {
         response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
         Player player = Player.findByShmupUserId(shmupId);
-        if (player == null || !player.canImportScores()) {
+        if (player == null) {
             return ok(toBytes(createBlankImage()));
         }
         Map<Player, byte[]> medals = CacheController.getMedalsCache();
         byte[] bytes = medals.get(player);
         if (bytes == null) {
-            BufferedImage image = createMedalsPicture(player);
+            BufferedImage image = createMedalsPicture(player, color);
             bytes = toBytes(image);
             medals.put(player, bytes);
         }
         return ok(bytes);
+    }
+
+    public static Result medalsWhite(Long shmupId) throws IOException {
+        return medalsWithColor(shmupId, Color.WHITE);
     }
 
     private static byte[] toBytes(BufferedImage image) throws IOException {

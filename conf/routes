@@ -42,5 +42,6 @@ GET         /player/:id                  controllers.PlayerController.index(id: 
 GET         /players                     controllers.PlayersController.index()
 GET        /player/:id/signature.png        controllers.PlayerController.signature(id: models.Player)
 GET        /player/:id/medals.png           controllers.PlayerController.medals(id: Long)
+GET        /player/:id/white/medals.png           controllers.PlayerController.medalsWhite(id: Long)
 
 GET         /assets/*file                controllers.Assets.at(path="/public", file)

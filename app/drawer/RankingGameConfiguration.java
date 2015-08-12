@@ -13,7 +13,7 @@ public class RankingGameConfiguration {
     static final int fontHeight = 12;
     static final int width = 652;
     static final Color COLOR_SHMUP_TITLE = new Color(46, 13, 34);
-    static final Color COLOR_SHMUP_GREY = new Color(240, 243, 244);
+    public static final Color COLOR_SHMUP_GREY = new Color(240, 243, 244);
     static final Color COLOR_SHMUP_TEXT = new Color(102, 102, 102);
 
     int maxStageLength;

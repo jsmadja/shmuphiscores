@@ -42,6 +42,9 @@
     <h2>
         @player.name
     </h2>
+    <p>
+        <img src="@routes.PlayerController.medalsWhite(player.shmupUserId)" />
+    </p>
     @if(actions.User.current.isAuthenticated) {
         <p>
             <a href="@routes.VersusController.index(actions.User.current(), player)" class="btn btn-default btn-xs">
