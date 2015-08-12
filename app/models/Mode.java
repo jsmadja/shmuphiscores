@@ -13,6 +13,8 @@ public class Mode extends BaseModel<Mode> {
     @ManyToOne
     public Game game;
 
+    public String scoreType;
+
     public Mode(String name) {
         this.name = name;
     }
@@ -20,6 +22,10 @@ public class Mode extends BaseModel<Mode> {
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean isTimerScore() {
+        return "timer".equals(scoreType);
     }
 
 }

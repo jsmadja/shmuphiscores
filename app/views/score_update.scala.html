@@ -32,12 +32,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="value">@Messages.get("Score")</label>
-                        <input required="true" class="form-control" name="value" placeholder="123456" value="@score.value">
+                @if(score.isTimeScore) {
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="minutes">Minutes</label>
+                            <input required="true" type="number" class="form-control" name="minutes" placeholder="12mn" value="@score.minutes">
+                        </div>
                     </div>
-                </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="seconds">Secondes</label>
+                            <input required="true" type="number" class="form-control" name="seconds" placeholder="34s" value="@score.seconds">
+                        </div>
+                    </div>
+                } else {
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="value">@Messages.get("Score") (pts)</label>
+                            <input required="true" type="number" class="form-control" name="value" placeholder="123456" value="@score.valuePoints">
+                        </div>
+                    </div>
+                }
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="stage">@Messages.get("Stage")</label>

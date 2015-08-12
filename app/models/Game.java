@@ -1,7 +1,6 @@
 package models;
 
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Expr;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
 import org.joda.time.DateMidnight;
@@ -130,7 +129,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                 add(eq("game", this)).
                 add(eq("difficulty", difficulty)).
                 add(eq("mode", mode)).
-                orderBy("value desc").findList();
+                orderBy((mode == null || !mode.isTimerScore()) ? "value desc" : "value").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
 
@@ -229,6 +228,18 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public int getOneCreditCount() {
         return oneccs.size();
+    }
+
+    public boolean hasTimerScores() {
+        if (this.modes == null || this.modes.isEmpty()) {
+            return false;
+        }
+        for (Mode mode : modes) {
+            if (mode.isTimerScore()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

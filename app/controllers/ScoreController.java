@@ -33,8 +33,11 @@ import java.util.Map;
 
 import static com.avaje.ebean.Ebean.find;
 import static com.google.common.collect.Collections2.filter;
+import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import static java.math.RoundingMode.HALF_UP;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static play.data.Form.form;
 
@@ -72,6 +75,10 @@ public class ScoreController extends Controller {
         Map<String, String> data = scoreForm.data();
         Logger.info("Nouveau score envoyé par " + User.current().name + ", " + data.toString());
         models.Score score = createScore(data);
+        if (score.value == null) {
+            scoreForm.reject("Veuillez saisir une valeur de score.");
+            return badRequest(views.html.score_create.render(score.game, scoreForm));
+        }
         if (score.isWorstThanOlders()) {
             scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
             return badRequest(views.html.score_create.render(score.game, scoreForm));
@@ -165,15 +172,26 @@ public class ScoreController extends Controller {
         return difficulty;
     }
 
-    private static BigDecimal value(Map<String, String> data) {
+    public static BigDecimal value(Map<String, String> data) {
         String scoreValue = data.get("value");
-        StringBuilder strValue = new StringBuilder();
-        for (Character c : scoreValue.toCharArray()) {
-            if (isNumeric(c.toString())) {
-                strValue.append(c);
-            }
+        String minutes = data.get("minutes");
+        String seconds = data.get("seconds");
+        if (isBlank(scoreValue) && isBlank(minutes) && isBlank(seconds)) {
+            return null;
         }
-        return new BigDecimal(strValue.toString());
+        if (isNotBlank(scoreValue)) {
+            StringBuilder strValue = new StringBuilder();
+            for (Character c : scoreValue.toCharArray()) {
+                if (isNumeric(c.toString())) {
+                    strValue.append(c);
+                }
+            }
+            return new BigDecimal(strValue.toString());
+        } else {
+            minutes = minutes.trim().isEmpty() ? "0" : minutes;
+            seconds = seconds.trim().isEmpty() ? "0" : seconds;
+            return BigDecimal.valueOf(parseInt(minutes) * 60 + parseInt(seconds));
+        }
     }
 
     private static Mode mode(Map<String, String> data) {
@@ -208,7 +226,7 @@ public class ScoreController extends Controller {
                 if (previous.value.equals(BigDecimal.ZERO)) {
                     current.gapWithPreviousScore = 0L;
                 } else {
-                    current.gapWithPreviousScore = gap.multiply(BigDecimal.valueOf(100)).divide(previous.value, HALF_UP).longValue();
+                    current.gapWithPreviousScore = Math.abs(gap.multiply(BigDecimal.valueOf(100)).divide(previous.value, HALF_UP).longValue());
                 }
             }
         }

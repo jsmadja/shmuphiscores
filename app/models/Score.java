@@ -112,6 +112,9 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedValue() {
+        if (mode != null && mode.isTimerScore()) {
+            return ScoreFormatter.formatAsTime(value);
+        }
         return ScoreFormatter.format(value);
     }
 
@@ -173,7 +176,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     boolean isWorstThan(Score score) {
         if (isComparableWith(score)) {
-            return score.compareTo(this) > 0;
+            if (score.mode == null || !score.mode.isTimerScore()) {
+                return score.compareTo(this) > 0;
+            }
+            return score.compareTo(this) < 0;
         }
         return false;
     }
@@ -289,4 +295,30 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public Integer getOpponentCount() {
         return this.game.findBestScoresByVIPPlayers(difficulty, mode).size();
     }
+
+    public Integer minutes() {
+        if (isTimeScore()) {
+            return this.value.intValue() / 60;
+        }
+        return null;
+    }
+
+    public Integer seconds() {
+        if (isTimeScore()) {
+            return this.value.intValue() % 60;
+        }
+        return null;
+    }
+
+    public BigDecimal valuePoints() {
+        if(isTimeScore()) {
+            return null;
+        }
+        return this.value;
+    }
+
+    public boolean isTimeScore() {
+        return this.mode != null && this.mode.isTimerScore();
+    }
+
 }
