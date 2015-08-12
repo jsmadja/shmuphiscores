@@ -9,6 +9,7 @@ import play.db.ebean.Model;
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -171,6 +172,14 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public PlayersController.Counts getCounts() {
         return counts;
+    }
+
+    public PlayersController.Counts computeCounts() {
+        Integer firstRankCount = find(Score.class).where(and(eq("player", this), eq("rank", 1))).findRowCount();
+        int secondRankCount = find(Score.class).where(and(eq("player", this), eq("rank", 2))).findRowCount();
+        int thirdRankCount = find(Score.class).where(and(eq("player", this), eq("rank", 3))).findRowCount();
+        int oneCreditCount = computeOneCredit();
+        return counts = new PlayersController.Counts(firstRankCount, secondRankCount, thirdRankCount, oneCreditCount);
     }
 
     public void setCounts(PlayersController.Counts counts) {

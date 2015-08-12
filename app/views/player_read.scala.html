@@ -42,9 +42,7 @@
     <h2>
         @player.name
     </h2>
-    <p>
-        <img src="@routes.PlayerController.medalsWhite(player.shmupUserId)" />
-    </p>
+
     @if(actions.User.current.isAuthenticated) {
         <p>
             <a href="@routes.VersusController.index(actions.User.current(), player)" class="btn btn-default btn-xs">
@@ -54,7 +52,7 @@
     }
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h3>10 derniers scores</h3>
             <table class="table table-condensed table-striped table-hover table-bordered">
                 <thead>
@@ -62,11 +60,16 @@
                     <th>Date</th>
                 </thead>
                 @for(score <- player.scores.toSeq.sortBy(-_.getCreatedAt.getTime).take(10)) {
-                    <tr><td>@score.game.title</td><td>@score.formattedDate</td></tr>
+                    <tr>
+                        <td>
+                            <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
+                        </td>
+                        <td>@score.formattedDate</td>
+                    </tr>
                 }
             </table>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <h3>10 plateformes préférées</h3>
             <table class="table table-condensed table-striped table-hover table-bordered">
                 <thead>
@@ -74,7 +77,25 @@
                     <th>#</th>
                 </thead>
                 @for(pair <- player.scores.filter(_.platform != null).groupBy(_.platform.name.toUpperCase).mapValues(_.size).toSeq.sortBy(-_._2).take(10)) {
-                    <tr><td>@pair._1</td><td>@pair._2</td></tr>
+                    <tr>
+                        <td><a href="@routes.PlatformController.read(pair._1)">@pair._1</a></td>
+                        <td>@pair._2</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h3>Palmarès <img style="position : absolute; right: 10px;" src="@routes.PlayerController.medalsWhite(player.shmupUserId)" /></h3>
+            <table class="table table-condensed table-striped table-hover table-bordered">
+                <thead>
+                    <th>Rang</th>
+                    <th>#</th>
+                </thead>
+                @defining(player.computeCounts) { counts =>
+                    <tr><td>1st</td><td>@counts.firstRankCount</td></tr>
+                    <tr><td>2nd</td><td>@counts.secondRankCount</td></tr>
+                    <tr><td>3rd</td><td>@counts.thirdRankCount</td></tr>
+                    <tr><td>1CC</td><td>@counts.oneCreditCount</td></tr>
                 }
             </table>
         </div>
