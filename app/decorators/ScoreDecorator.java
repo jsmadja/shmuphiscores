@@ -11,7 +11,7 @@ public class ScoreDecorator {
     }
 
     public String format() {
-        String str = "[color=#800000]J'ai atteint le [b]stage " + score.stage.name + "[/b] de " + score.game.title + " sur [b]" + score.platform.name + "[/b] avec un score de [size=110][b]" + score.formattedValue() + " points[/b][/size], ce qui me classe en [b]" + score.rank() + rankSuffix() + "[/b] position du ranking";
+        String str = "[color=#800000]J'ai atteint le [b]stage " + score.stage.name + "[/b] de " + score.game.title + " sur [b]" + score.platform.name + "[/b] avec un score de [size=110][b]" + score.formattedValue() + (score.isTimeScore() ? " " : " points") + "[/b][/size], ce qui me classe en [b]" + score.rank() + rankSuffix() + "[/b] position du ranking";
 
         if (score.mode != null) {
             str += " en mode [b]" + score.mode.name + "[/b]";
@@ -46,7 +46,7 @@ public class ScoreDecorator {
     }
 
     private String rankSuffix() {
-        if(score.rank() == null) {
+        if (score.rank() == null) {
             return "";
         }
         if (score.rank() == 1) {

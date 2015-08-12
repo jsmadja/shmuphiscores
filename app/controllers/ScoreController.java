@@ -12,6 +12,7 @@ import models.Player;
 import models.Score;
 import models.Ship;
 import models.Stage;
+import org.joda.time.DateTime;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
@@ -176,7 +177,8 @@ public class ScoreController extends Controller {
         String scoreValue = data.get("value");
         String minutes = data.get("minutes");
         String seconds = data.get("seconds");
-        if (isBlank(scoreValue) && isBlank(minutes) && isBlank(seconds)) {
+        String milliseconds = data.get("milliseconds");
+        if (isBlank(scoreValue) && isBlank(minutes) && isBlank(seconds) && isBlank(milliseconds)) {
             return null;
         }
         if (isNotBlank(scoreValue)) {
@@ -188,9 +190,11 @@ public class ScoreController extends Controller {
             }
             return new BigDecimal(strValue.toString());
         } else {
-            minutes = minutes.trim().isEmpty() ? "0" : minutes;
-            seconds = seconds.trim().isEmpty() ? "0" : seconds;
-            return BigDecimal.valueOf(parseInt(minutes) * 60 + parseInt(seconds));
+            return BigDecimal.valueOf(new DateTime().withTimeAtStartOfDay().withDate(0, 1, 1).
+                    withMinuteOfHour(parseInt(minutes)).
+                    withSecondOfMinute(parseInt(seconds)).
+                    withMillisOfSecond(parseInt(milliseconds)).
+                    getMillis());
         }
     }
 

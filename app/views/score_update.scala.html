@@ -36,20 +36,26 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="minutes">Minutes</label>
-                            <input required="true" type="number" class="form-control" name="minutes" placeholder="12mn" value="@score.minutes">
+                            <input type="number" maxlength="2" size="2" min="0" max="59" class="form-control" name="minutes" placeholder="12mn" value="@score.minutes">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="seconds">Secondes</label>
-                            <input required="true" type="number" class="form-control" name="seconds" placeholder="34s" value="@score.seconds">
+                            <input type="number" maxlength="2" size="2" min="0" max="59" class="form-control" name="seconds" placeholder="34s" value="@score.seconds">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="seconds">10èmes de seconde</label>
+                            <input type="number" maxlength="2" size="2" min="0" max="99" class="form-control" name="milliseconds" placeholder="34s" value="@score.milliseconds">
                         </div>
                     </div>
                 } else {
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="value">@Messages.get("Score") (pts)</label>
-                            <input required="true" type="number" class="form-control" name="value" placeholder="123456" value="@score.valuePoints">
+                            <input type="number" class="form-control" name="value" placeholder="123456" value="@score.valuePoints">
                         </div>
                     </div>
                 }

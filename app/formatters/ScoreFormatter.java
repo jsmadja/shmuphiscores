@@ -1,5 +1,7 @@
 package formatters;
 
+import org.joda.time.DateTime;
+
 import java.math.BigDecimal;
 
 import static org.apache.commons.lang3.StringUtils.leftPad;
@@ -26,6 +28,7 @@ public class ScoreFormatter {
     }
 
     public static String formatAsTime(BigDecimal score) {
-        return leftPad(Integer.toString(score.intValue() / 60), 2, '0') + ":" + leftPad(Integer.toString(score.intValue() % 60), 2, '0');
+        DateTime time = new DateTime(score.longValue());
+        return time.getMinuteOfHour() + "'" + leftPad(Integer.toString(time.getSecondOfMinute()), 2, '0') + "\"" + leftPad(Integer.toString(time.getMillisOfSecond()), 2, '0');
     }
 }

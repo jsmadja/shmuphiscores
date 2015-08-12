@@ -35,13 +35,19 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="minutes">Minutes</label>
-                        <input type="number" class="form-control" name="minutes" placeholder="12mn">
+                        <input type="number" maxlength="2" size="2" min="0" max="59" class="form-control" name="minutes" placeholder="12mn">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="seconds">Secondes</label>
-                        <input type="number" class="form-control" name="seconds" placeholder="34s">
+                        <input type="number" maxlength="2" size="2" min="0" max="59" class="form-control" name="seconds" placeholder="34s">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="seconds">10èmes de seconde</label>
+                        <input type="number" maxlength="2" size="2" min="0" max="99"  class="form-control" name="milliseconds" placeholder="56">
                     </div>
                 </div>
             }

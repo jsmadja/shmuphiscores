@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
+import org.joda.time.DateTime;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
@@ -298,14 +299,21 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public Integer minutes() {
         if (isTimeScore()) {
-            return this.value.intValue() / 60;
+            return new DateTime(this.value.longValue()).getMinuteOfHour();
         }
         return null;
     }
 
     public Integer seconds() {
         if (isTimeScore()) {
-            return this.value.intValue() % 60;
+            return new DateTime(this.value.longValue()).getSecondOfMinute();
+        }
+        return null;
+    }
+
+    public Integer milliseconds() {
+        if (isTimeScore()) {
+            return new DateTime(this.value.longValue()).getMillisOfSecond();
         }
         return null;
     }
