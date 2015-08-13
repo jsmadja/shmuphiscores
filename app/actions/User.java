@@ -12,8 +12,6 @@ import play.mvc.SimpleResult;
 import plugins.ShmupClient;
 
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class User extends Action.Simple {
 
@@ -24,6 +22,32 @@ public class User extends Action.Simple {
         this.actionMethod = actionMethod;
     }
 
+    public static Player current() {
+        return (Player) Http.Context.current().args.get("user");
+    }
+
+    private static Player getPlayerFromCookie(Http.Context context) {
+        Long shmupUserId;
+        if (false && Play.isDev()) {
+            shmupUserId = 33489L;
+        } else {
+            Http.Cookie userId = context.request().cookie("phpbb3_axtcz_u");
+            if (userId == null || userId.value().equals("1")) {
+                return Player.guest;
+            }
+            shmupUserId = Long.parseLong(userId.value());
+        }
+        Player player = Player.findByShmupUserId(shmupUserId);
+        if (player == null) {
+            ShmupClient shmupClient = new ShmupClient();
+            String login = shmupClient.getLoginById(shmupUserId);
+            player = Player.findOrCreatePlayer(login);
+            player.shmupUserId = shmupUserId;
+            player.update();
+        }
+        return player;
+    }
+
     @Override
     public F.Promise<SimpleResult> call(Http.Context context) throws Throwable {
         startWatch();
@@ -32,7 +56,7 @@ public class User extends Action.Simple {
         mdc(context);
         F.Promise<SimpleResult> call = delegate.call(context);
         stopWatch();
-        if(player.isAuthenticated()) {
+        if (player.isAuthenticated()) {
             Logger.info(stopWatch.getTime() + "ms");
         }
         return call;
@@ -50,32 +74,6 @@ public class User extends Action.Simple {
     private void startWatch() {
         stopWatch = new StopWatch();
         stopWatch.start();
-    }
-
-    public static Player current() {
-        return (Player) Http.Context.current().args.get("user");
-    }
-
-    private static Player getPlayerFromCookie(Http.Context context) {
-        Long shmupUserId;
-        if (Play.isDev()) {
-            shmupUserId = 33489L;
-        } else {
-            Http.Cookie userId = context.request().cookie("phpbb3_axtcz_u");
-            if(userId == null || userId.value().equals("1")) {
-                return Player.guest;
-            }
-            shmupUserId = Long.parseLong(userId.value());
-        }
-        Player player = Player.findByShmupUserId(shmupUserId);
-        if (player == null) {
-            ShmupClient shmupClient = new ShmupClient();
-            String login = shmupClient.getLoginById(shmupUserId);
-            player = Player.findOrCreatePlayer(login);
-            player.shmupUserId = shmupUserId;
-            player.update();
-        }
-        return player;
     }
 
 }

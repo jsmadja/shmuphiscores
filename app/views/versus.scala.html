@@ -10,7 +10,7 @@
                     <label for="player1">Joueur 1</label>
                     <select name="player1" class="form-control">
                     @for(player <- players) {
-                        <option value="@player.id" @if(player.id==versus.player1.id){selected}>@player.name</option>
+                        <option value="@player.id" @if(versus.player1 != null && player.id==versus.player1.id){selected}>@player.name</option>
                     }
                     </select>
                 </div>
