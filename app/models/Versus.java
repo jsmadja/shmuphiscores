@@ -77,7 +77,7 @@ public class Versus {
                 scoreA = score1;
                 scoreB = score2;
             }
-            return scoreA.value.multiply(BigDecimal.valueOf(100)).divide(scoreB.value, HALF_UP).intValue();
+            return scoreA.value.multiply(BigDecimal.valueOf(100)).divide(scoreB.value, HALF_UP).intValue() - 100;
         }
 
         public boolean isLostForPlayer1() {
