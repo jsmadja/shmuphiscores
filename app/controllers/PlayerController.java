@@ -3,7 +3,6 @@ package controllers;
 import drawer.RankingGameConfiguration;
 import drawer.SignaturePicture;
 import models.Player;
-import models.Versus;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -12,7 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.Map;
 
 import static drawer.MedalsPicture.createBlankImage;
 import static drawer.MedalsPicture.createMedalsPicture;
@@ -58,7 +57,9 @@ public class PlayerController extends Controller {
         if (bytes == null) {
             BufferedImage image = createMedalsPicture(player, color);
             bytes = toBytes(image);
-            medals.put(player, bytes);
+            if (color != Color.WHITE) {
+                medals.put(player, bytes);
+            }
         }
         return ok(bytes);
     }
