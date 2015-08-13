@@ -125,6 +125,9 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             return new ArrayList<Score>();
         }
         List<Score> scores = Score.finder.
+                fetch("mode").
+                fetch("difficulty").
+                fetch("player").
                 where().conjunction().
                 add(eq("game", this)).
                 add(eq("difficulty", difficulty)).
