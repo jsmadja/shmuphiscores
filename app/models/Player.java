@@ -218,4 +218,17 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     public static List<Player> findAll() {
         return finder.orderBy("name").findList();
     }
+
+    public Versus getBestVersus() {
+        List<Player> all = Player.findAll();
+        all.remove(this);
+        Versus bestVersus = null;
+        for (Player opponent : all) {
+            Versus versus = getComparisonWith(opponent);
+            if(bestVersus == null || bestVersus.loseCount() < versus.loseCount()) {
+                bestVersus = versus;
+            }
+        }
+        return bestVersus;
+    }
 }

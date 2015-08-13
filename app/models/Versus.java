@@ -1,11 +1,13 @@
 package models;
 
+import com.google.common.base.Predicate;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.collect.Collections2.filter;
 import static java.math.RoundingMode.HALF_UP;
 
 public class Versus {
@@ -22,6 +24,24 @@ public class Versus {
 
     public void add(Comparison comparison) {
         this.comparisons.add(comparison);
+    }
+
+    public int loseCount() {
+        return filter(comparisons, new Predicate<Comparison>() {
+            @Override
+            public boolean apply(Comparison comparison) {
+                return comparison.isLostForPlayer1();
+            }
+        }).size();
+    }
+
+    public int winCount() {
+        return filter(comparisons, new Predicate<Comparison>() {
+            @Override
+            public boolean apply(Comparison comparison) {
+                return comparison.isWonForPlayer1();
+            }
+        }).size();
     }
 
     public static class Comparison {
@@ -52,12 +72,20 @@ public class Versus {
                 DateTime dateTimeB = new DateTime(scoreB.value.longValue());
                 double a = dateTimeA.getMinuteOfDay() * 60000 + dateTimeA.getSecondOfMinute() * 1000 + dateTimeA.getMillisOfSecond();
                 double b = dateTimeB.getMinuteOfDay() * 60000 + dateTimeB.getSecondOfMinute() * 1000 + dateTimeB.getMillisOfSecond();
-                return (int)((a * 100D) / b);
+                return (int) ((a * 100D) / b);
             } else {
                 scoreA = score1;
                 scoreB = score2;
             }
             return scoreA.value.multiply(BigDecimal.valueOf(100)).divide(scoreB.value, HALF_UP).intValue();
+        }
+
+        public boolean isLostForPlayer1() {
+            return score1.isWorstThan(score2);
+        }
+
+        public boolean isWonForPlayer1() {
+            return score2.isWorstThan(score1);
         }
     }
 }

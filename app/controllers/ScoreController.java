@@ -190,6 +190,10 @@ public class ScoreController extends Controller {
             }
             return new BigDecimal(strValue.toString());
         } else {
+            minutes = minutes.trim().isEmpty() ? "0" : minutes.trim();
+            seconds= seconds.trim().isEmpty() ? "0" : seconds.trim();
+            milliseconds = milliseconds.trim().isEmpty() ? "0" : milliseconds.trim();
+
             return BigDecimal.valueOf(new DateTime().withTimeAtStartOfDay().withDate(0, 1, 1).
                     withMinuteOfHour(parseInt(minutes)).
                     withSecondOfMinute(parseInt(seconds)).

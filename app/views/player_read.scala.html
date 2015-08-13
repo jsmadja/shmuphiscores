@@ -122,6 +122,16 @@
                     <tr><td>1CC</td><td>@counts.oneCreditCount</td></tr>
                 }
             </table>
+
+            <p>
+                @defining(player.getBestVersus) { versus =>
+                    Adversaire privilégié : <a href="@routes.PlayerController.index(versus.player2)">@versus.player2.name</a>
+                    <p>
+                        <a href="@routes.VersusController.index(player, versus.player2)">Voir les @versus.comparisons.size versus (ratio: @versus.winCount/@versus.loseCount)</a>
+                    </p>
+            }
+            </p>
+
         </div>
     </div>
 

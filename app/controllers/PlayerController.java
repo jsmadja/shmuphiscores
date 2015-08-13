@@ -3,6 +3,7 @@ package controllers;
 import drawer.RankingGameConfiguration;
 import drawer.SignaturePicture;
 import models.Player;
+import models.Versus;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Map;
+import java.util.*;
 
 import static drawer.MedalsPicture.createBlankImage;
 import static drawer.MedalsPicture.createMedalsPicture;

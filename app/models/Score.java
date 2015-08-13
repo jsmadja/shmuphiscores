@@ -95,6 +95,10 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.value = value;
     }
 
+    public Score(BigDecimal value) {
+        this.value = value;
+    }
+
     public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
         Score unique = Ebean.createQuery(Score.class).
                 setMaxRows(1).
@@ -168,7 +172,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public boolean isWorstThanOlders() {
         for (Score score : player.bestScores()) {
-            if (score.isWorstThan(this)) {
+            if (this.isWorstThan(score)) {
                 return true;
             }
         }
@@ -177,12 +181,16 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     boolean isWorstThan(Score score) {
         if (isComparableWith(score)) {
-            if (score.mode == null || !score.mode.isTimerScore()) {
-                return score.compareTo(this) > 0;
+            if (isNumericScore(score)) {
+                return score.compareTo(this) < 0;
             }
-            return score.compareTo(this) < 0;
+            return score.compareTo(this) > 0;
         }
         return false;
+    }
+
+    private boolean isNumericScore(Score score) {
+        return score.mode == null || !score.mode.isTimerScore();
     }
 
     private boolean isComparableWith(Score score) {
