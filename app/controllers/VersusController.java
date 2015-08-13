@@ -12,6 +12,9 @@ import java.util.Map;
 public class VersusController extends Controller {
 
     public static Result index(Player player1, Player player2) {
+        if(player1 == null) {
+            return indexChooseVersus(player2);
+        }
         return ok(versus.render(player1.getComparisonWith(player2), Player.findAll()));
     }
 
