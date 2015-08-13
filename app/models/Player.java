@@ -1,12 +1,9 @@
 package models;
 
 import com.avaje.ebean.annotation.Where;
-import com.google.common.base.Predicate;
 import controllers.PlayersController;
-import org.apache.commons.lang3.StringUtils;
 import play.db.ebean.Model;
 
-import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -20,13 +17,13 @@ import java.util.Set;
 
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.disjunction;
 import static com.avaje.ebean.Expr.eq;
 import static com.avaje.ebean.Expr.gt;
 import static com.avaje.ebean.Expr.ilike;
 import static com.avaje.ebean.Expr.isNotNull;
 import static com.avaje.ebean.Expr.or;
 import static com.avaje.ebean.Expr.startsWith;
-import static com.google.common.collect.Collections2.filter;
 
 @Entity
 public class Player extends BaseModel<Player> implements Comparable<Player> {
@@ -93,7 +90,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public Collection<Score> bestReplayableScores() {
-        return Score.finder.where().not(eq("replay","")).eq("player", this).findList();
+        return Score.finder.where().not(eq("replay", "")).eq("player", this).findList();
     }
 
     public boolean hasReplays() {
@@ -141,7 +138,19 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
                 fetch("mode").
                 fetch("game").
                 fetch("difficulty").
-                where(and(and(isNotNull("rank"), eq("player", this)), or(ilike("stage.name", "%all%"), startsWith("stage.name", "2-")))).findList();
+                where().
+                isNotNull("rank").
+                eq("player", this).
+                disjunction().
+                    ilike("stage.name", "%all%").
+                startsWith("stage.name", "2-").ilike("stage.name", "boss 2-").
+                startsWith("stage.name", "3-").ilike("stage.name", "boss 3-").
+                startsWith("stage.name", "4-").ilike("stage.name", "boss 4-").
+                startsWith("stage.name", "5-").ilike("stage.name", "boss 5-").
+                startsWith("stage.name", "6-").ilike("stage.name", "boss 6-").
+                ilike("stage.name", "%ENDLESS%").
+                endJunction().
+                findList();
         Set<String> uniqueOneCreditScores = new HashSet<String>();
         for (Score oneCreditScore : oneCreditScores) {
             String gameTitle = oneCreditScore.getGameTitle();

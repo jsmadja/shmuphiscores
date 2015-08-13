@@ -302,7 +302,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public boolean is1CC() {
         if (this.stage != null) {
             String stageName = this.stage.name.toLowerCase();
-            return stageName.contains("all") || stageName.startsWith("2-") || stageName.startsWith("3-") || stageName.toUpperCase().contains("LOOP");
+            return stageName.contains("all")
+                    || stageName.startsWith("2-") || stageName.toLowerCase().startsWith("boss 2-")
+                    || stageName.startsWith("3-") || stageName.toLowerCase().startsWith("boss 3-")
+                    || stageName.startsWith("4-") || stageName.toLowerCase().startsWith("boss 4-")
+                    || stageName.startsWith("5-") || stageName.toLowerCase().startsWith("boss 5-")
+                    || stageName.startsWith("6-") || stageName.toLowerCase().startsWith("boss 6-")
+                    || stageName.toUpperCase().contains("ENDLESS");
         }
         return false;
     }
