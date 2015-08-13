@@ -17,7 +17,7 @@ import static views.html.players.render;
 public class PlayersController extends Controller {
 
     public static Result index() {
-        List<Player> players = Ebean.createQuery(Player.class).findList();
+        List<Player> players = Ebean.createQuery(Player.class).fetch("scores").findList();
         players = new ArrayList<Player>(filter(players, new Predicate<Player>() {
             @Override
             public boolean apply(@Nullable Player player) {
