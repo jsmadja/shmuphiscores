@@ -3,7 +3,9 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Entity
 public class Platform extends BaseModel<Platform> {

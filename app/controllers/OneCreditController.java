@@ -3,7 +3,6 @@ package controllers;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.SqlRow;
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import models.Difficulty;
 import models.Game;
 import models.Mode;
@@ -19,7 +18,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.google.common.collect.Collections2.filter;
 import static com.google.common.collect.Collections2.transform;
 
 public class OneCreditController extends Controller {
@@ -38,20 +36,19 @@ public class OneCreditController extends Controller {
             OneCreditPlatform oneCreditPlatform = oneCreditPage.addPlatform(platform);
             Collection<Game> games = PlatformController.getGamesByPlatform(platform);
             for (Game game : games) {
-                if (!game.oneccs.isEmpty()) {
+                Collection<Score> scores = Score.finder.
+                        where().eq("onecc", true).eq("game", game).eq("platform.name", platform).
+                        join("player").
+                        fetch("player").
+                        fetch("difficulty").
+                        fetch("mode").
+                        findList();
+                if (!scores.isEmpty()) {
                     OneCreditGame oneCreditGame = new OneCreditGame(game);
-                    Collection<Score> scores = filter(game.oneccs, new Predicate<Score>() {
-                        @Override
-                        public boolean apply(@Nullable Score score) {
-                            return score.platform == null || score.platform.name.equalsIgnoreCase(platform);
-                        }
-                    });
-                    if (!scores.isEmpty()) {
-                        for (Score score : scores) {
-                            oneCreditGame.addPlayer(score.player, score.difficulty, score.mode);
-                        }
-                        oneCreditPlatform.addGame(oneCreditGame);
+                    for (Score score : scores) {
+                        oneCreditGame.addPlayer(score.player, score.difficulty, score.mode);
                     }
+                    oneCreditPlatform.addGame(oneCreditGame);
                 }
             }
         }
@@ -93,7 +90,7 @@ public class OneCreditController extends Controller {
         public void addPlayer(Player player, Difficulty difficulty, Mode mode) {
             String key = key(difficulty, mode);
             Category category = categories.get(key);
-            if(category == null) {
+            if (category == null) {
                 category = new Category(difficulty, mode);
                 categories.put(key, category);
             }
