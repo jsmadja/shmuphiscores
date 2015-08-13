@@ -1,6 +1,5 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import com.google.common.collect.Lists;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEnclosureImpl;
@@ -27,10 +26,19 @@ public class Timeline {
 
     public static Timeline createTimeLine() {
         Timeline timeline = new Timeline();
-        List<Score> scores = Ebean.createQuery(Score.class).where(isNotNull("rank")).orderBy("createdAt desc").setMaxRows(50).findList();
-        for (Score score : scores) {
-            timeline.scores.add(score);
-        }
+        List<Score> scores = Score.finder.
+                where(isNotNull("rank")).
+                orderBy("createdAt desc").
+                setMaxRows(50).
+                fetch("game", "*").
+                fetch("stage", "*").
+                fetch("ship", "*").
+                fetch("platform", "*").
+                fetch("player", "*").
+                fetch("mode", "*").
+                fetch("difficulty", "*").
+                findList();
+        timeline.scores.addAll(scores);
         return timeline;
     }
 

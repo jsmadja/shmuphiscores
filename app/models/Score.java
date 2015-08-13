@@ -302,7 +302,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public Integer getOpponentCount() {
-        return this.game.findBestScoresByVIPPlayers(difficulty, mode).size();
+        return finder.where().eq("game", game).eq("difficulty", difficulty).eq("mode", mode).gt("rank", 0).findRowCount();
     }
 
     public Integer minutes() {
@@ -327,7 +327,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public BigDecimal valuePoints() {
-        if(isTimeScore()) {
+        if (isTimeScore()) {
             return null;
         }
         return this.value;
