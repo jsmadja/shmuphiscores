@@ -36,17 +36,13 @@ public class MedalsPicture {
         graphics.setFont(gameFont);
 
         Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
-        String picto = "";
-        picto = "✭";
-        picto = "✪";
-        picto = "✯";
-        draw(graphics, picto, firstRankCount, 0, fontMetrics, new Color(255, 215, 0));
+        draw(graphics, "✯", firstRankCount, 0, fontMetrics, new Color(255, 215, 0));
         int secondRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 2))).findRowCount();
-        draw(graphics, picto, secondRankCount, 35, fontMetrics, new Color(192, 192, 192));
+        draw(graphics, "✯", secondRankCount, 35, fontMetrics, new Color(192, 192, 192));
         int thirdRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 3))).findRowCount();
-        draw(graphics, picto, thirdRankCount, 70, fontMetrics, new Color(205, 127, 50));
+        draw(graphics, "✯", thirdRankCount, 70, fontMetrics, new Color(205, 127, 50));
         int oneCreditCount = player.computeOneCredit();
-        draw(graphics, picto, oneCreditCount, 105, fontMetrics, Color.BLACK);
+        draw(graphics, "✯", oneCreditCount, 105, fontMetrics, Color.BLACK);
         return bi;
     }
 

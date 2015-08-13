@@ -8,6 +8,7 @@ import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,24 +21,25 @@ import java.util.Set;
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
+import static com.avaje.ebean.Expr.gt;
 import static com.avaje.ebean.Expr.ilike;
 import static com.avaje.ebean.Expr.isNotNull;
 import static com.avaje.ebean.Expr.or;
 import static com.avaje.ebean.Expr.startsWith;
 import static com.google.common.collect.Collections2.filter;
-import static java.util.Collections.sort;
 
 @Entity
 public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public static Player guest = new Player(0L, "guest");
-    public static Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
+
+    public static Model.Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
 
     public String name;
 
     public Long shmupUserId;
 
-    @OneToMany(mappedBy = "player")
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     @Where(clause = "rank > 0")
     public List<Score> scores = new ArrayList<Score>();
 
@@ -47,6 +49,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     public String twitter;
 
     private boolean vip;
+
     private PlayersController.Counts counts;
 
     public Player(Long id, String name) {
@@ -85,41 +88,12 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
         return name;
     }
 
-    public List<Score> bestScores() {
-        List<Score> bestScores = new ArrayList<Score>(scores);
-        sort(bestScores);
-        final Set<String> games = new HashSet<String>();
-        bestScores = new ArrayList<Score>(filter(bestScores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                String key = score.game.title + "_" + score.difficulty + " " + score.mode;
-                if (games.contains(key)) {
-                    return false;
-                }
-                games.add(key);
-                return true;
-            }
-        }));
-        Collections.sort(bestScores, new Comparator<Score>() {
-            @Override
-            public int compare(Score score, Score score2) {
-                return score.game.title.compareTo(score2.game.title);
-            }
-        });
-        return bestScores;
-    }
-
     public boolean isAuthenticated() {
         return !this.equals(guest);
     }
 
     public Collection<Score> bestReplayableScores() {
-        return filter(bestScores(), new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return StringUtils.isNotBlank(score.replay);
-            }
-        });
+        return Score.finder.where().not(eq("replay","")).eq("player", this).findList();
     }
 
     public boolean hasReplays() {
@@ -162,7 +136,12 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public int computeOneCredit() {
-        List<Score> oneCreditScores = find(Score.class).where(and(and(isNotNull("rank"), eq("player", this)), or(ilike("stage.name", "%all%"), startsWith("stage.name", "2-")))).findList();
+        List<Score> oneCreditScores = find(Score.class).
+                fetch("player").
+                fetch("mode").
+                fetch("game").
+                fetch("difficulty").
+                where(and(and(isNotNull("rank"), eq("player", this)), or(ilike("stage.name", "%all%"), startsWith("stage.name", "2-")))).findList();
         Set<String> uniqueOneCreditScores = new HashSet<String>();
         for (Score oneCreditScore : oneCreditScores) {
             String gameTitle = oneCreditScore.getGameTitle();
@@ -219,7 +198,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public Versus getBestVersus() {
-        List<Player> all = Player.findAll();
+        List<Player> all = Player.finder.where().join("scores").findList();
         all.remove(this);
         Versus bestVersus = null;
         for (Player opponent : all) {
@@ -233,10 +212,22 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public boolean isUnbeatable() {
         for (Score score : scores) {
-            if(score.rank() > 1) {
+            if (score.rank() > 1) {
                 return false;
             }
         }
         return !scores.isEmpty();
+    }
+
+    public List<Score> fetchScores() {
+        return Score.finder.
+                where(and(gt("rank", 0), eq("player", this))).
+                fetch("platform").
+                fetch("stage").
+                fetch("game").
+                fetch("mode").
+                fetch("player").
+                fetch("difficulty").
+                findList();
     }
 }

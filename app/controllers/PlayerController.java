@@ -22,7 +22,7 @@ public class PlayerController extends Controller {
         if (player == null) {
             return notFound();
         }
-        return ok(views.html.player_read.render(player));
+        return ok(views.html.player_read.render(player, player.fetchScores()));
     }
 
     public static Result signature(Player player) throws IOException {

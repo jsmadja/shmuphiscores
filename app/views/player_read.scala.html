@@ -1,4 +1,4 @@
-@(player: models.Player)
+@(player: models.Player, scores: List[models.Score])
 @import play.i18n._
 
 @gameLine(score: models.Score) = {
@@ -83,7 +83,7 @@
                     <th>Jeu</th>
                     <th>Date</th>
                 </thead>
-                @for(score <- player.scores.toSeq.sortBy(-_.getCreatedAt.getTime).take(10)) {
+                @for(score <- scores.toSeq.sortBy(-_.getCreatedAt.getTime).take(10)) {
                     <tr>
                         <td>
                             <a href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a>
@@ -100,7 +100,7 @@
                     <th>Plateforme</th>
                     <th>#</th>
                 </thead>
-                @for(pair <- player.scores.filter(_.platform != null).groupBy(_.platform.name.toUpperCase).mapValues(_.size).toSeq.sortBy(-_._2).take(10)) {
+                @for(pair <- scores.filter(_.platform != null).groupBy(_.platform.name.toUpperCase).mapValues(_.size).toSeq.sortBy(-_._2).take(10)) {
                     <tr>
                         <td><a href="@routes.PlatformController.read(pair._1)">@pair._1</a></td>
                         <td>@pair._2</td>
@@ -151,7 +151,7 @@
            <th></th>
            <th></th>
        </thead>
-       @player.bestScores.map(gameLine(_))
+       @scores.map(gameLine(_))
    </table>
 
     <script>
