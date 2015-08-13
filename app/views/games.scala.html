@@ -16,7 +16,7 @@
        @for(game <- games.sortBy(_.title)) {
         <tr>
             <td style="padding : 0 ; border-right : none ; border-left : none ;">
-                <div style="overflow-y : hidden ; height : 100px ;">
+                <div style="overflow-y : hidden ; height : 70px ;">
                     <a href="@routes.GameController.indexWithName(game, game.getEscapedTitle)"><img src="@game.cover" width="100px" alt="@game.title" /></a>
                 </div>
             </td>
