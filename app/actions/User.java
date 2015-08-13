@@ -28,7 +28,7 @@ public class User extends Action.Simple {
 
     private static Player getPlayerFromCookie(Http.Context context) {
         Long shmupUserId;
-        if (false && Play.isDev()) {
+        if (Play.isDev()) {
             shmupUserId = 33489L;
         } else {
             Http.Cookie userId = context.request().cookie("phpbb3_axtcz_u");
