@@ -147,7 +147,7 @@
                             <span class="glyphicon glyphicon-play"></span>
                         </a>
                     }
-                <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
+                    <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
                 </td>
                 <td style="text-align : right ; vertical-align : middle ;" >@if(score.stage != null) {
                     @score.stage.name
@@ -158,18 +158,19 @@
                     </td>
                 }
                 <td style="text-align : center ; vertical-align : middle ;">
-                @if(score.comment) {
-                    @if(score.comment.length < 25) {
-                        @score.comment
-                    } else {
-                        <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                        </button>
-                        <script>
-                        $('#comment_@score.id').popover('hide');
-                        </script>
+                    @if(score.is1CC()){<span class="label label-danger pull-left" style="margin-right: 5px;">1CC</span> }
+                    @if(score.comment) {
+                        @if(score.comment.length < 25) {
+                            @score.comment
+                        } else {
+                            <button id="comment_@score.id" type="button" class="btn btn-xs btn-default" data-container="body" data-trigger="hover" data-toggle="popover" data-placement="left" data-content="@score.comment" data-original-title="" title="">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </button>
+                            <script>
+                            $('#comment_@score.id').popover('hide');
+                            </script>
+                        }
                     }
-                }
                 </td>
                 </tr>
             }

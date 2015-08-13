@@ -45,8 +45,8 @@
                                         data-placement="left" data-content="<img width='250px' src='@score.photo'/>"
                                         data-original-title="" title="" class="glyphicon glyphicon-camera"></span>
                                         <script>
-                                    $('#photo_@score.id').popover('hide');
-                                </script>
+                                            $('#photo_@score.id').popover('hide');
+                                        </script>
                                     </a>
                                 }
                                 @if(score.replay) {
@@ -54,6 +54,8 @@
                                         <span class="glyphicon glyphicon-play"></span>
                                     </a>
                                 }
+                                @if(score.is1CC()){<span class="label label-danger">1CC</span> }
+
                             </div>
                         </div>
                     </div>

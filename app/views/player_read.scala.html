@@ -45,6 +45,7 @@
             <a href="@routes.ScoreController.read(score)">@score.formattedValue</a>
         </td>
         <td style="text-align: right; vertical-align: middle">
+            @if(score.is1CC()){<span class="label label-danger pull-left">1CC</span> }
             @if(player.isVip) {
                 @score.formattedRank
             } else {

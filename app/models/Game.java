@@ -121,9 +121,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
-        if (scores == null) {
-            return new ArrayList<Score>();
-        }
         List<Score> scores = Score.finder.
                 fetch("mode").
                 fetch("difficulty").
@@ -143,7 +140,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         List<Score> scores = Score.finder.
                 where().conjunction().
                 add(eq("game", this)).
-                add(isNotNull("rank")).
                 orderBy("value desc").findList();
         return keepBestScoreByVIPPlayer(scores);
     }
