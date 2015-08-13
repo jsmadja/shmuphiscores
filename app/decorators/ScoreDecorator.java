@@ -10,30 +10,6 @@ public class ScoreDecorator {
         this.score = score;
     }
 
-    public String format() {
-        String str = "[color=#800000]J'ai atteint le [b]stage " + score.stage.name + "[/b] de " + score.game.title + " sur [b]" + score.platform.name + "[/b] avec un score de [size=110][b]" + score.formattedValue() + (score.isTimeScore() ? " " : " points") + "[/b][/size], ce qui me classe en [b]" + score.rank() + rankSuffix() + "[/b] position du ranking";
-
-        if (score.mode != null) {
-            str += " en mode [b]" + score.mode.name + "[/b]";
-            if (score.difficulty != null) {
-                str += " et";
-            }
-        }
-        if (score.difficulty != null) {
-            str += " en difficulté [b]" + score.difficulty.name + "[/b]";
-        }
-        str += ".";
-        str += "[/color]";
-        return str;
-    }
-
-    public String comment() {
-        if (StringUtils.isNotEmpty(score.comment)) {
-            return "Commentaire : [i]\"" + score.comment + "\"[/i]";
-        }
-        return null;
-    }
-
     public String replay() {
         if (score.replay != null && StringUtils.isNotBlank(score.replay)) {
             if (score.replay.contains("youtube")) {

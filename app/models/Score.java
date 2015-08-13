@@ -145,6 +145,16 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         }
     }
 
+    public String formattedRankInFrench() {
+        if (rank() == null) {
+            return "";
+        }
+        if (rank() == 1) {
+            return "1ère";
+        }
+        return rank() + "ème";
+    }
+
     public Integer rank() {
         return rank;
     }

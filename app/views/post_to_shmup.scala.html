@@ -9,14 +9,40 @@
     <div id="forum">
         <div class="alert" style="background-color: #F0F3F4">
             <p>
-            @score.decorator.format
+                Score: [b][color=#BF4000]@score.formattedValue @if(!score.isTimeScore) { points } [/color][/b]
             </p>
-            @if(score.decorator.comment) {
+            @if(score.stage != null) {
                 <p>
-                    <br/>
-                    [color=#800000] @score.decorator.comment [/color]
+                    Stage: [b][color=#BF4000]@score.stage.name [/color][/b]
                 </p>
             }
+            @if(score.mode != null) {
+                <p>
+                    Mode: [b][color=#BF4000]@score.mode.name [/color][/b]
+                </p>
+            }
+            @if(score.difficulty != null) {
+                <p>
+                    Difficulté: [b][color=#BF4000]@score.difficulty.name [/color][/b]
+                </p>
+            }
+            @if(score.ship != null) {
+                <p>
+                    Vaisseau [b][color=#BF4000]@score.ship.name [/color][/b]
+                </p>
+            }
+            <p>
+                Support: [b][color=#BF4000]@score.platform.name [/color][/b]
+            </p>
+            <p>
+                Position : [b][color=#BF4000]@score.formattedRankInFrench [/color][/b]
+            </p>
+            @if(score.comment) {
+                <p>
+                    Commentaire : [b][color=#BF4000]@score.comment [/color][/b]
+                </p>
+            }
+
             @if(score.photo) {
                 <p>
                     <br/>
