@@ -49,10 +49,9 @@
                     <th></th>
                     <th></th>
                 </thead>
-                @for(comparison <- versus.comparisons.sortBy(_.diff())) {
+                @for(comparison <- versus.comparisons) {
                     <tr>
-                        <td>
-                            <a href="@routes.GameController.indexWithName(comparison.game, comparison.game.getEscapedTitle)">@comparison.game.title</a>
+                        <td><a href="@routes.GameController.indexWithName(comparison.game, comparison.game.getEscapedTitle)">@comparison.game.title</a>
                         </td>
                         <td style="vertical-align : middle ;"><span class="label label-default">@comparison.mode</span></td>
                         <td style="vertical-align : middle ;"><span class="label label-warning">@comparison.difficulty</span></td>
@@ -74,6 +73,7 @@
             "bPaginate" : false,
             "bLengthChange" : false,
             "bInfo" : false,
+            "aaSorting": [ [5, 'desc'] ],
             "aoColumnDefs" :[
             { "iDataSort" : 6, "aTargets" :[ 3 ] },
             { "iDataSort" : 7, "aTargets" :[ 4 ] },

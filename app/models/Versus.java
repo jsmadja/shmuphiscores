@@ -72,7 +72,7 @@ public class Versus {
                 DateTime dateTimeB = new DateTime(scoreB.value.longValue());
                 double a = dateTimeA.getMinuteOfDay() * 60000 + dateTimeA.getSecondOfMinute() * 1000 + dateTimeA.getMillisOfSecond();
                 double b = dateTimeB.getMinuteOfDay() * 60000 + dateTimeB.getSecondOfMinute() * 1000 + dateTimeB.getMillisOfSecond();
-                return (int) ((a * 100D) / b);
+                return (int) ((a * 100D) / b) - 100;
             } else {
                 scoreA = score1;
                 scoreB = score2;
