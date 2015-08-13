@@ -123,14 +123,19 @@
                 }
             </table>
 
-            <p>
-                @defining(player.getBestVersus) { versus =>
-                    Adversaire privilégié : <a href="@routes.PlayerController.index(versus.player2)">@versus.player2.name</a>
-                    <p>
-                        <a href="@routes.VersusController.index(player, versus.player2)">Voir les @versus.comparisons.size versus (ratio: @versus.winCount/@versus.loseCount)</a>
-                    </p>
+            @if(!player.isUnbeatable) {
+                <p>
+                    @defining(player.getBestVersus) { versus =>
+                        Adversaire privilégié : <a href="@routes.PlayerController.index(versus.player2)">@versus.player2.name</a>
+                        <p>
+                            <a href="@routes.VersusController.index(player, versus.player2)">
+                                Voir les @versus.comparisons.size versus (ratio: @versus.winCount/@versus.loseCount)</a>
+                        </p>
+                    }
+                </p>
+            } else {
+                <h3><span class="label label-danger">Invaincu !</span></h3>
             }
-            </p>
 
         </div>
     </div>
