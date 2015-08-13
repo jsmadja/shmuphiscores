@@ -12,7 +12,7 @@
             <th># Records</th>
             <th>Jeux</th>
         </thead>
-        @for(player <- models.Player.findAll().filter(_.isUnbeatable).toSeq.sortBy(-_.scores.size)) {
+        @for(player <- models.Player.finder.fetch("scores").findList.filter(_.isUnbeatable).toSeq.sortBy(-_.scores.size)) {
             <tr >
                 <td  style="vertical-align: middle;">
                     <a href="@routes.PlayerController.index(player)">@player.name</a>
