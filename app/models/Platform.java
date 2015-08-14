@@ -15,7 +15,7 @@ public class Platform extends BaseModel<Platform> {
     @ManyToOne
     public Game game;
 
-    public static Finder<Long, Platform> finder = new Model.Finder(Long.class, Platform.class);
+    public static Model.Finder<Long, Platform> finder = new Model.Finder(Long.class, Platform.class);
 
     public Platform(String name) {
         this.name = name;
