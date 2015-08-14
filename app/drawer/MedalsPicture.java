@@ -26,7 +26,7 @@ public class MedalsPicture {
     public static BufferedImage createMedalsPicture(Player player, Color color) {
         BufferedImage bi = null;
         try {
-            bi = ImageIO.read(new File("/Users/jsmadja/Desktop/poubelle/medailles.png"));
+            bi = ImageIO.read(new File("/public/images/medailles.png"));
             Graphics2D graphics = bi.createGraphics();
             int space = 3;
             Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
