@@ -26,7 +26,7 @@ public class MedalsPicture {
     public static BufferedImage createMedalsPicture(Player player, Color color) {
         BufferedImage bi = null;
         try {
-            bi = ImageIO.read(new File("/public/images/medailles.png"));
+            bi = ImageIO.read(new File("public/images/medailles.png"));
             Graphics2D graphics = bi.createGraphics();
             int space = 3;
             Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
@@ -46,7 +46,7 @@ public class MedalsPicture {
     private static void draw(Graphics2D graphics, Integer count, int i, Color color) {
         graphics.setColor(color);
         graphics.setFont(gameFont);
-        graphics.drawString(pad(count), i, HEIGHT - HEIGHT / 4);
+        graphics.drawString(pad(count), i, (HEIGHT - HEIGHT / 4) + 2);
     }
 
     private static String pad(Integer value) {
