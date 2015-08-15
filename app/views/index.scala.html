@@ -8,7 +8,7 @@
                             <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)"><img class="cover" src="@score.game.cover" /></a>
                         </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <div class="item">
                             <div>
                                 <a class="game" href="@routes.GameController.indexWithName(score.game, score.game.getEscapedTitle)">@score.game.title</a> <a class="author" href="@routes.PlayerController.index(score.player)">@score.player.name</a>
@@ -58,12 +58,12 @@
 
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-2 right-space">
                         <small class="date">@score.formattedDate</small>
+
+                    </div>
+                    <div class="col-sm-3">
                         @if(score.hasRank) {
-                            <p class="rank">@score.formattedRank</p>
-                            <p class="total-rank"> /@score.getOpponentCount</p>
+                            <p class="rank">@org.apache.commons.lang3.StringUtils.leftPad(score.formattedRank, 5," ") <span class="total-rank"> /@score.getOpponentCount</span></p>
                         }
                     </div>
                 </div>

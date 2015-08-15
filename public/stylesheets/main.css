@@ -28,10 +28,6 @@ h1 {
     padding-right: 0;
 }
 
-.item {
-    padding-top: 15px;
-}
-
 .game {
     font-weight: bold;
     color: #333;
@@ -63,7 +59,6 @@ h1 {
     font-size: 25pt;
     font-family: "Courier New";
     display: inline-block;
-    min-width: 100%;
 }
 
 .total-rank {
@@ -72,14 +67,6 @@ h1 {
     font-family: "Courier New";
     display: inline-block;
 }
-
-.right-space {
-    padding-top: 15px;
-    padding-right: 15px;
-    padding-left: 0;
-    text-align: right;
-}
-
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .footer {
