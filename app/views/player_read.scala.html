@@ -188,7 +188,7 @@
                 </td>
                 <td>
                     <span class="label label-default" style="vertical-align: middle;">@score.mode</span>
-                    <span class="label label-warning">@score.difficulty</span>
+                    <span class="label label-warning" style="text-transform: uppercase">@score.difficulty</span>
                     <span class="label label-success">
                         @if(score.platform != null) {
                             <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
