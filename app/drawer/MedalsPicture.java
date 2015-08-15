@@ -51,7 +51,5 @@ public class MedalsPicture {
         return leftPad(value.toString(), 2);
     }
 
-    public static BufferedImage createBlankImage() {
-        return new BufferedImage(1, 1, TYPE_INT_ARGB);
-    }
+    public static BufferedImage blankImage = new BufferedImage(1, 1, TYPE_INT_ARGB);
 }

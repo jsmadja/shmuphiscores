@@ -1,19 +1,17 @@
 package controllers;
 
-import drawer.RankingGameConfiguration;
+import drawer.MedalsPicture;
 import drawer.SignaturePicture;
 import models.Player;
 import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import static drawer.MedalsPicture.createBlankImage;
 import static drawer.MedalsPicture.createMedalsPicture;
 
 public class PlayerController extends Controller {
@@ -50,7 +48,7 @@ public class PlayerController extends Controller {
         response().setContentType("image/png");
         Player player = Player.findByShmupUserId(shmupId);
         if (player == null) {
-            return ok(toBytes(createBlankImage()));
+            return ok(toBytes(MedalsPicture.blankImage));
         }
         Map<Player, byte[]> medals = CacheController.getMedalsCache();
         byte[] bytes = medals.get(player);
