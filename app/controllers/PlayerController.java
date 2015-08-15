@@ -42,10 +42,10 @@ public class PlayerController extends Controller {
     }
 
     public static Result medals(Long shmupId) throws IOException {
-        return medalsWithColor(shmupId, RankingGameConfiguration.COLOR_SHMUP_GREY);
+        return medalsWithColor(shmupId);
     }
 
-    private static Result medalsWithColor(Long shmupId, Color color) throws IOException {
+    private static Result medalsWithColor(Long shmupId) throws IOException {
         response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
         Player player = Player.findByShmupUserId(shmupId);
@@ -55,17 +55,14 @@ public class PlayerController extends Controller {
         Map<Player, byte[]> medals = CacheController.getMedalsCache();
         byte[] bytes = medals.get(player);
         if (bytes == null) {
-            BufferedImage image = createMedalsPicture(player, color);
+            BufferedImage image = createMedalsPicture(player);
             bytes = toBytes(image);
-            if (color != Color.WHITE) {
-                medals.put(player, bytes);
-            }
         }
         return ok(bytes);
     }
 
     public static Result medalsWhite(Long shmupId) throws IOException {
-        return medalsWithColor(shmupId, Color.WHITE);
+        return medalsWithColor(shmupId);
     }
 
     private static byte[] toBytes(BufferedImage image) throws IOException {

@@ -19,14 +19,12 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class MedalsPicture {
 
-    public static final int WIDTH = 145;
     public static final float HEIGHT = 30;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
 
-    public static BufferedImage createMedalsPicture(Player player, Color color) {
-        BufferedImage bi = null;
+    public static BufferedImage createMedalsPicture(Player player) {
         try {
-            bi = ImageIO.read(new File("public/images/medailles.png"));
+            BufferedImage bi = ImageIO.read(new File("public/images/medailles.png"));
             Graphics2D graphics = bi.createGraphics();
             int space = 3;
             Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
@@ -37,10 +35,10 @@ public class MedalsPicture {
             draw(graphics, thirdRankCount, 95 + space, COLOR_SHMUP_TEXT);
             int oneCreditCount = player.computeOneCredit();
             draw(graphics, oneCreditCount, 140 + space, COLOR_SHMUP_TEXT);
+            return bi;
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return bi;
     }
 
     private static void draw(Graphics2D graphics, Integer count, int i, Color color) {
