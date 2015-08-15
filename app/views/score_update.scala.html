@@ -86,7 +86,7 @@
                         <label for="platform">@Messages.get("Platform")</label>
                         <select name="platform" class="form-control">
                         @for(platform <- score.game.platforms) {
-                            <option value="@platform.id" @if(platform.equals(score.platform)) {selected} >@platform.name </option>
+                            <option value="@platform.id" @if(platform.equals(score.platform)) {selected} >@platform.name.toUpperCase</option>
                         }
                         </select>
                     </div>

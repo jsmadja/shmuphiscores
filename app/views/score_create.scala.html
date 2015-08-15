@@ -80,7 +80,7 @@
                     <label for="platform">@Messages.get("Platform")</label>
                     <select name="platform" class="form-control">
                     @for(platform <- game.platforms) {
-                        <option value="@platform.id">@platform.name</option>
+                        <option value="@platform.id">@platform.name.toUpperCase</option>
                     }
                     </select>
                 </div>

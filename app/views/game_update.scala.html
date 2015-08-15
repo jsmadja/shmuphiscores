@@ -1,0 +1,92 @@
+@(game: models.Game)
+@main(page = "new_game") {
+    <h2 class="title">
+        <a href="@routes.GameController.index(game)">@game.title</a>
+    </h2>
+
+    <h3>Plateformes</h3>
+    <form role="form" method="POST" action="@routes.GameController.addPlatform(game)">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control">
+                @for(platform <- game.platforms) {
+                    <option>@platform.name</option>
+                }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="platform" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+    <h3>Difficultés</h3>
+    <form role="form" method="POST" action="@routes.GameController.addDifficulty(game)">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control">
+                @for(difficulty <- game.difficulties) {
+                    <option>@difficulty.name - sort: @difficulty.sortOrder</option>
+                }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="difficulty" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" name="sortOrder" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+    <h3>Modes</h3>
+    <form role="form" method="POST" action="@routes.GameController.addMode(game)">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control">
+                @for(mode <- game.modes) {
+                    <option>@mode.name - sort: @mode.sortOrder</option>
+                }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="mode" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" name="sortOrder" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+    <h3>Vaisseaux</h3>
+    <form role="form" method="POST" action="@routes.GameController.addShip(game)">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control">
+                @for(ship <- game.ships) {
+                    <option>@ship.name - sort: @ship.sortOrder</option>
+                }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="ship" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" name="sortOrder" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+}
