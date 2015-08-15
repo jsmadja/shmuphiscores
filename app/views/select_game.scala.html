@@ -1,6 +1,6 @@
 @(games: List[models.Game])
 @import play.i18n._
-@main() {
+@main(page = "score") {
     <h2>@Messages.get("AddScore")</h2>
     <form role="form" action="/score/new" method="POST">
         <div class="row">

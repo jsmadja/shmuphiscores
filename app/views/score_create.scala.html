@@ -1,6 +1,6 @@
 @(game: models.Game, scoreForm: Form[models.Score])
 @import play.i18n._
-@main() {
+@main(page = "score") {
     <h2 class="title">
         <img src="@game.cover" alt="@game.title" class="pull-left thumbnail" width="150px" style="margin-right: 20px;" />
         <a href="@routes.GameController.index(game)">@game.title</a>

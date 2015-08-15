@@ -1,6 +1,6 @@
 @(players: List[models.Player])
 @import play.i18n._
-@main() {
+@main(page = "players") {
    <h2>@Messages.get("players.scala.html.playerlist")</h2>
     <table id="players">
        <thead>
