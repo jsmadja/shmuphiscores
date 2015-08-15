@@ -57,6 +57,7 @@ public class PlayerController extends Controller {
         if (bytes == null) {
             BufferedImage image = createMedalsPicture(player);
             bytes = toBytes(image);
+            medals.put(player, bytes);
         }
         return ok(bytes);
     }
