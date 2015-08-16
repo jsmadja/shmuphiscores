@@ -40,6 +40,7 @@ public class GameController extends Controller {
     }
 
     public static Result create() {
+
         return ok(views.html.game_create.render());
     }
 

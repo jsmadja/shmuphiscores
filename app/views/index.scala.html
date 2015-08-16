@@ -62,9 +62,13 @@
 
                     </div>
                     <div class="col-sm-3">
-                        @if(score.hasRank) {
-                            <p class="rank">@org.apache.commons.lang3.StringUtils.leftPad(score.formattedRank, 5," ") <span class="total-rank"> /@score.getOpponentCount</span></p>
-                        }
+                        <p class="rank">
+                            @org.apache.commons.lang3.StringUtils.leftPad(score.formattedRank, 5," ")
+                            <span class="total-rank"> /@score.getOpponentCount</span>
+                            @if(score.progression != null && score.progression > 0) {
+                                <span style="margin-left: 20px; margin-bottom: 8px;" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-chevron-up"></span> @score.progression</span>
+                            }
+                        </p>
                     </div>
                 </div>
         }

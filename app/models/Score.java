@@ -54,13 +54,12 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
 
     public boolean onecc;
 
-    @Transient
-    public String playerName;
+    public Integer progression;
 
     @Transient
     public Long gapWithPreviousScore;
 
-    private Integer rank;
+    public Integer rank;
 
     public Score(Game game, Player player, Stage stage, Ship ship, Mode mode, Difficulty difficulty, String comment, Platform platform, BigDecimal value, String photo, String replay) {
         this.game = game;
@@ -99,11 +98,11 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.value = value;
     }
 
-    public static Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
+    public static Score getBestScoreFor(Player player, Game game, Mode mode, Difficulty difficulty) {
         Score unique = Ebean.createQuery(Score.class).
                 setMaxRows(1).
-                orderBy("value desc").
-                where(and(eq("game", game), and(eq("mode", mode), eq("difficulty", difficulty)))).
+                orderBy(game.hasTimerScores() ? "value" : "value desc").
+                where().eq("player", player).eq("game", game).eq("mode", mode).eq("difficulty", difficulty).
                 findUnique();
         return unique;
     }
@@ -255,17 +254,8 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return title;
     }
 
-    public Double getGapWithTop() {
-        BigDecimal max = getBestScoreFor(game, mode, difficulty).value;
-        return max.subtract(value).divide(max, HALF_UP).doubleValue();
-    }
-
     public void updateRank(Integer rank) {
         this.rank = rank;
-    }
-
-    public boolean hasRank() {
-        return rank != null;
     }
 
     public String tweet() {

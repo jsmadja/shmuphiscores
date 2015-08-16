@@ -88,12 +88,24 @@ public class ScoreController extends Controller {
         if (!files.isEmpty()) {
             storePhoto(score, files);
         }
+
+        Score bestScore = Score.getBestScoreFor(score.player, score.game, score.mode, score.difficulty);
+        Integer oldRank = null;
+        if(bestScore != null) {
+            oldRank = bestScore.rank;
+        }
         score.save();
         CacheController.getRankingCache().remove(score.game);
         CacheController.getSignatureCache().remove(score.player);
         CacheController.getMedalsCache().remove(score.player);
         score.game.recomputeRankings();
         score.refresh();
+
+        if(oldRank != null) {
+            score.progression = oldRank - score.rank;
+        }
+        score.update();
+
         return shmup(score);
     }
 
