@@ -35,7 +35,7 @@
                 Support: [b]@score.platform.name [/b]
             </p>
             <p>
-                Position : [b]@score.formattedRankInFrench @if(score.progression != null){(+@score.progression)} [/b]
+                Position : [b]@score.formattedRankInFrench @if(score.progression != null && score.progression > 0){(+@score.progression)} [/b]
             </p>
             @if(score.comment) {
                 <p>
