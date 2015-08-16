@@ -8,38 +8,38 @@
     </p>
     <div id="forum">
         <div class="alert" style="background-color: #F0F3F4">
+            @if(score.mode != null) {
+                <p>
+                    Mode: [b]@score.mode.name [/b]
+                </p>
+            }
             <p>
-                Score: [b][color=#BF4000]@score.formattedValue @if(!score.isTimeScore) { points } [/color][/b]
+                Score: [b][color=#0000FF]@score.formattedValue @if(!score.isTimeScore) { points } [/color][/b]
             </p>
             @if(score.stage != null) {
                 <p>
                     Stage: [b][color=#BF4000]@score.stage.name [/color][/b]
                 </p>
             }
-            @if(score.mode != null) {
-                <p>
-                    Mode: [b][color=#BF4000]@score.mode.name [/color][/b]
-                </p>
-            }
             @if(score.difficulty != null) {
                 <p>
-                    Difficulté: [b][color=#BF4000]@score.difficulty.name [/color][/b]
+                    Difficulté: [b]@score.difficulty.name [/b]
                 </p>
             }
             @if(score.ship != null) {
                 <p>
-                    Vaisseau [b][color=#BF4000]@score.ship.name [/color][/b]
+                    Vaisseau: [b]@score.ship.name [/b]
                 </p>
             }
             <p>
-                Support: [b][color=#BF4000]@score.platform.name [/color][/b]
+                Support: [b]@score.platform.name [/b]
             </p>
             <p>
-                Position : [b][color=#BF4000]@score.formattedRankInFrench [/color][/b]
+                Position : [b]@score.formattedRankInFrench @if(score.progression != null){(+@score.progression)} [/b]
             </p>
             @if(score.comment) {
                 <p>
-                    Commentaire : [b][color=#BF4000]@score.comment [/color][/b]
+                    Commentaire: [b]@score.comment [/b]
                 </p>
             }
 
