@@ -30,7 +30,7 @@ public class Versus {
         return filter(comparisons, new Predicate<Comparison>() {
             @Override
             public boolean apply(Comparison comparison) {
-                return comparison.isLostForPlayer1();
+                return comparison.isLostByPlayer1();
             }
         }).size();
     }
@@ -39,7 +39,7 @@ public class Versus {
         return filter(comparisons, new Predicate<Comparison>() {
             @Override
             public boolean apply(Comparison comparison) {
-                return comparison.isWonForPlayer1();
+                return comparison.isWonByPlayer1();
             }
         }).size();
     }
@@ -59,10 +59,6 @@ public class Versus {
             this.score2 = score2;
         }
 
-        public int diff() {
-            return this.score1.rank() > this.score2.rank() ? -1 : 1;
-        }
-
         public int scoreGap() {
             Score scoreA, scoreB;
             if (score1.isTimeScore()) {
@@ -80,11 +76,11 @@ public class Versus {
             return scoreA.value.multiply(BigDecimal.valueOf(100)).divide(scoreB.value, HALF_UP).intValue() - 100;
         }
 
-        public boolean isLostForPlayer1() {
+        public boolean isLostByPlayer1() {
             return score1.isWorstThan(score2);
         }
 
-        public boolean isWonForPlayer1() {
+        public boolean isWonByPlayer1() {
             return score2.isWorstThan(score1);
         }
     }

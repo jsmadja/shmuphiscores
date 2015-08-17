@@ -82,12 +82,12 @@ public class ScoreLine implements PictureLine {
     private void rank(Graphics2D graphics, int y) {
         graphics.setColor(GRAY);
         graphics.setFont(normalFont);
-        String rank = leftPad(score.rank() + ".", 3);
+        String rank = leftPad(score.rank + ".", 3);
         graphics.drawString(rank, 0, y);
     }
 
     private void pyjama(Graphics2D graphics, int y) {
-        if (score.rank() % 2 == 1) {
+        if (score.rank % 2 == 1) {
             graphics.setColor(WHITE);
         } else {
             graphics.setColor(COLOR_SHMUP_GREY);

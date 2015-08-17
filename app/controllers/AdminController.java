@@ -50,7 +50,7 @@ public class AdminController extends Controller {
         Player to = Player.finder.byId(Long.parseLong(form.get("to")[0]));
         for (Score score : from.scores) {
             score.player = to;
-            score.save();
+            score.update();
         }
         from.delete();
         return index();

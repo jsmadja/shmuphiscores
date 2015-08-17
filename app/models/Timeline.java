@@ -22,11 +22,10 @@ import static com.avaje.ebean.Expr.isNotNull;
 
 public class Timeline {
 
-    public Collection<Score> scores = new ArrayList<Score>();
+    public Collection<Score> scores;
 
-    public static Timeline createTimeLine() {
-        Timeline timeline = new Timeline();
-        List<Score> scores = Score.finder.
+    public Timeline() {
+        this.scores = Score.finder.
                 where(isNotNull("rank")).
                 orderBy("createdAt desc").
                 setMaxRows(50).
@@ -38,8 +37,6 @@ public class Timeline {
                 fetch("mode", "*").
                 fetch("difficulty", "*").
                 findList();
-        timeline.scores.addAll(scores);
-        return timeline;
     }
 
     public String rss() throws IOException, FeedException {

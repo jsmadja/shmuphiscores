@@ -3,23 +3,19 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
-import org.joda.time.DateMidnight;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.xml.bind.annotation.XmlAttribute;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static com.avaje.ebean.Expr.eq;
-import static com.avaje.ebean.Expr.isNotNull;
 import static com.google.common.collect.Collections2.filter;
 
 @Entity
@@ -27,13 +23,10 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
 
-    @XmlAttribute
     public String thread;
 
-    @XmlAttribute
     public String cover;
 
-    @XmlAttribute
     public String title;
 
     @OneToMany(mappedBy = "game")
@@ -66,8 +59,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     @OrderBy("sortOrder")
     @OneToMany(mappedBy = "game")
     public List<Stage> stages;
-
-    private List<Ranking> initializedRankings;
 
     private boolean generalRanking;
 
@@ -195,17 +186,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             return "image/png";
         }
         return "image/gif";
-    }
-
-    public Integer getScoreCountLast30Days() {
-        final Date _30DaysAgo = new DateMidnight().minusDays(30).toDate();
-        final Date gameCreatedAt = new DateMidnight(Game.this.getCreatedAt()).plusDays(1).toDate();
-        return filter(scores, new Predicate<Score>() {
-            @Override
-            public boolean apply(@Nullable Score score) {
-                return score.getCreatedAt().after(_30DaysAgo) && score.getCreatedAt().after(gameCreatedAt);
-            }
-        }).size();
     }
 
     public Collection<Player> getPlayers() {

@@ -1,13 +1,12 @@
 package controllers;
 
+import drawer.Images;
 import drawer.RankingPicture;
 import models.Game;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -24,9 +23,7 @@ public class RankingController extends Controller {
         byte[] bytes = rankings.get(game);
         if (bytes == null) {
             BufferedImage image = RankingPicture.createRankingPicture(game);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            ImageIO.write(image, "PNG", stream);
-            bytes = stream.toByteArray();
+            bytes = Images.toBytes(image);
             rankings.put(game, bytes);
         }
         response().setContentType("image/png");

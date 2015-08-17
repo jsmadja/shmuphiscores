@@ -89,7 +89,7 @@ public class ScoreController extends Controller {
             storePhoto(score, files);
         }
 
-        Score bestScore = Score.getBestScoreFor(score.player, score.game, score.mode, score.difficulty);
+        Score bestScore = score.player.getBestScoreFor(score.game, score.mode, score.difficulty);
         Integer oldRank = null;
         if(bestScore != null) {
             oldRank = bestScore.rank;

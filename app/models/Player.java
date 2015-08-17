@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import controllers.PlayersController;
 import play.db.ebean.Model;
@@ -17,13 +18,8 @@ import java.util.Set;
 
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
-import static com.avaje.ebean.Expr.disjunction;
 import static com.avaje.ebean.Expr.eq;
 import static com.avaje.ebean.Expr.gt;
-import static com.avaje.ebean.Expr.ilike;
-import static com.avaje.ebean.Expr.isNotNull;
-import static com.avaje.ebean.Expr.or;
-import static com.avaje.ebean.Expr.startsWith;
 
 @Entity
 public class Player extends BaseModel<Player> implements Comparable<Player> {
@@ -142,7 +138,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
                 isNotNull("rank").
                 eq("player", this).
                 disjunction().
-                    ilike("stage.name", "%all%").
+                ilike("stage.name", "%all%").
                 startsWith("stage.name", "2-").ilike("stage.name", "boss 2-").
                 startsWith("stage.name", "3-").ilike("stage.name", "boss 3-").
                 startsWith("stage.name", "4-").ilike("stage.name", "boss 4-").
@@ -221,7 +217,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public boolean isUnbeatable() {
         for (Score score : scores) {
-            if (score.rank() > 1) {
+            if (score.rank > 1) {
                 return false;
             }
         }
@@ -239,4 +235,13 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
                 fetch("difficulty").
                 findList();
     }
+
+    public Score getBestScoreFor(Game game, Mode mode, Difficulty difficulty) {
+        return Ebean.createQuery(Score.class).
+                setMaxRows(1).
+                orderBy(game.hasTimerScores() ? "value" : "value desc").
+                where().eq("player", this).eq("game", game).eq("mode", mode).eq("difficulty", difficulty).
+                findUnique();
+    }
+
 }

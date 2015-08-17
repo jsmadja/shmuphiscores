@@ -34,12 +34,12 @@ public class PlayersController extends Controller {
                 if (score.onecc) {
                     oneCreditCount++;
                 }
-                Integer rank = score.rank();
+                Integer rank = score.rank;
                 if (rank == 1) {
                     firstRankCount++;
-                } else if (score.rank() == 2) {
+                } else if (score.rank == 2) {
                     secondRankCount++;
-                } else if (score.rank() == 3) {
+                } else if (score.rank == 3) {
                     thirdRankCount++;
                 }
             }

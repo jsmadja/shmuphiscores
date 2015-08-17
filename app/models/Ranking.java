@@ -27,9 +27,6 @@ public class Ranking {
     public List<Score> scores;
 
     @Transient
-    public String platformName;
-
-    @Transient
     public String difficultyName;
 
     @Transient
@@ -45,7 +42,7 @@ public class Ranking {
         int rank = 1;
         for (Score score : scores) {
             if (score.isVip()) {
-                if (score.rank() == null) {
+                if (score.rank == null) {
                     score.updateRank(rank);
                     score.update();
                 }

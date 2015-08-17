@@ -1,6 +1,5 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
 import org.joda.time.DateTime;
@@ -12,9 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
 
-import static com.avaje.ebean.Expr.and;
-import static com.avaje.ebean.Expr.eq;
-import static java.math.RoundingMode.HALF_UP;
 import static java.text.MessageFormat.format;
 
 @Entity
@@ -98,15 +94,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         this.value = value;
     }
 
-    public static Score getBestScoreFor(Player player, Game game, Mode mode, Difficulty difficulty) {
-        Score unique = Ebean.createQuery(Score.class).
-                setMaxRows(1).
-                orderBy(game.hasTimerScores() ? "value" : "value desc").
-                where().eq("player", player).eq("game", game).eq("mode", mode).eq("difficulty", difficulty).
-                findUnique();
-        return unique;
-    }
-
     public String formattedDate() {
         return getCreatedSince();
     }
@@ -123,7 +110,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedRank() {
-        Integer value = rank();
+        Integer value = rank;
         if (value == null) {
             value = 0;
         }
@@ -145,17 +132,13 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public String formattedRankInFrench() {
-        if (rank() == null) {
+        if (rank == null) {
             return "";
         }
-        if (rank() == 1) {
+        if (rank == 1) {
             return "1ère";
         }
-        return rank() + "ème";
-    }
-
-    public Integer rank() {
-        return rank;
+        return rank + "ème";
     }
 
     @Override
