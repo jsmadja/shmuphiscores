@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "org.ocpsoft.prettytime" % "prettytime" % "3.1.0.Final",
   "rome" % "rome" % "1.0",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.13",
+  "org.easytesting" % "fest-assert" % "1.4",
+  "junit" % "junit" % "4.11",
   javaJdbc,
   cache,
   javaWs
