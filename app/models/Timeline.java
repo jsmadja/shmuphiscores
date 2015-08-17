@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.google.common.collect.Lists;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEnclosureImpl;
@@ -18,15 +19,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static com.avaje.ebean.Expr.isNotNull;
-
 public class Timeline {
 
     public Collection<Score> scores;
 
     public Timeline() {
-        this.scores = Score.finder.
-                where(isNotNull("rank")).
+        this.scores = Ebean.find(Score.class).
+                where().
+                isNotNull("rank").
                 orderBy("createdAt desc").
                 setMaxRows(50).
                 fetch("game", "*").

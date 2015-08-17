@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static com.avaje.ebean.Expr.and;
+import static com.avaje.ebean.Expr.eq;
 import static com.google.common.collect.Collections2.transform;
 
 public class OneCreditController extends Controller {
@@ -36,9 +38,8 @@ public class OneCreditController extends Controller {
             OneCreditPlatform oneCreditPlatform = oneCreditPage.addPlatform(platform);
             Collection<Game> games = PlatformController.getGamesByPlatform(platform);
             for (Game game : games) {
-                Collection<Score> scores = Score.finder.
-                        where().eq("onecc", true).eq("game", game).eq("platform.name", platform).
-                        join("player").
+                Collection<Score> scores = Ebean.find(Score.class).
+                        where(and(eq("onecc", true), and(eq("game", game), eq("platform.name", platform)))).
                         fetch("player").
                         fetch("difficulty").
                         fetch("mode").

@@ -1,9 +1,9 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
 import org.joda.time.DateTime;
-import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -15,8 +15,6 @@ import static java.text.MessageFormat.format;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
-
-    public static Finder<Long, Score> finder = new Model.Finder(Long.class, Score.class);
 
     @ManyToOne
     public Game game;
@@ -291,7 +289,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     }
 
     public Integer getOpponentCount() {
-        return finder.where().eq("game", game).eq("difficulty", difficulty).eq("mode", mode).gt("rank", 0).findRowCount();
+        return Ebean.find(Score.class).where().eq("game", game).eq("difficulty", difficulty).eq("mode", mode).gt("rank", 0).findRowCount();
     }
 
     public Integer minutes() {

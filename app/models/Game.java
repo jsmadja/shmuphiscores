@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.annotation.Nullable;
 import javax.persistence.Entity;
@@ -20,8 +20,6 @@ import static com.google.common.collect.Collections2.filter;
 
 @Entity
 public class Game extends BaseModel<Game> implements Comparable<Game> {
-
-    public static Finder<Long, Game> finder = new Model.Finder(Long.class, Game.class);
 
     public String thread;
 
@@ -112,7 +110,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public Collection<Score> findBestScoresByVIPPlayers(final Difficulty difficulty, final Mode mode) {
-        List<Score> scores = Score.finder.
+        List<Score> scores = Ebean.find(Score.class).
                 fetch("mode").
                 fetch("difficulty").
                 fetch("player").
@@ -128,7 +126,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         if (scores == null) {
             return new ArrayList<Score>();
         }
-        List<Score> scores = Score.finder.
+        List<Score> scores = Ebean.find(Score.class).
                 where().conjunction().
                 add(eq("game", this)).
                 orderBy("value desc").findList();

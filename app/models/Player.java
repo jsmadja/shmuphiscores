@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import controllers.PlayersController;
-import play.db.ebean.Model;
+import com.avaje.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +25,6 @@ import static com.avaje.ebean.Expr.gt;
 public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public static Player guest = new Player(0L, "guest");
-
-    public static Model.Finder<Long, Player> finder = new Model.Finder(Long.class, Player.class);
 
     public String name;
 
@@ -55,7 +53,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public static Player findOrCreatePlayer(String name) {
-        Player player = Player.finder.where()
+        Player player = Ebean.find(Player.class).where()
                 .eq("name", name)
                 .findUnique();
         if (player == null) {
@@ -67,13 +65,13 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public static Player findByShmupUserId(Long shmupUserId) {
-        return Player.finder.where()
+        return Ebean.find(Player.class).where()
                 .eq("shmupUserId", shmupUserId)
                 .findUnique();
     }
 
     public static List<Player> findAll() {
-        return finder.orderBy("name").findList();
+        return Ebean.find(Player.class).orderBy("name").findList();
     }
 
     @Override
@@ -86,7 +84,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public Collection<Score> bestReplayableScores() {
-        return Score.finder.where().not(eq("replay", "")).eq("player", this).findList();
+        return find(Score.class).where().not(eq("replay", "")).eq("player", this).findList();
     }
 
     public boolean hasReplays() {
@@ -203,7 +201,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public Versus getBestVersus() {
-        List<Player> all = Player.finder.where().join("scores").findList();
+        List<Player> all = Ebean.find(Player.class).fetch("scores").where().findList();
         all.remove(this);
         Versus bestVersus = null;
         for (Player opponent : all) {
@@ -225,7 +223,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public List<Score> fetchScores() {
-        return Score.finder.
+        return Ebean.find(Score.class).
                 where(and(gt("rank", 0), eq("player", this))).
                 fetch("platform").
                 fetch("stage").

@@ -1,3 +1,4 @@
+@(platforms: List[models.Platform])
 @import play.i18n._
 @main() {
     <h2>Ajouter un jeu</h2>
@@ -30,7 +31,7 @@
                     <label for="platforms">Plateformes</label>
                     <textarea name="platforms" class="form-control" rows="3"></textarea>
                     <p class="help-block">
-                    @models.Platform.finder.all.toList.map(_.name.toUpperCase+", ").toSet.toList.sorted</p>
+                    @platforms.map(_.name.toUpperCase+", ").toSet.toList.sorted</p>
                 </div>
             </div>
             <div class="col-md-6">

@@ -1,19 +1,20 @@
 package models;
 
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Model;
 import com.avaje.ebean.annotation.CreatedTimestamp;
 import com.avaje.ebean.annotation.UpdatedTimestamp;
 import org.ocpsoft.prettytime.PrettyTime;
-import play.db.ebean.Model;
 import play.mvc.Http;
 import play.mvc.PathBindable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 import java.util.Locale;
 
-@Entity
+@MappedSuperclass
 public abstract class BaseModel<T extends BaseModel<T>> extends Model implements PathBindable<T> {
 
     @Id
@@ -28,10 +29,6 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
     private Date updatedAt;
 
     public BaseModel() {
-    }
-
-    public Finder<Long, T> getFinder() {
-        return new Model.Finder(Long.class, this.getClass());
     }
 
     @Override
@@ -63,7 +60,7 @@ public abstract class BaseModel<T extends BaseModel<T>> extends Model implements
 
     @Override
     public T bind(String key, String value) {
-        return (T) getFinder().byId(Long.valueOf(value));
+        return (T) Ebean.find(this.getClass(), Long.valueOf(value));
     }
 
     @Override

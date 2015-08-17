@@ -1,6 +1,7 @@
 package controllers;
 
 import actions.User;
+import com.avaje.ebean.Ebean;
 import models.Difficulty;
 import models.Game;
 import models.Mode;
@@ -41,7 +42,7 @@ public class GameController extends Controller {
 
     public static Result create() {
 
-        return ok(views.html.game_create.render());
+        return ok(views.html.game_create.render(Ebean.find(Platform.class).findList()));
     }
 
     public static Result save() {

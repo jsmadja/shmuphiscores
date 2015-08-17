@@ -1,4 +1,4 @@
-@(games: List[models.Game], platforms: List[models.Platform], scores: List[models.Score])
+@(games: List[models.Game], platforms: List[models.Platform], scores: List[models.Score], unbeatables: List[models.Player])
 @import play.i18n._
 @main(page = "stats") {
 
@@ -15,7 +15,7 @@
             <th># Records</th>
             <th>Jeux</th>
         </thead>
-        @for(player <- models.Player.finder.fetch("scores").findList.filter(_.isUnbeatable).toSeq.sortBy(-_.scores.size)) {
+        @for(player <- unbeatables) {
             <tr >
                 <td  style="vertical-align: middle;">
                     <a href="@routes.PlayerController.index(player)">@player.name</a>

@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.google.common.base.Joiner;
 import models.Game;
 import models.Platform;
+import models.Player;
 import models.Score;
 import org.joda.time.DateMidnight;
 import play.mvc.Controller;
@@ -14,11 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.avaje.ebean.Expr.le;
+import static java.util.stream.Collectors.toList;
 
 public class StatsController extends Controller {
 
     public static Result index() {
-        return ok(stats.render(Game.finder.all(), Platform.finder.all(), Score.finder.all()));
+        return ok(stats.render(Ebean.find(Game.class).findList(), Ebean.find(Platform.class).findList(), Ebean.find(Score.class).findList(), com.avaje.ebean.Ebean.find(Player.class).fetch("scores").findList().stream().filter(Player::isUnbeatable).sorted((p1, p2) -> p2.scores.size() - p1.scores.size()).collect(toList())));
     }
 
     public static String scoresPerDay() {

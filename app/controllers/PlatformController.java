@@ -1,5 +1,6 @@
 package controllers;
 
+import com.avaje.ebean.Ebean;
 import models.Game;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -18,7 +19,7 @@ public class PlatformController extends Controller {
     }
 
     public static List<Game> getGamesByPlatform(final String platformName) {
-        return Game.finder.where().ieq("platforms.name", platformName).order("title").
+        return Ebean.find(Game.class).where().ieq("platforms.name", platformName).order("title").
                 fetch("oneccs").
                 fetch("platforms").
                 findList();

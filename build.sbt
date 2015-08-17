@@ -1,16 +1,22 @@
-name := "shmuphiscores"
+name := """shmuphiscores"""
 
 version := "1.0-SNAPSHOT"
 
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
+
+scalaVersion := "2.11.6"
+
 libraryDependencies ++= Seq(
-  javaJdbc,
-  javaEbean,
-  cache,
-  "com.google.guava" % "guava" % "15.0",
   "mysql" % "mysql-connector-java" % "5.1.17",
+  "com.typesafe.play" %% "anorm" % "2.4.0",
   "org.ocpsoft.prettytime" % "prettytime" % "3.1.0.Final",
+  "rome" % "rome" % "1.0",
   "net.sourceforge.htmlunit" % "htmlunit" % "2.13",
-  "rome" % "rome" % "1.0"
+  javaJdbc,
+  cache,
+  javaWs
 )
 
-play.Project.playJavaSettings
+// Play provides two styles of routers, one expects its actions to be injected, the
+// other, legacy style, accesses its actions statically.
+//routesGenerator := InjectedRoutesGenerator

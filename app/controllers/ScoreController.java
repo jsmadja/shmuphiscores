@@ -49,7 +49,7 @@ public class ScoreController extends Controller {
     }
 
     public static Result fillForm() {
-        models.Game game = Game.finder.byId(Long.parseLong(request().body().asFormUrlEncoded().get("game")[0]));
+        models.Game game = Ebean.find(Game.class, Long.parseLong(request().body().asFormUrlEncoded().get("game")[0]));
         return ok(score_create.render(game, form(Score.class)));
     }
 
@@ -274,7 +274,7 @@ public class ScoreController extends Controller {
         }
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
-        models.Score score = Score.finder.byId(Long.parseLong(data.get("score")));
+        models.Score score = Ebean.find(Score.class, Long.parseLong(data.get("score")));
         score.delete();
         Game game = score.game;
         CacheController.getRankingCache().remove(game);

@@ -8,12 +8,12 @@ import play.Play;
 import play.libs.F;
 import play.mvc.Action;
 import play.mvc.Http;
-import play.mvc.SimpleResult;
+import play.mvc.Result;
 import plugins.ShmupClient;
 
 import java.lang.reflect.Method;
 
-public class User extends Action.Simple {
+public class User extends Action {
 
     private StopWatch stopWatch;
     private Method actionMethod;
@@ -49,12 +49,12 @@ public class User extends Action.Simple {
     }
 
     @Override
-    public F.Promise<SimpleResult> call(Http.Context context) throws Throwable {
+    public F.Promise<Result> call(Http.Context context) throws Throwable {
         startWatch();
         Player player = getPlayerFromCookie(context);
         context.args.put("user", player);
         mdc(context);
-        F.Promise<SimpleResult> call = delegate.call(context);
+        F.Promise<Result> call = delegate.call(context);
         stopWatch();
         if (player.isAuthenticated()) {
             Logger.info(stopWatch.getTime() + "ms");

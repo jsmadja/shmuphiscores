@@ -1,5 +1,6 @@
 package plugins;
 
+import com.avaje.ebean.Ebean;
 import models.Game;
 import models.Player;
 import models.Score;
@@ -7,15 +8,15 @@ import models.Score;
 public class Stats {
 
     public static long gameCount() {
-        return Game.finder.findRowCount();
+        return Ebean.find(Game.class).findRowCount();
     }
 
     public static long playerCount() {
-        return Player.finder.findRowCount();
+        return Ebean.find(Player.class).findRowCount();
     }
 
     public static long scoreCount() {
-        return Score.finder.findRowCount();
+        return Ebean.find(Score.class).findRowCount();
     }
 
 }
