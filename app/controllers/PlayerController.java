@@ -55,4 +55,9 @@ public class PlayerController extends Controller {
         return ok(bytes);
     }
 
+    public static Result indexShmup(Long shmupId) throws IOException {
+        Player player = Player.findByShmupUserId(shmupId);
+        return index(player);
+    }
+
 }

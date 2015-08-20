@@ -43,6 +43,7 @@ GET         /stats                       controllers.StatsController.index()
 GET         /admin                       controllers.AdminController.index()
 POST        /admin                       controllers.AdminController.save()
 
+GET         /player_shmup/:id            controllers.PlayerController.indexShmup(id: Long)
 GET         /player/:id                  controllers.PlayerController.index(id: models.Player)
 GET         /players                     controllers.PlayersController.index()
 GET        /player/:id/signature.png     controllers.PlayerController.signature(id: models.Player)
