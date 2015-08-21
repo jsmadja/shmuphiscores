@@ -44,6 +44,7 @@ GET         /admin                       controllers.AdminController.index()
 POST        /admin                       controllers.AdminController.save()
 
 GET         /player_shmup/:id            controllers.PlayerController.indexShmup(id: Long)
+GET         /player/hide_medals/:hide    controllers.PlayerController.hideMedals(hide: Boolean)
 GET         /player/:id                  controllers.PlayerController.index(id: models.Player)
 GET         /players                     controllers.PlayersController.index()
 GET        /player/:id/signature.png     controllers.PlayerController.signature(id: models.Player)

@@ -32,6 +32,8 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public Long shmupUserId;
 
+    public boolean hideMedals;
+
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
     @Where(clause = "rank > 0")
     public List<Score> scores = new ArrayList<Score>();

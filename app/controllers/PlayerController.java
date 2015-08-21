@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.User;
 import drawer.Images;
 import drawer.MedalsPicture;
 import drawer.SignaturePicture;
@@ -22,6 +23,13 @@ public class PlayerController extends Controller {
         return ok(views.html.player_read.render(player, player.fetchScores()));
     }
 
+    public static Result hideMedals(Boolean hide) {
+        Player player = User.current();
+        player.hideMedals = hide;
+        player.update();
+        return index(player);
+    }
+
     public static Result signature(Player player) throws IOException {
         if (player == null) {
             return notFound();
@@ -42,7 +50,7 @@ public class PlayerController extends Controller {
         response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
         Player player = Player.findByShmupUserId(shmupId);
-        if (player == null) {
+        if (player == null || player.hideMedals) {
             return ok(Images.toBytes(MedalsPicture.blankImage));
         }
         Map<Player, byte[]> medals = CacheController.getMedalsCache();

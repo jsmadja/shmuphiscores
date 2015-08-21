@@ -1,4 +1,5 @@
 @(player: models.Player, scores: List[models.Score])
+@import actions.User
 @import play.i18n._
 
 @gameLine(score: models.Score) = {
@@ -73,6 +74,17 @@
             <a href="@routes.VersusController.index(actions.User.current(), player)" class="btn btn-default btn-xs">
                 <span class="glyphicon glyphicon-transfer"></span> Comparer nos scores
             </a>
+            @if(player.equals(User.current())) {
+                @if(player.hideMedals) {
+                    <a href="@routes.PlayerController.hideMedals(false)" class="btn btn-success btn-xs" style="float: right;">
+                        Afficher les médailles sur le forum
+                    </a>
+                } else {
+                    <a href="@routes.PlayerController.hideMedals(true)" class="btn btn-danger btn-xs" style="float: right;">
+                        Ne pas afficher les médailles sur le forum
+                    </a>
+                }
+            }
         </p>
     }
 
