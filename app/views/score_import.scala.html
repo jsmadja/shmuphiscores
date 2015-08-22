@@ -7,8 +7,13 @@
 
     <div style="clear : both ;"/>
 
-    <form role="form" method="POST" action="/import/@game.id/score">
+    <form role="form" method="POST" action="/import/@game.id/score" enctype='multipart/form-data'>
         <input type="hidden" name="gameId" value="@game.id" />
+        @if(scoreForm.hasGlobalErrors) {
+            <p class="alert alert-danger">
+            @scoreForm.globalError.message
+            </p>
+        }
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
