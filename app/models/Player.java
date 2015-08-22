@@ -88,7 +88,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public Collection<Score> bestReplayableScores() {
-        return Score.finder.where().not(eq("replay", "")).eq("player", this).findList();
+        return Score.finder.fetch("game").fetch("platform").fetch("mode").fetch("difficulty").where().not(eq("replay", "")).eq("player", this).findList();
     }
 
     public boolean hasReplays() {
@@ -131,32 +131,24 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public int computeOneCredit() {
-        List<Score> oneCreditScores = find(Score.class).
-                fetch("player").
-                fetch("mode").
-                fetch("game").
-                fetch("difficulty").
-                where().
-                isNotNull("rank").
-                eq("player", this).
-                disjunction().
-                ilike("stage.name", "%all%").
-                startsWith("stage.name", "2-").ilike("stage.name", "boss 2-").
-                startsWith("stage.name", "3-").ilike("stage.name", "boss 3-").
-                startsWith("stage.name", "4-").ilike("stage.name", "boss 4-").
-                startsWith("stage.name", "5-").ilike("stage.name", "boss 5-").
-                startsWith("stage.name", "6-").ilike("stage.name", "boss 6-").
-                ilike("stage.name", "%ENDLESS%").
-                endJunction().
-                findList();
+        return oneccs().size();
+    }
+
+    public Collection<Score> oneccs() {
+        List<Score> oneCreditScores = find(Score.class).fetch("platform").fetch("game").fetch("mode").fetch("difficulty").where().eq("player", this).eq("onecc", true).findList();
+        List<Score> oneccs = new ArrayList<>();
         Set<String> uniqueOneCreditScores = new HashSet<String>();
         for (Score oneCreditScore : oneCreditScores) {
             String gameTitle = oneCreditScore.getGameTitle();
             String mode = oneCreditScore.modeName();
             String difficulty = oneCreditScore.difficultyName();
-            uniqueOneCreditScores.add(gameTitle + mode + difficulty);
+            String key = gameTitle + mode + difficulty;
+            boolean add = uniqueOneCreditScores.add(key);
+            if (add) {
+                oneccs.add(oneCreditScore);
+            }
         }
-        return uniqueOneCreditScores.size();
+        return oneccs;
     }
 
     public PlayersController.Counts getCounts() {

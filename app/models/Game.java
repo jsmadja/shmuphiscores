@@ -36,10 +36,6 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     @OneToMany(mappedBy = "game")
     public List<Score> allScores;
 
-    @OneToMany(mappedBy = "game")
-    @Where(clause = "rank > 0 AND onecc = 1")
-    public List<Score> oneccs;
-
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
     public List<Platform> platforms;
@@ -206,7 +202,20 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     }
 
     public int getOneCreditCount() {
-        return oneccs.size();
+        Collection<Score> oneCreditScores = filter(allScores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score score) {
+                return score.onecc;
+            }
+        });
+        Set<String> uniqueOneCreditScores = new HashSet<String>();
+        for (Score oneCreditScore : oneCreditScores) {
+            String player = oneCreditScore.player.name;
+            String mode = oneCreditScore.modeName();
+            String difficulty = oneCreditScore.difficultyName();
+            uniqueOneCreditScores.add(player + mode + difficulty);
+        }
+        return uniqueOneCreditScores.size();
     }
 
     public boolean hasTimerScores() {
