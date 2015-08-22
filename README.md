@@ -37,7 +37,7 @@
 
 ###Nouvelles fonctionnalités
 * Les médailles : les médailles sont une image qui représente le nombre de scores où le joueur est classé au rang 1, 2, 3 et le nombre de jeux one-crédités. Cet affichage sur le forum est facultatif, mais activé par défaut. Pour le désactiver, rendez-vous sur votre page personnelle du site et cliquez sur le bouton *Ne pas afficher les médailles sur le forum*
-* La signature forum : c'est une image dynamique qui affiche la phrase type : *Dernier score réalisé il y a X heures sur JEU (score - rang)*. Pour afficher cette image dans votre signature, il faut inserer la balise ````[img]http://hiscores.shmup.com/player/*ID*/signature.png[/img]```` en remplaçant ID par votre identifiant de joueur du site (visible dans la barre d'adresse de votre navigateur lorsque vous êtes sur votre page personnelle. 
+* La signature forum : c'est une image dynamique qui affiche la phrase type : *Dernier score réalisé il y a X heures sur JEU (score - rang)*. Pour afficher cette image dans votre signature, il faut insérer la balise ````[img]http://hiscores.shmup.com/player/*ID*/signature.png[/img]```` en remplaçant ID par votre identifiant de joueur du site (visible dans la barre d'adresse de votre navigateur lorsque vous êtes sur votre page personnelle. 
 
 ###Nouvelle page
 * Versus : cette page permet de comparer les scores communs entre deux joueurs. On distingue les rangs de chaque opposant ainsi que l'écart en % entre leurs scores. Elle est accessible dans le menu principale ou depuis la fiche d'un joueur à l'aide du bouton *Comparer nos scores*
