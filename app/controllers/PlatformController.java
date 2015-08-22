@@ -18,10 +18,7 @@ public class PlatformController extends Controller {
     }
 
     public static List<Game> getGamesByPlatform(final String platformName) {
-        return Game.finder.where().ieq("platforms.name", platformName).order("title").
-                fetch("oneccs").
-                fetch("platforms").
-                findList();
+        return Game.finder.where().ieq("platforms.name", platformName).order("title").findList();
     }
 
 }

@@ -253,13 +253,19 @@ public class ScoreController extends Controller {
         return scores;
     }
 
-    public static Result importScore(Game game) {
+    public static Result importScore(Game game) throws IOException {
         if (!User.current().isAuthenticated()) {
             return unauthorized();
         }
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
         models.Score score = createScore(data, data.get("player"));
+
+        List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
+        if (!files.isEmpty()) {
+            storePhoto(score, files);
+        }
+
         score.save();
         CacheController.getRankingCache().remove(game);
         CacheController.getSignatureCache().remove(score.player);

@@ -35,8 +35,6 @@
                 <li class="@if(page == "versus"){active}">
                     <a href="@routes.VersusController.indexChooseVersus(actions.User.current)"><span class="glyphicon glyphicon-transfer"></span> Versus</a>
                 </li>
-                <li class="@if(page == "1cc"){active}">
-                    <a href="@routes.OneCreditController.index"><span class="glyphicon glyphicon-check"></span> One Crediters</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="@if(page == "stats"){active}"><a href="@routes.StatsController.index" style="border-left: solid 1px #e7e7e7;"><span class="glyphicon glyphicon-stats"></span> @Messages.get("Stats")</a></li>
