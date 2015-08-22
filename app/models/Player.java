@@ -136,7 +136,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
 
     public Collection<Score> oneccs() {
         List<Score> oneCreditScores = find(Score.class).fetch("platform").fetch("game").fetch("mode").fetch("difficulty").where().eq("player", this).eq("onecc", true).findList();
-        List<Score> oneccs = new ArrayList<>();
+        List<Score> oneccs = new ArrayList<Score>();
         Set<String> uniqueOneCreditScores = new HashSet<String>();
         for (Score oneCreditScore : oneCreditScores) {
             String gameTitle = oneCreditScore.getGameTitle();
