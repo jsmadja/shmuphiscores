@@ -201,6 +201,14 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return ships != null && !ships.isEmpty();
     }
 
+    public boolean hasDifficulties() {
+        return difficulties != null && !difficulties.isEmpty();
+    }
+
+    public boolean hasModes() {
+        return modes != null && !modes.isEmpty();
+    }
+
     public int getOneCreditCount() {
         Collection<Score> oneCreditScores = filter(allScores, new Predicate<Score>() {
             @Override

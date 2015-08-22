@@ -25,7 +25,7 @@
             </p>
         }
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="value">@Messages.get("Score") (pts)</label>
                     <input type="number" class="form-control" name="value" placeholder="123456">
@@ -53,29 +53,7 @@
             }
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="stage">@Messages.get("Stage")</label>
-                    <select name="stage" class="form-control">
-                    @for(stage <- game.stages) {
-                        <option value="@stage.id">@stage.name</option>
-                    }
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="ship">@Messages.get("Ship")</label>
-                    <select name="ship" class="form-control">
-                    @for(ship <- game.ships) {
-                        <option value="@ship.id">@ship.name</option>
-                    }
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="platform">@Messages.get("Platform")</label>
                     <select name="platform" class="form-control">
@@ -85,26 +63,52 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="difficulty">@Messages.get("Difficulty")</label>
-                    <select name="difficulty" class="form-control">
+            @if(game.hasDifficulties) {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="difficulty">@Messages.get("Difficulty")</label>
+                        <select name="difficulty" class="form-control">
                         @for(difficulty <- game.difficulties) {
                             <option value="@difficulty.id">@difficulty.name.toUpperCase</option>
                         }
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="mode">@Messages.get("Mode")</label>
-                    <select name="mode" class="form-control">
+            }
+            @if(game.hasModes) {
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="mode">@Messages.get("Mode")</label>
+                        <select name="mode" class="form-control">
                         @for(mode <- game.modes) {
                             <option value="@mode.id">@mode.name</option>
                         }
+                        </select>
+                    </div>
+                </div>
+            }
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="stage">@Messages.get("Stage")</label>
+                    <select name="stage" class="form-control">
+                    @for(stage <- game.stages) {
+                        <option value="@stage.id">@stage.name</option>
+                    }
                     </select>
                 </div>
             </div>
+            @if(game.hasShip) {
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="ship">@Messages.get("Ship")</label>
+                        <select name="ship" class="form-control">
+                        @for(ship <- game.ships) {
+                            <option value="@ship.id">@ship.name</option>
+                        }
+                        </select>
+                    </div>
+                </div>
+            }
         </div>
         <div class="row">
             <div class="col-md-4">
