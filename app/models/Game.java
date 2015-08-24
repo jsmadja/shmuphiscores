@@ -3,6 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import com.google.common.base.Predicate;
+import org.apache.commons.collections.map.MultiKeyMap;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
@@ -11,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +38,10 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     @OneToMany(mappedBy = "game")
     public List<Score> allScores;
+
+    @OneToMany(mappedBy = "game")
+    @Where(clause = "onecc = true")
+    public List<Score> oneccs;
 
     @OrderBy("name")
     @OneToMany(mappedBy = "game")
@@ -236,6 +243,26 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             }
         }
         return false;
+    }
+
+    public Collection<Score> getAllOneCCS() {
+        MultiKeyMap map = new MultiKeyMap();
+        for (Score onecc : this.oneccs) {
+            Score score = (Score) map.get(onecc.player, onecc.mode, onecc.difficulty);
+            if (score == null) {
+                map.put(onecc.player, onecc.mode, onecc.difficulty, onecc);
+            } else if (score.isWorstThan(onecc)) {
+                map.put(onecc.player, onecc.mode, onecc.difficulty, onecc);
+            }
+        }
+        List<Score> scores = new ArrayList<>(map.values());
+        Collections.sort(scores, new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return o1.player.name.compareToIgnoreCase(o2.player.name);
+            }
+        });
+        return scores;
     }
 
 }

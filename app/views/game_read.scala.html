@@ -224,7 +224,7 @@
 
     <h3>1CC !</h3>
     <table class="table table-condensed table-striped table-hover table-bordered">
-    @for(score <- game.allScores.filter(_.onecc).toSeq.sortBy(_.player.name.toUpperCase)) {
+    @for(score <- game.getAllOneCCS) {
         <tr>
             <td>
                 <a href="@routes.PlayerController.index(score.player)">@score.player</a>
