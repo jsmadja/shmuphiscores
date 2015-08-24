@@ -96,10 +96,10 @@ public class ScoreController extends Controller {
         score.game.recomputeRankings();
         score.refresh();
 
-        if (oldRank != null) {
+        if (oldRank != null && score.rank != null) {
             score.progression = oldRank - score.rank;
+            score.update();
         }
-        score.update();
 
         return shmup(score);
     }
