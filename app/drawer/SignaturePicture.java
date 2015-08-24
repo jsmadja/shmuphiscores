@@ -22,12 +22,12 @@ public class SignaturePicture {
     public static BufferedImage createSignaturePicture(Player player) {
         BufferedImage bi = new BufferedImage(WIDTH, 15, TYPE_INT_ARGB);
         Graphics2D graphics = bi.createGraphics();
-        graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-        graphics.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
+        //graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+        //graphics.setRenderingHint(KEY_TEXT_ANTIALIASING, VALUE_TEXT_ANTIALIAS_ON);
         FontMetrics fontMetrics = graphics.getFontMetrics();
 
-        graphics.setColor(COLOR_SHMUP_GREY);
-        graphics.fillRect(0, 0, WIDTH, 15);
+        //graphics.setColor(COLOR_SHMUP_GREY);
+        //graphics.fillRect(0, 0, WIDTH, 15);
         graphics.setColor(COLOR_SHMUP_TEXT);
         graphics.setFont(gameFont);
         Score lastScore = player.getLastScore();
