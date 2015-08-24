@@ -203,7 +203,7 @@
                     <span class="label label-warning" style="text-transform: uppercase">@score.difficulty</span>
                     @if(score.platform != null) {
                         <span class="label label-success">
-                            <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                            @score.platform.name.toUpperCase
                         </span>
                     }
                 </td>
@@ -226,7 +226,7 @@
                     <span class="label label-warning" style="text-transform: uppercase">@score.difficulty</span>
                     @if(score.platform != null && !score.platform.name.trim.isEmpty) {
                         <span class="label label-success">
-                            <a class="platform" href="@routes.PlatformController.read(score.platform.name.toUpperCase)">@score.platform.name.toUpperCase</a>
+                            @score.platform.name.toUpperCase
                         </span>
                     }
                 </td>
