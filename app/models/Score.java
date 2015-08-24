@@ -162,15 +162,6 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return value.equals(((Score) o).value);
     }
 
-    public boolean isWorstThanOlders() {
-        for (Score score : player.scores) {
-            if (this.isWorstThan(score)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     boolean isWorstThan(Score score) {
         if (isComparableWith(score)) {
             if (isNumericScore(score)) {

@@ -80,18 +80,13 @@ public class ScoreController extends Controller {
             scoreForm.reject("Veuillez saisir une valeur de score.");
             return badRequest(views.html.score_create.render(score.game, scoreForm));
         }
-        if (score.isWorstThanOlders()) {
-            scoreForm.reject("Score inférieur à un score déjà présent dans la base.");
-            return badRequest(views.html.score_create.render(score.game, scoreForm));
-        }
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
             storePhoto(score, files);
         }
-
         Score bestScore = score.player.getBestScoreFor(score.game, score.mode, score.difficulty);
         Integer oldRank = null;
-        if(bestScore != null) {
+        if (bestScore != null) {
             oldRank = bestScore.rank;
         }
         score.save();
@@ -101,7 +96,7 @@ public class ScoreController extends Controller {
         score.game.recomputeRankings();
         score.refresh();
 
-        if(oldRank != null) {
+        if (oldRank != null) {
             score.progression = oldRank - score.rank;
         }
         score.update();
@@ -203,7 +198,7 @@ public class ScoreController extends Controller {
             return new BigDecimal(strValue.toString());
         } else {
             minutes = minutes.trim().isEmpty() ? "0" : minutes.trim();
-            seconds= seconds.trim().isEmpty() ? "0" : seconds.trim();
+            seconds = seconds.trim().isEmpty() ? "0" : seconds.trim();
             milliseconds = milliseconds.trim().isEmpty() ? "0" : milliseconds.trim();
 
             return BigDecimal.valueOf(new DateTime().withTimeAtStartOfDay().withDate(0, 1, 1).
