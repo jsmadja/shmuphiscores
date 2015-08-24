@@ -89,4 +89,26 @@
         </div>
     </form>
 
+    <h3>Stages</h3>
+    <form role="form" method="POST" action="@routes.GameController.addStage(game)">
+        <div class="row">
+            <div class="col-md-4">
+                <select class="form-control">
+                @for(stage <- game.stages) {
+                    <option>@stage.name - sort: @stage.sortOrder</option>
+                }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" name="stage" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <input type="text" name="sortOrder" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
 }

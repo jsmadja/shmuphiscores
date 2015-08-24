@@ -25,6 +25,7 @@ POST        /game/:id/add_platform       controllers.GameController.addPlatform(
 POST        /game/:id/add_difficulty     controllers.GameController.addDifficulty(id: models.Game)
 POST        /game/:id/add_mode           controllers.GameController.addMode(id: models.Game)
 POST        /game/:id/add_ship           controllers.GameController.addShip(id: models.Game)
+POST        /game/:id/add_stage          controllers.GameController.addStage(id: models.Game)
 GET         /game/:id/ranking.png        controllers.RankingController.index(id: models.Game)
 GET         /game/:id/new_score          controllers.ScoreController.fillFormWithGame(id: models.Game)
 GET         /game/:id/:name              controllers.GameController.indexWithName(id: models.Game, name: String)

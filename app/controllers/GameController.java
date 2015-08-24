@@ -86,6 +86,14 @@ public class GameController extends Controller {
         return update(game);
     }
 
+    public static Result addStage(Game game) {
+        Map<String, String[]> data = request().body().asFormUrlEncoded();
+        String stageName = data.get("stage")[0];
+        int sortOrder = Integer.parseInt(data.get("sortOrder")[0]);
+        createStage(game, sortOrder, stageName);
+        return update(game);
+    }
+
     private static void createPlatform(Game game, String platformName) {
         Platform platform = new Platform(platformName);
         platform.game = game;
@@ -149,6 +157,13 @@ public class GameController extends Controller {
         ship.game = game;
         ship.sortOrder = index.toString();
         ship.save();
+    }
+
+    private static void createStage(Game game, Integer index, String stageName) {
+        Stage stage = new Stage(stageName);
+        stage.game = game;
+        stage.sortOrder = index.longValue();
+        stage.save();
     }
 
     private static void createStages(models.Game game) {
