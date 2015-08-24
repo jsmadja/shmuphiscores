@@ -255,7 +255,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
                 map.put(onecc.player, onecc.mode, onecc.difficulty, onecc);
             }
         }
-        List<Score> scores = new ArrayList<>(map.values());
+        List<Score> scores = new ArrayList<Score>(map.values());
         Collections.sort(scores, new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
