@@ -165,6 +165,7 @@ public class ScoreController extends Controller {
         score.stage = find(Stage.class, parseLong(data.get("stage")));
         score.mode = mode(data);
         score.difficulty = difficulty(data);
+        score.ship = ship(data);
         score.comment = data.get("comment");
         score.platform = find(Platform.class, parseLong(data.get("platform")));
         score.value = value(data);
