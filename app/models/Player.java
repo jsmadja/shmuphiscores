@@ -2,6 +2,11 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.LongNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import controllers.PlayersController;
 import play.db.ebean.Model;
 
@@ -12,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static com.avaje.ebean.Ebean.find;
@@ -238,4 +245,10 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
                 findUnique();
     }
 
+    public JsonNode json() {
+        ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
+        node.set("id", new LongNode(id));
+        node.set("name", new TextNode(name));
+        return node;
+    }
 }

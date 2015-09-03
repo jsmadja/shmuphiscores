@@ -4,6 +4,7 @@
 
 GET         /                            controllers.ApplicationController.index()
 GET         /index.rss                   controllers.ApplicationController.indexRss()
+GET         /timeline.json               controllers.ApplicationController.timeline()
 
 GET         /platform/:name              controllers.PlatformController.read(name: String)
 

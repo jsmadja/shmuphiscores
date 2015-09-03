@@ -1,5 +1,9 @@
 package models;
 
+import com.fasterxml.jackson.databind.node.BooleanNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import decorators.ScoreDecorator;
 import formatters.ScoreFormatter;
 import org.joda.time.DateTime;
@@ -12,6 +16,7 @@ import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 import static java.text.MessageFormat.format;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Entity
 public class Score extends BaseModel<Score> implements Comparable<Score> {
@@ -317,4 +322,32 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         return this.mode != null && this.mode.isTimerScore();
     }
 
+    public ObjectNode json() {
+        ObjectNode scoreNode = new ObjectNode(JsonNodeFactory.instance);
+        scoreNode.set("player", player.json());
+        scoreNode.set("game", game.json());
+        scoreNode.set("platform", platform.json());
+        if (mode != null) {
+            scoreNode.set("mode", mode.json());
+        }
+        scoreNode.set("stage", stage.json());
+        if (ship != null) {
+            scoreNode.set("ship", ship.json());
+        }
+        if (difficulty != null) {
+            scoreNode.set("difficulty", difficulty.json());
+        }
+        scoreNode.set("value", new TextNode(formattedValue()));
+        if (onecc) {
+            scoreNode.set("1cc", BooleanNode.TRUE);
+        }
+        scoreNode.set("date", new TextNode(formattedDateInFrench()));
+        if (replay != null && isNotBlank(replay)) {
+            scoreNode.set("replay", new TextNode(replay));
+        }
+        if (photo != null && isNotBlank(photo)) {
+            scoreNode.set("photo", new TextNode(photo));
+        }
+        return scoreNode;
+    }
 }

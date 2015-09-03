@@ -2,6 +2,11 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.LongNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.base.Predicate;
 import org.apache.commons.collections.map.MultiKeyMap;
 import play.db.ebean.Model;
@@ -265,4 +270,11 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return scores;
     }
 
+    public JsonNode json() {
+        ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
+        node.set("id", new LongNode(id));
+        node.set("title", new TextNode(title));
+        node.set("cover", new TextNode(cover));
+        return node;
+    }
 }

@@ -1,5 +1,11 @@
 package models;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.LongNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.common.collect.Lists;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEnclosureImpl;
@@ -16,7 +22,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.avaje.ebean.Expr.isNotNull;
 
@@ -69,5 +77,20 @@ public class Timeline {
         writer.close();
         Controller.response().setContentType("application/rss+xml");
         return writer.toString();
+    }
+
+    public JsonNode json() {
+        ArrayNode array = new ArrayNode(JsonNodeFactory.instance);
+        for (Score score : scores) {
+            array.add(score.json());
+        }
+        return array;
+    }
+
+    private ObjectNode createPlayerNode(Score score) {
+        ObjectNode playerNode = new ObjectNode(JsonNodeFactory.instance);
+        playerNode.set("id", new LongNode(score.player.id));
+        playerNode.set("name", new TextNode(score.player.name));
+        return playerNode;
     }
 }
