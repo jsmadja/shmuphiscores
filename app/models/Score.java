@@ -338,6 +338,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
             scoreNode.set("difficulty", difficulty.json());
         }
         scoreNode.set("value", new TextNode(formattedValue()));
+        scoreNode.set("rank", new TextNode(formattedRank()));
         if (onecc) {
             scoreNode.set("1cc", BooleanNode.TRUE);
         }
