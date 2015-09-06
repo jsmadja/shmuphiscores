@@ -1,6 +1,5 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.common.base.Joiner;
 import com.sun.syndication.io.FeedException;
 import models.Player;
@@ -24,11 +23,6 @@ public class ApplicationController extends Controller {
         return ok(index.render(new Timeline()));
     }
 
-    public static Result timeline() {
-        response().setContentType("application/json");
-        return ok(new Timeline().json());
-    }
-
     private static void reverseVersus() {
         Map<Player, List<Player>> counts = new HashMap<Player, List<Player>>();
 
@@ -41,12 +35,12 @@ public class ApplicationController extends Controller {
                 opponents = new ArrayList<Player>();
                 counts.put(player2, opponents);
             }
-            if(!player1.scores.isEmpty()) {
+            if (!player1.scores.isEmpty()) {
                 opponents.add(player1);
             }
         }
 
-        List<Map.Entry<Player, List<Player>>> list =  new ArrayList<Map.Entry<Player, List<Player>>>(counts.entrySet());
+        List<Map.Entry<Player, List<Player>>> list = new ArrayList<Map.Entry<Player, List<Player>>>(counts.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<Player, List<Player>>>() {
             @Override
             public int compare(Map.Entry<Player, List<Player>> o1, Map.Entry<Player, List<Player>> o2) {
@@ -55,7 +49,7 @@ public class ApplicationController extends Controller {
         });
 
         for (Map.Entry<Player, List<Player>> playerIntegerEntry : list) {
-            System.err.println(playerIntegerEntry.getKey().name+" -> "+playerIntegerEntry.getValue().size()+" "+ Joiner.on(", ").join(playerIntegerEntry.getValue()));
+            System.err.println(playerIntegerEntry.getKey().name + " -> " + playerIntegerEntry.getValue().size() + " " + Joiner.on(", ").join(playerIntegerEntry.getValue()));
         }
     }
 

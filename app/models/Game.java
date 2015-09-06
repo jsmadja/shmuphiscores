@@ -3,7 +3,7 @@ package models;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.annotation.Where;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.LongNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.avaje.ebean.Expr.eq;
+import static com.fasterxml.jackson.databind.node.JsonNodeFactory.instance;
 import static com.google.common.collect.Collections2.filter;
 
 @Entity
@@ -270,11 +271,52 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         return scores;
     }
 
-    public JsonNode json() {
-        ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
+    public ObjectNode json() {
+        ObjectNode node = new ObjectNode(instance);
         node.set("id", new LongNode(id));
         node.set("title", new TextNode(title));
         node.set("cover", new TextNode(cover));
         return node;
+    }
+
+    public JsonNode jsonDetail() {
+        ObjectNode json = json();
+        json.set("stages", jsonStages());
+        json.set("modes", jsonModes());
+        json.set("difficulties", jsonDifficulties());
+        json.set("ships", jsonShips());
+        return json;
+    }
+
+    private ArrayNode jsonStages() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Stage item : stages) {
+            nodes.add(item.json());
+        }
+        return nodes;
+    }
+
+    private ArrayNode jsonModes() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Mode item : modes) {
+            nodes.add(item.json());
+        }
+        return nodes;
+    }
+
+    private ArrayNode jsonDifficulties() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Difficulty item : difficulties) {
+            nodes.add(item.json());
+        }
+        return nodes;
+    }
+
+    private ArrayNode jsonShips() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Ship item : ships) {
+            nodes.add(item.json());
+        }
+        return nodes;
     }
 }

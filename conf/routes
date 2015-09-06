@@ -4,7 +4,10 @@
 
 GET         /                            controllers.ApplicationController.index()
 GET         /index.rss                   controllers.ApplicationController.indexRss()
-GET         /timeline.json               controllers.ApplicationController.timeline()
+
+GET         /api/timeline                controllers.ApiController.timeline()
+GET         /api/games                   controllers.ApiController.games()
+GET         /api/game/:id/detail         controllers.ApiController.gameDetail(id: models.Game)
 
 GET         /platform/:name              controllers.PlatformController.read(name: String)
 
