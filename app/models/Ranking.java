@@ -1,6 +1,10 @@
 package models;
 
 import actions.User;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import formatters.ScoreFormatter;
@@ -171,4 +175,23 @@ public class Ranking {
         return difficultyId + "_" + modeId;
     }
 
+    public JsonNode json() {
+        ObjectNode node = new ObjectNode(JsonNodeFactory.instance);
+        if (difficulty != null) {
+            node.set("difficulty", difficulty.json());
+        }
+        if (mode != null) {
+            node.set("mode", mode.json());
+        }
+        ArrayNode scores = new ArrayNode(JsonNodeFactory.instance);
+        for (Score score : this.scores) {
+            scores.add(score.json());
+        }
+        node.set("scores", scores);
+        return node;
+    }
+
+    public boolean isNotEmpty() {
+        return !this.scores.isEmpty();
+    }
 }

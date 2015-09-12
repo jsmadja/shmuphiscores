@@ -281,16 +281,36 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public JsonNode jsonDetail() {
         ObjectNode json = json();
+        json.set("platforms", jsonPlatforms());
         json.set("stages", jsonStages());
         json.set("modes", jsonModes());
         json.set("difficulties", jsonDifficulties());
         json.set("ships", jsonShips());
+        json.set("rankings", jsonRankings());
         return json;
+    }
+
+    private ArrayNode jsonRankings() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Ranking item : rankings()) {
+            if(item.isNotEmpty()) {
+                nodes.add(item.json());
+            }
+        }
+        return nodes;
     }
 
     private ArrayNode jsonStages() {
         ArrayNode nodes = new ArrayNode(instance);
         for (Stage item : stages) {
+            nodes.add(item.json());
+        }
+        return nodes;
+    }
+
+    private ArrayNode jsonPlatforms() {
+        ArrayNode nodes = new ArrayNode(instance);
+        for (Platform item : platforms) {
             nodes.add(item.json());
         }
         return nodes;
