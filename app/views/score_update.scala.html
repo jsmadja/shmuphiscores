@@ -1,4 +1,4 @@
-@(score: models.Score)
+@(score: models.Score, scoreForm: Form[models.Score])
     @import play.i18n._
     @main() {
     <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
@@ -20,7 +20,13 @@
             </p>
         </h2>
 
-        <div style="clear : both ;"/> <form role="form" method="POST" action="/score/update" enctype='multipart/form-data'>
+        <div style="clear : both ;"/>
+        <form role="form" method="POST" action="@routes.ScoreController.update" enctype='multipart/form-data'>
+            @if(scoreForm.hasGlobalErrors) {
+                <p class="alert alert-danger">
+                @scoreForm.globalError.message
+                </p>
+            }
             <input type="hidden" name="scoreId" value="@score.id" />
             <input type="hidden" name="oldPhoto" value="@score.photo" />
             <div class="row">

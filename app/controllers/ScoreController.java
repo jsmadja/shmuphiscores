@@ -65,7 +65,7 @@ public class ScoreController extends Controller {
         if (score == null) {
             return notFound();
         }
-        return ok(score_update.render(score));
+        return ok(score_update.render(score, form(Score.class)));
     }
 
     public static Result save() throws IOException {
@@ -122,7 +122,10 @@ public class ScoreController extends Controller {
             return unauthorized();
         }
         updateScore(score, data);
-
+        if (score.value == null) {
+            scoreForm.reject("Veuillez saisir une valeur de score.");
+            return badRequest(views.html.score_update.render(score, scoreForm));
+        }
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
             storePhoto(score, files);

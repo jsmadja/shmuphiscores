@@ -9,8 +9,11 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 public class ScoreFormatter {
 
     public static String format(BigDecimal value) {
-        String score = value.toString();
-        return format(score);
+        if(value != null) {
+            String score = value.toString();
+            return format(score);
+        }
+        return "Invalid";
     }
 
     private static String format(String score) {
