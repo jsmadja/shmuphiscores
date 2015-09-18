@@ -48,6 +48,7 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
     public String comment;
 
     public String photo;
+    public String inp;
 
     public String replay;
 

@@ -49,6 +49,11 @@
                                         </script>
                                     </a>
                                 }
+                                @if(score.inp) {
+                                    <a href="@score.inp" class="label label-primary" style="margin-right : 5px ;">
+                                        INP
+                                    </a>
+                                }
                                 @if(score.replay) {
                                     <a href="@score.replay" target="_blank" class="label label-primary" style="margin-right : 5px ;">
                                         <span class="glyphicon glyphicon-play"></span>

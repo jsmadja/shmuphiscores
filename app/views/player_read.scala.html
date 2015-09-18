@@ -37,6 +37,11 @@
                         <span class="glyphicon glyphicon-play"></span>
                     </a>
                 }
+                @if(score.inp) {
+                    <a href="@score.inp" class="label label-primary" style="margin-right : 5px ;">
+                        INP
+                    </a>
+                }
             </p>
         </td>
         <td style="vertical-align: middle; text-align: right;">
@@ -229,6 +234,11 @@
                         <span class="label label-success">
                             @score.platform.name.toUpperCase
                         </span>
+                    }
+                    @if(score.inp) {
+                        <a href="@score.inp" class="label label-primary" style="margin-right : 5px ;">
+                            INP
+                        </a>
                     }
                 </td>
                 <td style="text-align: right;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>

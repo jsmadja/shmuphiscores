@@ -82,7 +82,14 @@ public class ScoreController extends Controller {
         }
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
-            storePhoto(score, files);
+            if (files.get(0).getKey().equals("photo")) {
+                storePhoto(score, files.get(0));
+            } else {
+                storeInp(score, files.get(0));
+            }
+            if (files.size() > 1) {
+                storeInp(score, files.get(1));
+            }
         }
         Score bestScore = score.player.getBestScoreFor(score.game, score.mode, score.difficulty);
         Integer oldRank = null;
@@ -104,13 +111,20 @@ public class ScoreController extends Controller {
         return shmup(score);
     }
 
-    private static void storePhoto(Score score, List<Http.MultipartFormData.FilePart> files) throws IOException {
-        Http.MultipartFormData.FilePart filePart = files.get(0);
+    private static void storePhoto(Score score, Http.MultipartFormData.FilePart filePart) throws IOException {
         File file = filePart.getFile();
         String filename = filePart.getFilename().replaceAll("[^a-zA-Z0-9.]+", "");
         String pathname = "/photos/" + new Date().getTime() + "-" + filename;
         Files.copy(file, new File(pathname));
         score.photo = "http://hiscores.shmup.com" + pathname;
+    }
+
+    private static void storeInp(Score score, Http.MultipartFormData.FilePart filePart) throws IOException {
+        File file = filePart.getFile();
+        String filename = filePart.getFilename().replaceAll("[^a-zA-Z0-9.]+", "");
+        String pathname = "/inp/" + new Date().getTime() + "-" + filename;
+        Files.copy(file, new File(pathname));
+        score.inp = "http://hiscores.shmup.com" + pathname;
     }
 
     public static Result update() throws IOException {
@@ -128,7 +142,14 @@ public class ScoreController extends Controller {
         }
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
-            storePhoto(score, files);
+            if (files.get(0).getKey().equals("photo")) {
+                storePhoto(score, files.get(0));
+            } else {
+                storeInp(score, files.get(0));
+            }
+            if (files.size() > 1) {
+                storeInp(score, files.get(1));
+            }
         } else {
             score.photo = data.get("oldPhoto");
         }
@@ -262,7 +283,7 @@ public class ScoreController extends Controller {
 
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
-            storePhoto(score, files);
+            storePhoto(score, files.get(0));
         }
 
         score.save();
