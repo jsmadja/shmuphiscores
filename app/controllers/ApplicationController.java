@@ -21,9 +21,6 @@ import java.util.Map;
 public class ApplicationController extends Controller {
 
     public static Result index() {
-
-        recompute();
-
         return ok(index.render(new Timeline()));
     }
 
