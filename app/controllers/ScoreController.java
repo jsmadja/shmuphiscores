@@ -152,6 +152,7 @@ public class ScoreController extends Controller {
             }
         } else {
             score.photo = data.get("oldPhoto");
+            score.inp = data.get("oldInp");
         }
         score.update();
         CacheController.getRankingCache().remove(score.game);
@@ -172,7 +173,7 @@ public class ScoreController extends Controller {
 
     private static Score createScore(Map<String, String> data, String login) {
         Difficulty difficulty = difficulty(data);
-        Stage stage = find(Stage.class, parseLong(data.get("stage")));
+        Stage stage = stage(data);
         Ship ship = ship(data);
         Mode mode = mode(data);
         Platform platform = find(Platform.class, parseLong(data.get("platform")));
@@ -185,8 +186,16 @@ public class ScoreController extends Controller {
         return new Score(game, player, stage, ship, mode, difficulty, comment, platform, value, photo, replay);
     }
 
+    private static Stage stage(Map<String, String> data) {
+        String stage = data.get("stage");
+        if(stage == null) {
+            return null;
+        }
+        return find(Stage.class, parseLong(stage));
+    }
+
     private static void updateScore(models.Score score, Map<String, String> data) {
-        score.stage = find(Stage.class, parseLong(data.get("stage")));
+        score.stage = stage(data);
         score.mode = mode(data);
         score.difficulty = difficulty(data);
         score.ship = ship(data);

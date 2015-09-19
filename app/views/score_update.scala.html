@@ -29,6 +29,7 @@
             }
             <input type="hidden" name="scoreId" value="@score.id" />
             <input type="hidden" name="oldPhoto" value="@score.photo" />
+            <input type="hidden" name="oldInp" value="@score.inp" />
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -127,7 +128,15 @@
                         </span>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="inp">@Messages.get("Inp")</label>
+                        <span class="btn btn-success btn-default btn-file form-control" style="text-align: left;">
+                            Ajouter un INP <input type="file" name="inp">
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="replay">@Messages.get("Replay")</label>
                         <input type="url" class="form-control" name="replay" value="@score.replay" placeholder="@Messages.get("scoreform.scala.html.replay.placeholder")">

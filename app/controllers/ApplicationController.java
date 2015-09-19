@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.common.base.Joiner;
 import com.sun.syndication.io.FeedException;
+import models.Game;
 import models.Player;
 import models.Timeline;
 import models.Versus;
@@ -20,7 +21,17 @@ import java.util.Map;
 public class ApplicationController extends Controller {
 
     public static Result index() {
+
+        recompute();
+
         return ok(index.render(new Timeline()));
+    }
+
+    private static void recompute() {
+        List<Game> all = Game.findAll();
+        for (Game game : all) {
+            game.recomputeRankings();
+        }
     }
 
     private static void reverseVersus() {
