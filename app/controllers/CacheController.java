@@ -36,4 +36,12 @@ public class CacheController {
         return rankings;
     }
 
+    public static Map<Player, byte[]> getVersusCache() {
+        Map<Player, byte[]> versus = (Map<Player, byte[]>) Cache.get("versusCache");
+        if (versus == null) {
+            versus = new HashMap<Player, byte[]>();
+            Cache.set("versusCache", versus, 3600);
+        }
+        return versus;
+    }
 }

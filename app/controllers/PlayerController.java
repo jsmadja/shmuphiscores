@@ -4,6 +4,7 @@ import actions.User;
 import drawer.Images;
 import drawer.MedalsPicture;
 import drawer.SignaturePicture;
+import drawer.VersusPicture;
 import models.Player;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -40,6 +41,22 @@ public class PlayerController extends Controller {
             BufferedImage image = SignaturePicture.createSignaturePicture(player);
             bytes = Images.toBytes(image);
             signatures.put(player, bytes);
+        }
+        response().setHeader(CACHE_CONTROL, "max-age=3600");
+        response().setContentType("image/png");
+        return ok(bytes);
+    }
+
+    public static Result versus(Player player) throws IOException {
+        if (player == null) {
+            return notFound();
+        }
+        Map<Player, byte[]> versus = CacheController.getVersusCache();
+        byte[] bytes = versus.get(player);
+        if (bytes == null) {
+            BufferedImage image = VersusPicture.createVersusPicture(player);
+            bytes = Images.toBytes(image);
+            versus.put(player, bytes);
         }
         response().setHeader(CACHE_CONTROL, "max-age=3600");
         response().setContentType("image/png");
