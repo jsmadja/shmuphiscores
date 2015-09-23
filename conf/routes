@@ -14,6 +14,8 @@ GET         /platform/:name                         controllers.PlatformControll
 GET         /import/:id                             controllers.ScoreController.importScores(id: models.Game)
 POST        /import/:id/score                       controllers.ScoreController.importScore(id: models.Game)
 
+
+
 GET         /score                                  controllers.ScoreController.selectGame()
 GET         /score/:id                              controllers.ScoreController.read(id: models.Score)
 POST        /score                                  controllers.ScoreController.save()
@@ -24,6 +26,8 @@ POST        /score/delete                           controllers.ScoreController.
 
 POST        /game                                   controllers.GameController.save()
 GET         /game/new                               controllers.GameController.create()
+GET         /game/:id/add_event                     controllers.GameController.createEventOf(id: models.Game)
+POST        /game/:id/events                        controllers.GameController.saveEvent(id: models.Game)
 GET         /game/:id/update                        controllers.GameController.update(id: models.Game)
 POST        /game/:id/add_platform                  controllers.GameController.addPlatform(id: models.Game)
 POST        /game/:id/add_difficulty                controllers.GameController.addDifficulty(id: models.Game)

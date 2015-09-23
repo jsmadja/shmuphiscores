@@ -1,0 +1,35 @@
+@(game: models.Game, eventForm: Form[models.Event])
+@import play.i18n._
+
+@main(game, page = "games") {
+
+    <h2 class="title">
+    @game.title
+    </h2>
+
+    <form role="form" method="POST" action="@routes.GameController.saveEvent(game)">
+        @if(eventForm.hasGlobalErrors) {
+            <p class="alert alert-danger">
+            @eventForm.globalError.message
+            </p>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="name">Nom de l'événement</label>
+                    <input type="text" class="form-control" name="name" placeholder="CoinOp Legacy 2015">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="description">Description de l'évenement</label>
+                    <textarea name="description" class="form-control" rows="5" placeholder="Lieu, Date, ..."></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">@Messages.get("Submit")</button>
+    </form>
+
+}

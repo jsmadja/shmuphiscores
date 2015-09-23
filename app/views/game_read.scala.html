@@ -202,6 +202,9 @@
                 <a href="@routes.ScoreController.importScores(game)" class="btn btn-default btn-lg btn-xs">
                     <span class="glyphicon glyphicon-download-alt"></span> import
                 </a>
+                <a href="@routes.GameController.createEventOf(game)" class="btn btn-default btn-lg btn-xs">
+                    <span class="glyphicon glyphicon-glass"></span> event
+                </a>
             }
             @if(actions.User.current().isAdministrator) {
                 <a href="@routes.GameController.update(game)" class="btn btn-default btn-lg btn-xs">

@@ -12,8 +12,10 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,6 +28,8 @@ import java.util.Set;
 import static com.avaje.ebean.Expr.eq;
 import static com.fasterxml.jackson.databind.node.JsonNodeFactory.instance;
 import static com.google.common.collect.Collections2.filter;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 public class Game extends BaseModel<Game> implements Comparable<Game> {
@@ -50,24 +54,27 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     public List<Score> oneccs;
 
     @OrderBy("name")
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = PERSIST)
     public List<Platform> platforms;
 
     @OrderBy("sortOrder")
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = PERSIST)
     public List<Difficulty> difficulties;
 
     @OrderBy("sortOrder")
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = PERSIST)
     public List<Mode> modes;
 
     @OrderBy("sortOrder")
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = PERSIST)
     public List<Ship> ships;
 
     @OrderBy("sortOrder")
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = PERSIST)
     public List<Stage> stages;
+
+    @OneToOne(mappedBy = "game", cascade = ALL)
+    public Event event;
 
     private boolean generalRanking;
 
@@ -293,7 +300,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
     private ArrayNode jsonRankings() {
         ArrayNode nodes = new ArrayNode(instance);
         for (Ranking item : rankings()) {
-            if(item.isNotEmpty()) {
+            if (item.isNotEmpty()) {
                 nodes.add(item.json());
             }
         }
@@ -338,5 +345,13 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
             nodes.add(item.json());
         }
         return nodes;
+    }
+
+    public boolean hasStages() {
+        return stages != null && !stages.isEmpty();
+    }
+
+    public boolean hasPlatforms() {
+        return platforms != null && !platforms.isEmpty();
     }
 }
