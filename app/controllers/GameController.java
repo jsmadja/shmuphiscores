@@ -71,7 +71,7 @@ public class GameController extends Controller {
         }
         if(originalGame.hasModes()) {
             for (Mode mode : originalGame.modes) {
-                game.modes.add(new Mode(mode.name));
+                game.modes.add(new Mode(mode.name, mode.scoreType));
             }
         }
         if(originalGame.hasPlatforms()) {

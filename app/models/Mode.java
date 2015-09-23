@@ -25,6 +25,11 @@ public class Mode extends BaseModel<Mode> {
         this.name = name;
     }
 
+    public Mode(String name, String scoreType) {
+        this(name);
+        this.scoreType = scoreType;
+    }
+
     @Override
     public String toString() {
         return name;
