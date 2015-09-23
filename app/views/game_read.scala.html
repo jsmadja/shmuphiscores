@@ -230,25 +230,27 @@
         }
     }
 
-    <h3>1CC !</h3>
-    <table class="table table-condensed table-striped table-hover table-bordered">
-    @for(score <- game.getAllOneCCS) {
-        <tr>
-            <td>
-                <a href="@routes.PlayerController.index(score.player)">@score.player</a>
-            </td>
-            <td>
-                <span class="label label-default" style="vertical-align: middle;">@score.mode</span>
-                <span class="label label-warning" style="text-transform: uppercase">@score.difficulty</span>
-                @if(score.platform != null && !score.platform.name.trim.isEmpty) {
-                    <span class="label label-success">
+    @if(!game.getAllOneCCS.isEmpty) {
+        <h3>1CC !</h3>
+        <table class="table table-condensed table-striped table-hover table-bordered">
+        @for(score <- game.getAllOneCCS) {
+            <tr>
+                <td>
+                    <a href="@routes.PlayerController.index(score.player)">@score.player</a>
+                </td>
+                <td>
+                    <span class="label label-default" style="vertical-align : middle ;">@score.mode</span>
+                    <span class="label label-warning" style="text-transform : uppercase">@score.difficulty</span>
+                    @if(score.platform != null && !score.platform.name.trim.isEmpty) {
+                        <span class="label label-success">
                         @score.platform.name.toUpperCase
-                    </span>
-                }
-            </td>
-            <td style="text-align: right;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>
-        </tr>
+                        </span>
+                    }
+                </td>
+                <td style="text-align : right ;"><a href="@routes.ScoreController.read(score)">@score.formattedValue</a></td>
+            </tr>
+        }
+        </table>
     }
-    </table>
 
 }
