@@ -188,7 +188,7 @@ public class ScoreController extends Controller {
 
     private static Stage stage(Map<String, String> data) {
         String stage = data.get("stage");
-        if(stage == null) {
+        if (stage == null) {
             return null;
         }
         return find(Stage.class, parseLong(stage));
@@ -288,7 +288,7 @@ public class ScoreController extends Controller {
         }
         Form<models.Score> scoreForm = new Form<models.Score>(models.Score.class).bindFromRequest();
         Map<String, String> data = scoreForm.data();
-        models.Score score = createScore(data, data.get("player"));
+        models.Score score = createScore(data, playerName(game, data));
 
         List<Http.MultipartFormData.FilePart> files = request().body().asMultipartFormData().getFiles();
         if (!files.isEmpty()) {
@@ -301,6 +301,13 @@ public class ScoreController extends Controller {
         CacheController.getMedalsCache().remove(score.player);
         game.recomputeRankings();
         return ok(score_import.render(game, form(Score.class)));
+    }
+
+    private static String playerName(Game game, Map<String, String> data) {
+        if (game.event == null) {
+            return data.get("player");
+        }
+        return game.event.name + " - " + data.get("player");
     }
 
     public static Result delete() {
