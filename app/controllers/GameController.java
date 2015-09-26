@@ -18,8 +18,6 @@ import views.html.game_update;
 import java.util.Map;
 import java.util.Scanner;
 
-import static com.avaje.ebean.Ebean.find;
-import static java.lang.Long.parseLong;
 import static play.data.Form.form;
 
 public class GameController extends Controller {
@@ -59,28 +57,28 @@ public class GameController extends Controller {
         models.Event event = form.get();
 
         Game game = new Game("[" + event.name + "] " + originalGame.title, originalGame.cover, originalGame.thread);
-        if(originalGame.hasDifficulties()) {
+        if (originalGame.hasDifficulties()) {
             for (Difficulty difficulty : originalGame.difficulties) {
                 game.difficulties.add(new Difficulty(difficulty.name));
             }
         }
-        if(originalGame.hasStages()) {
+        if (originalGame.hasStages()) {
             for (Stage stage : originalGame.stages) {
                 game.stages.add(new Stage(stage.name));
             }
         }
-        if(originalGame.hasModes()) {
+        if (originalGame.hasModes()) {
             for (Mode mode : originalGame.modes) {
                 game.modes.add(new Mode(mode.name, mode.scoreType));
             }
         }
-        if(originalGame.hasPlatforms()) {
+        if (originalGame.hasPlatforms()) {
             for (Platform platform : originalGame.platforms) {
                 game.platforms.add(new Platform(platform.name));
             }
         }
-        if(originalGame.hasShip()) {
-            for(Ship ship:originalGame.ships) {
+        if (originalGame.hasShip()) {
+            for (Ship ship : originalGame.ships) {
                 game.ships.add(new Ship(ship.name));
             }
         }
@@ -92,12 +90,12 @@ public class GameController extends Controller {
     public static Result save() {
         Form<models.Game> form = new Form<models.Game>(models.Game.class).bindFromRequest();
         models.Game game = form.get();
-        game.save();
         createPlatforms(game);
         createDifficulties(game);
         createShips(game);
         createModes(game);
         createStages(game);
+        game.save();
         return index(game);
     }
 
@@ -140,9 +138,7 @@ public class GameController extends Controller {
     }
 
     private static void createPlatform(Game game, String platformName) {
-        Platform platform = new Platform(platformName);
-        platform.game = game;
-        platform.save();
+        game.platforms.add(new Platform(platformName));
     }
 
     private static void createPlatforms(models.Game game) {
@@ -151,6 +147,7 @@ public class GameController extends Controller {
             while (sc.hasNextLine()) {
                 createPlatform(game, sc.nextLine().trim());
             }
+            game.platforms.remove(0);
         } else {
             createPlatform(game, " ");
         }
@@ -159,6 +156,7 @@ public class GameController extends Controller {
     private static void createDifficulties(models.Game game) {
         Integer index = 0;
         Scanner sc = new Scanner(game.difficulties.get(0).name);
+        game.difficulties.remove(0);
         while (sc.hasNextLine()) {
             createDifficulty(game, index, sc.nextLine().trim());
             index++;
@@ -167,14 +165,14 @@ public class GameController extends Controller {
 
     private static void createDifficulty(Game game, Integer index, String difficultyName) {
         Difficulty difficulty = new Difficulty(difficultyName);
-        difficulty.game = game;
         difficulty.sortOrder = index.toString();
-        difficulty.save();
+        game.difficulties.add(difficulty);
     }
 
     private static void createModes(models.Game game) {
         Integer index = 0;
         Scanner sc = new Scanner(game.modes.get(0).name);
+        game.modes.remove(0);
         while (sc.hasNextLine()) {
             createMode(game, index, sc.nextLine().trim());
             index++;
@@ -183,14 +181,14 @@ public class GameController extends Controller {
 
     private static void createMode(Game game, Integer index, String modeName) {
         Mode mode = new Mode(modeName);
-        mode.game = game;
         mode.sortOrder = index.toString();
-        mode.save();
+        game.modes.add(mode);
     }
 
     private static void createShips(models.Game game) {
         Integer index = 0;
         Scanner sc = new Scanner(game.ships.get(0).name);
+        game.ships.remove(0);
         while (sc.hasNextLine()) {
             createShip(game, index, sc.nextLine().trim());
             index++;
@@ -199,36 +197,32 @@ public class GameController extends Controller {
 
     private static void createShip(Game game, Integer index, String shipName) {
         Ship ship = new Ship(shipName);
-        ship.game = game;
         ship.sortOrder = index.toString();
-        ship.save();
+        game.ships.add(ship);
     }
 
     private static void createStage(Game game, Integer index, String stageName) {
         Stage stage = new Stage(stageName);
-        stage.game = game;
         stage.sortOrder = index.longValue();
-        stage.save();
+        game.stages.add(stage);
     }
 
     private static void createStages(models.Game game) {
         Long index = 0L;
         Scanner sc = new Scanner(game.stages.get(0).name);
+        game.stages.remove(0);
         if (sc.hasNextLine()) {
             while (sc.hasNextLine()) {
                 Stage stage = new Stage(sc.nextLine().trim());
-                stage.game = game;
                 stage.sortOrder = index;
-                stage.save();
+                game.stages.add(stage);
                 index++;
             }
         } else {
             Stage stage = new Stage(" ");
-            stage.game = game;
+            game.stages.add(stage);
             stage.sortOrder = index;
-            stage.save();
         }
-
     }
 
 }
