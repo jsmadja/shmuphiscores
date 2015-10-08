@@ -17,10 +17,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import static com.avaje.ebean.Ebean.find;
@@ -107,18 +105,23 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
     }
 
     public boolean canImportScores() {
-        return id == 1 // anzymus
-                || id == 6 // yace
-                || id == 42 // mickey
-                || id == 137 // trizeal
-                || id == 705 // Vzurkr
-                || id == 191 // lerebours
-                || id == 7 // SL
-                || id == 231 // MKNIGHT
-                || id == 269 // Yami
-                || id == 30 // shadow gallery
-                || id == 116 // Doudinou
-                || id == 150 // Undef
+        return id == 1          // anzymus
+                || id == 6      // yace
+                || id == 42     // mickey
+                || id == 137    // trizeal
+                || id == 705    // Vzurkr
+                || id == 191    // lerebours
+                || id == 7      // SL
+                || id == 231    // MKNIGHT
+                || id == 269    // Yami
+                || id == 30     // shadow gallery
+                || id == 116    // Doudinou
+                || id == 150    // Undef
+                || id == 779    // Kat
+                || id == 159    // Cormano
+                || id == 226    // Radigo
+                || id == 57     // Akaimakai
+                || id == 223    // Guts
                 ;
     }
 
