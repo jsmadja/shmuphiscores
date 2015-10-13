@@ -102,6 +102,7 @@ public class GameController extends Controller {
     public static Result addPlatform(Game game) {
         String platformName = request().body().asFormUrlEncoded().get("platform")[0];
         createPlatform(game, platformName);
+        game.save();
         return update(game);
     }
 
@@ -110,6 +111,7 @@ public class GameController extends Controller {
         String difficultyName = data.get("difficulty")[0];
         int sortOrder = Integer.parseInt(data.get("sortOrder")[0]);
         createDifficulty(game, sortOrder, difficultyName);
+        game.save();
         return update(game);
     }
 
@@ -118,6 +120,7 @@ public class GameController extends Controller {
         String modeName = data.get("mode")[0];
         int sortOrder = Integer.parseInt(data.get("sortOrder")[0]);
         createMode(game, sortOrder, modeName);
+        game.save();
         return update(game);
     }
 
@@ -126,6 +129,7 @@ public class GameController extends Controller {
         String shipName = data.get("ship")[0];
         int sortOrder = Integer.parseInt(data.get("sortOrder")[0]);
         createShip(game, sortOrder, shipName);
+        game.save();
         return update(game);
     }
 
@@ -134,6 +138,7 @@ public class GameController extends Controller {
         String stageName = data.get("stage")[0];
         int sortOrder = Integer.parseInt(data.get("sortOrder")[0]);
         createStage(game, sortOrder, stageName);
+        game.save();
         return update(game);
     }
 
