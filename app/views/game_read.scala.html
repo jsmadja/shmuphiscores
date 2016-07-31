@@ -26,7 +26,7 @@
                                 @ranking.joinedSplittedScores()
                             ],
                             labels : {
-                                formatter : function ( ) {
+                                formatter : function () {
                                     return'' ;
                                 }
                             },
@@ -39,7 +39,18 @@
                                 label : {
                                     text :'@Messages.get("AverageScore")'
                                 }
-                            }, {
+                            },
+                            {
+                                color :'#FFFF00',
+                                dashStyle :'ShortDash',
+                                width : 2,
+                                value : @ranking.geomAverageScoreIndex(),
+                                zIndex : 0,
+                                label : {
+                                    text :'@Messages.get("GeomAverageScore")'
+                                }
+                            },
+                            {
                                 color :'#00FF00',
                                 dashStyle :'ShortDash',
                                 width : 2,

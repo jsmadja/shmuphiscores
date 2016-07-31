@@ -12,11 +12,7 @@ import formatters.ScoreFormatter;
 import javax.annotation.Nullable;
 import javax.persistence.Transient;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.transform;
@@ -116,6 +112,7 @@ public class Ranking {
             }
         }));
         scores.add(averageScoreAsBigDecimal());
+        scores.add(geomAverageScoreAsBigDecimal());
         Collections.sort(scores);
         return scores;
     }
@@ -136,6 +133,7 @@ public class Ranking {
         scoreCategories.add(max);
         TreeSet<BigDecimal> longs = new TreeSet<BigDecimal>(scoreCategories);
         longs.add(averageScoreAsBigDecimal());
+        longs.add(geomAverageScoreAsBigDecimal());
 
         Player current = User.current();
         for (Score score : scores) {
@@ -152,6 +150,15 @@ public class Ranking {
         return ScoreFormatter.format(averageScoreAsBigDecimal());
     }
 
+    public String geomAverageScore() {
+        return ScoreFormatter.format(geomAverageScoreAsBigDecimal());
+    }
+
+    public int geomAverageScoreIndex() {
+        BigDecimal averageScore = geomAverageScoreAsBigDecimal();
+        return getSplittedScores().indexOf(averageScore);
+    }
+
     private BigDecimal averageScoreAsBigDecimal() {
         BigDecimal sum = BigDecimal.ZERO;
         for (Score score : scores) {
@@ -161,6 +168,21 @@ public class Ranking {
             return BigDecimal.ZERO;
         }
         return sum.divide(BigDecimal.valueOf(scores.size()), HALF_UP);
+    }
+
+    private BigDecimal geomAverageScoreAsBigDecimal() {
+        BigDecimal GM_log = BigDecimal.ZERO;
+        for (Score score : scores) {
+            if (score.value.equals(BigDecimal.ZERO)) {
+                return BigDecimal.ZERO;
+            }
+            GM_log = GM_log.add(BigDecimal.valueOf(Math.log(score.value.doubleValue())));
+        }
+        BigDecimal divisor = BigDecimal.valueOf(scores.size());
+        BigDecimal divide = GM_log.divide(divisor, HALF_UP);
+        double a = divide.doubleValue();
+        System.err.println(Math.exp(a));
+        return BigDecimal.valueOf((long)Math.exp(a));
     }
 
     public String uniqueKey() {

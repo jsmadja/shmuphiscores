@@ -27,6 +27,7 @@ Replay=Replay
 Logon=Se connecter
 LogonHelp=Vous devez vous identifier sur le forum shmup.com
 AverageScore=Score moyen
+GeomAverageScore=Score moyen (géometrique)
 PlayerCount=Nombre de joueurs
 games.scala.html.gamelist=Liste des jeux
 players.scala.html.playerlist=Liste des joueurs

@@ -24,6 +24,7 @@ Submit=Submit
 AddScore=Add a score
 SelectGame=Select Game
 AverageScore=Average Score
+GeomAverageScore=Average Score (Geom)
 PlayerCount=Player Count
 Logon=Log In
 LogonHelp=You must authenticate on shmup.com
