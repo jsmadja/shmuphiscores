@@ -49,8 +49,8 @@ POST        /players/versus                         controllers.VersusController
 
 GET         /stats                                  controllers.StatsController.index()
 
-GET         /admin                                  controllers.AdminController.index()
-POST        /admin                                  controllers.AdminController.save()
+#GET         /admin                                  controllers.AdminController.index()
+#POST        /admin                                  controllers.AdminController.save()
 
 GET         /player_shmup/:id                       controllers.PlayerController.indexShmup(id: Long)
 GET         /player/hide_medals/:hide               controllers.PlayerController.hideMedals(hide: Boolean)

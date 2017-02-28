@@ -36,7 +36,7 @@ public class Timeline {
         this.scores = Score.finder.
                 where(isNotNull("rank")).
                 orderBy("createdAt desc").
-                setMaxRows(50).
+                setMaxRows(10).
                 fetch("game", "*").
                 fetch("stage", "*").
                 fetch("ship", "*").

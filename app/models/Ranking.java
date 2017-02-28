@@ -176,12 +176,15 @@ public class Ranking {
             if (score.value.equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO;
             }
+		try {
             GM_log = GM_log.add(BigDecimal.valueOf(Math.log(score.value.doubleValue())));
+}catch(Exception e){
+// invalid score
+}
         }
         BigDecimal divisor = BigDecimal.valueOf(scores.size());
         BigDecimal divide = GM_log.divide(divisor, HALF_UP);
         double a = divide.doubleValue();
-        System.err.println(Math.exp(a));
         return BigDecimal.valueOf((long)Math.exp(a));
     }
 
