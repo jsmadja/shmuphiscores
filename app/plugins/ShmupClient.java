@@ -2,7 +2,6 @@ package plugins;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
-import play.Logger;
 
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ public class ShmupClient {
             authenticate("anzymus", "xedy4bsa");
             HtmlPage page = webClient.getPage("http://forum.shmup.com/memberlist.php?mode=viewprofile&u=" + id);
             String textContent = page.getBody().getTextContent();
-            return textContent.split("Consulte un profil - ")[1].split(" ")[0];
+            return this.parse(textContent);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -46,4 +45,7 @@ public class ShmupClient {
         return resultPage.asText();
     }
 
+    String parse(String page) {
+        return page.split("Nom d’utilisateur:")[1].split("\n")[0];
+    }
 }
