@@ -12,18 +12,11 @@ import org.apache.commons.collections.map.MultiKeyMap;
 import play.db.ebean.Model;
 
 import javax.annotation.Nullable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.avaje.ebean.Expr.eq;
 import static com.fasterxml.jackson.databind.node.JsonNodeFactory.instance;
@@ -188,6 +181,19 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
 
     public void recomputeRankings() {
         for (Score score : allScores) {
+            score.updateRank(null);
+            score.update();
+        }
+        rankings();
+    }
+
+    public void recomputeRankings(Score savedScore) {
+        for (Score score : filter(scores, new Predicate<Score>() {
+            @Override
+            public boolean apply(@Nullable Score input) {
+                return input.hasDifficulty(savedScore.difficulty) && input.hasMode(savedScore.mode);
+            }
+        })) {
             score.updateRank(null);
             score.update();
         }

@@ -100,7 +100,7 @@ public class ScoreController extends Controller {
         CacheController.getRankingCache().remove(score.game);
         CacheController.getSignatureCache().remove(score.player);
         CacheController.getMedalsCache().remove(score.player);
-        score.game.recomputeRankings();
+        score.game.recomputeRankings(score);
         score.refresh();
 
         if (oldRank != null && score.rank != null) {
