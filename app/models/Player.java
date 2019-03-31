@@ -67,7 +67,7 @@ public class Player extends BaseModel<Player> implements Comparable<Player> {
                 .findUnique();
         if (player == null) {
             player = new Player(name);
-            player.vip = true;
+            player.vip = false;
             player.save();
         }
         return player;
