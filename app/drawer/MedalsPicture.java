@@ -19,7 +19,7 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class MedalsPicture {
 
-    public static final float HEIGHT = 30;
+    public static final float HEIGHT = 60;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
 
     public static BufferedImage createMedalsPicture(Player player) {
@@ -35,6 +35,7 @@ public class MedalsPicture {
             draw(graphics, thirdRankCount, 95 + space, COLOR_SHMUP_TEXT);
             int oneCreditCount = player.computeOneCredit();
             draw(graphics, oneCreditCount, 140 + space, COLOR_SHMUP_TEXT);
+            drawBelow(graphics, find(Score.class).select("game").where(eq("player", player)).setDistinct(true).findRowCount()+ " jeux scorés", 10, COLOR_SHMUP_TEXT);
             return bi;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -44,7 +45,13 @@ public class MedalsPicture {
     private static void draw(Graphics2D graphics, Integer count, int i, Color color) {
         graphics.setColor(color);
         graphics.setFont(gameFont);
-        graphics.drawString(pad(count), i, (HEIGHT - HEIGHT / 4) + 2);
+        graphics.drawString(pad(count), i, 25);
+    }
+
+    private static void drawBelow(Graphics2D graphics, String text, int i, Color color) {
+        graphics.setColor(color);
+        graphics.setFont(gameFont);
+        graphics.drawString(text, i, 45);
     }
 
     private static String pad(Integer value) {

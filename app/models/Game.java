@@ -187,7 +187,7 @@ public class Game extends BaseModel<Game> implements Comparable<Game> {
         rankings();
     }
 
-    public void recomputeRankings(Score savedScore) {
+    public void recomputeRankings(final Score savedScore) {
         for (Score score : filter(scores, new Predicate<Score>() {
             @Override
             public boolean apply(@Nullable Score input) {
