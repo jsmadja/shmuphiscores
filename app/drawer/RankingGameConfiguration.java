@@ -15,6 +15,7 @@ public class RankingGameConfiguration {
     static final Color COLOR_SHMUP_TITLE = new Color(46, 13, 34);
     public static final Color COLOR_SHMUP_GREY = new Color(240, 243, 244);
     static final Color COLOR_SHMUP_TEXT = new Color(102, 102, 102);
+    static final Color COLOR_SCORE_TEXT = new Color(16, 82, 137);
 
     int maxStageLength;
     int maxPlatformLength;

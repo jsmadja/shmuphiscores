@@ -1,5 +1,7 @@
 package drawer;
 
+import com.avaje.ebean.Ebean;
+import com.google.common.collect.Lists;
 import models.Player;
 import models.Score;
 
@@ -12,6 +14,7 @@ import java.io.IOException;
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
+import static drawer.RankingGameConfiguration.COLOR_SCORE_TEXT;
 import static drawer.RankingGameConfiguration.COLOR_SHMUP_TEXT;
 import static java.awt.Font.PLAIN;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
@@ -19,8 +22,8 @@ import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class MedalsPicture {
 
-    public static final float HEIGHT = 60;
     private final static Font gameFont = new Font("Lucida", PLAIN, 11);
+    private final static Font scoreFont = new Font("Lucida", Font.BOLD, 11);
 
     public static BufferedImage createMedalsPicture(Player player) {
         try {
@@ -35,7 +38,7 @@ public class MedalsPicture {
             draw(graphics, thirdRankCount, 95 + space, COLOR_SHMUP_TEXT);
             int oneCreditCount = player.computeOneCredit();
             draw(graphics, oneCreditCount, 140 + space, COLOR_SHMUP_TEXT);
-            drawBelow(graphics, find(Score.class).select("game").where(eq("player", player)).setDistinct(true).findRowCount()+ " jeux scorés", 10, COLOR_SHMUP_TEXT);
+            drawBelow(graphics, Ebean.createSqlQuery("select distinct game_id from score where player_id=:player_id").setParameter("player_id", player.id).findList().size() + " jeux scorés", 10, COLOR_SCORE_TEXT);
             return bi;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -50,7 +53,7 @@ public class MedalsPicture {
 
     private static void drawBelow(Graphics2D graphics, String text, int i, Color color) {
         graphics.setColor(color);
-        graphics.setFont(gameFont);
+        graphics.setFont(scoreFont);
         graphics.drawString(text, i, 45);
     }
 
