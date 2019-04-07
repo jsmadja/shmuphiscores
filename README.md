@@ -43,3 +43,16 @@
 * Versus : cette page permet de comparer les scores communs entre deux joueurs. On distingue les rangs de chaque opposant ainsi que l'écart en % entre leurs scores. Elle est accessible dans le menu principale ou depuis la fiche d'un joueur à l'aide du bouton *Comparer nos scores*
 
 En cas de problème, n'hésitez pas à laisser un message dans la section dédiée du forum : http://forum.shmup.com/viewtopic.php?f=15&t=19768
+
+# Scripts
+
+export JAVA_HOME=/home/jsmadja/Perso/Development/jdk1.6.0_45/
+
+export PATH=$JAVA_HOME/bin:$PATH
+
+ ~/Perso/Development/play-2.2.6/play run -Dshmup.password=xedy4base -Dhttp.port=9001
+ 
+ docker build -t jsmadja/shmuphiscores .
+ 
+ docker push jsmadja/shmuphiscores
+ 

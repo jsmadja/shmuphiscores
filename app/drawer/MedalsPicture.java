@@ -1,9 +1,9 @@
 package drawer;
 
 import com.avaje.ebean.Ebean;
-import com.google.common.collect.Lists;
 import models.Player;
 import models.Score;
+import sun.awt.SunHints;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,19 +16,23 @@ import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
 import static drawer.RankingGameConfiguration.COLOR_SCORE_TEXT;
 import static drawer.RankingGameConfiguration.COLOR_SHMUP_TEXT;
+import static java.awt.Font.BOLD;
 import static java.awt.Font.PLAIN;
+import static java.awt.RenderingHints.*;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 
 public class MedalsPicture {
 
-    private final static Font gameFont = new Font("Lucida", PLAIN, 11);
-    private final static Font scoreFont = new Font("Lucida", Font.BOLD, 11);
+    private final static Font gameFont = new Font("Verdana", BOLD, 11);
+    private final static Font scoreFont = new Font("Verdana", BOLD, 14);
 
     public static BufferedImage createMedalsPicture(Player player) {
         try {
             BufferedImage bi = ImageIO.read(new File("public/images/medailles.png"));
             Graphics2D graphics = bi.createGraphics();
+            graphics.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
+
             int space = 3;
             Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
             draw(graphics, firstRankCount, 25 + space, COLOR_SHMUP_TEXT);
