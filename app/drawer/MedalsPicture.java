@@ -3,7 +3,6 @@ package drawer;
 import com.avaje.ebean.Ebean;
 import models.Player;
 import models.Score;
-import sun.awt.SunHints;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,11 +13,9 @@ import java.io.IOException;
 import static com.avaje.ebean.Ebean.find;
 import static com.avaje.ebean.Expr.and;
 import static com.avaje.ebean.Expr.eq;
-import static drawer.RankingGameConfiguration.COLOR_SCORE_TEXT;
-import static drawer.RankingGameConfiguration.COLOR_SHMUP_TEXT;
 import static java.awt.Font.BOLD;
-import static java.awt.Font.PLAIN;
-import static java.awt.RenderingHints.*;
+import static java.awt.RenderingHints.KEY_ANTIALIASING;
+import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static org.apache.commons.lang3.StringUtils.leftPad;
 
@@ -35,30 +32,30 @@ public class MedalsPicture {
 
             int space = 3;
             Integer firstRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 1))).findRowCount();
-            draw(graphics, firstRankCount, 25 + space, COLOR_SHMUP_TEXT);
+            draw(graphics, firstRankCount, 25 + space);
             int secondRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 2))).findRowCount();
-            draw(graphics, secondRankCount, 60 + space, COLOR_SHMUP_TEXT);
+            draw(graphics, secondRankCount, 60 + space);
             int thirdRankCount = find(Score.class).where(and(eq("player", player), eq("rank", 3))).findRowCount();
-            draw(graphics, thirdRankCount, 95 + space, COLOR_SHMUP_TEXT);
+            draw(graphics, thirdRankCount, 95 + space);
             int oneCreditCount = player.computeOneCredit();
-            draw(graphics, oneCreditCount, 140 + space, COLOR_SHMUP_TEXT);
-            drawBelow(graphics, Ebean.createSqlQuery("select distinct game_id from score where player_id=:player_id").setParameter("player_id", player.id).findList().size() + " jeux scorés", 10, COLOR_SCORE_TEXT);
+            draw(graphics, oneCreditCount, 140 + space);
+            drawBelow(graphics, Ebean.createSqlQuery("select distinct game_id from score where player_id=:player_id").setParameter("player_id", player.id).findList().size() + " jeux scorés");
             return bi;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void draw(Graphics2D graphics, Integer count, int i, Color color) {
-        graphics.setColor(color);
+    private static void draw(Graphics2D graphics, Integer count, int i) {
+        graphics.setColor(RankingGameConfiguration.COLOR_SHMUP_TEXT);
         graphics.setFont(gameFont);
         graphics.drawString(pad(count), i, 25);
     }
 
-    private static void drawBelow(Graphics2D graphics, String text, int i, Color color) {
-        graphics.setColor(color);
+    private static void drawBelow(Graphics2D graphics, String text) {
+        graphics.setColor(RankingGameConfiguration.COLOR_SCORE_TEXT);
         graphics.setFont(scoreFont);
-        graphics.drawString(text, i, 45);
+        graphics.drawString(text, 10, 45);
     }
 
     private static String pad(Integer value) {
