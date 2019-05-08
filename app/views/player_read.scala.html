@@ -58,6 +58,9 @@
                 VIP Only
             }
         </td>
+        <td style="text-align: center; vertical-align: middle" class="tier-@score.getTier">
+            @score.getTier
+        </td>
         <td style="text-align: right; vertical-align: middle">
         @score.rank
         </td>
@@ -167,6 +170,7 @@
             <th style="text-align: center">@Messages.get("Stage")</th>
             <th style="text-align: center">@Messages.get("Score")</th>
             <th style="text-align: center">@Messages.get("Rank")</th>
+            <th style="text-align: center;">@Messages.get("Tier")</th>
             <th></th>
             <th></th>
         </thead>
@@ -184,8 +188,8 @@
         "aoColumnDefs": [
             { "iDataSort": 5, "aTargets": [2] },
             { "iDataSort": 4, "aTargets": [3] },
-            { "bVisible": false, "aTargets": [4] },
-            { "bVisible": false, "aTargets": [5] }
+            { "bVisible": false, "aTargets": [5] },
+            { "bVisible": false, "aTargets": [6] }
         ]
         });
         });

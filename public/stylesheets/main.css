@@ -271,3 +271,18 @@ table {
     cursor: inherit;
     display: block;
 }
+
+#scores .tier-Top {
+    background-color: #16a085;
+    color: white;
+}
+
+#scores .tier-Mid {
+    background-color: #e67e22;
+    color: white;
+}
+
+#scores .tier-Low {
+    background-color: #c0392b;
+    color: white;
+}

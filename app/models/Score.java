@@ -352,4 +352,15 @@ public class Score extends BaseModel<Score> implements Comparable<Score> {
         }
         return scoreNode;
     }
+
+    public String getTier() {
+        double ratio = (double) this.rank / this.game.findBestScoresByVIPPlayers(this.difficulty, this.mode).size();
+        if (ratio <= 0.33) {
+            return "Top";
+        }
+        if (ratio <= 0.66) {
+            return "Mid";
+        }
+        return "Low";
+    }
 }
